@@ -43,15 +43,15 @@ public enum CommandEnum {
 	}
 
 	public String getPath() {
-		return path;
+		return this.path;
 	}
 
 	public ActionCommand getActionCommand() {
-		return actionCommand;
+		return this.actionCommand;
 	}
 
 	public Set<Role> getPermittedRoles() {
-		return permittedRoles;
+		return this.permittedRoles;
 	}
 
 	public static ActionCommand getByURI(String path) {

@@ -65,7 +65,7 @@ dl, ol, ul {
 
 
 .font-rubick {
-    font-family: 'Clother Light','Gotham Rounded Bold', Serif;
+    font-family: 'Clother Light', 'Gotham Rounded Bold', Serif;
 }
 
 .pretty-button {
@@ -829,8 +829,8 @@ h6,
     flex-shrink: 0;
     padding: 0 0 1rem 0;
 
-    background: rgb(168,168,168);
-    background: linear-gradient(198deg, rgba(168,168,168,0.4471988624551383) 1%, rgba(216,255,158,0.4612044646960347) 54%, rgba(158,238,175,0.6964985823430935) 93%);
+    background: rgb(168, 168, 168);
+    background: linear-gradient(198deg, rgba(168, 168, 168, 0.4471988624551383) 1%, rgba(216, 255, 158, 0.4612044646960347) 54%, rgba(158, 238, 175, 0.6964985823430935) 93%);
     border-top: 2px rgba(40, 0, 169, 0.34);
     border: 4px;
 }
@@ -885,45 +885,40 @@ h6,
     font-family: 'Run Medium';
     font-style: normal;
     font-weight: normal;
-    src:  url('../../fonts/run.woff') format('woff');
+    src: local('Run Medium'), url('/static/fonts/run.woff') format('woff');
 }
 
 @font-face {
     font-family: 'Gotham Rounded Bold';
     font-style: normal;
     font-weight: normal;
-    src: local('Gotham Rounded Bold'), url('../../fonts/Gotham Rounded Bold.woff') format('woff');
+    src: local('Gotham Rounded Bold'), url('/static/fonts/Gotham Rounded Bold.woff') format('woff');
 }
 
 @font-face {
     font-family: 'Gotham Rounded Light';
     font-style: normal;
     font-weight: normal;
-     url('../../fonts/Gotham Rounded Light.woff') format('woff');
+    src: local('Gotham Rounded Light'), url('/static/fonts/Gotham Rounded Light.woff') format('woff');
 }
 
 @font-face {
     font-family: 'Gotham Rounded Light Italic';
     font-style: normal;
     font-weight: normal;
-    src: local('Gotham Rounded Light Italic'), url('../../fonts/Gotham Rounded Light Italic.woff') format('woff');
+    src: local('Gotham Rounded Light Italic'), url('/static/fonts/Gotham Rounded Light Italic.woff') format('woff');
 }
 
 @font-face {
     font-family: 'Gotham Rounded Medium';
     font-style: normal;
     font-weight: normal;
-     url('../../fonts/Gotham Rounded Medium.woff') format('woff');
+    src: local('Gotham Rounded Medium'), url('/static/fonts/Gotham Rounded Medium.woff') format('woff');
 }
 
 @font-face {
     font-family: 'Gotham Rounded Medium Italic';
     font-style: normal;
     font-weight: normal;
-    src: local('Gotham Rounded Medium Italic'), url('../../fonts/Gotham Rounded Medium Italic.woff') format('woff');
-}
-
-@font-face {
-    font-family: 'Clother Light';
-url('../../fonts/Closer-Light.woff2') format('woff2'),
+    src: local('Gotham Rounded Medium Italic'), url('/static/fonts/Gotham Rounded Medium Italic.woff') format('woff');
 }

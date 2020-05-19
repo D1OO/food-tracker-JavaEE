@@ -9,4 +9,4 @@ target/
 *.iws
 *.iml
 *.ipr
-/src/main/webapp/WEB-INF/templates/
+/src/main/webapp/templates/

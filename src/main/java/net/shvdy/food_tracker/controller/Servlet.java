@@ -49,6 +49,6 @@ public class Servlet extends HttpServlet {
 	}
 
 	private String getPath(String page) {
-		return String.format("/WEB-INF/view/%s.jsp", page);
+		return String.format("/view/%s.jsp", page);
 	}
 }

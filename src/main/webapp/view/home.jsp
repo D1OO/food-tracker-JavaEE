@@ -3,11 +3,11 @@
 <fmt:setLocale value="${sessionScope.lang}"/>
 <fmt:setBundle basename="i18n/messages"/>
 <html>
-<jsp:include page="/WEB-INF/view/fragments/head.jsp">
+<jsp:include page="/view/fragments/head.jsp">
     <jsp:param name="title" value="Food Diary"/>
 </jsp:include>
 <body>
-<%@ include file="/WEB-INF/view/fragments/navbar.jsp" %>
+<%@ include file="/view/fragments/navbar.jsp" %>
 <h1>Home</h1>
 </body>
 </html>

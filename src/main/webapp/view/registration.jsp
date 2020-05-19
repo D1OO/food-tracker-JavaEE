@@ -5,11 +5,11 @@
 <fmt:setLocale value="${sessionScope.lang}"/>
 <fmt:setBundle basename="i18n/messages"/>
 <html>
-<jsp:include page="/WEB-INF/view/fragments/head.jsp">
+<jsp:include page="/view/fragments/head.jsp">
     <jsp:param name="title" value="Sign-Up"/>
 </jsp:include>
 <body>
-<%@ include file="/WEB-INF/view/fragments/navbar.jsp" %>
+<%@ include file="/view/fragments/navbar.jsp" %>
 <div class="maincontent d-flex flex-nowrap p-lg-3" style="height:100%; background: #eeeeee">
     <%--    <img class="pagepic" th:src="@{/img/signuppic.jpg}">--%>
     <div class="mr-auto">
