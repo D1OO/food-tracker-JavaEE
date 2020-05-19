@@ -16,7 +16,7 @@ import net.shvdy.food_tracker.controller.command.LoginCommand;
 import net.shvdy.food_tracker.controller.command.LogoutCommand;
 import net.shvdy.food_tracker.model.service.UserService;
 
-public class Servlet extends HttpServlet {
+public class DreamfitServlet extends HttpServlet {
 
 	public void init(ServletConfig servletConfig) {
 		servletConfig.getServletContext().setAttribute("loggedUsers", new HashSet<String>());

@@ -66,6 +66,6 @@ public enum CommandEnum {
 				.filter(ac -> path.startsWith(ac.getPath()))
 				.findFirst()
 				.map(ac -> ac.getPermittedRoles().contains(role))
-				.orElse(true);
+				.orElse(false);
 	}
 }
