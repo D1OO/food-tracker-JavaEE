@@ -217,22 +217,6 @@ table {
 }
 
 
-.left-cell {
-
-}
-
-.right-cell {
-
-}
-
-#cont {
-    /*background: url("../img/loginpic.jpg") center left no-repeat;*/
-    /*background-size: 290px;*/
-    /*background-clip: content-box;*/
-    /*padding-left: 15px;*/
-    /*padding-right: 15px;*/
-}
-
 .pagepic {
     height: 290px;
     width: auto;
@@ -245,18 +229,14 @@ table {
 .logged-in-as {
     background-color: #272727;
     color: white !important;
-
     padding: 5px;
 
 }
 
-
 .logged-in-as2 {
     background-color: #575757;
     color: white !important;
-
     padding: 5px;
-
 }
 
 .form label {
@@ -264,7 +244,6 @@ table {
     color: white;
     padding-left: 3px;
     padding-right: 3px;
-
 }
 
 .form {
@@ -304,24 +283,17 @@ table {
     margin-right: 0.4em;
 }
 
-/*#bg {*/
-/*    background-image: url(/img/bg5.jpg);*/
-/*    background-size: cover;*/
-/*    display: inline-block;*/
-/*    opacity: 0.2;*/
-/*}*/
 
 #tgicon {
-    background: url("../img/telegram.svg") center left no-repeat;
-    /*margin-bottom: 10px;*/
+    background: url("/static/img/telegram.svg") center left no-repeat;
 }
 
 #mailicon {
-    background: url("../img/gmail.svg") center left no-repeat;
+    background: url("/static/img/gmail.svg") center left no-repeat;
 }
 
 #ghicon {
-    background: url("../img/gh.svg") center left no-repeat;
+    background: url("/static/img/gh.svg") center left no-repeat;
 }
 
 .slink {

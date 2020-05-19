@@ -4,7 +4,7 @@
 <fmt:setBundle basename="i18n/messages"/>
 <html>
 <jsp:include page="/view/fragments/head.jsp">
-    <jsp:param name="title" value="Food Diary"/>
+    <jsp:param name="title" value="Nutrition Diary • Dreamfit"/>
 </jsp:include>
 <body>
 <jsp:include page="/view/fragments/navbar.jsp"/>

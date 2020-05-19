@@ -26,8 +26,8 @@ public enum CommandEnum {
 			new FoodDiaryCommand(), "/food-diary",
 			Set.of(Role.ADMIN)),
 	HOME_PAGE(
-			new HomeCommand(), "/home",
-			Set.of(Role.USER)),
+			new HomeCommand(), "/",
+			Set.of(Role.ADMIN, Role.USER, Role.GUEST)),
 	REDIRECT_HOME(
 			new RedirectHomeCommand(), "/redirect-home",
 			Set.of(Role.ADMIN, Role.USER, Role.GUEST));
