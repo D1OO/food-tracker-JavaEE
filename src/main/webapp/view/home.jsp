@@ -7,7 +7,7 @@
     <jsp:param name="title" value="Food Diary"/>
 </jsp:include>
 <body>
-<%@ include file="/view/fragments/navbar.jsp" %>
+<jsp:include page="/view/fragments/navbar.jsp"/>
 <h1>Home</h1>
 </body>
 </html>

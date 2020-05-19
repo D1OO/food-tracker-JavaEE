@@ -9,7 +9,7 @@
     <jsp:param name="title" value="Sign-Up"/>
 </jsp:include>
 <body>
-<%@ include file="/view/fragments/navbar.jsp" %>
+<jsp:include page="/view/fragments/navbar.jsp"/>
 <div class="maincontent d-flex flex-nowrap p-lg-3" style="height:100%; background: #eeeeee">
     <%--    <img class="pagepic" th:src="@{/img/signuppic.jpg}">--%>
     <div class="mr-auto">

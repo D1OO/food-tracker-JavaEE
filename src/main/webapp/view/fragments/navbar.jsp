@@ -1,6 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${sessionScope.lang}"/>
+<fmt:setBundle basename="i18n/messages"/>
 <%--<fmt:setBundle basename="messages"/>--%>
 <nav class="navbar navbar-light custom-navbar" id="navbar2">
     <div class="container px-0">
