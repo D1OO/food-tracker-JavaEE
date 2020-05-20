@@ -24,12 +24,12 @@ public enum CommandEnum {
 			Set.of(Role.GUEST)),
 	FOOD_DIARY_PAGE(
 			new FoodDiaryCommand(), "/food-diary",
-			Set.of(Role.ADMIN)),
+			Set.of(Role.ADMIN, Role.USER)),
 	HOME_PAGE(
 			new HomeCommand(), "/",
 			Set.of(Role.ADMIN, Role.USER, Role.GUEST)),
 	REDIRECT_HOME(
-			new RedirectHomeCommand(), "/redirect-home",
+			new RedirectHomeCommand(), "/redirect:home",
 			Set.of(Role.ADMIN, Role.USER, Role.GUEST));
 
 	private final ActionCommand actionCommand;

@@ -13,7 +13,7 @@ public class RedirectHomeCommand implements ActionCommand {
         if (role.equals(Role.ADMIN)) {
             return "redirect:/admin";
         } else if (role.equals(Role.USER)) {
-            return "redirect:/home";
+            return "redirect:/food-diary";
         }
         return "redirect:/login";
     }

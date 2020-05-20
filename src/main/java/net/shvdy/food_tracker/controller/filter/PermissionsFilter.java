@@ -31,7 +31,7 @@ public class PermissionsFilter implements Filter {
         if (CommandEnum.checkIsPathPermitted(path, role)) {
             filterChain.doFilter(request, response);
         } else {
-            request.getRequestDispatcher("/redirect-home").forward(request, response);
+            request.getRequestDispatcher("/redirect:home").forward(request, response);
         }
     }
 

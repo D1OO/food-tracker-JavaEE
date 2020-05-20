@@ -26,6 +26,7 @@ public class LoginCommand implements ActionCommand {
 		try {
 			user = userService.findByLoginDTO(loginDto);
 		} catch (UserNotFoundException | InvalidPasswordException | SQLException e) {
+			System.out.println(e.getMessage());
 			return "redirect:/login?error";
 		}
 
@@ -35,7 +36,7 @@ public class LoginCommand implements ActionCommand {
 
 		CommandUtility.setUserInfo(request, user);
 
-		return "redirect:/redirect-home";
+		return "redirect:/home";
 	}
 
 	private LoginDTO buildLoginDto(HttpServletRequest request) {

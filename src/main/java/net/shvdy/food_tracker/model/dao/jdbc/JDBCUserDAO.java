@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import java.util.Optional;
+import java.util.Properties;
 
 import javax.sql.DataSource;
 
@@ -15,30 +16,23 @@ import net.shvdy.food_tracker.model.entity.User;
 
 public class JDBCUserDAO implements UserDAO {
 
-	private static final String INSERT_USER_SQL = "INSERT INTO user"
-			+ "(email, password, account_non_expired, account_non_locked, credentials_non_expired, enabled, role) "
-			+ "VALUES (?, ?, ?, ?, ?, ?, ?);";
-
-	private static final String INSERT_USER_PROFILE_SQL = "INSERT INTO user_profile"
-			+ "(profile_id, first_name, last_name) "
-			+ "VALUES (?, ?, ?);";
-
-	private static final String SELECT_BY_USERNAME_SQL = "SELECT *" +
-			" FROM user INNER JOIN user_profile ON user.id = user_profile.profile_id WHERE email = ?;";
-
 	private DataSource dataSource;
 	private ObjectMapper<User> objectMapper;
+	private Properties queries;
 
-	public JDBCUserDAO(DataSource dataSource, ObjectMapper<User> objectMapper) {
+	public JDBCUserDAO(DataSource dataSource, ObjectMapper<User> objectMapper, Properties queries) {
 		this.dataSource = dataSource;
 		this.objectMapper = objectMapper;
+		this.queries = queries;
 	}
 
 	@Override
 	public void create(User user) throws SQLException {
 		try (Connection connection = dataSource.getConnection();
-			 PreparedStatement insertUserStatement = connection.prepareStatement(INSERT_USER_SQL);
-			 PreparedStatement insertUserProfileStatement = connection.prepareStatement(INSERT_USER_PROFILE_SQL)) {
+			 PreparedStatement insertUserStatement = connection
+					 .prepareStatement(queries.getProperty("userdao.INSERT_USER_SQL"));
+			 PreparedStatement insertUserProfileStatement = connection
+					 .prepareStatement(queries.getProperty("userdao.INSERT_USER_PROFILE_SQL"))) {
 
 			connection.setAutoCommit(false);
 
@@ -63,8 +57,9 @@ public class JDBCUserDAO implements UserDAO {
 	@Override
 	public Optional<User> findByUsername(String username) throws SQLException {
 		try (Connection connection = dataSource.getConnection();
-			 PreparedStatement statement = connection.prepareStatement(SELECT_BY_USERNAME_SQL)) {
-
+			 PreparedStatement statement = connection
+					 .prepareStatement(queries.getProperty("userdao.SELECT_BY_USERNAME_SQL"))) {
+			
 			statement.setString(1, username);
 
 			try (ResultSet resultSet = statement.executeQuery()) {

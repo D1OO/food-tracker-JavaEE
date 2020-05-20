@@ -1,11 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!-- Localized messages -->
 <fmt:setLocale value="${sessionScope.lang}"/>
 <fmt:setBundle basename="i18n/messages"/>
-<html>
 
+<html>
 <jsp:include page="/view/fragments/head.jsp">
     <jsp:param name="title" value="Sign Up • Dreamfit"/>
 </jsp:include>

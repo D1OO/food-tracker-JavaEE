@@ -1,7 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<!-- Localized messages -->
 <fmt:setLocale value="${sessionScope.lang}"/>
 <fmt:setBundle basename="i18n/messages"/>
 
@@ -9,7 +8,6 @@
 <jsp:include page="/view/fragments/head.jsp">
     <jsp:param name="title" value="Login • Dreamfit"/>
 </jsp:include>
-
 <body>
 <jsp:include page="/view/fragments/navbar.jsp"/>
 
