@@ -11,6 +11,6 @@ public class RegistrationPageCommand implements ActionCommand {
     @Override
     public String execute(HttpServletRequest request) {
         request.setAttribute("roles", Set.of(Role.ADMIN, Role.USER));
-        return "registration";
+        return "/view/registration.jsp";
     }
 }

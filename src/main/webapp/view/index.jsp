@@ -7,7 +7,7 @@
 
 <html>
 <jsp:include page="/view/fragments/head.jsp">
-    <jsp:param name="title" value="Login • Dreamfit"/>
+    <jsp:param name="title" value="Dreamfit"/>
 </jsp:include>
 <body>
 <jsp:include page="/view/fragments/navbar.jsp"/>

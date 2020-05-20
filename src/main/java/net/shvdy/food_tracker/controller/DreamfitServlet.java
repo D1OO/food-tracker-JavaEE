@@ -41,14 +41,10 @@ public class DreamfitServlet extends HttpServlet {
 		ActionCommand actionCommand = CommandEnum.getByURI(request.getRequestURI());
 		String page = actionCommand.execute(request);
 
-		if (page.contains("redirect")) {
+		if (page.contains("redirect:")) {
 			response.sendRedirect(request.getContextPath() + page.replace("redirect:", ""));
 		} else {
-			request.getRequestDispatcher(getPath(page)).forward(request, response);
+			request.getRequestDispatcher(page).forward(request, response);
 		}
-	}
-
-	private String getPath(String page) {
-		return String.format("/view/%s.jsp", page);
 	}
 }

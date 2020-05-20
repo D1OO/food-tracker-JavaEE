@@ -11,6 +11,6 @@ public class LoginPageCommand implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest request) {
-        return "login";
+        return "/view/login.jsp";
     }
 }

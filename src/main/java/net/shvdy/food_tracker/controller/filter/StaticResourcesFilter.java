@@ -14,7 +14,8 @@ public class StaticResourcesFilter implements Filter {
 	private RequestDispatcher defaultRequestDispatcher;
 
 	@Override
-	public void destroy() {}
+	public void destroy() {
+	}
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)

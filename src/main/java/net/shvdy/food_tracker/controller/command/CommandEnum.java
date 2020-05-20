@@ -3,6 +3,9 @@ package net.shvdy.food_tracker.controller.command;
 import java.util.Arrays;
 import java.util.Set;
 
+import net.shvdy.food_tracker.controller.command.user.CompleteProfileToProceedCommand;
+import net.shvdy.food_tracker.controller.command.user.FoodDiaryCommand;
+import net.shvdy.food_tracker.controller.command.user.ProfileCommand;
 import net.shvdy.food_tracker.model.entity.Role;
 import net.shvdy.food_tracker.model.service.ServiceFactory;
 
@@ -22,15 +25,25 @@ public enum CommandEnum {
 	REGISTER(
 			new RegisterCommand(ServiceFactory.userService()), "/sign-up",
 			Set.of(Role.GUEST)),
-	FOOD_DIARY_PAGE(
-			new FoodDiaryCommand(), "/food-diary",
-			Set.of(Role.ADMIN, Role.USER)),
 	HOME_PAGE(
 			new HomeCommand(), "/",
 			Set.of(Role.ADMIN, Role.USER, Role.GUEST)),
 	REDIRECT_HOME(
 			new RedirectHomeCommand(), "/redirect:home",
-			Set.of(Role.ADMIN, Role.USER, Role.GUEST));
+			Set.of(Role.ADMIN, Role.USER, Role.GUEST)),
+	USER(
+			new UserCommand(), "/user",
+			Set.of(Role.USER)),
+	COMPLETE_PROFILE(
+			new CompleteProfileToProceedCommand(), "/complete",
+			Set.of(Role.USER)),
+	PROFILE(
+			new ProfileCommand(), "/profile",
+			Set.of(Role.USER)
+	),
+	FOOD_DIARY_PAGE(
+			new FoodDiaryCommand(), "/food-diary",
+			Set.of(Role.ADMIN, Role.USER));
 
 	private final ActionCommand actionCommand;
 	private final String path;
@@ -56,14 +69,14 @@ public enum CommandEnum {
 
 	public static ActionCommand getByURI(String path) {
 		return Arrays.stream(CommandEnum.values())
-				.filter(ac -> path.startsWith(ac.getPath()))
+				.filter(ac -> path.matches(ac.getPath()))
 				.findFirst().orElse(CommandEnum.REDIRECT_HOME)
 				.getActionCommand();
 	}
 
 	public static boolean checkIsPathPermitted(String path, Role role) {
 		return Arrays.stream(CommandEnum.values())
-				.filter(ac -> path.startsWith(ac.getPath()))
+				.filter(ac -> path.matches(ac.getPath()))
 				.findFirst()
 				.map(ac -> ac.getPermittedRoles().contains(role))
 				.orElse(false);

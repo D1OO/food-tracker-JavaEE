@@ -8,6 +8,6 @@ public class HomeCommand implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest request) {
-        return "index";
+        return "/view/index.jsp";
     }
 }

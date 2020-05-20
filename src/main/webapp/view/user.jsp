@@ -6,7 +6,7 @@
 
 <html>
 <jsp:include page="/view/fragments/head.jsp">
-    <jsp:param name="title" value="Login • Dreamfit"/>
+    <jsp:param name="title" value="Your Nutrition Diary • Dreamfit"/>
 </jsp:include>
 <body>
 <jsp:include page="/view/fragments/navbar.jsp"/>
@@ -40,6 +40,7 @@
 
 <jsp:include page="/view/fragments/footer.jsp"/>
 <jsp:include page="/view/fragments/scripts.jsp"/>
+<script id="change-lang-param" src="static/js/content-container-and-modal-window.js" type="text/javascript"></script>
 
 </body>
 </html>
