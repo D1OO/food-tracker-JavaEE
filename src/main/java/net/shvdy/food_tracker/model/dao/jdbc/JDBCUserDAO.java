@@ -59,7 +59,7 @@ public class JDBCUserDAO implements UserDAO {
 		try (Connection connection = dataSource.getConnection();
 			 PreparedStatement statement = connection
 					 .prepareStatement(queries.getProperty("userdao.SELECT_BY_USERNAME_SQL"))) {
-			
+
 			statement.setString(1, username);
 
 			try (ResultSet resultSet = statement.executeQuery()) {

@@ -36,7 +36,7 @@ public class LoginCommand implements ActionCommand {
 
 		CommandUtility.setUserInfo(request, user);
 
-		return "redirect:/home";
+		return CommandEnum.REDIRECT_HOME.getActionCommand().execute(request);
 	}
 
 	private LoginDTO buildLoginDto(HttpServletRequest request) {
