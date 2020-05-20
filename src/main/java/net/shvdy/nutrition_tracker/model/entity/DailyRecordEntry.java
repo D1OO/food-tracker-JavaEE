@@ -7,7 +7,7 @@ package net.shvdy.nutrition_tracker.model.entity;
  * @version 1.0
  */
 
-public class DailyRecordEntry {
+public class DailyRecordEntry implements Entity {
 
 //	@Id
 //	@GeneratedValue(strategy = GenerationType.SEQUENCE)

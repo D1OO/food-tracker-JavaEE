@@ -1,4 +1,4 @@
-package net.shvdy.nutrition_tracker.model.dao;
+package net.shvdy.nutrition_tracker.model.dao.impl;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;

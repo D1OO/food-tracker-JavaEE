@@ -1,7 +1,7 @@
 package net.shvdy.nutrition_tracker.model.entity;
 
 
-public class UserProfile {
+public class UserProfile implements Entity {
 
 	User user;
 	private Long profileId;

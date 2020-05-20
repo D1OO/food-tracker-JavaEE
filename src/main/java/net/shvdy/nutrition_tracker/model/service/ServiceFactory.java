@@ -1,7 +1,8 @@
 package net.shvdy.nutrition_tracker.model.service;
 
 import net.shvdy.nutrition_tracker.model.dao.DAOFactory;
-import net.shvdy.nutrition_tracker.model.service.mapper.UserMapperImpl;
+import net.shvdy.nutrition_tracker.model.dao.mapper.DailyRecordMapper;
+import net.shvdy.nutrition_tracker.model.service.mapper.UserEntityMapper;
 
 public class ServiceFactory {
 
@@ -9,6 +10,10 @@ public class ServiceFactory {
     }
 
     public static UserService userService() {
-        return new UserServiceImpl(DAOFactory.getInstance().getUserDAO(), new UserMapperImpl());
+        return new UserService(DAOFactory.getInstance().getUserDAO(), new UserEntityMapper());
+    }
+
+    public static DailyRecordService dailyRecordService() {
+        return new DailyRecordService(DAOFactory.getInstance().getDailyRecordDAO(), new DailyRecordMapper());
     }
 }

@@ -3,7 +3,7 @@ package net.shvdy.nutrition_tracker.model.dao.mapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public interface ObjectMapper<T> {
+public interface ResultSetMapper<T> {
 
-    T mapResultSet(ResultSet resultSet) throws SQLException;
+    T map(ResultSet resultSet) throws SQLException;
 }

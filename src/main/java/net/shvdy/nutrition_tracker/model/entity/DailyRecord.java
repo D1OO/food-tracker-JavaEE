@@ -9,7 +9,7 @@ import java.util.List;
  * @version 1.0
  */
 
-public class DailyRecord {
+public class DailyRecord implements Entity {
 
 //	@Id
 //	@GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -34,6 +34,10 @@ public class DailyRecord {
 		this.recordDate = recordDate;
 		this.userProfile = userProfile;
 		this.entries = entries;
+	}
+
+	public static DailyRecordBuilder builder(){
+		return new DailyRecordBuilder();
 	}
 
 	public Long getRecordId() {
@@ -76,5 +80,40 @@ public class DailyRecord {
 //				", room=" + room +
 				//", students=" + students +
 				'}';
+	}
+
+	public static class DailyRecordBuilder {
+
+		private Long recordId;
+		private String recordDate;
+		UserProfile userProfile;
+		private List<DailyRecordEntry> entries;
+
+		DailyRecordBuilder(){
+		}
+
+		public DailyRecordBuilder recordId(Long recordId) {
+			this.recordId = recordId;
+			return this;
+		}
+
+		public DailyRecordBuilder recordDate(String recordDate) {
+			this.recordDate = recordDate;
+			return this;
+		}
+
+		public DailyRecordBuilder userProfile(UserProfile userProfile) {
+			this.userProfile = userProfile;
+			return this;
+		}
+
+		public DailyRecordBuilder entries(List<DailyRecordEntry> entries) {
+			this.entries = entries;
+			return this;
+		}
+
+		public DailyRecord build() {
+			return new DailyRecord(this.recordId, this.recordDate, this.userProfile, this.entries);
+		}
 	}
 }

@@ -1,4 +1,4 @@
-package net.shvdy.nutrition_tracker.model.dao.jdbc;
+package net.shvdy.nutrition_tracker.model.dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,18 +11,18 @@ import java.util.Properties;
 import javax.sql.DataSource;
 
 import net.shvdy.nutrition_tracker.model.dao.UserDAO;
-import net.shvdy.nutrition_tracker.model.dao.mapper.ObjectMapper;
+import net.shvdy.nutrition_tracker.model.dao.mapper.ResultSetMapper;
 import net.shvdy.nutrition_tracker.model.entity.User;
 
 public class JDBCUserDAO implements UserDAO {
 
 	private DataSource dataSource;
-	private ObjectMapper<User> objectMapper;
+	private ResultSetMapper<User> resultSetMapper;
 	private Properties queries;
 
-	public JDBCUserDAO(DataSource dataSource, ObjectMapper<User> objectMapper, Properties queries) {
+	public JDBCUserDAO(DataSource dataSource, ResultSetMapper<User> resultSetMapper, Properties queries) {
 		this.dataSource = dataSource;
-		this.objectMapper = objectMapper;
+		this.resultSetMapper = resultSetMapper;
 		this.queries = queries;
 	}
 
@@ -64,7 +64,7 @@ public class JDBCUserDAO implements UserDAO {
 
 			try (ResultSet resultSet = statement.executeQuery()) {
 				if (resultSet.next()) {
-					return Optional.of(objectMapper.mapResultSet(resultSet));
+					return Optional.of(resultSetMapper.map(resultSet));
 				}
 			}
 		}

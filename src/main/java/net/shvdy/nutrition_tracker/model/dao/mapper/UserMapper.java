@@ -7,10 +7,10 @@ import net.shvdy.nutrition_tracker.model.entity.Role;
 import net.shvdy.nutrition_tracker.model.entity.User;
 import net.shvdy.nutrition_tracker.model.entity.UserProfile;
 
-public class UserMapper implements ObjectMapper<User> {
+public class UserMapper implements ResultSetMapper<User> {
 
 	@Override
-	public User mapResultSet(ResultSet resultSet) throws SQLException {
+	public User map(ResultSet resultSet) throws SQLException {
 		return User.builder()
 				.id(resultSet.getLong("id"))
 				.username(resultSet.getString("email"))

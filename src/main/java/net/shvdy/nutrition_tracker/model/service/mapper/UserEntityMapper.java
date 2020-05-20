@@ -1,11 +1,11 @@
 package net.shvdy.nutrition_tracker.model.service.mapper;
 
 import net.shvdy.nutrition_tracker.dto.UserDTO;
+import net.shvdy.nutrition_tracker.model.entity.Entity;
 import net.shvdy.nutrition_tracker.model.entity.User;
 
-public class UserMapperImpl implements UserMapper {
+public class UserEntityMapper {
 
-    @Override
 	public UserDTO entityToDTO(User user) {
 		return UserDTO.builder()
 				.id(user.getId())
@@ -14,4 +14,5 @@ public class UserMapperImpl implements UserMapper {
 				.lastName(user.getUserProfile().getLastName())
 				.build();
 	}
+
 }

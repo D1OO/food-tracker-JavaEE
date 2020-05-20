@@ -1,6 +1,6 @@
 package net.shvdy.nutrition_tracker.model.entity;
 
-public class User {
+public class User implements Entity {
     private Long id;
     private String username;
     private String password;
@@ -10,10 +10,6 @@ public class User {
     private boolean credentials_non_expired;
     private boolean enabled;
     private Role role;
-
-    public static UserBuilder builder() {
-        return new UserBuilder();
-    }
 
     public User() {
     }
@@ -29,6 +25,10 @@ public class User {
         this.credentials_non_expired = credentials_non_expired;
         this.enabled = enabled;
         this.role = role;
+    }
+
+    public static UserBuilder builder() {
+        return new UserBuilder();
     }
 
     public Long getId() {
