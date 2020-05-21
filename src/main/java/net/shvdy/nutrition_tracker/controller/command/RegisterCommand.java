@@ -1,27 +1,22 @@
 package net.shvdy.nutrition_tracker.controller.command;
 
-import javax.servlet.http.HttpServletRequest;
-
+import net.shvdy.nutrition_tracker.model.entity.Role;
 import net.shvdy.nutrition_tracker.model.entity.User;
 import net.shvdy.nutrition_tracker.model.entity.UserProfile;
-import net.shvdy.nutrition_tracker.model.entity.Role;
-import net.shvdy.nutrition_tracker.model.service.UserService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
 
 public class RegisterCommand implements ActionCommand {
 
-	private final UserService userService;
-
-	public RegisterCommand(UserService userService) {
-		this.userService = userService;
-	}
-
 	@Override
 	public String execute(HttpServletRequest request) {
 		try {
-			userService.save(buildUser(request));
-		} catch (SQLException e) {
+			CommandEnum.getUserService().save(buildUser(request));
+		} catch (SQLException | NullPointerException e) {
+			System.out.println(e.getMessage());
+
+			e.printStackTrace();
 			return "redirect:/registration?error";
 		}
 		return "redirect:/login?signed-up";

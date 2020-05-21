@@ -1,18 +1,13 @@
 package net.shvdy.nutrition_tracker.model.dao.impl;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
-import java.util.Optional;
-import java.util.Properties;
-
-import javax.sql.DataSource;
-
 import net.shvdy.nutrition_tracker.model.dao.UserDAO;
 import net.shvdy.nutrition_tracker.model.dao.mapper.ResultSetMapper;
 import net.shvdy.nutrition_tracker.model.entity.User;
+
+import javax.sql.DataSource;
+import java.sql.*;
+import java.util.Optional;
+import java.util.Properties;
 
 public class JDBCUserDAO implements UserDAO {
 
@@ -36,16 +31,10 @@ public class JDBCUserDAO implements UserDAO {
 
 			connection.setAutoCommit(false);
 
-			insertUserStatement.setString(1, user.getUsername());
-			insertUserStatement.setString(2, user.getPassword());
-			insertUserStatement.setBoolean(3, true);
-			insertUserStatement.setBoolean(4, true);
-			insertUserStatement.setBoolean(5, true);
-			insertUserStatement.setBoolean(6, true);
-			insertUserStatement.setString(7, user.getRole().name());
+			prepareInsert(insertUserStatement, user);
 			insertUserStatement.executeUpdate();
 
-			insertUserProfileStatement.setLong(1, user.getId());
+			insertUserProfileStatement.setLong(1, getUserIdByEmail(connection, user));
 			insertUserProfileStatement.setString(2, user.getUserProfile().getFirstName());
 			insertUserProfileStatement.setString(3, user.getUserProfile().getLastName());
 			insertUserProfileStatement.executeUpdate();
@@ -69,5 +58,25 @@ public class JDBCUserDAO implements UserDAO {
 			}
 		}
 		return Optional.empty();
+	}
+
+	private Long getUserIdByEmail(Connection connection, User user) throws SQLException {
+		Statement s  = connection.createStatement();
+		ResultSet rs = s.executeQuery("SELECT id FROM user WHERE email = '" + user.getUsername() + "'");
+		if (rs.next()) {
+			return rs.getLong("id");
+		}
+		else
+			throw new SQLException();
+	}
+
+	private void prepareInsert(PreparedStatement insertUserStatement, User user) throws SQLException {
+		insertUserStatement.setString(1, user.getUsername());
+		insertUserStatement.setString(2, user.getPassword());
+		insertUserStatement.setBoolean(3, true);
+		insertUserStatement.setBoolean(4, true);
+		insertUserStatement.setBoolean(5, true);
+		insertUserStatement.setBoolean(6, true);
+		insertUserStatement.setString(7, user.getRole().name());
 	}
 }

@@ -1,28 +1,50 @@
 package net.shvdy.nutrition_tracker.controller;
 
-import java.io.IOException;
-import java.time.LocalDate;
-import java.util.HashSet;
+import net.shvdy.nutrition_tracker.controller.command.ActionCommand;
+import net.shvdy.nutrition_tracker.controller.command.CommandEnum;
+import net.shvdy.nutrition_tracker.model.service.DailyRecordService;
+import net.shvdy.nutrition_tracker.model.service.ServiceFactory;
+import net.shvdy.nutrition_tracker.model.service.UserService;
 
+import javax.naming.NamingException;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import net.shvdy.nutrition_tracker.controller.command.ActionCommand;
-import net.shvdy.nutrition_tracker.controller.command.CommandEnum;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.util.HashSet;
 
 public class DreamfitServlet extends HttpServlet {
 
 	public void init(ServletConfig servletConfig) {
+
+		UserService userService = null;
+		DailyRecordService dailyRecordService = null;
+
+		try {
+			userService = ServiceFactory.userService();
+		} catch (IOException | NamingException e) {
+			System.err.print(e.getMessage());
+			e.printStackTrace();
+		}
+		try {
+			dailyRecordService = ServiceFactory.dailyRecordService();
+		} catch (IOException | NamingException e) {
+			System.err.print(e.getMessage());
+			e.printStackTrace();
+		}
+
+		CommandEnum.injectServices(userService, dailyRecordService);
+
 		servletConfig.getServletContext().setAttribute("loggedUsers", new HashSet<String>());
 	}
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-	    request.getSession().getServletContext().setAttribute("localizedDate", LocalDate.now().toString());
+		request.getSession().getServletContext().setAttribute("localizedDate", LocalDate.now().toString());
 		processRequest(request, response);
 	}
 

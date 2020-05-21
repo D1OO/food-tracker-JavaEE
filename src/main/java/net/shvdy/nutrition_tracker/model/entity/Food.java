@@ -11,7 +11,7 @@ public class Food implements Entity {
 //	@Id
 //	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 //	@NotNull
-	private Long food_id;
+	private Long foodId;
 //	@NotNull
 	private String name;
 //	@NotNull
@@ -23,29 +23,28 @@ public class Food implements Entity {
 //	@NotNull
 	private int carbohydrates;
 
-//	@ManyToOne
-//	@JoinColumn(name = "profile_id")
-	UserProfile userProfile;
-
 	public Food() {
 	}
 
-	public Food(Long food_id, String name, int calories, int proteins, int fats, int carbohydrates, UserProfile userProfile) {
-		this.food_id = food_id;
+	public Food(Long foodId, String name, int calories, int proteins, int fats, int carbohydrates) {
+		this.foodId = foodId;
 		this.name = name;
 		this.calories = calories;
 		this.proteins = proteins;
 		this.fats = fats;
 		this.carbohydrates = carbohydrates;
-		this.userProfile = userProfile;
 	}
 
-	public Long getFood_id() {
-		return food_id;
+	public static FoodBuilder builder() {
+		return new FoodBuilder();
 	}
 
-	public void setFood_id(Long food_id) {
-		this.food_id = food_id;
+	public Long getFoodId() {
+		return foodId;
+	}
+
+	public void setFoodId(Long foodId) {
+		this.foodId = foodId;
 	}
 
 	public String getName() {
@@ -88,17 +87,9 @@ public class Food implements Entity {
 		this.carbohydrates = carbohydrates;
 	}
 
-	public UserProfile getUserProfile() {
-		return userProfile;
-	}
-
-	public void setUserProfile(UserProfile userProfile) {
-		this.userProfile = userProfile;
-	}
-
 	public String toString() {
 		return "DailyRecordEntry{" +
-				"foodId=" + food_id +
+				"foodId=" + foodId +
 				", name='" + name + '\'' +
 				", calories=" + calories +
 				", proteins=" + proteins +
@@ -108,5 +99,52 @@ public class Food implements Entity {
 //				", room=" + room +
 //				", students=" + students +
 				'}';
+	}
+
+	public static class FoodBuilder {
+		private Long foodId;
+		private String name;
+		private int calories;
+		private int proteins;
+		private int fats;
+		private int carbohydrates;
+
+		FoodBuilder() {
+		}
+
+		public FoodBuilder food_id(Long food_id) {
+			this.foodId = food_id;
+			return this;
+		}
+
+		public FoodBuilder name(String name) {
+			this.name = name;
+			return this;
+		}
+
+		public FoodBuilder calories(int calories) {
+			this.calories = calories;
+			return this;
+		}
+
+		public FoodBuilder proteins(int proteins) {
+			this.proteins = proteins;
+			return this;
+		}
+
+		public FoodBuilder fats(int fats) {
+			this.fats = fats;
+			return this;
+		}
+
+		public FoodBuilder carbohydrates(int carbohydrates) {
+			this.carbohydrates = carbohydrates;
+			return this;
+		}
+
+		public Food build() {
+			return new Food(this.foodId, this.name, this.calories, this.proteins, this.fats,
+					this.carbohydrates);
+		}
 	}
 }

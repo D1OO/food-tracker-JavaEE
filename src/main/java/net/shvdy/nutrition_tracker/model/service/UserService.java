@@ -6,37 +6,35 @@ import net.shvdy.nutrition_tracker.model.dao.UserDAO;
 import net.shvdy.nutrition_tracker.model.entity.User;
 import net.shvdy.nutrition_tracker.model.exception.InvalidPasswordException;
 import net.shvdy.nutrition_tracker.model.exception.UserNotFoundException;
-import net.shvdy.nutrition_tracker.model.service.mapper.EntityMapper;
 import net.shvdy.nutrition_tracker.model.service.mapper.UserEntityMapper;
 
 import java.sql.SQLException;
 
 public class UserService {
 
-    private final UserDAO userDao;
-    private final UserEntityMapper entityMapper;
+	private UserDAO userDao;
+	private UserEntityMapper entityMapper;
 
-    public UserService(UserDAO userDao, UserEntityMapper entityMapper) {
-        this.userDao = userDao;
-        this.entityMapper = entityMapper;
-    }
+	public UserService(UserDAO userDao, UserEntityMapper entityMapper) {
+		this.userDao = userDao;
+		this.entityMapper = entityMapper;
+	}
 
-    public void save(User user) throws SQLException {
-        userDao.create(user);
-    }
+	public void save(User user) throws SQLException {
+		userDao.create(user);
+	}
 
-    public User findByUsername(String username) throws SQLException {
-        return userDao.findByUsername(username)
-                .orElseThrow(() -> new UserNotFoundException(String.format("Username '%s' not found", username)));
-    }
+	public User findByUsername(String username) throws SQLException {
+		return userDao.findByUsername(username)
+				.orElseThrow(() -> new UserNotFoundException(String.format("Username '%s' not found", username)));
+	}
 
-    public UserDTO findByLoginDTO(LoginDTO loginDTO) throws SQLException {
-        User user = findByUsername(loginDTO.getUsername());
+	public UserDTO findByLoginDTO(LoginDTO loginDTO) throws SQLException {
+		User user = findByUsername(loginDTO.getUsername());
 
-
-        if (!loginDTO.getPassword().equals(user.getPassword())) {
-            throw new InvalidPasswordException();
-        }
-        return entityMapper.entityToDTO(user);
-    }
+		if (!loginDTO.getPassword().equals(user.getPassword())) {
+			throw new InvalidPasswordException();
+		}
+		return entityMapper.entityToDTO(user);
+	}
 }

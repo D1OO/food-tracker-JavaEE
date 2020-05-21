@@ -1,19 +1,20 @@
 package net.shvdy.nutrition_tracker.model.service;
 
 import net.shvdy.nutrition_tracker.model.dao.DAOFactory;
-import net.shvdy.nutrition_tracker.model.dao.mapper.DailyRecordMapper;
+import net.shvdy.nutrition_tracker.model.service.mapper.DailyRecordEntityMapper;
 import net.shvdy.nutrition_tracker.model.service.mapper.UserEntityMapper;
 
-public class ServiceFactory {
+import javax.naming.NamingException;
+import java.io.IOException;
 
-    private ServiceFactory() {
-    }
+public abstract class ServiceFactory {
 
-    public static UserService userService() {
+    public static UserService userService() throws IOException, NamingException {
         return new UserService(DAOFactory.getInstance().getUserDAO(), new UserEntityMapper());
     }
 
-    public static DailyRecordService dailyRecordService() {
-        return new DailyRecordService(DAOFactory.getInstance().getDailyRecordDAO(), new DailyRecordMapper());
+    public static DailyRecordService dailyRecordService() throws IOException, NamingException {
+        return new DailyRecordService(DAOFactory.getInstance().getDailyRecordDAO(), new DailyRecordEntityMapper());
     }
+
 }

@@ -1,22 +1,27 @@
 package net.shvdy.nutrition_tracker.model.dao.impl;
 
-import javax.sql.DataSource;
-
-
 import net.shvdy.nutrition_tracker.model.dao.DAOFactory;
 import net.shvdy.nutrition_tracker.model.dao.DailyRecordDAO;
 import net.shvdy.nutrition_tracker.model.dao.UserDAO;
 import net.shvdy.nutrition_tracker.model.dao.mapper.DailyRecordMapper;
 import net.shvdy.nutrition_tracker.model.dao.mapper.UserMapper;
 
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
 public class JDBCDAOFactory extends DAOFactory {
 
-	private final DataSource dataSource = ConnectionPoolHolder.getDataSource();
-	private final Properties DAO_SQLqueries = readProperties("/DAO_SQL_queries.properties");
+	private final DataSource dataSource;
+
+	private final Properties DAO_SQLqueries;
+
+	public JDBCDAOFactory() throws NamingException, IOException {
+		dataSource = ConnectionPoolHolder.getDataSource();
+		DAO_SQLqueries = readProperties("/DAO_SQL_queries.properties");
+	}
 
 	@Override
 	public UserDAO getUserDAO() {
@@ -28,18 +33,18 @@ public class JDBCDAOFactory extends DAOFactory {
 		return new JDBCDailyRecordDAO(dataSource, new DailyRecordMapper(), DAO_SQLqueries);
 	}
 
-	private Properties readProperties(String fileInClasspath) {
+	private Properties readProperties(String fileInClasspath) throws IOException {
 		InputStream is = this.getClass().getClassLoader().getResourceAsStream(fileInClasspath);
+		Properties properties = new Properties();
 
 		try {
-			Properties properties = new Properties();
 			properties.load(is);
-			return properties;
 		} catch (IOException e) {
 			System.err.println("Could not read properties from file " + fileInClasspath + " in classpath. " + e);
+			throw e;
 		}
 
-		return null;
+		return properties;
 	}
 }
 

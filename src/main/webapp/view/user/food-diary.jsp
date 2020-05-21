@@ -8,6 +8,7 @@
      style="width: 100%">
     <div class=" mb-4 m-4 font-rubick " style="width: 100%;">
         <h2><fmt:message key="food-diaty"/></h2>
+        <h1>${dailyRecord.recordDate}</h1>
     </div>
     <div class="tabs row d-flex ml-2 mb-3" style="width: 100%">
         <c:forEach var="item" items="${data}" varStatus="loop">

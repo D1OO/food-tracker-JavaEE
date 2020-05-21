@@ -6,21 +6,18 @@ import javax.sql.DataSource;
 
 public class ConnectionPoolHolder {
 
-    private static volatile DataSource dataSource;
+	private static volatile DataSource dataSource;
 
-    public static DataSource getDataSource() {
-        if (dataSource == null) {
-            synchronized (ConnectionPoolHolder.class) {
-                if (dataSource == null) {
-                    try {
-                        InitialContext context = new InitialContext();
-                        dataSource = (DataSource) context.lookup("java:comp/env/jdbc/food_tracker");
-                    } catch (NamingException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }
-        return dataSource;
-    }
+	public static DataSource getDataSource() throws NamingException {
+		if (dataSource == null) {
+			synchronized (ConnectionPoolHolder.class) {
+				if (dataSource == null) {
+					InitialContext context = new InitialContext();
+					dataSource = (DataSource) context.lookup("java:comp/env/jdbc/food_tracker");
+				}
+			}
+		}
+		return dataSource;
+	}
+
 }

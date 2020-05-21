@@ -1,20 +1,21 @@
 package net.shvdy.nutrition_tracker.controller.command;
 
-import java.util.Arrays;
-import java.util.Set;
-
 import net.shvdy.nutrition_tracker.controller.command.user.CompleteProfileToProceedCommand;
 import net.shvdy.nutrition_tracker.controller.command.user.FoodDiaryCommand;
 import net.shvdy.nutrition_tracker.controller.command.user.ProfileCommand;
 import net.shvdy.nutrition_tracker.model.entity.Role;
-import net.shvdy.nutrition_tracker.model.service.ServiceFactory;
+import net.shvdy.nutrition_tracker.model.service.DailyRecordService;
+import net.shvdy.nutrition_tracker.model.service.UserService;
+
+import java.util.Arrays;
+import java.util.Set;
 
 public enum CommandEnum {
 	LOGIN_PAGE(
 			new LoginPageCommand(), "/login",
 			Set.of(Role.GUEST)),
 	LOGIN(
-			new LoginCommand(ServiceFactory.userService()), "/log-in",
+			new LoginCommand(), "/log-in",
 			Set.of(Role.GUEST)),
 	LOGOUT(
 			new LogoutCommand(), "/logout",
@@ -23,7 +24,7 @@ public enum CommandEnum {
 			new RegistrationPageCommand(), "/registration",
 			Set.of(Role.GUEST)),
 	REGISTER(
-			new RegisterCommand(ServiceFactory.userService()), "/sign-up",
+			new RegisterCommand(), "/sign-up",
 			Set.of(Role.GUEST)),
 	HOME_PAGE(
 			new HomeCommand(), "/",
@@ -48,6 +49,8 @@ public enum CommandEnum {
 	private final ActionCommand actionCommand;
 	private final String path;
 	private final Set<Role> permittedRoles;
+	private static UserService userService;
+	private static DailyRecordService dailyRecordService;
 
 	CommandEnum(ActionCommand actionCommand, String path, Set<Role> permittedRoles) {
 		this.actionCommand = actionCommand;
@@ -65,6 +68,19 @@ public enum CommandEnum {
 
 	public Set<Role> getPermittedRoles() {
 		return this.permittedRoles;
+	}
+
+	public static UserService getUserService() {
+		return userService;
+	}
+
+	public static DailyRecordService getDailyRecordService() {
+		return dailyRecordService;
+	}
+
+	public static void injectServices(UserService userService, DailyRecordService dailyRecordService) {
+		CommandEnum.userService = userService;
+		CommandEnum.dailyRecordService = dailyRecordService;
 	}
 
 	public static ActionCommand getByURI(String path) {

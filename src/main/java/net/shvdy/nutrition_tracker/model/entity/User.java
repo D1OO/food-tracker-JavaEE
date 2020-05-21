@@ -115,7 +115,7 @@ public class User implements Entity {
         private boolean enabled;
         private Role role;
 
-        UserBuilder() {
+        private UserBuilder() {
         }
 
         public UserBuilder id(Long id) {

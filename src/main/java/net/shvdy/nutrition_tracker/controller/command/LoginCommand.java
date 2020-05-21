@@ -1,22 +1,14 @@
 package net.shvdy.nutrition_tracker.controller.command;
 
-import javax.servlet.http.HttpServletRequest;
-
 import net.shvdy.nutrition_tracker.dto.LoginDTO;
 import net.shvdy.nutrition_tracker.dto.UserDTO;
 import net.shvdy.nutrition_tracker.model.exception.InvalidPasswordException;
 import net.shvdy.nutrition_tracker.model.exception.UserNotFoundException;
-import net.shvdy.nutrition_tracker.model.service.UserService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
 
 public class LoginCommand implements ActionCommand {
-
-	private final UserService userService;
-
-	public LoginCommand(UserService userService) {
-		this.userService = userService;
-	}
 
 	@Override
 	public String execute(HttpServletRequest request) {
@@ -24,8 +16,9 @@ public class LoginCommand implements ActionCommand {
 		UserDTO user;
 
 		try {
-			user = userService.findByLoginDTO(loginDto);
-		} catch (UserNotFoundException | InvalidPasswordException | SQLException e) {
+			user = CommandEnum.getUserService().findByLoginDTO(loginDto);
+		} catch (UserNotFoundException | InvalidPasswordException |
+				SQLException | NullPointerException e) {
 			System.out.println(e.getMessage());
 			return "redirect:/login?error";
 		}

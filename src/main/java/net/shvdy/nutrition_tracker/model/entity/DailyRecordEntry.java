@@ -9,31 +9,35 @@ package net.shvdy.nutrition_tracker.model.entity;
 
 public class DailyRecordEntry implements Entity {
 
-//	@Id
+	//	@Id
 //	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 //	@Column(name = "entry_id")
 	private Long entryId;
 
-//	@NotNull
+	//	@NotNull
 //	@ManyToOne
 //	@JoinColumn(name = "food_id")
 	private Food food;
 
-//	@NotNull
+	//	@NotNull
 	private int quantity;
 
-//	@ManyToOne(cascade = CascadeType.ALL, optional = false)
+	//	@ManyToOne(cascade = CascadeType.ALL, optional = false)
 //	@JoinColumn(name = "record_id", insertable = true)
 	private DailyRecord dailyRecord;
 
 	public DailyRecordEntry() {
 	}
 
-	public DailyRecordEntry(Long entryId, Food food, int quantity, DailyRecord dailyRecord) {
+	public DailyRecordEntry(Long entryId, int quantity, Food food, DailyRecord dailyRecord) {
 		this.entryId = entryId;
 		this.food = food;
 		this.quantity = quantity;
 		this.dailyRecord = dailyRecord;
+	}
+
+	public static DailyRecordEntryBuilder builder() {
+		return new DailyRecordEntryBuilder();
 	}
 
 	public Long getEntryId() {
@@ -78,4 +82,41 @@ public class DailyRecordEntry implements Entity {
 				//", students=" + students +
 				'}';
 	}
+
+	public static class DailyRecordEntryBuilder {
+
+		private Long entryId;
+		private Food food;
+		private int quantity;
+		private DailyRecord dailyRecord;
+
+		DailyRecordEntryBuilder() {
+		}
+
+		public DailyRecordEntryBuilder entryId(Long entryId) {
+			this.entryId = entryId;
+			return this;
+		}
+
+		public DailyRecordEntryBuilder quantity(int quantity) {
+			this.quantity = quantity;
+			return this;
+		}
+
+		public DailyRecordEntryBuilder food(Food food) {
+			this.food = food;
+			return this;
+		}
+
+		public DailyRecordEntryBuilder dailyRecord(DailyRecord dailyRecord) {
+			this.dailyRecord = dailyRecord;
+			return this;
+		}
+
+		public DailyRecordEntry build() {
+			return new DailyRecordEntry(this.entryId, this.quantity, this.food, this.dailyRecord);
+		}
+
+	}
+
 }
