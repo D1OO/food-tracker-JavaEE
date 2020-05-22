@@ -2,7 +2,9 @@ package net.shvdy.nutrition_tracker.controller.filter;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Objects;
 
 
 public class LocaleFilter implements Filter {
@@ -15,10 +17,8 @@ public class LocaleFilter implements Filter {
 			throws IOException, ServletException {
 
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-
-		if (httpServletRequest.getParameter("sessionLocale") != null) {
-			httpServletRequest.getSession().setAttribute("lang", httpServletRequest.getParameter("sessionLocale"));
-		}
+		String lang = httpServletRequest.getParameter("lang");
+		httpServletRequest.getSession().setAttribute("lang", Objects.requireNonNullElse(lang, "ru"));
 
 		chain.doFilter(request, response);
 	}

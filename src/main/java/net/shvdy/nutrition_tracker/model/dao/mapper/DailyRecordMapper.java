@@ -19,8 +19,11 @@ public class DailyRecordMapper implements ResultSetMapper<DailyRecord> {
 	@Override
 	public DailyRecord map(ResultSet resultSet) throws SQLException {
 
-		DailyRecord dailyRecord = DailyRecord.builder().recordId(resultSet.getLong("record_id"))
-				.recordDate(resultSet.getString("record_date")).build();
+		DailyRecord dailyRecord = DailyRecord.builder()
+				.recordId(resultSet.getLong("record_id"))
+				.recordDate(resultSet.getString("record_date"))
+				.dailyCaloriesNorm(resultSet.getInt("daily_calories_norm"))
+				.build();
 
 		ArrayList<DailyRecordEntry> dailyRecordEntries = new ArrayList<>();
 		dailyRecordEntries.add(extractFromResultSet(resultSet, dailyRecord));

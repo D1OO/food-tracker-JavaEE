@@ -6,6 +6,7 @@ import net.shvdy.nutrition_tracker.model.entity.DailyRecord;
 import net.shvdy.nutrition_tracker.model.service.mapper.DailyRecordEntityMapper;
 
 import java.sql.SQLException;
+import java.util.Locale;
 
 /**
  * 20.05.2020
@@ -23,13 +24,18 @@ public class DailyRecordService {
 		this.dailyRecordMapper = dailyRecordMapper;
 	}
 
-	public DailyRecordDTO findByDate(String date) throws SQLException {
+	public DailyRecordDTO findByDate(String date, Locale locale) throws SQLException {
 		return dailyRecordMapper.entityToDTO(
 				dailyRecordDAO.findByRecordDate(date)
-						.orElse(new DailyRecord()));
+						.orElse(new DailyRecord()),
+				locale);
 
 //		return userDao.findByUsername(username)
 //				.orElseThrow(() -> new UserNotFoundException(String.format("Username '%s' not found", username)));
+	}
+
+	private void additionalData(DailyRecordDTO dailyRecord) {
+
 	}
 
 }

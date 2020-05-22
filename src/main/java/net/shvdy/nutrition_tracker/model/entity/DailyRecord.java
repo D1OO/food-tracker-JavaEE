@@ -19,6 +19,7 @@ public class DailyRecord implements Entity {
 //	@NotNull
 //	@Column(name = "record_date")
 	private String recordDate;
+	private int dailyCaloriesNorm;
 
 //	@ManyToOne
 //	@JoinColumn(name = "profile_id")
@@ -29,9 +30,11 @@ public class DailyRecord implements Entity {
 	public DailyRecord() {
 	}
 
-	public DailyRecord(Long recordId, String recordDate, UserProfile userProfile, List<DailyRecordEntry> entries) {
+	public DailyRecord(Long recordId, String recordDate, int dailyCaloriesNorm,
+					   UserProfile userProfile, List<DailyRecordEntry> entries) {
 		this.recordId = recordId;
 		this.recordDate = recordDate;
+		this.dailyCaloriesNorm = dailyCaloriesNorm;
 		this.userProfile = userProfile;
 		this.entries = entries;
 	}
@@ -54,6 +57,14 @@ public class DailyRecord implements Entity {
 
 	public void setRecordDate(String recordDate) {
 		this.recordDate = recordDate;
+	}
+
+	public int getDailyCaloriesNorm() {
+		return dailyCaloriesNorm;
+	}
+
+	public void setDailyCaloriesNorm(int dailyCaloriesNorm) {
+		this.dailyCaloriesNorm = dailyCaloriesNorm;
 	}
 
 	public UserProfile getUserProfile() {
@@ -86,6 +97,7 @@ public class DailyRecord implements Entity {
 
 		private Long recordId;
 		private String recordDate;
+		private int dailyCaloriesNorm;
 		UserProfile userProfile;
 		private List<DailyRecordEntry> entries;
 
@@ -102,6 +114,11 @@ public class DailyRecord implements Entity {
 			return this;
 		}
 
+		public DailyRecordBuilder dailyCaloriesNorm(int dailyCaloriesNorm) {
+			this.dailyCaloriesNorm = dailyCaloriesNorm;
+			return this;
+		}
+
 		public DailyRecordBuilder userProfile(UserProfile userProfile) {
 			this.userProfile = userProfile;
 			return this;
@@ -113,7 +130,8 @@ public class DailyRecord implements Entity {
 		}
 
 		public DailyRecord build() {
-			return new DailyRecord(this.recordId, this.recordDate, this.userProfile, this.entries);
+			return new DailyRecord(this.recordId, this.recordDate,
+					this.dailyCaloriesNorm, this.userProfile, this.entries);
 		}
 	}
 }
