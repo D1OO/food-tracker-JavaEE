@@ -7,10 +7,10 @@ public class LogoutCommand implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest request) {
+        CommandUtility.removeUserFromSession(request);
         HttpSession session = request.getSession();
         session.invalidate();
         return "redirect:/login?logout";
-
 
 //        CommandUtility.removeUserFromSession(request);
 //        final HttpSession session = request.getSession();

@@ -20,6 +20,7 @@ import java.util.HashSet;
 public class DreamfitServlet extends HttpServlet {
 
 	public void init(ServletConfig servletConfig) {
+		servletConfig.getServletContext().setAttribute("loggedUsers", new HashSet<String>());
 
 		UserService userService = null;
 		DailyRecordService dailyRecordService = null;
@@ -46,12 +47,12 @@ public class DreamfitServlet extends HttpServlet {
 
 		CommandEnum.injectServices(userService, dailyRecordService, foodService);
 
-		servletConfig.getServletContext().setAttribute("loggedUsers", new HashSet<String>());
 	}
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
 		request.getSession().getServletContext().setAttribute("localizedDate", LocalDate.now().toString());
 		processRequest(request, response);
 	}

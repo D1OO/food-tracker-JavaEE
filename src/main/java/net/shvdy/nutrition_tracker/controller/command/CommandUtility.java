@@ -31,15 +31,15 @@ class CommandUtility {
 	}
 
 	static void removeUserFromSession(HttpServletRequest request) {
-		User user = (User) request.getSession().getAttribute("user");
+		long userId = (long) request.getServletContext().getAttribute("userId");
 		HashSet<Long> loggedUsers = getLoggedUsers(request);
-		loggedUsers.remove(user.getId());
+		loggedUsers.remove(userId);
 		request.getSession().getServletContext().setAttribute("loggedUsers", loggedUsers);
 	}
 
+
 	private static HashSet<Long> getLoggedUsers(HttpServletRequest request) {
-		HashSet<Long> loggedUsers = (HashSet<Long>) request.getSession().getServletContext()
+		return (HashSet<Long>) request.getSession().getServletContext()
 				.getAttribute("loggedUsers");
-		return loggedUsers;
 	}
 }
