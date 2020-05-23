@@ -7,7 +7,7 @@ import net.shvdy.nutrition_tracker.model.entity.UserProfile;
 import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
 
-public class RegisterCommand implements ActionCommand {
+public class Register implements ActionCommand {
 
 	@Override
 	public String execute(HttpServletRequest request) {

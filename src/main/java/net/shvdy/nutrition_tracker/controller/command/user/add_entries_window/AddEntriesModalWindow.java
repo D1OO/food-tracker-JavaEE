@@ -13,7 +13,7 @@ import java.util.Collections;
  * @author Dmitriy Storozhenko
  * @version 1.0
  */
-public class AddEntriesModalWindowCommand implements ActionCommand {
+public class AddEntriesModalWindow implements ActionCommand {
 
 	@Override
 	public String execute(HttpServletRequest request) {

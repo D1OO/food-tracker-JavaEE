@@ -17,7 +17,7 @@ import java.util.Set;
  * @author Dmitriy Storozhenko
  * @version 1.0
  */
-public class FoodDiaryCommand implements ActionCommand {
+public class FoodDiary implements ActionCommand {
 
 	@Override
 	public String execute(HttpServletRequest request) {

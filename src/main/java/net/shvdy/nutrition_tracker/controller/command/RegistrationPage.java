@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import net.shvdy.nutrition_tracker.model.entity.Role;
 
-public class RegistrationPageCommand implements ActionCommand {
+public class RegistrationPage implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest request) {

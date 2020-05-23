@@ -16,7 +16,7 @@ import java.util.List;
  * @author Dmitriy Storozhenko
  * @version 1.0
  */
-public class SaveFoodCommand implements ActionCommand {
+public class SaveFood implements ActionCommand {
 
 	@Override
 	public String execute(HttpServletRequest request) {

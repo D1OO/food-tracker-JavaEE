@@ -8,7 +8,7 @@ import net.shvdy.nutrition_tracker.model.exception.UserNotFoundException;
 import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
 
-public class LoginCommand implements ActionCommand {
+public class Login implements ActionCommand {
 
 	@Override
 	public String execute(HttpServletRequest request) {

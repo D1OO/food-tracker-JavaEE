@@ -4,7 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import net.shvdy.nutrition_tracker.model.entity.Role;
 
-public class RedirectHomeCommand implements ActionCommand {
+public class RedirectHome implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest request) {

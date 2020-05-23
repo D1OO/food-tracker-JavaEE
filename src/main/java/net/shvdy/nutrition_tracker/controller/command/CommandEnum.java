@@ -2,7 +2,6 @@ package net.shvdy.nutrition_tracker.controller.command;
 
 import net.shvdy.nutrition_tracker.controller.command.user.*;
 import net.shvdy.nutrition_tracker.controller.command.user.add_entries_window.*;
-import net.shvdy.nutrition_tracker.model.entity.Food;
 import net.shvdy.nutrition_tracker.model.entity.Role;
 import net.shvdy.nutrition_tracker.model.service.DailyRecordService;
 import net.shvdy.nutrition_tracker.model.service.FoodService;
@@ -13,52 +12,52 @@ import java.util.Set;
 
 public enum CommandEnum {
 	LOGIN_PAGE(
-			new LoginPageCommand(), "/login",
+			new LoginPage(), "/login",
 			Set.of(Role.GUEST)),
 	LOGIN(
-			new LoginCommand(), "/log-in",
+			new Login(), "/log-in",
 			Set.of(Role.GUEST)),
 	LOGOUT(
-			new LogoutCommand(), "/logout",
+			new Logout(), "/logout",
 			Set.of(Role.ADMIN, Role.USER)),
 	REGISTRATION_PAGE(
-			new RegistrationPageCommand(), "/registration",
+			new RegistrationPage(), "/registration",
 			Set.of(Role.GUEST)),
 	REGISTER(
-			new RegisterCommand(), "/sign-up",
+			new Register(), "/sign-up",
 			Set.of(Role.GUEST)),
 	HOME_PAGE(
-			new HomeCommand(), "/",
+			new Home(), "/",
 			Set.of(Role.ADMIN, Role.USER, Role.GUEST)),
 	REDIRECT_HOME(
-			new RedirectHomeCommand(), "/redirect:home",
+			new RedirectHome(), "/redirect:home",
 			Set.of(Role.ADMIN, Role.USER, Role.GUEST)),
 	USER(
-			new UserCommand(), "/user",
+			new User(), "/user",
 			Set.of(Role.USER)),
 	COMPLETE_PROFILE(
-			new CompleteProfileToProceedCommand(), "/complete",
+			new CompleteProfileToProceed(), "/complete",
 			Set.of(Role.USER)),
 	PROFILE(
-			new ProfileCommand(), "/profile",
+			new Profile(), "/profile",
 			Set.of(Role.USER)),
 	FOOD_DIARY_PAGE(
-			new FoodDiaryCommand(), "/food-diary",
+			new FoodDiary(), "/food-diary",
 			Set.of(Role.ADMIN, Role.USER)),
 	FOOD_MODAL_WINDOW(
-			new AddEntriesModalWindowCommand(), "/adding-entries-modal-window",
+			new AddEntriesModalWindow(), "/adding-entries-modal-window",
 			Set.of(Role.ADMIN, Role.USER)),
 	NEW_ENTRY_RESPONSE(
-			new AddedEntryCommand(), "/added-entry",
+			new AddedEntry(), "/added-entry",
 			Set.of(Role.ADMIN, Role.USER)),
 	REMOVED_ENTRY_RESPONSE(
-			new RemovedEntryCommand(), "/removed-entry",
+			new RemovedEntry(), "/removed-entry",
 			Set.of(Role.ADMIN, Role.USER)),
 	SAVE_NEW_ENTRIES(
-			new SaveEntriesCommand(), "/save-new-entries",
+			new SaveEntries(), "/save-new-entries",
 			Set.of(Role.ADMIN, Role.USER)),
 	SAVE_NEW_FOOD(
-			new SaveFoodCommand(), "/save-new-food",
+			new SaveFood(), "/save-new-food",
 			Set.of(Role.ADMIN, Role.USER));
 
 	private final ActionCommand actionCommand;

@@ -4,16 +4,10 @@ import net.shvdy.nutrition_tracker.controller.command.ActionCommand;
 
 import javax.servlet.http.HttpServletRequest;
 
-/**
- * 20.05.2020
- *
- * @author Dmitriy Storozhenko
- * @version 1.0
- */
-public class ProfileCommand implements ActionCommand {
+public class CompleteProfileToProceed implements ActionCommand {
 
 	@Override
 	public String execute(HttpServletRequest request) {
-		return "/view/user/profile.jsp";
+		return "/view/user/complete-profile-to-proceed.jsp";
 	}
 }
