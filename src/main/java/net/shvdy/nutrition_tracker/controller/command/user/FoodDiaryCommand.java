@@ -33,7 +33,7 @@ public class FoodDiaryCommand implements ActionCommand {
 		request.getSession().getServletContext().setAttribute("lastDate", "lastdate");
 		request.getSession().getServletContext().setAttribute("profileFilled", true); //{rec.getTotalCalories() != -1
 //		request.getSession().getServletContext().setAttribute("user", 5); //{rec.getTotalCalories() != -1
-		request.getSession().getServletContext().setAttribute("userId", 22); //{rec.getTotalCalories() != -1
+//		request.getSession().setAttribute("userFood", user.getUserFood());
 
 		try {
 			request.getSession().getServletContext().setAttribute("dailyRecord",

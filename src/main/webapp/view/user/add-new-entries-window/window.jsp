@@ -4,7 +4,7 @@
 <fmt:setLocale value="${sessionScope.lang}"/>
 <fmt:setBundle basename="i18n/messages"/>
 
-<div class="modal" id="myModal">
+<div class="modal" id="myModal"  data-aos="fade-zoom-in" data-aos-offset="">
     <div class="modal-content">
         <div class="modal-header">
             <p class="p-1 mt-2 mb-2" style="size:4em"><fmt:message key="user.meals-to-add"/></p>
@@ -38,7 +38,7 @@
             </div>
             <div class="mt-4" id="createfoodcontainer" style="display: none">
                 <form class="form" id="createfoodform" method="post" style="width: 100%" action="save-new-food">
-                    <input name="newFoodDTO.profileId" value="${newFoodDTO.profileId}" type="hidden">
+                    <input name="profileId" value="${userId}" type="hidden">
                     <div class="row">
                         <div class="col-3">
                             <div class="form-group col-md-11">
@@ -87,7 +87,7 @@
                     </div>
                 </form>
                 <div class="m-2 d-flex flex-column col-5 tabs">
-                    <button class="pretty-button mt-2" id="myBtn" onclick="saveCreatedFood()">
+                    <button class="pretty-button mt-2" id="myBtn" onclick="saveCreatedFood(this)">
                         <fmt:message key="user.save"/>
                     </button>
                     <button class="pretty-button switch-content mt-2" onclick="setModalContainerTo('addfoodcontainer')">

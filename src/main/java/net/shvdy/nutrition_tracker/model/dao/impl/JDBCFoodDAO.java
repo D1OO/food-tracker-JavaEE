@@ -6,9 +6,7 @@ import net.shvdy.nutrition_tracker.model.entity.Food;
 import net.shvdy.nutrition_tracker.model.entity.User;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.Properties;
 
 /**
@@ -30,20 +28,46 @@ public class JDBCFoodDAO implements FoodDAO {
 	}
 
 	@Override
-	public void create(Food food) throws SQLException {
+	public Long createForProfile(Food food, Long profileId) throws SQLException {
 		try (Connection connection = dataSource.getConnection();
 			 PreparedStatement insertFoodStatement = connection
-					 .prepareStatement(queries.getProperty("fooddao.INSERT_FOOD_SQL"))) {
+					 .prepareStatement(queries.getProperty("fooddao.INSERT_FOOD_SQL"),
+							 Statement.RETURN_GENERATED_KEYS);
+			 PreparedStatement insertFoodForProfileStatement = connection
+					 .prepareStatement(queries.getProperty("fooddao.INSERT_FOOD_FOR_PROFILE_SQL"))) {
+
+			connection.setAutoCommit(false);
 
 			insertFoodStatement.setString(1, food.getName());
 			insertFoodStatement.setInt(2, food.getCalories());
 			insertFoodStatement.setInt(3, food.getProteins());
 			insertFoodStatement.setInt(4, food.getFats());
 			insertFoodStatement.setInt(5, food.getCarbohydrates());
-
 			insertFoodStatement.executeUpdate();
 
+			long generatedFoodId;
+			try (ResultSet generatedKeys = insertFoodStatement.getGeneratedKeys()) {
+				if (generatedKeys.next()) {
+					generatedFoodId = generatedKeys.getLong(1);
+				}
+				else {
+					throw new SQLException("Creating food failed, no ID obtained.");
+				}
+			}
+
+			System.out.println(profileId);
+			insertFoodForProfileStatement.setLong(1, profileId);
+			insertFoodForProfileStatement.setLong(2, generatedFoodId);
+			insertFoodForProfileStatement.executeUpdate();
+
+			connection.commit();
+			return generatedFoodId;
 		}
+
+	}
+
+	@Override
+	public void create(Food entity) throws SQLException {
 
 	}
 }

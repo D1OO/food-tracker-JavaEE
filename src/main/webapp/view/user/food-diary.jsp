@@ -86,7 +86,7 @@
                     <input id="recordId" name="recordId" value="${rec.recordId}" type="hidden">
                     <input id="recordDate" name="recordDate" value="${rec.recordDate}" type="hidden">
                 </form>
-                <button class="pretty-button" style="width: 12em; "
+                <button class="pretty-button open-modal" style="width: 12em; "
                         onclick="openAddFoodModalWindow('.data-food-modal-window' + ${loop.index})">
                     <fmt:message key="add-new"/>
                 </button>

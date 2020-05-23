@@ -8,24 +8,35 @@ package net.shvdy.nutrition_tracker.dto;
  */
 public class FoodDTO {
 
+	private Long foodId;
 	private String name;
 	private int calories;
-	private int prot;
+	private int proteins;
 	private int fats;
 	private int carbohydrates;
+	private Long profileId;
 
-	public FoodDTO(String name, int calories, int prot, int fats, int carbohydrates) {
+	public FoodDTO(Long foodId, String name, int calories, int proteins, int fats, int carbohydrates, Long profileId) {
+		this.foodId = foodId;
 		this.name = name;
 		this.calories = calories;
-		this.prot = prot;
+		this.proteins = proteins;
 		this.fats = fats;
 		this.carbohydrates = carbohydrates;
+		this.profileId = profileId;
 	}
 
 	public static FoodDTOBuilder builder() {
 		return new FoodDTOBuilder();
 	}
 
+	public Long getFoodId() {
+		return foodId;
+	}
+
+	public void setFoodId(Long foodId) {
+		this.foodId = foodId;
+	}
 
 	public String getName() {
 		return name;
@@ -43,12 +54,12 @@ public class FoodDTO {
 		this.calories = calories;
 	}
 
-	public int getProt() {
-		return prot;
+	public int getProteins() {
+		return proteins;
 	}
 
-	public void setProt(int prot) {
-		this.prot = prot;
+	public void setProteins(int proteins) {
+		this.proteins = proteins;
 	}
 
 	public int getFats() {
@@ -67,15 +78,29 @@ public class FoodDTO {
 		this.carbohydrates = carbohydrates;
 	}
 
+	public Long getProfileId() {
+		return profileId;
+	}
+
+	public void setProfileId(Long profileId) {
+		this.profileId = profileId;
+	}
 
 	public static final class FoodDTOBuilder {
+		private Long foodId;
 		private String name;
 		private int calories;
-		private int prot;
+		private int proteins;
 		private int fats;
 		private int carbohydrates;
+		private Long profileId;
 
 		private FoodDTOBuilder() {
+		}
+
+		public FoodDTOBuilder foodId(Long foodId) {
+			this.foodId = foodId;
+			return this;
 		}
 
 		public FoodDTOBuilder name(String name) {
@@ -88,8 +113,8 @@ public class FoodDTO {
 			return this;
 		}
 
-		public FoodDTOBuilder prot(int prot) {
-			this.prot = prot;
+		public FoodDTOBuilder proteins(int proteins) {
+			this.proteins = proteins;
 			return this;
 		}
 
@@ -103,8 +128,13 @@ public class FoodDTO {
 			return this;
 		}
 
+		public FoodDTOBuilder profileId(Long profileId) {
+			this.profileId = profileId;
+			return this;
+		}
+
 		public FoodDTO build() {
-			return new FoodDTO(name, calories, prot, fats, carbohydrates);
+			return new FoodDTO(foodId, name, calories, proteins, fats, carbohydrates, profileId);
 		}
 	}
 }

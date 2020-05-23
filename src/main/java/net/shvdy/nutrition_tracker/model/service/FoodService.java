@@ -23,8 +23,8 @@ public class FoodService {
 		this.foodMapper = foodMapper;
 	}
 
-	public void save(FoodDTO foodDTO) throws SQLException {
+	public Long saveForProfile(FoodDTO foodDTO, Long profileId) throws SQLException {
 		Food newFood = foodMapper.DTOToEntity(foodDTO);
-		foodDAO.create(newFood);
+		return foodDAO.createForProfile(newFood, profileId);
 	}
 }

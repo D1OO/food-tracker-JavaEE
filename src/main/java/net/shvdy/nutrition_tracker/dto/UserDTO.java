@@ -11,18 +11,18 @@ public class UserDTO {
     private Role role;
     private String firstName;
     private String lastName;
-    private List<Food> userFood;
+    private List<FoodDTO> userFoodDTO;
 
     public static UserDTOBuilder builder() {
         return new UserDTOBuilder();
     }
 
-    public UserDTO(Long id, Role role, String firstName, String lastName, List<Food> userFood) {
+    public UserDTO(Long id, Role role, String firstName, String lastName, List<FoodDTO> userFoodDTO) {
         this.id = id;
         this.role = role;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.userFood = userFood;
+        this.userFoodDTO = userFoodDTO;
     }
 
     public Long getId() {
@@ -57,12 +57,12 @@ public class UserDTO {
         this.lastName = lastName;
     }
 
-    public List<Food> getUserFood() {
-        return userFood;
+    public List<FoodDTO> getUserFoodDTO() {
+        return userFoodDTO;
     }
 
-    public void setUserFood(List<Food> userFood) {
-        this.userFood = userFood;
+    public void setUserFoodDTO(List<FoodDTO> userFoodDTO) {
+        this.userFoodDTO = userFoodDTO;
     }
 
     public static class UserDTOBuilder {
@@ -71,7 +71,7 @@ public class UserDTO {
         private Role role;
         private String firstName;
         private String lastName;
-        private List<Food> userFood;
+        private List<FoodDTO> userFoodDTO;
 
 
         UserDTOBuilder() {
@@ -97,13 +97,13 @@ public class UserDTO {
             return this;
         }
 
-        public UserDTOBuilder userFood(List<Food> userFood) {
-            this.userFood = userFood;
+        public UserDTOBuilder userFoodDTO(List<FoodDTO> userFoodDTO) {
+            this.userFoodDTO = userFoodDTO;
             return this;
         }
 
         public UserDTO build() {
-            return new UserDTO(this.id, this.role, this.firstName, this.lastName, this.userFood );
+            return new UserDTO(this.id, this.role, this.firstName, this.lastName, this.userFoodDTO);
         }
     }
 }

@@ -31,7 +31,7 @@ public class UserService {
 
 	public UserDTO findByLoginDTO(LoginDTO loginDTO) throws SQLException {
 		User user = findByUsername(loginDTO.getUsername());
-
+		System.out.println(user.getUserProfile().getUserFood().get(0).getName() + "asdasd");
 		if (!loginDTO.getPassword().equals(user.getPassword())) {
 			throw new InvalidPasswordException();
 		}

@@ -13,11 +13,11 @@ class CommandUtility {
 		HttpSession session = request.getSession();
 		ServletContext context = request.getServletContext();
 		context.setAttribute("userId", user.getId());
-//		context.setAttribute("username", user);
 		context.setAttribute("userFirstName", user.getFirstName());
 		context.setAttribute("userLastName", user.getLastName());
 		session.setAttribute("role", user.getRole());
-		session.setAttribute("userFood", user.getUserFood());
+		System.out.println(user.getUserFoodDTO().get(0).getName() + "QQQQQ");
+		session.setAttribute("userFood", user.getUserFoodDTO());
 	}
 
 	static boolean checkIsLoginNotFresh(HttpServletRequest request, Long id) {

@@ -20,7 +20,16 @@ function setModalContainerTo(name) {
 }
 
 function openAddFoodModalWindow(recordtab) {
-    event.preventDefault();
+    // event.preventDefault();
+    let data = $(recordtab).serialize();
+    $.get('/adding-entries-modal-window', data, function (data) {
+        document.getElementById('modal-window').innerHTML = data;
+        $("#modal-window").css("display", "block");
+    });
+}
+
+function refreshModalWindow(html) {
+
     let data = $(recordtab).serialize();
     $.get('/adding-entries-modal-window', data, function (data) {
         document.getElementById('modal-window').innerHTML = data;
@@ -54,9 +63,11 @@ function addedNewEntry(foodDTO, foodName) {
     });
 }
 
-function saveCreatedFood() {
+function saveCreatedFood(element) {
     let data = $('#createfoodform').serialize();
-    $.post('/save-new-food', data, replacePageWith);
+    $.post('/save-new-food', data, function (response) {
+        $('.open-modal')[0].onclick();
+    });
 }
 
 function saveNewEntries() {

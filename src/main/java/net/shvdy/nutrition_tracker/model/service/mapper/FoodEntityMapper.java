@@ -13,17 +13,20 @@ public class FoodEntityMapper {
 
 	public FoodDTO entityToDTO(Food food) {
 		return FoodDTO.builder().name(food.getName())
+				.foodId(food.getFoodId())
 				.calories(food.getCalories())
 				.fats(food.getFats())
-				.prot(food.getProteins())
+				.proteins(food.getProteins())
 				.carbohydrates(food.getCarbohydrates())
 				.build();
 	}
 
 	public Food DTOToEntity(FoodDTO foodDTO) {
-		return Food.builder().name(foodDTO.getName())
+		return Food.builder()
+				.food_id(foodDTO.getFoodId())
+				.name(foodDTO.getName())
 				.calories(foodDTO.getCalories())
-				.proteins(foodDTO.getProt())
+				.proteins(foodDTO.getProteins())
 				.carbohydrates(foodDTO.getCarbohydrates())
 				.fats(foodDTO.getFats())
 				.build();
