@@ -1,12 +1,11 @@
 package net.shvdy.nutrition_tracker.controller.command;
 
 import net.shvdy.nutrition_tracker.controller.command.user.*;
-import net.shvdy.nutrition_tracker.controller.command.user.add_entries_window.AddEntriesModalWindowCommand;
-import net.shvdy.nutrition_tracker.controller.command.user.add_entries_window.AddedEntryCommand;
-import net.shvdy.nutrition_tracker.controller.command.user.add_entries_window.RemovedEntryCommand;
-import net.shvdy.nutrition_tracker.controller.command.user.add_entries_window.SaveCommand;
+import net.shvdy.nutrition_tracker.controller.command.user.add_entries_window.*;
+import net.shvdy.nutrition_tracker.model.entity.Food;
 import net.shvdy.nutrition_tracker.model.entity.Role;
 import net.shvdy.nutrition_tracker.model.service.DailyRecordService;
+import net.shvdy.nutrition_tracker.model.service.FoodService;
 import net.shvdy.nutrition_tracker.model.service.UserService;
 
 import java.util.Arrays;
@@ -56,7 +55,10 @@ public enum CommandEnum {
 			new RemovedEntryCommand(), "/removed-entry",
 			Set.of(Role.ADMIN, Role.USER)),
 	SAVE_NEW_ENTRIES(
-			new SaveCommand(), "/save-new-entries",
+			new SaveEntriesCommand(), "/save-new-entries",
+			Set.of(Role.ADMIN, Role.USER)),
+	SAVE_NEW_FOOD(
+			new SaveFoodCommand(), "/save-new-food",
 			Set.of(Role.ADMIN, Role.USER));
 
 	private final ActionCommand actionCommand;
@@ -64,6 +66,7 @@ public enum CommandEnum {
 	private final Set<Role> permittedRoles;
 	private static UserService userService;
 	private static DailyRecordService dailyRecordService;
+	private static FoodService foodService;
 
 	CommandEnum(ActionCommand actionCommand, String path, Set<Role> permittedRoles) {
 		this.actionCommand = actionCommand;
@@ -91,9 +94,16 @@ public enum CommandEnum {
 		return dailyRecordService;
 	}
 
-	public static void injectServices(UserService userService, DailyRecordService dailyRecordService) {
+	public static FoodService getFoodService() {
+		return foodService;
+	}
+
+	public static void injectServices(UserService userService,
+									  DailyRecordService dailyRecordService,
+									  FoodService foodService) {
 		CommandEnum.userService = userService;
 		CommandEnum.dailyRecordService = dailyRecordService;
+		CommandEnum.foodService = foodService;
 	}
 
 	public static ActionCommand getByURI(String path) {

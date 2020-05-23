@@ -10,7 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * @version 1.0
  */
 
-public class Food implements Entity {
+public class Food {
 //	@Id
 //	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 //	@NotNull

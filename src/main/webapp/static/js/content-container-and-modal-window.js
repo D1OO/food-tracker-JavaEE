@@ -6,19 +6,6 @@ $(document).ready(function () {
             $('modal-window').style.display = "none";
         }
     };
-
-    $(".removeButton").click(function () {
-        event.preventDefault();
-        $(this).closest('.entry').remove();
-
-        data ='&newEntriesJSON=' + getNewEntriesJSONString() +
-            '&newEntriesDTOJSON=' + $('#new-entries-list').val();
-
-        $.post('/removed-entry', data, function (response) {
-            $('#new-entries-container').html(response);
-
-        });
-    });
 });
 
 function setContentContainerTo(controllerEndpoint) {
@@ -41,30 +28,6 @@ function openAddFoodModalWindow(recordtab) {
     });
 }
 
-function addedNewEntry(foodDTO, foodName) {
-    let data = '&foodDTOJSON=' + foodDTO + '&foodName=' + foodName +
-        '&newEntriesJSON=' + getNewEntriesJSONString() + '&newEntriesDTOJSON=' + $('#new-entries-list').val();
-
-    $.post('/added-entry', data, function (response) {
-        $('#new-entries-container').html(response);
-    });
-}
-
-
-
-function saveCreatedFood() {
-    let data = $('#createfoodform').serialize();
-    $.post('/save-new-food', data, replacePageWith);
-}
-
-
-function saveNewEntries() {
-    let data = '&newEntriesJSON=' + getNewEntriesJSONString() +
-        '&newEntriesDTOJSON=' + $('#new-entries-list').val();
-
-    $.post('/save-new-entries', data, replacePageWith);
-}
-
 function replacePageWith(html) {
     let newDoc = document.open("text/html", "replace");
     newDoc.write(html);
@@ -80,6 +43,27 @@ function tabClick(tab) {
 
 function closeAddFoodModalWindow() {
     $('#modal-window').css("display", "none");
+}
+
+function addedNewEntry(foodDTO, foodName) {
+    let data = '&foodDTOJSON=' + foodDTO + '&foodName=' + foodName +
+        '&newEntriesJSON=' + getNewEntriesJSONString() + '&newEntriesDTOJSON=' + $('#new-entries-list').val();
+
+    $.post('/added-entry', data, function (response) {
+        $('#new-entries-container').html(response);
+    });
+}
+
+function saveCreatedFood() {
+    let data = $('#createfoodform').serialize();
+    $.post('/save-new-food', data, replacePageWith);
+}
+
+function saveNewEntries() {
+    let data = '&newEntriesJSON=' + getNewEntriesJSONString() +
+        '&newEntriesDTOJSON=' + $('#new-entries-list').val();
+
+    $.post('/save-new-entries', data, replacePageWith);
 }
 
 function getNewEntriesJSONString() {

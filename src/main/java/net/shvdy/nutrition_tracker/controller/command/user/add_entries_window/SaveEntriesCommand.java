@@ -18,7 +18,7 @@ import java.util.ArrayList;
  * @author Dmitriy Storozhenko
  * @version 1.0
  */
-public class SaveCommand implements ActionCommand {
+public class SaveEntriesCommand implements ActionCommand {
 
 	@Override
 	public String execute(HttpServletRequest request) {

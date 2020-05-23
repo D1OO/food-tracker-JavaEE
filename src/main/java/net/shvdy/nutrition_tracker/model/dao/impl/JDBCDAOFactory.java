@@ -2,8 +2,10 @@ package net.shvdy.nutrition_tracker.model.dao.impl;
 
 import net.shvdy.nutrition_tracker.model.dao.DAOFactory;
 import net.shvdy.nutrition_tracker.model.dao.DailyRecordDAO;
+import net.shvdy.nutrition_tracker.model.dao.FoodDAO;
 import net.shvdy.nutrition_tracker.model.dao.UserDAO;
 import net.shvdy.nutrition_tracker.model.dao.mapper.DailyRecordMapper;
+import net.shvdy.nutrition_tracker.model.dao.mapper.FoodMapper;
 import net.shvdy.nutrition_tracker.model.dao.mapper.UserMapper;
 
 import javax.naming.NamingException;
@@ -31,6 +33,11 @@ public class JDBCDAOFactory extends DAOFactory {
 	@Override
 	public DailyRecordDAO getDailyRecordDAO() {
 		return new JDBCDailyRecordDAO(dataSource, new DailyRecordMapper(), DAO_SQLqueries);
+	}
+
+	@Override
+	public FoodDAO getFoodDAO() {
+		return new JDBCFoodDAO(dataSource, new FoodMapper(), DAO_SQLqueries);
 	}
 
 	private Properties readProperties(String fileInClasspath) throws IOException {

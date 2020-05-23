@@ -46,7 +46,7 @@
                                 <input class="form-control"
                                        data-msg="Enter a valid first name"
                                        data-rule="firstnameexp" id="name"
-                                       th:field="*{name}"/>
+                                       name="newFoodName"/>
                                 <div class="validate"></div>
                             </div>
                             <div class="form-group col-md-11">
@@ -54,7 +54,7 @@
                                 <input class="form-control"
                                        data-msg="Enter a valid last name"
                                        data-rule="lastnameexp" id="calories"
-                                       th:field="*{calories}"/>
+                                       name="newFoodCalories"/>
                                 <div class="validate"></div>
                             </div>
                             <div class="form-group col-md-11">
@@ -62,7 +62,7 @@
                                 <input class="form-control"
                                        data-msg="Enter a valid first name (ukrainian letters)"
                                        data-rule="firstnameuaexp" id="proteins"
-                                       th:field="*{proteins}"/>
+                                       name="newFoodProteins"/>
                                 <div class="validate"></div>
                             </div>
                         </div>
@@ -72,7 +72,7 @@
                                 <input class="form-control"
                                        data-msg="Enter a valid first name"
                                        data-rule="firstnameexp" id="fats"
-                                       th:field="*{fats}"/>
+                                       name="newFoodFats"/>
                                 <div class="validate"></div>
                             </div>
                             <div class="form-group col-md-11">
@@ -80,7 +80,7 @@
                                 <input class="form-control"
                                        data-msg="Enter a valid last name"
                                        data-rule="lastnameexp" id="carbohydrates"
-                                       th:field="*{carbohydrates}"/>
+                                       name="newFoodCarbohydrates"/>
                                 <div class="validate"></div>
                             </div>
                         </div>

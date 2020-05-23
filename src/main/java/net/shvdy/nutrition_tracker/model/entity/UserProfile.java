@@ -3,7 +3,7 @@ package net.shvdy.nutrition_tracker.model.entity;
 
 import java.util.List;
 
-public class UserProfile implements Entity {
+public class UserProfile {
 
 	User user;
 	private Long profileId;

@@ -9,7 +9,7 @@ import java.util.List;
  * @version 1.0
  */
 
-public class DailyRecord implements Entity {
+public class DailyRecord {
 
 //	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long recordId;
