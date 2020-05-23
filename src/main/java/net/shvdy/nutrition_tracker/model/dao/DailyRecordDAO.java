@@ -9,4 +9,6 @@ import java.util.Optional;
 public interface DailyRecordDAO extends GenericDAO<DailyRecord> {
 
 	Optional<DailyRecord> findByRecordDate(String recordDate) throws SQLException;
+
+	void save (DailyRecord dailyRecord) throws SQLException;
 }

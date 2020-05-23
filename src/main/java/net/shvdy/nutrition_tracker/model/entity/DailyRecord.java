@@ -11,31 +11,22 @@ import java.util.List;
 
 public class DailyRecord implements Entity {
 
-//	@Id
 //	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-//	@Column(name = "record_id")
 	private Long recordId;
-
-//	@NotNull
-//	@Column(name = "record_date")
 	private String recordDate;
+	Long userProfileId;
 	private int dailyCaloriesNorm;
-
-//	@ManyToOne
-//	@JoinColumn(name = "profile_id")
-	UserProfile userProfile;
-//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "dailyRecord", cascade = CascadeType.ALL)
 	private List<DailyRecordEntry> entries;
 
 	public DailyRecord() {
 	}
 
-	public DailyRecord(Long recordId, String recordDate, int dailyCaloriesNorm,
-					   UserProfile userProfile, List<DailyRecordEntry> entries) {
+	public DailyRecord(Long recordId, String recordDate, int dailyCaloriesNorm,Long userProfileId,
+					   List<DailyRecordEntry> entries) {
 		this.recordId = recordId;
 		this.recordDate = recordDate;
 		this.dailyCaloriesNorm = dailyCaloriesNorm;
-		this.userProfile = userProfile;
+		this.userProfileId = userProfileId;
 		this.entries = entries;
 	}
 
@@ -67,12 +58,12 @@ public class DailyRecord implements Entity {
 		this.dailyCaloriesNorm = dailyCaloriesNorm;
 	}
 
-	public UserProfile getUserProfile() {
-		return userProfile;
+	public Long getUserProfileId() {
+		return userProfileId;
 	}
 
-	public void setUserProfile(UserProfile userProfile) {
-		this.userProfile = userProfile;
+	public void setUserProfileId(Long userProfileId) {
+		this.userProfileId = userProfileId;
 	}
 
 	public List<DailyRecordEntry> getEntries() {
@@ -83,22 +74,12 @@ public class DailyRecord implements Entity {
 		this.entries = entries;
 	}
 
-	public String toString() {
-		return "DailyRecord{" +
-				"recordId=" + recordId +
-				", recordDate='" + recordDate + '\'' +
-//				", course='" + course + '\'' +
-//				", room=" + room +
-				//", students=" + students +
-				'}';
-	}
-
 	public static class DailyRecordBuilder {
 
 		private Long recordId;
 		private String recordDate;
 		private int dailyCaloriesNorm;
-		UserProfile userProfile;
+		Long userProfileId;
 		private List<DailyRecordEntry> entries;
 
 		DailyRecordBuilder(){
@@ -119,8 +100,8 @@ public class DailyRecord implements Entity {
 			return this;
 		}
 
-		public DailyRecordBuilder userProfile(UserProfile userProfile) {
-			this.userProfile = userProfile;
+		public DailyRecordBuilder userProfileId(Long userProfileId) {
+			this.userProfileId = userProfileId;
 			return this;
 		}
 
@@ -131,7 +112,7 @@ public class DailyRecord implements Entity {
 
 		public DailyRecord build() {
 			return new DailyRecord(this.recordId, this.recordDate,
-					this.dailyCaloriesNorm, this.userProfile, this.entries);
+					this.dailyCaloriesNorm, this.userProfileId, this.entries);
 		}
 	}
 }

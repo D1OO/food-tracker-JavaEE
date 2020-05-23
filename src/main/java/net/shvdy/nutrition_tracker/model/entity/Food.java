@@ -1,5 +1,8 @@
 package net.shvdy.nutrition_tracker.model.entity;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 /**
  * 20.05.2020
  *
@@ -87,19 +90,30 @@ public class Food implements Entity {
 		this.carbohydrates = carbohydrates;
 	}
 
+	@Override
 	public String toString() {
-		return "DailyRecordEntry{" +
-				"foodId=" + foodId +
-				", name='" + name + '\'' +
-				", calories=" + calories +
-				", proteins=" + proteins +
-				", fats=" + fats +
-				", carbohydrates=" + carbohydrates +
-//				", course='" + course + '\'' +
-//				", room=" + room +
-//				", students=" + students +
-				'}';
+		//Jackson (Java object to JSON String mapping)
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			return mapper.writeValueAsString(this);
+		} catch (JsonProcessingException e) {
+			return "";
+		}
 	}
+
+//	public String toString() {
+//		return "Food{" +
+//				"foodId=" + foodId +
+//				", name='" + name + '\'' +
+//				", calories=" + calories +
+//				", proteins=" + proteins +
+//				", fats=" + fats +
+//				", carbohydrates=" + carbohydrates +
+////				", course='" + course + '\'' +
+////				", room=" + room +
+////				", students=" + students +
+//				'}';
+//	}
 
 	public static class FoodBuilder {
 		private Long foodId;

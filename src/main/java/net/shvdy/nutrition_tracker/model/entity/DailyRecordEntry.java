@@ -9,31 +9,17 @@ package net.shvdy.nutrition_tracker.model.entity;
 
 public class DailyRecordEntry implements Entity {
 
-	//	@Id
-//	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-//	@Column(name = "entry_id")
 	private Long entryId;
-
-	//	@NotNull
-//	@ManyToOne
-//	@JoinColumn(name = "food_id")
-	private Food food;
-
-	//	@NotNull
 	private int quantity;
-
-	//	@ManyToOne(cascade = CascadeType.ALL, optional = false)
-//	@JoinColumn(name = "record_id", insertable = true)
-	private DailyRecord dailyRecord;
+	private Food food;
 
 	public DailyRecordEntry() {
 	}
 
-	public DailyRecordEntry(Long entryId, int quantity, Food food, DailyRecord dailyRecord) {
+	public DailyRecordEntry(Long entryId, int quantity, Food food) {
 		this.entryId = entryId;
 		this.food = food;
 		this.quantity = quantity;
-		this.dailyRecord = dailyRecord;
 	}
 
 	public static DailyRecordEntryBuilder builder() {
@@ -64,31 +50,11 @@ public class DailyRecordEntry implements Entity {
 		this.quantity = quantity;
 	}
 
-	public DailyRecord getDailyRecord() {
-		return dailyRecord;
-	}
-
-	public void setDailyRecord(DailyRecord dailyRecord) {
-		this.dailyRecord = dailyRecord;
-	}
-
-	public String toString() {
-		return "DailyRecordEntry{" +
-				"recordId=" + entryId +
-				", food='" + food + '\'' +
-				", quantity='" + quantity + '\'' +
-//				", course='" + course + '\'' +
-//				", room=" + room +
-				//", students=" + students +
-				'}';
-	}
-
 	public static class DailyRecordEntryBuilder {
 
 		private Long entryId;
 		private Food food;
 		private int quantity;
-		private DailyRecord dailyRecord;
 
 		DailyRecordEntryBuilder() {
 		}
@@ -108,13 +74,8 @@ public class DailyRecordEntry implements Entity {
 			return this;
 		}
 
-		public DailyRecordEntryBuilder dailyRecord(DailyRecord dailyRecord) {
-			this.dailyRecord = dailyRecord;
-			return this;
-		}
-
 		public DailyRecordEntry build() {
-			return new DailyRecordEntry(this.entryId, this.quantity, this.food, this.dailyRecord);
+			return new DailyRecordEntry(this.entryId, this.quantity, this.food);
 		}
 
 	}

@@ -1,8 +1,10 @@
 package net.shvdy.nutrition_tracker.controller.command;
 
-import net.shvdy.nutrition_tracker.controller.command.user.CompleteProfileToProceedCommand;
-import net.shvdy.nutrition_tracker.controller.command.user.FoodDiaryCommand;
-import net.shvdy.nutrition_tracker.controller.command.user.ProfileCommand;
+import net.shvdy.nutrition_tracker.controller.command.user.*;
+import net.shvdy.nutrition_tracker.controller.command.user.add_entries_window.AddEntriesModalWindowCommand;
+import net.shvdy.nutrition_tracker.controller.command.user.add_entries_window.AddedEntryCommand;
+import net.shvdy.nutrition_tracker.controller.command.user.add_entries_window.RemovedEntryCommand;
+import net.shvdy.nutrition_tracker.controller.command.user.add_entries_window.SaveCommand;
 import net.shvdy.nutrition_tracker.model.entity.Role;
 import net.shvdy.nutrition_tracker.model.service.DailyRecordService;
 import net.shvdy.nutrition_tracker.model.service.UserService;
@@ -40,10 +42,21 @@ public enum CommandEnum {
 			Set.of(Role.USER)),
 	PROFILE(
 			new ProfileCommand(), "/profile",
-			Set.of(Role.USER)
-	),
+			Set.of(Role.USER)),
 	FOOD_DIARY_PAGE(
 			new FoodDiaryCommand(), "/food-diary",
+			Set.of(Role.ADMIN, Role.USER)),
+	FOOD_MODAL_WINDOW(
+			new AddEntriesModalWindowCommand(), "/adding-entries-modal-window",
+			Set.of(Role.ADMIN, Role.USER)),
+	NEW_ENTRY_RESPONSE(
+			new AddedEntryCommand(), "/added-entry",
+			Set.of(Role.ADMIN, Role.USER)),
+	REMOVED_ENTRY_RESPONSE(
+			new RemovedEntryCommand(), "/removed-entry",
+			Set.of(Role.ADMIN, Role.USER)),
+	SAVE_NEW_ENTRIES(
+			new SaveCommand(), "/save-new-entries",
 			Set.of(Role.ADMIN, Role.USER));
 
 	private final ActionCommand actionCommand;

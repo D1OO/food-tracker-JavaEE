@@ -2,6 +2,8 @@ package net.shvdy.nutrition_tracker.controller.command.user;
 
 import net.shvdy.nutrition_tracker.controller.command.ActionCommand;
 import net.shvdy.nutrition_tracker.controller.command.CommandEnum;
+import net.shvdy.nutrition_tracker.dto.DailyRecordDTO;
+import net.shvdy.nutrition_tracker.model.entity.Food;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
@@ -25,6 +27,7 @@ public class FoodDiaryCommand implements ActionCommand {
 					List.of(CommandEnum.getDailyRecordService().findByDate("2020-03-30",
 							Locale.forLanguageTag((String)request.getSession().getAttribute("lang")))));
 		} catch (SQLException e) {
+			System.out.println(e.getMessage());
 			return "/view/user/server-error.jsp";
 		}
 		request.getSession().getServletContext().setAttribute("lastDate", "lastdate");

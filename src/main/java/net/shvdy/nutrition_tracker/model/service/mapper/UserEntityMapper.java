@@ -12,6 +12,7 @@ public class UserEntityMapper {
 				.role(user.getRole())
 				.firstName(user.getUserProfile().getFirstName())
 				.lastName(user.getUserProfile().getLastName())
+				.userFood(user.getUserProfile().getUserFood())
 				.build();
 	}
 

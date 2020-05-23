@@ -57,14 +57,13 @@
                                     <td>${rec.totalCalories}</td>
                                 </tr>
                                 <c:forEach var="entry" items="${rec.entries}">
-                                    <tr>${entry.food.fats * entry.quantity/100+(1-(entry.food.fats * entry.quantity/100%1))%1}
+                                    <tr>
                                         <td style="text-align: right; width: 100px">${entry.food.name}</td>
                                         <td style=" vertical-align: middle; text-align: left; color: #747478; font-size: 0.7em">${entry.quantity}g</td>
-                                        <td style="text-align: right; width: 100px">${entry.food.fats * entry.quantity/100+(1-(entry.food.fats * entry.quantity/100%1))%1}</td>
-<%--                                        <td>${entry.food.fats * entry.quantity/100}</td>--%>
-                                        <td>${entry.food.carbohydrates * entry.quantity/100}</td>
-                                        <td>${entry.food.proteins * entry.quantity/100}</td>
-                                        <td style="background: #e2bfaf   ;font-weight: bold">${entry.food.calories * entry.quantity/100}</td>
+                                        <td style="text-align: right; width: 100px">${entry.entryFats}</td>
+                                        <td>${entry.entryCarbs}</td>
+                                        <td>${entry.entryProt}</td>
+                                        <td style="background: #e2bfaf   ;font-weight: bold">${entry.entryCalories}</td>
                                     </tr>
                                 </c:forEach>
                                 </tbody>
@@ -89,7 +88,7 @@
                 </form>
                 <button class="pretty-button" style="width: 12em; "
                         onclick="openAddFoodModalWindow('.data-food-modal-window' + ${loop.index})">
-                    <fmt:message key="user.empy-list"/>
+                    <fmt:message key="add-new"/>
                 </button>
             </div>
         </div>

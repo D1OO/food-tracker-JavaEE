@@ -25,7 +25,7 @@ public class DailyRecordEntityMapper {
 				.recordId(dailyRecord.getRecordId())
 				.recordDate(dailyRecord.getRecordDate())
 				.dailyCaloriesNorm(dailyRecord.getDailyCaloriesNorm())
-//				.userProfile(dailyRecord.getUserProfile())
+				.userProfileId(dailyRecord.getUserProfileId())
 				.entries(mapEntries(dailyRecord.getEntries()))
 				.percentage(getPercentage(dailyRecord.getEntries(), dailyRecord.getDailyCaloriesNorm()))
 				.totalCalories(getTotalCalories(dailyRecord.getEntries()))
@@ -38,10 +38,8 @@ public class DailyRecordEntityMapper {
 
 	private List<DailyRecordEntryDTO> mapEntries(List<DailyRecordEntry> entries) {
 		return entries.stream().map(entry -> DailyRecordEntryDTO.builder()
-				.entryId(entry.getEntryId())
 				.food(entry.getFood())
 				.quantity(entry.getQuantity())
-				.dailyRecord(entry.getDailyRecord())
 				.entryCalories(entry.getFood().getCalories() * entry.getQuantity() / 100)
 				.entryProt(entry.getFood().getProteins() * entry.getQuantity() / 100)
 				.entryFats(entry.getFood().getFats() * entry.getQuantity() / 100)

@@ -17,6 +17,7 @@ class CommandUtility {
 		context.setAttribute("userFirstName", user.getFirstName());
 		context.setAttribute("userLastName", user.getLastName());
 		session.setAttribute("role", user.getRole());
+		session.setAttribute("userFood", user.getUserFood());
 	}
 
 	static boolean checkIsLoginNotFresh(HttpServletRequest request, Long id) {

@@ -3,12 +3,10 @@ package net.shvdy.nutrition_tracker.model.dao.impl;
 import net.shvdy.nutrition_tracker.model.dao.DailyRecordDAO;
 import net.shvdy.nutrition_tracker.model.dao.mapper.ResultSetMapper;
 import net.shvdy.nutrition_tracker.model.entity.DailyRecord;
+import net.shvdy.nutrition_tracker.model.entity.DailyRecordEntry;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.Optional;
 import java.util.Properties;
 
@@ -30,33 +28,20 @@ public class JDBCDailyRecordDAO implements DailyRecordDAO {
 		this.queries = queries;
 	}
 
-	@Override
-	public void create(DailyRecord dailyRecord) throws SQLException {
-		try (Connection connection = dataSource.getConnection();
-			 PreparedStatement insertUserStatement = connection
-					 .prepareStatement(queries.getProperty("userdao.INSERT_DAILY_RECORD_SQL"));
-			 PreparedStatement insertUserProfileStatement = connection
-					 .prepareStatement(queries.getProperty("userdao.INSERT_USER_PROFILE_SQL"))) {
-
-//			connection.setAutoCommit(false);
+//	@Override
+//	public void create(DailyRecord dailyRecord) throws SQLException {
+//		try (Connection connection = dataSource.getConnection();
+//			 PreparedStatement insertUserStatement = connection
+//					 .prepareStatement(queries.getProperty("userdao.INSERT_DAILY_RECORD_SQL"));
+//			 PreparedStatement insertUserProfileStatement = connection
+//					 .prepareStatement(queries.getProperty("userdao.INSERT_USER_PROFILE_SQL"))) {
 //
-//			insertUserStatement.setString(1, user.getUsername());
-//			insertUserStatement.setString(2, user.getPassword());
-//			insertUserStatement.setBoolean(3, true);
-//			insertUserStatement.setBoolean(4, true);
-//			insertUserStatement.setBoolean(5, true);
-//			insertUserStatement.setBoolean(6, true);
-//			insertUserStatement.setString(7, user.getRole().name());
-//			insertUserStatement.executeUpdate();
-
-//			insertUserProfileStatement.setLong(1, user.getId());
-//			insertUserProfileStatement.setString(2, user.getUserProfile().getFirstName());
-//			insertUserProfileStatement.setString(3, user.getUserProfile().getLastName());
-			insertUserProfileStatement.executeUpdate();
-
-			connection.commit();
-		}
-	}
+////
+//			insertUserProfileStatement.executeUpdate();
+//
+//			connection.commit();
+//		}
+//	}
 
 	public Optional<DailyRecord> findByRecordDate(String recordDate) throws SQLException {
 		try (Connection connection = dataSource.getConnection();
@@ -72,5 +57,44 @@ public class JDBCDailyRecordDAO implements DailyRecordDAO {
 			}
 		}
 		return Optional.empty();
+	}
+
+	public void save(DailyRecord dailyRecord) throws SQLException {
+		try (Connection connection = dataSource.getConnection();
+			 PreparedStatement insertDailyRecordStatement = connection
+					 .prepareStatement(queries.getProperty("daily_record_dao.INSERT_DAILY_RECORD_SQL"));
+			 PreparedStatement insertEntriesStatement = connection
+					 .prepareStatement(queries.getProperty("daily_record_dao.INSERT_ENTRIES_SQL"))) {
+
+			connection.setAutoCommit(false);
+
+			insertDailyRecordStatement.setLong(1, dailyRecord.getRecordId());
+			insertDailyRecordStatement.setLong(2, dailyRecord.getUserProfileId());
+			insertDailyRecordStatement.setString(3, dailyRecord.getRecordDate());
+			insertDailyRecordStatement.setInt(4, dailyRecord.getDailyCaloriesNorm());
+
+			for (DailyRecordEntry entry : dailyRecord.getEntries()) {
+				insertEntriesStatement.setLong(1, entry.getFood().getFoodId());
+				insertEntriesStatement.setLong(2, dailyRecord.getRecordId());
+				insertEntriesStatement.setInt(3, entry.getQuantity());
+				try {
+					insertEntriesStatement.setLong(4, entry.getEntryId());
+				} catch (NullPointerException e) {
+					insertEntriesStatement.setNull(4, Types.BIGINT);
+				}
+
+				insertEntriesStatement.addBatch();
+			}
+
+			insertDailyRecordStatement.executeUpdate();
+			insertEntriesStatement.executeBatch();
+
+			connection.commit();
+		}
+	}
+
+	@Override
+	public void create(DailyRecord entity) throws SQLException {
+
 	}
 }

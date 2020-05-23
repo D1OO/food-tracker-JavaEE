@@ -1,6 +1,8 @@
 package net.shvdy.nutrition_tracker.model.entity;
 
 
+import java.util.List;
+
 public class UserProfile implements Entity {
 
 	User user;
@@ -12,12 +14,13 @@ public class UserProfile implements Entity {
 	private int age;
 	private int height;
 	private int weight;
+	private List<Food> userFood;
 
 	public UserProfile() {
 	}
 
 	public UserProfile(User user, Long profileId, String firstNameUa, String lastName, String firstName,
-					   Lifestyle lifestyle, int age, int height, int weight) {
+					   Lifestyle lifestyle, int age, int height, int weight, List<Food> userFood) {
 		this.user = user;
 		this.profileId = profileId;
 		this.firstNameUa = firstNameUa;
@@ -27,6 +30,7 @@ public class UserProfile implements Entity {
 		this.age = age;
 		this.height = height;
 		this.weight = weight;
+		this.userFood = userFood;
 	}
 
 	public static UserProfileBuilder builder() {
@@ -105,6 +109,14 @@ public class UserProfile implements Entity {
 		this.weight = weight;
 	}
 
+	public List<Food> getUserFood() {
+		return userFood;
+	}
+
+	public void setUserFood(List<Food> userFood) {
+		this.userFood = userFood;
+	}
+
 	public enum Lifestyle {
 		SEDENTARY(1.2f),
 		LIGHTLY_ACTIVE(1.375f),
@@ -133,6 +145,7 @@ public class UserProfile implements Entity {
 		private int age;
 		private int height;
 		private int weight;
+		private List<Food> userFood;
 
 		UserProfileBuilder(){
 		}
@@ -182,9 +195,14 @@ public class UserProfile implements Entity {
 			return this;
 		}
 
+		public UserProfileBuilder userFood(List<Food> userFood) {
+			this.userFood = userFood;
+			return this;
+		}
+
 		public UserProfile build(){
 			return new UserProfile(this.user, this.profileId, this.firstNameUa, this.lastName, this.firstName,
-					this.lifestyle, this.age, this.height, this.weight);
+					this.lifestyle, this.age, this.height, this.weight, this.userFood);
 		}
 	}
 

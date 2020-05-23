@@ -7,7 +7,10 @@
  жиры, углеволы). Если Клиент привысил дневную норму, система сообщит ему об этом и напишет, на сколько была превышена Норма.
  Норму брать из параметров Клиент (возраст, рост, вес, образ жизни и т.д.).
  
-  ### Copy the repository and run 
+  ### Copy the repository
+   remove module-info.class from lib/jackson-core-.10.3.jar
+   
+   and run 
  ```
     mvn tomcat7:run-war -f pom.xml
  ```

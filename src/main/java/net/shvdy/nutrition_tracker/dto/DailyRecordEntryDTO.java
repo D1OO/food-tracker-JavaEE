@@ -1,8 +1,7 @@
 package net.shvdy.nutrition_tracker.dto;
 
-import net.shvdy.nutrition_tracker.model.entity.DailyRecord;
-import net.shvdy.nutrition_tracker.model.entity.DailyRecordEntry;
-import net.shvdy.nutrition_tracker.model.entity.Entity;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import net.shvdy.nutrition_tracker.model.entity.Food;
 
 /**
@@ -12,12 +11,10 @@ import net.shvdy.nutrition_tracker.model.entity.Food;
  * @version 1.0
  */
 public class DailyRecordEntryDTO {
-
-	private Long entryId;
 	private Food food;
 	private int quantity;
-	private DailyRecord dailyRecord;
-
+	private String foodDTOJSON;
+	private String foodName;
 	private int entryCalories;
 	private int entryCarbs;
 	private int entryFats;
@@ -26,12 +23,11 @@ public class DailyRecordEntryDTO {
 	public DailyRecordEntryDTO() {
 	}
 
-	public DailyRecordEntryDTO(Long entryId, Food food, int quantity, DailyRecord dailyRecord,
-							   int entryCalories, int entryCarbs, int entryFats, int entryProt) {
-		this.entryId = entryId;
+	public DailyRecordEntryDTO(Food food, int quantity, String foodDTOJSON, int entryCalories,
+							   int entryCarbs, int entryFats, int entryProt) {
 		this.food = food;
 		this.quantity = quantity;
-		this.dailyRecord = dailyRecord;
+		this.foodDTOJSON = foodDTOJSON;
 		this.entryCalories = entryCalories;
 		this.entryCarbs = entryCarbs;
 		this.entryFats = entryFats;
@@ -40,14 +36,6 @@ public class DailyRecordEntryDTO {
 
 	public static DailyRecordEntryDTOBuilder builder() {
 		return new DailyRecordEntryDTOBuilder();
-	}
-
-	public Long getEntryId() {
-		return entryId;
-	}
-
-	public void setEntryId(Long entryId) {
-		this.entryId = entryId;
 	}
 
 	public Food getFood() {
@@ -64,14 +52,6 @@ public class DailyRecordEntryDTO {
 
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
-	}
-
-	public DailyRecord getDailyRecord() {
-		return dailyRecord;
-	}
-
-	public void setDailyRecord(DailyRecord dailyRecord) {
-		this.dailyRecord = dailyRecord;
 	}
 
 	public int getEntryCalories() {
@@ -106,23 +86,37 @@ public class DailyRecordEntryDTO {
 		this.entryProt = entryProt;
 	}
 
-	public String toString() {
-		return "DailyRecordEntry{" +
-				"recordId=" + entryId +
-				", food='" + food + '\'' +
-				", quantity='" + quantity + '\'' +
-//				", course='" + course + '\'' +
-//				", room=" + room +
-				//", students=" + students +
-				'}';
+	public String getFoodDTOJSON() {
+		return foodDTOJSON;
 	}
 
-	public static class DailyRecordEntryDTOBuilder {
+	public void setFoodDTOJSON(String foodDTOJSON) {
+		this.foodDTOJSON = foodDTOJSON;
+	}
 
-		private Long entryId;
+	public String getFoodName() {
+		return foodName;
+	}
+
+	public void setFoodName(String foodName) {
+		this.foodName = foodName;
+	}
+
+	public String toString() {
+		//Jackson (Java object to JSON String mapping)
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			return mapper.writeValueAsString(this);
+		} catch (JsonProcessingException e) {
+			return "";
+		}
+	}
+
+	public static final class DailyRecordEntryDTOBuilder {
 		private Food food;
 		private int quantity;
-		private DailyRecord dailyRecord;
+		private String foodDTOJSON;
+		private String foodName;
 		private int entryCalories;
 		private int entryCarbs;
 		private int entryFats;
@@ -131,8 +125,8 @@ public class DailyRecordEntryDTO {
 		private DailyRecordEntryDTOBuilder() {
 		}
 
-		public DailyRecordEntryDTOBuilder entryId(Long entryId) {
-			this.entryId = entryId;
+		public DailyRecordEntryDTOBuilder food(Food food) {
+			this.food = food;
 			return this;
 		}
 
@@ -141,13 +135,8 @@ public class DailyRecordEntryDTO {
 			return this;
 		}
 
-		public DailyRecordEntryDTOBuilder food(Food food) {
-			this.food = food;
-			return this;
-		}
-
-		public DailyRecordEntryDTOBuilder dailyRecord(DailyRecord dailyRecord) {
-			this.dailyRecord = dailyRecord;
+		public DailyRecordEntryDTOBuilder foodDTOJSON(String foodDTOJSON) {
+			this.foodDTOJSON = foodDTOJSON;
 			return this;
 		}
 
@@ -171,11 +160,23 @@ public class DailyRecordEntryDTO {
 			return this;
 		}
 
-		public DailyRecordEntryDTO build() {
-			return new DailyRecordEntryDTO(this.entryId, this.food, this.quantity,  this.dailyRecord, this.entryCalories,
-					this.entryCarbs, this.entryFats, this.entryProt);
+		public DailyRecordEntryDTOBuilder foodName(String foodName) {
+			this.foodName = foodName;
+			return this;
 		}
 
+		public DailyRecordEntryDTO build() {
+			DailyRecordEntryDTO dailyRecordEntryDTO = new DailyRecordEntryDTO();
+			dailyRecordEntryDTO.setFood(food);
+			dailyRecordEntryDTO.setQuantity(quantity);
+			dailyRecordEntryDTO.setFoodDTOJSON(foodDTOJSON);
+			dailyRecordEntryDTO.setEntryCalories(entryCalories);
+			dailyRecordEntryDTO.setEntryCarbs(entryCarbs);
+			dailyRecordEntryDTO.setEntryFats(entryFats);
+			dailyRecordEntryDTO.setEntryProt(entryProt);
+			dailyRecordEntryDTO.setFoodName(foodName);
+			return dailyRecordEntryDTO;
+		}
 	}
 
 }

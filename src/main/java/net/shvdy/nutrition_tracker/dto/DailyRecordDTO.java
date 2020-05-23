@@ -1,9 +1,5 @@
 package net.shvdy.nutrition_tracker.dto;
 
-import net.shvdy.nutrition_tracker.model.entity.DailyRecordEntry;
-
-import java.time.LocalDate;
-import java.time.format.TextStyle;
 import java.util.List;
 
 /**
@@ -17,7 +13,7 @@ public class DailyRecordDTO {
 	private Long recordId;
 	private String recordDate;
 	private int dailyCaloriesNorm;
-	//	UserProfile userProfile;
+	Long userProfileId;
 	private List<DailyRecordEntryDTO> entries;
 	private int totalCalories;
 	private int percentage;
@@ -26,12 +22,13 @@ public class DailyRecordDTO {
 	private int totalFats;
 	private String dateHeader;
 
-	public DailyRecordDTO(Long recordId, String recordDate, int dailyCaloriesNorm,
+	public DailyRecordDTO(Long recordId, String recordDate, int dailyCaloriesNorm, Long userProfileId,
 						  List<DailyRecordEntryDTO> entries, int totalCalories, int percentage, int totalCarbs,
 						  int totalProt, int totalFats, String dateHeader) {
 		this.recordId = recordId;
 		this.recordDate = recordDate;
 		this.dailyCaloriesNorm = dailyCaloriesNorm;
+		this.userProfileId = userProfileId;
 		this.entries = entries;
 		this.totalCalories = totalCalories;
 		this.percentage = percentage;
@@ -69,13 +66,13 @@ public class DailyRecordDTO {
 		this.dailyCaloriesNorm = dailyCaloriesNorm;
 	}
 
-//	public UserProfile getUserProfile() {
-//		return userProfile;
-//	}
-//
-//	public void setUserProfile(UserProfile userProfile) {
-//		this.userProfile = userProfile;
-//	}
+	public Long getUserProfileId() {
+		return userProfileId;
+	}
+
+	public void setUserProfileId(Long userProfileId) {
+		this.userProfileId = userProfileId;
+	}
 
 	public List<DailyRecordEntryDTO> getEntries() {
 		return entries;
@@ -141,7 +138,7 @@ public class DailyRecordDTO {
 		private Long recordId;
 		private String recordDate;
 		private int dailyCaloriesNorm;
-		//		UserProfile userProfile;
+		private Long userProfileId;
 		private List<DailyRecordEntryDTO> entries;
 		private int totalCalories;
 		private int percentage;
@@ -169,10 +166,10 @@ public class DailyRecordDTO {
 			return this;
 		}
 
-//		public DailyRecordDTOBuilder userProfile(UserProfile userProfile) {
-//			this.userProfile = userProfile;
-//			return this;
-//		}
+		public DailyRecordDTOBuilder userProfileId( Long userProfileId) {
+			this.userProfileId = userProfileId;
+			return this;
+		}
 
 		public DailyRecordDTOBuilder entries(List<DailyRecordEntryDTO> entries) {
 			this.entries = entries;
@@ -210,7 +207,7 @@ public class DailyRecordDTO {
 		}
 
 		public DailyRecordDTO build() {
-			return new DailyRecordDTO(this.recordId, this.recordDate, this.dailyCaloriesNorm, this.entries,
+			return new DailyRecordDTO(this.recordId, this.recordDate, this.dailyCaloriesNorm, this.userProfileId, this.entries,
 					this.totalCalories, this.percentage, this.totalCarbs, this.totalProt, this.totalFats, this.dateHeader);
 		}
 	}

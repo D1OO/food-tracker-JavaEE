@@ -2,7 +2,10 @@ package net.shvdy.nutrition_tracker.model.dao.mapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
+import net.shvdy.nutrition_tracker.model.entity.Food;
 import net.shvdy.nutrition_tracker.model.entity.Role;
 import net.shvdy.nutrition_tracker.model.entity.User;
 import net.shvdy.nutrition_tracker.model.entity.UserProfile;
@@ -23,7 +26,30 @@ public class UserMapper implements ResultSetMapper<User> {
 				.userProfile(UserProfile.builder()
 						.profileId(resultSet.getLong("profile_id"))
 						.firstName(resultSet.getString("first_name"))
-						.lastName(resultSet.getString("last_name")).build())
+						.lastName(resultSet.getString("last_name"))
+						.userFood(setFood(resultSet)).build())
+				.build();
+	}
+
+	private List<Food> setFood(ResultSet rs) throws SQLException {
+		List<Food> userFood = new ArrayList<>();
+
+		userFood.add(extractFoodFromResultSet(rs));
+		while (rs.next()){
+			userFood.add(extractFoodFromResultSet(rs));
+		}
+
+		return userFood;
+	}
+
+	private Food extractFoodFromResultSet(ResultSet rs) throws SQLException {
+		return Food.builder()
+				.food_id(rs.getLong("food_id"))
+				.name(rs.getString("name"))
+				.calories(rs.getInt("calories"))
+				.carbohydrates(rs.getInt("carbohydrates"))
+				.proteins(rs.getInt("proteins"))
+				.fats(rs.getInt("fats"))
 				.build();
 	}
 }

@@ -26,20 +26,19 @@ public class DailyRecordMapper implements ResultSetMapper<DailyRecord> {
 				.build();
 
 		ArrayList<DailyRecordEntry> dailyRecordEntries = new ArrayList<>();
-		dailyRecordEntries.add(extractFromResultSet(resultSet, dailyRecord));
+		dailyRecordEntries.add(extractFromResultSet(resultSet));
 		while (resultSet.next()){
-			dailyRecordEntries.add(extractFromResultSet(resultSet, dailyRecord));
+			dailyRecordEntries.add(extractFromResultSet(resultSet));
 		}
 		dailyRecord.setEntries(dailyRecordEntries);
 
 		return dailyRecord;
 	}
 
-	private DailyRecordEntry extractFromResultSet(ResultSet resultSet, DailyRecord dailyRecord) throws SQLException {
+	private DailyRecordEntry extractFromResultSet(ResultSet resultSet) throws SQLException {
 		return DailyRecordEntry.builder()
 				.entryId(resultSet.getLong("entry_id"))
 				.quantity(resultSet.getInt("quantity"))
-				.dailyRecord(dailyRecord)
 				.food(Food.builder()
 						.food_id(resultSet.getLong("food_id"))
 						.name(resultSet.getString("name"))
