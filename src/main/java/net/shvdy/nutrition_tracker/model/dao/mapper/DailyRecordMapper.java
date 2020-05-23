@@ -20,6 +20,7 @@ public class DailyRecordMapper implements ResultSetMapper<DailyRecord> {
 	public DailyRecord map(ResultSet resultSet) throws SQLException {
 
 		DailyRecord dailyRecord = DailyRecord.builder()
+				.userProfileId(resultSet.getLong("profile_id"))
 				.recordId(resultSet.getLong("record_id"))
 				.recordDate(resultSet.getString("record_date"))
 				.dailyCaloriesNorm(resultSet.getInt("daily_calories_norm"))

@@ -1,11 +1,12 @@
 $(document).ready(function () {
     setContentContainerTo('/food-diary');
-    $('.recordTab').css("background", "#e2dbff");
     window.onclick = function (event) {
         if (event.target === $('#modal-window')) {
             $('modal-window').style.display = "none";
         }
     };
+
+    $()
 });
 
 function setContentContainerTo(controllerEndpoint) {
@@ -28,15 +29,6 @@ function openAddFoodModalWindow(recordtab) {
     });
 }
 
-function refreshModalWindow(html) {
-
-    let data = $(recordtab).serialize();
-    $.get('/adding-entries-modal-window', data, function (data) {
-        document.getElementById('modal-window').innerHTML = data;
-        $("#modal-window").css("display", "block");
-    });
-}
-
 function replacePageWith(html) {
     let newDoc = document.open("text/html", "replace");
     newDoc.write(html);
@@ -44,8 +36,8 @@ function replacePageWith(html) {
 }
 
 function tabClick(tab) {
-    $('.recordTab').css("background", "#e2dbff");
-    $(event.target).css("background", "linear-gradient(338deg, rgba(213, 95, 147, 0.62) 10%, rgba(233, 232, 148, 0.73) 100%)");
+    $('.recordTab').removeClass("selected-record-button");
+    $(event.target).addClass("selected-record-button");
     $('.record-tabs').css("display", "none");
     $(tab).css("display", "block");
 }

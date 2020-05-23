@@ -4,7 +4,7 @@ import net.shvdy.nutrition_tracker.model.dao.DAOFactory;
 import net.shvdy.nutrition_tracker.model.dao.DailyRecordDAO;
 import net.shvdy.nutrition_tracker.model.dao.FoodDAO;
 import net.shvdy.nutrition_tracker.model.dao.UserDAO;
-import net.shvdy.nutrition_tracker.model.dao.mapper.DailyRecordMapper;
+import net.shvdy.nutrition_tracker.model.dao.mapper.DailyRecordListMapper;
 import net.shvdy.nutrition_tracker.model.dao.mapper.FoodMapper;
 import net.shvdy.nutrition_tracker.model.dao.mapper.UserMapper;
 
@@ -32,7 +32,7 @@ public class JDBCDAOFactory extends DAOFactory {
 
 	@Override
 	public DailyRecordDAO getDailyRecordDAO() {
-		return new JDBCDailyRecordDAO(dataSource, new DailyRecordMapper(), DAO_SQLqueries);
+		return new JDBCDailyRecordDAO(dataSource, new DailyRecordListMapper(), DAO_SQLqueries);
 	}
 
 	@Override

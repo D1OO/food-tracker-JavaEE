@@ -11,17 +11,17 @@ import java.util.List;
 
 public class DailyRecord {
 
-//	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	//	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long recordId;
 	private String recordDate;
-	Long userProfileId;
+	private Long userProfileId;
 	private int dailyCaloriesNorm;
 	private List<DailyRecordEntry> entries;
 
 	public DailyRecord() {
 	}
 
-	public DailyRecord(Long recordId, String recordDate, int dailyCaloriesNorm,Long userProfileId,
+	public DailyRecord(Long recordId, String recordDate, int dailyCaloriesNorm, Long userProfileId,
 					   List<DailyRecordEntry> entries) {
 		this.recordId = recordId;
 		this.recordDate = recordDate;
@@ -30,7 +30,7 @@ public class DailyRecord {
 		this.entries = entries;
 	}
 
-	public static DailyRecordBuilder builder(){
+	public static DailyRecordBuilder builder() {
 		return new DailyRecordBuilder();
 	}
 
@@ -79,10 +79,10 @@ public class DailyRecord {
 		private Long recordId;
 		private String recordDate;
 		private int dailyCaloriesNorm;
-		Long userProfileId;
+		private Long userProfileId;
 		private List<DailyRecordEntry> entries;
 
-		DailyRecordBuilder(){
+		DailyRecordBuilder() {
 		}
 
 		public DailyRecordBuilder recordId(Long recordId) {

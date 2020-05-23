@@ -2,7 +2,6 @@ package net.shvdy.nutrition_tracker.model.service;
 
 import net.shvdy.nutrition_tracker.dto.FoodDTO;
 import net.shvdy.nutrition_tracker.model.dao.FoodDAO;
-import net.shvdy.nutrition_tracker.model.entity.Food;
 import net.shvdy.nutrition_tracker.model.service.mapper.FoodEntityMapper;
 
 import java.sql.SQLException;
@@ -24,7 +23,11 @@ public class FoodService {
 	}
 
 	public Long saveForProfile(FoodDTO foodDTO, Long profileId) throws SQLException {
-		Food newFood = foodMapper.DTOToEntity(foodDTO);
-		return foodDAO.createForProfile(newFood, profileId);
+		return foodDAO.createForProfile(foodMapper.DTOToEntity(foodDTO), profileId);
+	}
+
+	public void getPaginated(String backInTimeFromDate, int quantity) {
+
+
 	}
 }

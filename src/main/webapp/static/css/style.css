@@ -157,12 +157,7 @@ dl, ol, ul {
 .tabs .pretty-button:hover {
     color: #000000;
     text-decoration: none;
-    background: rgba(0, 0, 0, 0);
-}
-
-.tabs .pretty-button:hover {
-    background: rgb(213, 95, 147);
-    background: linear-gradient(338deg, rgba(213, 95, 147, 0.62) 10%, rgba(233, 232, 148, 0.73) 100%);
+    background: rgba(213, 95, 147, 0.62);
 }
 
 .food-diary-container {
@@ -170,10 +165,15 @@ dl, ol, ul {
     background: linear-gradient(338deg, rgba(213, 95, 147, 0.19) 10%, rgba(233, 232, 148, 0.4) 100%);
 }
 
+.recordTab {
+    background: #e2dbff;
+}
+
 .recordTab :hover {
     background: rgb(213, 95, 147);
     background: linear-gradient(338deg, rgba(213, 95, 147, 0.62) 10%, rgba(233, 232, 148, 0.73) 100%);
 }
+
 
 .active-tab-button {
     background: rgb(213, 95, 147);
@@ -183,7 +183,6 @@ dl, ol, ul {
 .nextb:hover {
     background: #afa5af;
 }
-
 
 .formf input {
 
@@ -835,6 +834,14 @@ h6,
     color: #000;
 }
 
+.display-block {
+    display: block;
+}
+
+.display-none {
+    display: none;
+}
+
 @media (max-width: 780px) {
     .custom-navbar > .container {
         padding-right: 0;
@@ -851,6 +858,17 @@ h6,
     color: #000;
     text-decoration: none;
     background: #fdbaba;
+}
+
+.selected-record-button {
+    color: white;
+    background: #2b2234;
+}
+
+.selected-record-button:hover {
+    color: white !important;
+    background: #2b2234 !important;
+    cursor: default;
 }
 
 @font-face {

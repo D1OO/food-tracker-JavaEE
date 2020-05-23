@@ -6,8 +6,11 @@ import net.shvdy.nutrition_tracker.model.entity.DailyRecord;
 import net.shvdy.nutrition_tracker.model.entity.DailyRecordEntry;
 
 import javax.sql.DataSource;
-import java.sql.*;
-import java.util.Optional;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Types;
+import java.util.List;
 import java.util.Properties;
 
 /**
@@ -19,75 +22,58 @@ import java.util.Properties;
 public class JDBCDailyRecordDAO implements DailyRecordDAO {
 
 	private DataSource dataSource;
-	private ResultSetMapper<DailyRecord> resultSetMapper;
+	private ResultSetMapper<List<DailyRecord>> resultSetMapper;
 	private Properties queries;
 
-	public JDBCDailyRecordDAO(DataSource dataSource, ResultSetMapper<DailyRecord> resultSetMapper, Properties queries) {
+	public JDBCDailyRecordDAO(DataSource dataSource, ResultSetMapper<List<DailyRecord>> resultSetMapper,
+							  Properties queries) {
 		this.dataSource = dataSource;
 		this.resultSetMapper = resultSetMapper;
 		this.queries = queries;
 	}
 
-//	@Override
-//	public void create(DailyRecord dailyRecord) throws SQLException {
-//		try (Connection connection = dataSource.getConnection();
-//			 PreparedStatement insertUserStatement = connection
-//					 .prepareStatement(queries.getProperty("userdao.INSERT_DAILY_RECORD_SQL"));
-//			 PreparedStatement insertUserProfileStatement = connection
-//					 .prepareStatement(queries.getProperty("userdao.INSERT_USER_PROFILE_SQL"))) {
-//
-////
-//			insertUserProfileStatement.executeUpdate();
-//
-//			connection.commit();
-//		}
-//	}
-
-	public Optional<DailyRecord> findByRecordDate(String recordDate) throws SQLException {
+	public List<DailyRecord> findFromDateByQuantity(String recordDate, int quantity, Long profileId) throws SQLException {
 		try (Connection connection = dataSource.getConnection();
 			 PreparedStatement statement = connection
-					 .prepareStatement(queries.getProperty("daily_record_dao.SELECT_BY_RECORDDATE_SQL"))) {
+					 .prepareStatement(queries.getProperty("daily_record_dao.SELECT_BY_DATE_AND_QUANTITY"))) {
 
-			statement.setString(1, recordDate);
+			statement.setLong(1, profileId);
+			statement.setString(2, recordDate);
+			statement.setInt(3, quantity);
 
-			try (ResultSet resultSet = statement.executeQuery()) {
-				if (resultSet.next()) {
-					return Optional.of(resultSetMapper.map(resultSet));
-				}
-			}
+			return resultSetMapper.map(statement.executeQuery());
 		}
-		return Optional.empty();
 	}
 
 	public void save(DailyRecord dailyRecord) throws SQLException {
 		try (Connection connection = dataSource.getConnection();
-			 PreparedStatement insertDailyRecordStatement = connection
+			 PreparedStatement insertDailyRecord = connection
 					 .prepareStatement(queries.getProperty("daily_record_dao.INSERT_DAILY_RECORD_SQL"));
-			 PreparedStatement insertEntriesStatement = connection
+			 PreparedStatement insertEntries = connection
 					 .prepareStatement(queries.getProperty("daily_record_dao.INSERT_ENTRIES_SQL"))) {
 
 			connection.setAutoCommit(false);
 
-			insertDailyRecordStatement.setLong(1, dailyRecord.getRecordId());
-			insertDailyRecordStatement.setLong(2, dailyRecord.getUserProfileId());
-			insertDailyRecordStatement.setString(3, dailyRecord.getRecordDate());
-			insertDailyRecordStatement.setInt(4, dailyRecord.getDailyCaloriesNorm());
+			insertDailyRecord.setLong(1, dailyRecord.getRecordId());
+			insertDailyRecord.setLong(2, dailyRecord.getUserProfileId());
+			insertDailyRecord.setString(3, dailyRecord.getRecordDate());
+			insertDailyRecord.setInt(4, dailyRecord.getDailyCaloriesNorm());
 
 			for (DailyRecordEntry entry : dailyRecord.getEntries()) {
-				insertEntriesStatement.setLong(1, entry.getFood().getFoodId());
-				insertEntriesStatement.setLong(2, dailyRecord.getRecordId());
-				insertEntriesStatement.setInt(3, entry.getQuantity());
+				insertEntries.setLong(1, entry.getFood().getFoodId());
+				insertEntries.setLong(2, dailyRecord.getRecordId());
+				insertEntries.setInt(3, entry.getQuantity());
 				try {
-					insertEntriesStatement.setLong(4, entry.getEntryId());
+					insertEntries.setLong(4, entry.getEntryId());
 				} catch (NullPointerException e) {
-					insertEntriesStatement.setNull(4, Types.BIGINT);
+					insertEntries.setNull(4, Types.BIGINT);
 				}
 
-				insertEntriesStatement.addBatch();
+				insertEntries.addBatch();
 			}
 
-			insertDailyRecordStatement.executeUpdate();
-			insertEntriesStatement.executeBatch();
+			insertDailyRecord.executeUpdate();
+			insertEntries.executeBatch();
 
 			connection.commit();
 		}

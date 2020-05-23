@@ -11,10 +11,10 @@
         <h2><fmt:message key="food-diaty"/></h2>
     </div>
     <div class="tabs row d-flex ml-2 mb-3" style="width: 100%">
-        <c:forEach var="rec" items="${data}" varStatus="loop">
+        <c:forEach var="record" items="${paginatedWeeklyRecords}" varStatus="loop">
             <button class="pretty-button m4 recordTab ml-3"
-                    onclick="'tabClick(\'.dailyRecord' + ${loop.index} +'\')'">
-              ${rec.dateHeader}
+                    onclick="tabClick('#dailyRecord${loop.index}')">
+                    ${record.dateHeader}
             </button>
         </c:forEach>
         <button class="pretty-button m4 ml-3 nextb" style="background: rgba(40,0,169,0.36)"
@@ -23,11 +23,12 @@
         </button>
     </div>
 
-    <c:forEach var="rec" items="${data}" varStatus="loop">
-        <div class="record-tabs container m2  flex-grow-1 " style="max-height: available"
-            <%--  th:style="${stat.first ? 'display:block' : 'display:none'}"--%>>
+    <c:forEach var="rec" items="${paginatedWeeklyRecords}" varStatus="loop">
+        <div id="dailyRecord${loop.index}" class="record-tabs container m2  flex-grow-1
+             ${loop.first ? 'display-block' : 'display-none'}" style="max-height: available"
+             data-aos="fade-zoom-in" data-aos-offset="0">
             <c:choose>
-                <c:when test="${profileFilled}">
+                <c:when test="${rec.totalCalories > 0}">
                     <div class="tab-container">
                         <div class="row ml-4 align-items-center">
                             <h4 class="mr-2"><fmt:message key="daily-cals-norm"/></h4>
@@ -48,7 +49,7 @@
 
                                 </thead>
                                 <tbody style="text-align: right">
-                                <tr>
+                                <tr style="background: rgba(42,0,212,0.16)">
                                     <td><fmt:message key="diary.total"/></td>
                                     <td></td>
                                     <td>${rec.totalFats}</td>

@@ -1,20 +1,16 @@
 package net.shvdy.nutrition_tracker.model.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import net.shvdy.nutrition_tracker.dto.DailyRecordDTO;
-import net.shvdy.nutrition_tracker.dto.DailyRecordEntryDTO;
 import net.shvdy.nutrition_tracker.dto.NewEntriesDTO;
 import net.shvdy.nutrition_tracker.model.dao.DailyRecordDAO;
 import net.shvdy.nutrition_tracker.model.entity.DailyRecord;
-import net.shvdy.nutrition_tracker.model.entity.DailyRecordEntry;
-import net.shvdy.nutrition_tracker.model.entity.Food;
 import net.shvdy.nutrition_tracker.model.service.mapper.DailyRecordEntityMapper;
 
-import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
+import java.time.LocalDate;
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * 20.05.2020
@@ -32,41 +28,38 @@ public class DailyRecordService {
 		this.dailyRecordMapper = dailyRecordMapper;
 	}
 
-	public DailyRecordDTO findByDate(String date, Locale locale) throws SQLException {
-		return dailyRecordMapper.entityToDTO(
-				dailyRecordDAO.findByRecordDate(date)
-						.orElse(new DailyRecord()),
-				locale);
-
-//		return userDao.findByUsername(username)
-//				.orElseThrow(() -> new UserNotFoundException(String.format("Username '%s' not found", username)));
+	public List<DailyRecordDTO> findPaginated(Long profileId, String date, int quantity,
+											  Locale currentLocale) throws SQLException {
+		return insertAbsentForLastWeek(date, quantity, profileId, currentLocale,
+				dailyRecordDAO.findFromDateByQuantity(date, quantity, profileId).stream()
+						.map(x -> dailyRecordMapper.entityToDTO(x, currentLocale))
+						.collect(Collectors.toMap(DailyRecordDTO::getRecordDate, Function.identity())));
 	}
 
-	public void saveNewEntries(NewEntriesDTO newEntriesDTO) throws IOException, SQLException {
-		DailyRecord newDailyRecord;
-
-		newDailyRecord = DailyRecord.builder()
+	public void saveNewEntries(NewEntriesDTO newEntriesDTO) throws SQLException, RuntimeException {
+		dailyRecordDAO.save(DailyRecord.builder()
 				.recordId(newEntriesDTO.getRecordId())
 				.recordDate(newEntriesDTO.getRecordDate())
 				.userProfileId(newEntriesDTO.getProfileId())
-				.entries(mapNewEntriesDTO(newEntriesDTO.getEntries()))
-				.build();
-
-		dailyRecordDAO.save(newDailyRecord);
+				.entries(dailyRecordMapper.DTOToEntity(newEntriesDTO.getEntries()))
+				.build());
 	}
 
-	private List<DailyRecordEntry> mapNewEntriesDTO(List<DailyRecordEntryDTO> newEntriesDTO) throws IOException {
-		List<DailyRecordEntry> dailyRecordEntryList = new ArrayList<>();
-		ObjectMapper JsonMapper = new ObjectMapper();
-
-		for (DailyRecordEntryDTO dailyRecordEntryDTO : newEntriesDTO) {
-			System.out.println(dailyRecordEntryDTO.getQuantity());
-			dailyRecordEntryList.add(DailyRecordEntry.builder()
-					.quantity(dailyRecordEntryDTO.getQuantity())
-					.food(JsonMapper.readValue(dailyRecordEntryDTO.getFoodDTOJSON(), Food.class)).build());
+	private List<DailyRecordDTO> insertAbsentForLastWeek(String day, int size, Long profileId, Locale locale,
+														 Map<String, DailyRecordDTO> weeklyRecords) {
+		for (int i = 0; i < size; i++) {
+			String currentDay = LocalDate.parse(day).minusDays(i).toString();
+			weeklyRecords.put(currentDay, DailyRecordDTO.builder()
+					.recordDate(currentDay)
+					.userProfileId(profileId)
+					.dateHeader(dailyRecordMapper.getShortDateHeader(currentDay, locale))
+					.entries(new ArrayList<>())
+					.build());
 		}
 
-		return dailyRecordEntryList;
+		return new ArrayList<>(weeklyRecords.values()).stream()
+				.sorted(Comparator.comparing(DailyRecordDTO::getRecordDate).reversed())
+				.limit(size)
+				.collect(Collectors.toList());
 	}
-
 }

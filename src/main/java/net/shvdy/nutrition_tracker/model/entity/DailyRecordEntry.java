@@ -10,14 +10,16 @@ package net.shvdy.nutrition_tracker.model.entity;
 public class DailyRecordEntry {
 
 	private Long entryId;
+	private Long recordId;
 	private int quantity;
 	private Food food;
 
 	public DailyRecordEntry() {
 	}
 
-	public DailyRecordEntry(Long entryId, int quantity, Food food) {
+	public DailyRecordEntry(Long entryId, Long recordId, int quantity, Food food) {
 		this.entryId = entryId;
+		this.recordId = recordId;
 		this.food = food;
 		this.quantity = quantity;
 	}
@@ -32,6 +34,14 @@ public class DailyRecordEntry {
 
 	public void setEntryId(Long entryId) {
 		this.entryId = entryId;
+	}
+
+	public Long getRecordId() {
+		return recordId;
+	}
+
+	public void setRecordId(Long recordId) {
+		this.recordId = recordId;
 	}
 
 	public Food getFood() {
@@ -53,6 +63,7 @@ public class DailyRecordEntry {
 	public static class DailyRecordEntryBuilder {
 
 		private Long entryId;
+		private Long recordId;
 		private Food food;
 		private int quantity;
 
@@ -61,6 +72,11 @@ public class DailyRecordEntry {
 
 		public DailyRecordEntryBuilder entryId(Long entryId) {
 			this.entryId = entryId;
+			return this;
+		}
+
+		public DailyRecordEntryBuilder recordId(Long recordId) {
+			this.recordId = recordId;
 			return this;
 		}
 
@@ -75,7 +91,7 @@ public class DailyRecordEntry {
 		}
 
 		public DailyRecordEntry build() {
-			return new DailyRecordEntry(this.entryId, this.quantity, this.food);
+			return new DailyRecordEntry(this.entryId, this.recordId, this.quantity, this.food);
 		}
 
 	}

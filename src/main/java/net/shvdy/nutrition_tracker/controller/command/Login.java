@@ -23,11 +23,11 @@ public class Login implements ActionCommand {
 			return "redirect:/login?error";
 		}
 
-		if (CommandUtility.checkIsLoginNotFresh(request, user.getId())) {
+		if (SecurityUtility.checkIsLoginNotFresh(request, user.getId())) {
 			return "redirect:/login?error=session-exists";
 		}
 
-		CommandUtility.setUserInfo(request, user);
+		SecurityUtility.setUserInfo(request, user);
 
 		return CommandEnum.REDIRECT_HOME.getActionCommand().execute(request);
 	}

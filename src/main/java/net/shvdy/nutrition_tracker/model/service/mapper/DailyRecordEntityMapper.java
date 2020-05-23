@@ -1,10 +1,13 @@
 package net.shvdy.nutrition_tracker.model.service.mapper;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import net.shvdy.nutrition_tracker.dto.DailyRecordDTO;
 import net.shvdy.nutrition_tracker.dto.DailyRecordEntryDTO;
 import net.shvdy.nutrition_tracker.model.entity.DailyRecord;
 import net.shvdy.nutrition_tracker.model.entity.DailyRecordEntry;
+import net.shvdy.nutrition_tracker.model.entity.Food;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.TextStyle;
 import java.util.List;
@@ -19,14 +22,23 @@ import java.util.stream.Collectors;
  */
 public class DailyRecordEntityMapper {
 
-	public DailyRecordDTO entityToDTO(DailyRecord dailyRecord, Locale locale) {
+	ObjectMapper JsonMapper = new ObjectMapper();
 
+	public List<DailyRecordEntry> DTOToEntity(List<DailyRecordEntryDTO> newEntriesDTO) throws RuntimeException {
+		return newEntriesDTO.stream()
+				.map(x -> DailyRecordEntry.builder()
+						.quantity(x.getQuantity())
+						.food(readFromJSONString(x.getFoodDTOJSON(), Food.class)).build())
+				.collect(Collectors.toList());
+	}
+
+	public DailyRecordDTO entityToDTO(DailyRecord dailyRecord, Locale locale) {
 		return DailyRecordDTO.builder()
 				.recordId(dailyRecord.getRecordId())
 				.recordDate(dailyRecord.getRecordDate())
 				.dailyCaloriesNorm(dailyRecord.getDailyCaloriesNorm())
 				.userProfileId(dailyRecord.getUserProfileId())
-				.entries(mapEntries(dailyRecord.getEntries()))
+				.entries(mapEntriesList(dailyRecord.getEntries()))
 				.percentage(getPercentage(dailyRecord.getEntries(), dailyRecord.getDailyCaloriesNorm()))
 				.totalCalories(getTotalCalories(dailyRecord.getEntries()))
 				.totalCarbs(getTotalCarbs(dailyRecord.getEntries()))
@@ -36,7 +48,16 @@ public class DailyRecordEntityMapper {
 				.build();
 	}
 
-	private List<DailyRecordEntryDTO> mapEntries(List<DailyRecordEntry> entries) {
+	private <T> T readFromJSONString(String jsonString, Class<T> type) {
+		try {
+			return JsonMapper.readValue(jsonString, type);
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new RuntimeException();
+		}
+	}
+
+	private List<DailyRecordEntryDTO> mapEntriesList(List<DailyRecordEntry> entries) {
 		return entries.stream().map(entry -> DailyRecordEntryDTO.builder()
 				.food(entry.getFood())
 				.quantity(entry.getQuantity())
@@ -48,9 +69,11 @@ public class DailyRecordEntityMapper {
 				.collect(Collectors.toList());
 	}
 
-	private String getShortDateHeader(String recordDate, Locale locale) {
-		return (LocalDate.parse(recordDate).getDayOfMonth()) + " " +
-				LocalDate.parse(recordDate).getDayOfWeek().getDisplayName(TextStyle.SHORT, locale);
+	public String getShortDateHeader(String recordDate, Locale locale) {
+		return new StringBuilder()
+				.append(LocalDate.parse(recordDate).getDayOfMonth())
+				.append(" ")
+				.append(LocalDate.parse(recordDate).getDayOfWeek().getDisplayName(TextStyle.SHORT, locale)).toString();
 	}
 
 	private int getPercentage(List<DailyRecordEntry> entries, int dailyCaloriesNorm) {
@@ -58,7 +81,7 @@ public class DailyRecordEntityMapper {
 	}
 
 	private int getTotalCalories(List<DailyRecordEntry> entries) {
-		return entries == null ? -1 : entries.stream()
+		return entries == null ? 0 : entries.stream()
 				.mapToInt(x -> x.getFood().getCalories() * x.getQuantity() / 100).sum();
 	}
 
