@@ -1,15 +1,14 @@
-package net.shvdy.nutrition_tracker.controller.command;
+package net.shvdy.nutrition_tracker.controller.command.utils;
 
 import net.shvdy.nutrition_tracker.dto.UserDTO;
-import net.shvdy.nutrition_tracker.model.entity.User;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashSet;
 
-class SecurityUtility {
-	static void setContextParams(HttpServletRequest request, UserDTO user) {
+public class SecurityUtility {
+	public static void setContextParams(HttpServletRequest request, UserDTO user) {
 		HttpSession session = request.getSession();
 		ServletContext context = request.getServletContext();
 		context.setAttribute("userId", user.getId());
@@ -19,7 +18,7 @@ class SecurityUtility {
 		session.setAttribute("userFood", user.getUserFoodDTO());
 	}
 
-	static boolean checkIsLoginNotFresh(HttpServletRequest request, Long id) {
+	public static boolean checkIsLoginNotFresh(HttpServletRequest request, Long id) {
 		HashSet<Long> loggedUsers = getLoggedUsers(request);
 
 		if (loggedUsers.add(id)) {
@@ -29,7 +28,7 @@ class SecurityUtility {
 		return true;
 	}
 
-	static void removeUserFromSession(HttpServletRequest request) {
+	public static void removeUserFromSession(HttpServletRequest request) {
 		long userId = (long) request.getServletContext().getAttribute("userId");
 		HashSet<Long> loggedUsers = getLoggedUsers(request);
 		loggedUsers.remove(userId);

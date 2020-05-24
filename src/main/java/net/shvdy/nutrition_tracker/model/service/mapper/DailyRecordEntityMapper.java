@@ -50,7 +50,6 @@ public class DailyRecordEntityMapper {
 
 	private <T> T readFromJSONString(String jsonString, Class<T> type) {
 		try {
-			System.out.println(jsonString);
 			return JsonMapper.readValue(jsonString, type);
 		} catch (IOException e) {
 			e.printStackTrace();

@@ -5,6 +5,7 @@ import net.shvdy.nutrition_tracker.model.dao.impl.JDBCDAOFactory;
 
 import javax.naming.NamingException;
 import java.io.IOException;
+import java.util.Properties;
 
 public abstract class DAOFactory {
 
@@ -14,7 +15,7 @@ public abstract class DAOFactory {
     public abstract DailyRecordDAO getDailyRecordDAO();
     public abstract FoodDAO getFoodDAO();
 
-    public static DAOFactory getInstance() throws IOException, NamingException {
+    public static DAOFactory getJDBCInstance() throws IOException, NamingException {
         if (DAOFactory == null) {
             synchronized (DAOFactory.class) {
                 if (DAOFactory == null) {

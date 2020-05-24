@@ -25,9 +25,4 @@ public class FoodService {
 	public Long saveForProfile(FoodDTO foodDTO, Long profileId) throws SQLException {
 		return foodDAO.createForProfile(foodMapper.DTOToEntity(foodDTO), profileId);
 	}
-
-	public void getPaginated(String backInTimeFromDate, int quantity) {
-
-
-	}
 }

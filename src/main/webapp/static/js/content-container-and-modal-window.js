@@ -5,8 +5,6 @@ $(document).ready(function () {
             $('modal-window').style.display = "none";
         }
     };
-
-    $()
 });
 
 function setContentContainerTo(...controllerEndpoint) {

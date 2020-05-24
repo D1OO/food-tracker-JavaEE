@@ -8,13 +8,13 @@
 <div class="content-container flex-column d-flex food-diary-container" data-aos="fade-zoom-in" data-aos-offset="0"
      style="width: 100%">
     <div class=" mb-4 m-4 font-rubick " style="width: 100%;">
-        <h2><fmt:message key="food-diaty"/></h2>
+        <h2><fmt:message key="food-diary"/></h2>
     </div>
     <div class="tabs row d-flex ml-2 mb-3" style="width: 100%">
         <button class="pretty-button m4 ml-3 nextb ${prevWeekDay != null ? 'visible' : 'unvisible'}"
         style="background: rgba(40,0,169,0.36)"
                 onclick="setContentContainerTo('/food-diary?d=${prevWeekDay}')">
-            <fmt:message key="diary.next"/>
+            <fmt:message key="diary.previous"/>
         </button>
         <c:forEach var="record" items="${paginatedWeeklyRecords}" varStatus="loop">
             <button class="pretty-button m4 recordTab ml-3  ${loop.first ? 'selected-record-button' : ''}"

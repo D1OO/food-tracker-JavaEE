@@ -11,16 +11,14 @@ import java.io.IOException;
 public abstract class ServiceFactory {
 
     public static UserService userService() throws IOException, NamingException {
-        return new UserService(DAOFactory.getInstance().getUserDAO(), new UserEntityMapper());
+        return new UserService(DAOFactory.getJDBCInstance().getUserDAO(), new UserEntityMapper());
     }
 
     public static DailyRecordService dailyRecordService() throws IOException, NamingException {
-        return new DailyRecordService(DAOFactory.getInstance().getDailyRecordDAO(), new DailyRecordEntityMapper());
+        return new DailyRecordService(DAOFactory.getJDBCInstance().getDailyRecordDAO(), new DailyRecordEntityMapper());
     }
 
     public static FoodService foodService() throws IOException, NamingException {
-        return new FoodService(DAOFactory.getInstance().getFoodDAO(), new FoodEntityMapper());
+        return new FoodService(DAOFactory.getJDBCInstance().getFoodDAO(), new FoodEntityMapper());
     }
-
-
 }

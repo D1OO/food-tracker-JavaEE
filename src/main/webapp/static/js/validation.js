@@ -7,7 +7,7 @@ $(document).ready(function () {
     $(".locale").click(function (event) {
         var selectedOption = event.target.id;
         if (selectedOption != '') {
-            location.replace('?lang=' + selectedOption);
+            location.replace('/lang?lang=' + selectedOption);
         }
     });
 

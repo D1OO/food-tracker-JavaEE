@@ -14,7 +14,9 @@ public class StaticResourcesFilter implements Filter {
 	private RequestDispatcher defaultRequestDispatcher;
 
 	@Override
-	public void destroy() {
+	public void init(FilterConfig filterConfig) throws ServletException {
+		this.defaultRequestDispatcher =
+				filterConfig.getServletContext().getNamedDispatcher("default");
 	}
 
 	@Override
@@ -24,8 +26,7 @@ public class StaticResourcesFilter implements Filter {
 	}
 
 	@Override
-	public void init(FilterConfig filterConfig) throws ServletException {
-		this.defaultRequestDispatcher =
-				filterConfig.getServletContext().getNamedDispatcher("default");
+	public void destroy() {
 	}
+
 }

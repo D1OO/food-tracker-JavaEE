@@ -167,6 +167,7 @@ dl, ol, ul {
 
 .recordTab {
     background: #e2dbff;
+    padding-inline: 10px;
 }
 
 .recordTab :hover {
@@ -798,7 +799,7 @@ h6,
 
 .footer {
     flex-shrink: 0;
-    padding: 0 0 1rem 0;
+    padding: 1rem 0 1rem 0;
 
     background: rgb(168, 168, 168);
     background: linear-gradient(198deg, rgba(168, 168, 168, 0.4471988624551383) 1%, rgba(216, 255, 158, 0.4612044646960347) 54%, rgba(158, 238, 175, 0.6964985823430935) 93%);

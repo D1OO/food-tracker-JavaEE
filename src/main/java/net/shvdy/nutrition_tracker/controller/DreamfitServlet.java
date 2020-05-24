@@ -1,5 +1,6 @@
 package net.shvdy.nutrition_tracker.controller;
 
+import net.shvdy.nutrition_tracker.PropertiesReader;
 import net.shvdy.nutrition_tracker.controller.command.ActionCommand;
 import net.shvdy.nutrition_tracker.controller.command.CommandEnum;
 import net.shvdy.nutrition_tracker.model.service.DailyRecordService;
@@ -14,8 +15,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.InputStream;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.HashSet;
+import java.util.Locale;
 
 public class DreamfitServlet extends HttpServlet {
 
@@ -23,6 +28,40 @@ public class DreamfitServlet extends HttpServlet {
 		servletConfig.getServletContext().setAttribute("loggedUsers", new HashSet<String>());
 		servletConfig.getServletContext().setAttribute("page-size", servletConfig.getInitParameter("page-size"));
 
+		PropertiesReader.readProperties(this.getClass().getClassLoader());
+		loadAndInjectServices();
+	}
+
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		Locale locale = Locale.forLanguageTag((String) request.getSession().getAttribute("lang"));
+		request.getSession().getServletContext().setAttribute("localizedDate",
+				LocalDate.now().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG).withLocale(locale)));
+		processRequest(request, response);
+	}
+
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		processRequest(request, response);
+	}
+
+	private void processRequest(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		ActionCommand actionCommand = CommandEnum.getByURI(request.getRequestURI());
+		String page = actionCommand.execute(request);
+
+		if (page.contains("redirect:")) {
+			response.sendRedirect(request.getContextPath() + page.replace("redirect:", ""));
+		} else {
+			request.getRequestDispatcher(page).forward(request, response);
+		}
+	}
+
+	private void loadAndInjectServices() {
 		UserService userService = null;
 		DailyRecordService dailyRecordService = null;
 		FoodService foodService = null;
@@ -47,32 +86,5 @@ public class DreamfitServlet extends HttpServlet {
 		}
 
 		CommandEnum.injectServices(userService, dailyRecordService, foodService);
-	}
-
-	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
-		request.getSession().getServletContext().setAttribute("localizedDate", LocalDate.now().toString());
-		processRequest(request, response);
-	}
-
-	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		processRequest(request, response);
-	}
-
-	private void processRequest(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
-		ActionCommand actionCommand = CommandEnum.getByURI(request.getRequestURI());
-		String page = actionCommand.execute(request);
-
-		if (page.contains("redirect:")) {
-			response.sendRedirect(request.getContextPath() + page.replace("redirect:", ""));
-		} else {
-			request.getRequestDispatcher(page).forward(request, response);
-		}
 	}
 }

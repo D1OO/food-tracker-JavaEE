@@ -32,6 +32,9 @@ public enum CommandEnum {
 	REDIRECT_HOME(
 			new RedirectHome(), "/redirect:home",
 			Set.of(Role.ADMIN, Role.USER, Role.GUEST)),
+	CHANGE_LANG(
+			new ChangeLang(), "/lang",
+			Set.of(Role.ADMIN, Role.USER, Role.GUEST)),
 	USER(
 			new User(), "/user",
 			Set.of(Role.USER)),

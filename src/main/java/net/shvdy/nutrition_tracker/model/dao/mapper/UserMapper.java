@@ -38,7 +38,6 @@ public class UserMapper implements ResultSetMapper<User> {
 		while (rs.next()){
 			userFood.add(extractFoodFromResultSet(rs));
 		}
-		System.out.println(userFood.get(0));
 		return userFood;
 	}
 

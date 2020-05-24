@@ -4,7 +4,7 @@
 <fmt:setLocale value="${sessionScope.lang}"/>
 <fmt:setBundle basename="i18n/messages"/>
 
-<div class="footer mt-4 pt-1 container">
+<div class="footer mt-4 container">
     <div class="container  d-inline-flex  flex-grow-1">
         <div class="row-cols-sm-1">
             <div class="d-flex"><p>Developed and designed by </p>
@@ -26,8 +26,8 @@
             </div>
             <div class="ml-5 float-right">
                 <div class="locale">
-                    <a class="pretty-button bg mx-2" href="javascript:void(0)" id="uk">ua</a>
-                    <a class="pretty-button bg " href="javascript:void(0)" id="eng">en</a>
+                    <a class="pretty-button bg mx-2" href="javascript:void(0)" id="ru">ru</a>
+                    <a class="pretty-button bg " href="javascript:void(0)" id="en">en</a>
                 </div>
             </div>
         </div>
