@@ -1,4 +1,4 @@
-package net.shvdy.nutrition_tracker.controller.command.user.add_entries_window;
+package net.shvdy.nutrition_tracker.controller.command.user.new_entries_window;
 
 import net.shvdy.nutrition_tracker.controller.command.ActionCommand;
 import net.shvdy.nutrition_tracker.controller.command.CommandEnum;
@@ -17,7 +17,7 @@ import java.util.List;
  * @author Dmitriy Storozhenko
  * @version 1.0
  */
-public class SaveFood implements ActionCommand {
+public class SaveNewFood implements ActionCommand {
 
 	FoodValidator foodValidator = new FoodValidator();
 
@@ -48,10 +48,10 @@ public class SaveFood implements ActionCommand {
 
 		foodDTO.setFoodId(generatedFoodId);
 
-		List<FoodDTO> userFoodToUpdate = (List<FoodDTO>) request.getSession().getAttribute("userFood");
+		List<FoodDTO> userFoodToUpdate = (List<FoodDTO>) request.getSession().getAttribute("user.userFood");
 		userFoodToUpdate.add(foodDTO);
 
-		request.getSession().setAttribute("userFood", userFoodToUpdate);
+		request.getSession().setAttribute("user.userFood", userFoodToUpdate);
 		return "/view/user/add-new-entries-window/window.jsp";
 
 	}

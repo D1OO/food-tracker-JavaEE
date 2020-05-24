@@ -27,7 +27,7 @@ public class FoodDiary implements ActionCommand {
 		try {
 			request.getServletContext().setAttribute("paginatedWeeklyRecords",
 					CommandEnum.getDailyRecordService().findPaginated(
-							(Long) request.getServletContext().getAttribute("userId"),
+							(Long) request.getSession().getAttribute("user.userId"),
 							currWeekDay, pageSize,
 							Locale.forLanguageTag((String) request.getSession().getAttribute("lang"))));
 		} catch (SQLException e) {

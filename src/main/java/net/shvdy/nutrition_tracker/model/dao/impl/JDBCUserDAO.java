@@ -1,7 +1,7 @@
 package net.shvdy.nutrition_tracker.model.dao.impl;
 
 import net.shvdy.nutrition_tracker.model.dao.UserDAO;
-import net.shvdy.nutrition_tracker.model.dao.mapper.ResultSetMapper;
+import net.shvdy.nutrition_tracker.model.dao.resultset_mapper.ResultSetMapper;
 import net.shvdy.nutrition_tracker.model.entity.User;
 
 import javax.sql.DataSource;
@@ -47,7 +47,7 @@ public class JDBCUserDAO implements UserDAO {
 	public Optional<User> findByUsername(String username) throws SQLException {
 		try (Connection connection = dataSource.getConnection();
 			 PreparedStatement statement = connection
-					 .prepareStatement(queries.getProperty("userdao.SELECT_BY_USERNAME_SQL"))) {
+					 .prepareStatement(queries.getProperty("user_dao.SELECT_BY_USERNAME_SQL"))) {
 
 			statement.setString(1, username);
 

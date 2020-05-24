@@ -15,16 +15,19 @@ public class NewEntriesDTO {
 	private Long recordId;
 	private Long profileId;
 	private String recordDate;
+	private int currentDailyCaloriesNorm;
 	//    private String newEntriesContainerJSON;
 	private List<DailyRecordEntryDTO> entries;
 
 	public NewEntriesDTO() {
 	}
 
-	public NewEntriesDTO(Long recordId, Long profileId, String recordDate, List<DailyRecordEntryDTO> entries) {
+	public NewEntriesDTO(Long recordId, Long profileId, String recordDate, int currentDailyCaloriesNorm,
+						 List<DailyRecordEntryDTO> entries) {
 		this.recordId = recordId;
 		this.profileId = profileId;
 		this.recordDate = recordDate;
+		this.currentDailyCaloriesNorm = currentDailyCaloriesNorm;
 		this.entries = entries;
 	}
 
@@ -56,6 +59,14 @@ public class NewEntriesDTO {
 		this.recordDate = recordDate;
 	}
 
+	public int getCurrentDailyCaloriesNorm() {
+		return currentDailyCaloriesNorm;
+	}
+
+	public void setCurrentDailyCaloriesNorm(int currentDailyCaloriesNorm) {
+		this.currentDailyCaloriesNorm = currentDailyCaloriesNorm;
+	}
+
 	public List<DailyRecordEntryDTO> getEntries() {
 		return entries;
 	}
@@ -75,12 +86,11 @@ public class NewEntriesDTO {
 		}
 	}
 
-
 	public static final class NewEntriesDTOBuilder {
 		private Long recordId;
 		private Long profileId;
 		private String recordDate;
-		//    private String newEntriesContainerJSON;
+		private int currentDailyCaloriesNorm;
 		private List<DailyRecordEntryDTO> entries;
 
 		private NewEntriesDTOBuilder() {
@@ -106,11 +116,17 @@ public class NewEntriesDTO {
 			return this;
 		}
 
+		public NewEntriesDTOBuilder currentDailyCaloriesNorm(int currentDailyCaloriesNorm) {
+			this.currentDailyCaloriesNorm = currentDailyCaloriesNorm;
+			return this;
+		}
+
 		public NewEntriesDTO build() {
 			NewEntriesDTO newEntriesDTO = new NewEntriesDTO();
 			newEntriesDTO.setRecordId(recordId);
 			newEntriesDTO.setProfileId(profileId);
 			newEntriesDTO.setRecordDate(recordDate);
+			newEntriesDTO.setCurrentDailyCaloriesNorm(currentDailyCaloriesNorm);
 			newEntriesDTO.setEntries(entries);
 			return newEntriesDTO;
 		}

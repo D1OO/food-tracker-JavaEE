@@ -18,18 +18,21 @@ public class Login implements ActionCommand {
 		UserDTO user;
 
 		try {
+			System.out.println(loginDto.getPassword());
+			System.out.println(loginDto.getUsername());
 			user = CommandEnum.getUserService().findByLoginDTO(loginDto);
 		} catch (UserNotFoundException | InvalidPasswordException |
 				SQLException | NullPointerException e) {
 			System.out.println(e.getMessage());
+			e.printStackTrace();
 			return "redirect:/login?error";
 		}
 
-		if (SecurityUtility.checkIsLoginNotFresh(request, user.getId())) {
+		if (SecurityUtility.checkIsLoginNOTFresh(request, user.getUserId())) {
 			return "redirect:/login?error=session-exists";
 		}
 
-		SecurityUtility.setContextParams(request, user);
+		SecurityUtility.setSessionInfo(request, user);
 
 		return CommandEnum.REDIRECT_HOME.getActionCommand().execute(request, response);
 	}

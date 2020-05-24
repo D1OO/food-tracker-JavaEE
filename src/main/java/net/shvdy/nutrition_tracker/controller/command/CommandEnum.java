@@ -1,7 +1,9 @@
 package net.shvdy.nutrition_tracker.controller.command;
 
-import net.shvdy.nutrition_tracker.controller.command.user.*;
-import net.shvdy.nutrition_tracker.controller.command.user.add_entries_window.*;
+import net.shvdy.nutrition_tracker.controller.command.user.CompleteProfileToProceed;
+import net.shvdy.nutrition_tracker.controller.command.user.FoodDiary;
+import net.shvdy.nutrition_tracker.controller.command.user.Profile;
+import net.shvdy.nutrition_tracker.controller.command.user.new_entries_window.*;
 import net.shvdy.nutrition_tracker.model.entity.Role;
 import net.shvdy.nutrition_tracker.model.service.DailyRecordService;
 import net.shvdy.nutrition_tracker.model.service.FoodService;
@@ -48,7 +50,7 @@ public enum CommandEnum {
 			new FoodDiary(), "/food-diary",
 			Set.of(Role.ADMIN, Role.USER)),
 	FOOD_MODAL_WINDOW(
-			new AddEntriesModalWindow(), "/adding-entries-modal-window",
+			new NewEntriesWindow(), "/adding-entries-modal-window",
 			Set.of(Role.ADMIN, Role.USER)),
 	NEW_ENTRY_RESPONSE(
 			new AddedEntry(), "/added-entry",
@@ -60,7 +62,7 @@ public enum CommandEnum {
 			new SaveEntries(), "/save-new-entries",
 			Set.of(Role.ADMIN, Role.USER)),
 	SAVE_NEW_FOOD(
-			new SaveFood(), "/save-new-food",
+			new SaveNewFood(), "/save-new-food",
 			Set.of(Role.ADMIN, Role.USER));
 
 	private final ActionCommand actionCommand;

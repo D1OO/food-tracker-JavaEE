@@ -17,27 +17,24 @@ background: radial-gradient(circle, rgba(178,183,223,1) 0%, rgba(232,253,203,0.7
             <div class="d-flex flex-grow-1 justify-content-center align-items-end "
                  style="position: relative; left: -2%;">
                 <a href="${pageContext.request.contextPath}/" style="text-decoration: none">
-                    <h1
-                            style="font-family:'Run Medium',serif;font-weight:normal;font-size:42px;">dreamfit</h1></a>
+                    <h1 style="font-family:'Run Medium',serif;font-weight:normal;font-size:42px;">dreamfit</h1></a>
             </div>
-            <%--        <a class="navbar-brand" id="justatest"></a>--%>
             <div class="align-self-start d-inline-flex mt-sm-1">
                 <ul class="list-inline  navbar-right mr-4">
-                    <c:if test="${role == 'GUEST'}">
+                    <c:if test="${user.role eq GUEST}">
                         <li class=" list-inline-item">
-                            <div>
-                                <a class="pretty-button bg" href="/login"><fmt:message key="sign-in"/></a>
-                                <a class="pretty-button bg signupButton" href="javascript:void(0)"
-                                   href="${pageContext.request.contextPath}/registration"><fmt:message
-                                        key="create-account"/></a>
-                            </div>
+                            <a class="pretty-button bg" href="/login"><fmt:message key="sign-in"/></a>
+                            <a class="pretty-button bg signupButton" href="javascript:void(0)"
+                               href="${pageContext.request.contextPath}/registration"><fmt:message
+                                    key="create-account"/></a>
                         </li>
                     </c:if>
-                    <c:if test="${role != 'GUEST'}">
+                    <c:if test="${user.role ne GUEST}">
+                        ${user.role}
                         <li class="list-inline-item">
                             <ul class="list-inline mt-0" style="margin-top: 0;">
                                 <li class="list-inline-item" style="font-size: 1.1em; max-width: 560px">
-                                    <span class="logged-in-as mt-sm-1">${userFirstName} ${userLastName}</span>
+                                    <span class="logged-in-as mt-sm-1">${user.firstName} ${user.lastName}</span>
                                 </li>
                                 <li class="list-inline-item" id="logout-link">
                                     <a href="${pageContext.request.contextPath}/logout">

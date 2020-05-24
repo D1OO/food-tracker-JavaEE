@@ -5,9 +5,9 @@ import net.shvdy.nutrition_tracker.model.dao.DAOFactory;
 import net.shvdy.nutrition_tracker.model.dao.DailyRecordDAO;
 import net.shvdy.nutrition_tracker.model.dao.FoodDAO;
 import net.shvdy.nutrition_tracker.model.dao.UserDAO;
-import net.shvdy.nutrition_tracker.model.dao.mapper.DailyRecordListMapper;
-import net.shvdy.nutrition_tracker.model.dao.mapper.FoodMapper;
-import net.shvdy.nutrition_tracker.model.dao.mapper.UserMapper;
+import net.shvdy.nutrition_tracker.model.dao.resultset_mapper.DailyRecordListMapper;
+import net.shvdy.nutrition_tracker.model.dao.resultset_mapper.FoodMapper;
+import net.shvdy.nutrition_tracker.model.dao.resultset_mapper.UserMapper;
 
 import javax.naming.NamingException;
 import javax.sql.DataSource;

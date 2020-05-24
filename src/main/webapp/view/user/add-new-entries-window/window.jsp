@@ -13,7 +13,7 @@
         <div class="modal-body container" id="modalbody">
             <div class="m-2 tabs" id="addfoodcontainer" style="display: block">
                 <div class="d-inline-flex flex-wrap">
-                    <c:forEach var="food" items="${userFood}" varStatus="loop">
+                    <c:forEach var="food" items="${user.userFood}" varStatus="loop">
                         <div class="mb-1">
                             <div class="user_food m-2">
                                 <a rel="group" title=""></a>
@@ -38,7 +38,7 @@
             </div>
             <div class="mt-4" id="createfoodcontainer" style="display: none">
                 <form class="form" id="createfoodform" method="post" style="width: 100%" action="save-new-food">
-                    <input name="profileId" value="${userId}" type="hidden">
+                    <input name="profileId" value="${user.userId}" type="hidden">
                     <div class="row">
                         <div class="col-3">
                             <div class="form-group col-md-11">

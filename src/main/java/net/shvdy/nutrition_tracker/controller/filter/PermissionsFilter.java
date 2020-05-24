@@ -1,18 +1,12 @@
 package net.shvdy.nutrition_tracker.controller.filter;
 
-import java.io.IOException;
-
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import net.shvdy.nutrition_tracker.controller.command.CommandEnum;
 import net.shvdy.nutrition_tracker.model.entity.Role;
+
+import javax.servlet.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
 
 public class PermissionsFilter implements Filter {
 
@@ -22,10 +16,10 @@ public class PermissionsFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain)
-        throws IOException, ServletException {
+            throws IOException, ServletException {
 
         HttpSession session = ((HttpServletRequest) request).getSession();
-        Role role = (Role) session.getAttribute("role");
+        Role role = (Role) session.getAttribute("user.role");
         String path = ((HttpServletRequest) request).getRequestURI();
 
         if (CommandEnum.checkIsPathPermitted(path, role)) {

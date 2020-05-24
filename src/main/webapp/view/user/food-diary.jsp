@@ -88,7 +88,7 @@
 
             <div class="tabs container m2 mb-4">
                 <form method="post" class="data-food-modal-window${loop.index}">
-                    <input id="profileId" name="profileId" value="${userId}" type="hidden">
+                    <input id="profileId" name="profileId" value="${user.userId}" type="hidden">
                     <input id="recordId" name="recordId" value="${rec.recordId}" type="hidden">
                     <input id="recordDate" name="recordDate" value="${rec.recordDate}" type="hidden">
                 </form>

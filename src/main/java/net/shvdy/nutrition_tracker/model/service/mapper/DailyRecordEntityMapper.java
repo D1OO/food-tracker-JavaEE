@@ -24,7 +24,7 @@ public class DailyRecordEntityMapper {
 
 	ObjectMapper JsonMapper = new ObjectMapper();
 
-	public List<DailyRecordEntry> DTOToEntity(List<DailyRecordEntryDTO> newEntriesDTO) throws RuntimeException {
+	public List<DailyRecordEntry> entriesListDTOToEntity(List<DailyRecordEntryDTO> newEntriesDTO) throws RuntimeException {
 		return newEntriesDTO.stream()
 				.map(x -> DailyRecordEntry.builder()
 						.quantity(x.getQuantity())
@@ -32,13 +32,13 @@ public class DailyRecordEntityMapper {
 				.collect(Collectors.toList());
 	}
 
-	public DailyRecordDTO entityToDTO(DailyRecord dailyRecord, Locale locale) {
+	public DailyRecordDTO recordEntityToDTO(DailyRecord dailyRecord, Locale locale) {
 		return DailyRecordDTO.builder()
 				.recordId(dailyRecord.getRecordId())
 				.recordDate(dailyRecord.getRecordDate())
 				.dailyCaloriesNorm(dailyRecord.getDailyCaloriesNorm())
 				.userProfileId(dailyRecord.getUserProfileId())
-				.entries(mapEntriesList(dailyRecord.getEntries()))
+				.entries(entriesListEntityToDTO(dailyRecord.getEntries()))
 				.percentage(getPercentage(dailyRecord.getEntries(), dailyRecord.getDailyCaloriesNorm()))
 				.totalCalories(getTotalCalories(dailyRecord.getEntries()))
 				.totalCarbs(getTotalCarbs(dailyRecord.getEntries()))
@@ -57,7 +57,7 @@ public class DailyRecordEntityMapper {
 		}
 	}
 
-	private List<DailyRecordEntryDTO> mapEntriesList(List<DailyRecordEntry> entries) {
+	private List<DailyRecordEntryDTO> entriesListEntityToDTO(List<DailyRecordEntry> entries) {
 		return entries.stream().map(entry -> DailyRecordEntryDTO.builder()
 				.food(entry.getFood())
 				.quantity(entry.getQuantity())

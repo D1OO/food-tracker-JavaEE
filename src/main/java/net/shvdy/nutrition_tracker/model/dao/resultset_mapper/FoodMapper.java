@@ -1,4 +1,4 @@
-package net.shvdy.nutrition_tracker.model.dao.mapper;
+package net.shvdy.nutrition_tracker.model.dao.resultset_mapper;
 
 import net.shvdy.nutrition_tracker.model.entity.Food;
 

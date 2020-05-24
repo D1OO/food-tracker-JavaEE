@@ -1,14 +1,14 @@
-package net.shvdy.nutrition_tracker.model.dao.mapper;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+package net.shvdy.nutrition_tracker.model.dao.resultset_mapper;
 
 import net.shvdy.nutrition_tracker.model.entity.Food;
 import net.shvdy.nutrition_tracker.model.entity.Role;
 import net.shvdy.nutrition_tracker.model.entity.User;
 import net.shvdy.nutrition_tracker.model.entity.UserProfile;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserMapper implements ResultSetMapper<User> {
 
@@ -26,7 +26,12 @@ public class UserMapper implements ResultSetMapper<User> {
 				.userProfile(UserProfile.builder()
 						.profileId(resultSet.getLong("profile_id"))
 						.firstName(resultSet.getString("first_name"))
+						.firstNameUa(resultSet.getString("first_name_ua"))
 						.lastName(resultSet.getString("last_name"))
+						.age(resultSet.getInt("age"))
+						.weight(resultSet.getInt("weight"))
+						.height(resultSet.getInt("height"))
+						.lifestyle(Enum.valueOf(UserProfile.Lifestyle.class, resultSet.getString("lifestyle")))
 						.userFood(setFood(resultSet)).build())
 				.build();
 	}

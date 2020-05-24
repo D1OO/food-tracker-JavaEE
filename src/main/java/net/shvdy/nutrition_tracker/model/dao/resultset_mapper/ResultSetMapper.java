@@ -1,4 +1,4 @@
-package net.shvdy.nutrition_tracker.model.dao.mapper;
+package net.shvdy.nutrition_tracker.model.dao.resultset_mapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

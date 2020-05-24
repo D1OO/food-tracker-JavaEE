@@ -1,36 +1,36 @@
 package net.shvdy.nutrition_tracker.dto;
 
-import net.shvdy.nutrition_tracker.model.entity.Food;
 import net.shvdy.nutrition_tracker.model.entity.Role;
 
 import java.util.List;
 
 public class UserDTO {
-
-    private Long id;
+    private Long userId;
     private Role role;
     private String firstName;
     private String lastName;
-    private List<FoodDTO> userFoodDTO;
+    private int dailyCaloriesNorm;
+    private List<FoodDTO> userFood;
 
     public static UserDTOBuilder builder() {
         return new UserDTOBuilder();
     }
 
-    public UserDTO(Long id, Role role, String firstName, String lastName, List<FoodDTO> userFoodDTO) {
-        this.id = id;
+    public UserDTO(Long userId, Role role, String firstName, String lastName, int dailyCaloriesNorm, List<FoodDTO> userFood) {
+        this.userId = userId;
         this.role = role;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.userFoodDTO = userFoodDTO;
+        this.dailyCaloriesNorm = dailyCaloriesNorm;
+        this.userFood = userFood;
     }
 
-    public Long getId() {
-        return id;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public Role getRole() {
@@ -57,28 +57,35 @@ public class UserDTO {
         this.lastName = lastName;
     }
 
-    public List<FoodDTO> getUserFoodDTO() {
-        return userFoodDTO;
+    public int getDailyCaloriesNorm() {
+        return dailyCaloriesNorm;
     }
 
-    public void setUserFoodDTO(List<FoodDTO> userFoodDTO) {
-        this.userFoodDTO = userFoodDTO;
+    public void setDailyCaloriesNorm(int dailyCaloriesNorm) {
+        this.dailyCaloriesNorm = dailyCaloriesNorm;
+    }
+
+    public List<FoodDTO> getUserFood() {
+        return userFood;
+    }
+
+    public void setUserFood(List<FoodDTO> userFood) {
+        this.userFood = userFood;
     }
 
     public static class UserDTOBuilder {
-
-        private Long id;
+        private Long userId;
         private Role role;
         private String firstName;
         private String lastName;
-        private List<FoodDTO> userFoodDTO;
-
+        private int dailyCaloriesNorm;
+        private List<FoodDTO> userFood;
 
         UserDTOBuilder() {
         }
 
         public UserDTOBuilder id(Long id) {
-            this.id = id;
+            this.userId = id;
             return this;
         }
 
@@ -97,13 +104,18 @@ public class UserDTO {
             return this;
         }
 
-        public UserDTOBuilder userFoodDTO(List<FoodDTO> userFoodDTO) {
-            this.userFoodDTO = userFoodDTO;
+        public UserDTOBuilder userFood(List<FoodDTO> userFoodDTO) {
+            this.userFood = userFoodDTO;
+            return this;
+        }
+
+        public UserDTOBuilder dailyCaloriesNorm(int dailyCaloriesNorm) {
+            this.dailyCaloriesNorm = dailyCaloriesNorm;
             return this;
         }
 
         public UserDTO build() {
-            return new UserDTO(this.id, this.role, this.firstName, this.lastName, this.userFoodDTO);
+            return new UserDTO(this.userId, this.role, this.firstName, this.lastName, this.dailyCaloriesNorm, this.userFood);
         }
     }
 }

@@ -1,9 +1,8 @@
 package net.shvdy.nutrition_tracker.model.dao.impl;
 
 import net.shvdy.nutrition_tracker.model.dao.FoodDAO;
-import net.shvdy.nutrition_tracker.model.dao.mapper.ResultSetMapper;
+import net.shvdy.nutrition_tracker.model.dao.resultset_mapper.ResultSetMapper;
 import net.shvdy.nutrition_tracker.model.entity.Food;
-import net.shvdy.nutrition_tracker.model.entity.User;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -31,7 +30,7 @@ public class JDBCFoodDAO implements FoodDAO {
 	public Long createForProfile(Food food, Long profileId) throws SQLException {
 		try (Connection connection = dataSource.getConnection();
 			 PreparedStatement insertFoodStatement = connection
-					 .prepareStatement(queries.getProperty("fooddao.INSERT_FOOD_SQL"),
+					 .prepareStatement(queries.getProperty("food_dao.INSERT_FOOD_SQL"),
 							 Statement.RETURN_GENERATED_KEYS);
 			 PreparedStatement insertFoodForProfileStatement = connection
 					 .prepareStatement(queries.getProperty("fooddao.INSERT_FOOD_FOR_PROFILE_SQL"))) {

@@ -24,7 +24,7 @@ import java.util.Locale;
 public class DreamfitServlet extends HttpServlet {
 
 	public void init(ServletConfig servletConfig) {
-		servletConfig.getServletContext().setAttribute("loggedUsers", new HashSet<String>());
+		servletConfig.getServletContext().setAttribute("loggedUsers", new HashSet<Long>());
 		servletConfig.getServletContext().setAttribute("page-size", servletConfig.getInitParameter("page-size"));
 
 		PropertiesReader.readProperties(this.getClass().getClassLoader());

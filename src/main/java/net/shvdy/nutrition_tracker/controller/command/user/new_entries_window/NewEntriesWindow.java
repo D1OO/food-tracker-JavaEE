@@ -1,4 +1,4 @@
-package net.shvdy.nutrition_tracker.controller.command.user.add_entries_window;
+package net.shvdy.nutrition_tracker.controller.command.user.new_entries_window;
 
 import net.shvdy.nutrition_tracker.controller.command.ActionCommand;
 import net.shvdy.nutrition_tracker.dto.NewEntriesDTO;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * @author Dmitriy Storozhenko
  * @version 1.0
  */
-public class AddEntriesModalWindow implements ActionCommand {
+public class NewEntriesWindow implements ActionCommand {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
@@ -24,6 +24,7 @@ public class AddEntriesModalWindow implements ActionCommand {
 						.profileId(Long.valueOf(request.getParameter("profileId")))
 						.recordId(recordId.isEmpty() ? null : Long.parseLong(recordId))
 						.recordDate(request.getParameter("recordDate"))
+						.currentDailyCaloriesNorm((Integer) request.getSession().getAttribute("user.dailyCaloriesNorm"))
 						.entries(new ArrayList<>()).build());
 
 		return "/view/user/add-new-entries-window/window.jsp";

@@ -17,16 +17,14 @@ public class FoodDTO {
 	private int proteins;
 	private int fats;
 	private int carbohydrates;
-	private Long profileId;
 
-	public FoodDTO(Long foodId, String name, int calories, int proteins, int fats, int carbohydrates, Long profileId) {
+	public FoodDTO(Long foodId, String name, int calories, int proteins, int fats, int carbohydrates) {
 		this.foodId = foodId;
 		this.name = name;
 		this.calories = calories;
 		this.proteins = proteins;
 		this.fats = fats;
 		this.carbohydrates = carbohydrates;
-		this.profileId = profileId;
 	}
 
 	public static FoodDTOBuilder builder() {
@@ -81,13 +79,6 @@ public class FoodDTO {
 		this.carbohydrates = carbohydrates;
 	}
 
-	public Long getProfileId() {
-		return profileId;
-	}
-
-	public void setProfileId(Long profileId) {
-		this.profileId = profileId;
-	}
 
 	@Override
 	public String toString() {
@@ -107,7 +98,6 @@ public class FoodDTO {
 		private int proteins;
 		private int fats;
 		private int carbohydrates;
-		private Long profileId;
 
 		private FoodDTOBuilder() {
 		}
@@ -142,13 +132,8 @@ public class FoodDTO {
 			return this;
 		}
 
-		public FoodDTOBuilder profileId(Long profileId) {
-			this.profileId = profileId;
-			return this;
-		}
-
 		public FoodDTO build() {
-			return new FoodDTO(foodId, name, calories, proteins, fats, carbohydrates, profileId);
+			return new FoodDTO(foodId, name, calories, proteins, fats, carbohydrates);
 		}
 	}
 }

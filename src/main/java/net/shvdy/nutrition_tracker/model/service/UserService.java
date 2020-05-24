@@ -30,10 +30,18 @@ public class UserService {
 	}
 
 	public UserDTO findByLoginDTO(LoginDTO loginDTO) throws SQLException {
-		User user = findByUsername(loginDTO.getUsername());
+		User user = null;
+		try {
+			user = findByUsername(loginDTO.getUsername());
+		} catch (UserNotFoundException e) {
+			System.out.println(e.getMessage());
+		}
+//		User user = findByUsername(loginDTO.getUsername());
 		if (!loginDTO.getPassword().equals(user.getPassword())) {
 			throw new InvalidPasswordException();
 		}
+		System.out.println(user.getUsername());
+		System.out.println(user.getUserProfile().getLastName());
 		return entityMapper.entityToDTO(user);
 	}
 }

@@ -4,7 +4,6 @@ package net.shvdy.nutrition_tracker.model.entity;
 import java.util.List;
 
 public class UserProfile {
-
 	User user;
 	private Long profileId;
 	private String firstNameUa;

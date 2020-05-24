@@ -30,9 +30,9 @@ public class DailyRecordService {
 
 	public List<DailyRecordDTO> findPaginated(Long profileId, String date, int quantity,
 											  Locale currentLocale) throws SQLException {
-		return insertAbsentForLastWeek(date, quantity, profileId, currentLocale,
+		return insertAbsentDays(date, quantity, profileId, currentLocale,
 				dailyRecordDAO.findFromDateByQuantity(date, quantity, profileId).stream()
-						.map(x -> dailyRecordMapper.entityToDTO(x, currentLocale))
+						.map(x -> dailyRecordMapper.recordEntityToDTO(x, currentLocale))
 						.collect(Collectors.toMap(DailyRecordDTO::getRecordDate, Function.identity())));
 	}
 
@@ -41,15 +41,16 @@ public class DailyRecordService {
 				.recordId(newEntriesDTO.getRecordId())
 				.recordDate(newEntriesDTO.getRecordDate())
 				.userProfileId(newEntriesDTO.getProfileId())
-				.entries(dailyRecordMapper.DTOToEntity(newEntriesDTO.getEntries()))
+				.dailyCaloriesNorm(newEntriesDTO.getCurrentDailyCaloriesNorm())
+				.entries(dailyRecordMapper.entriesListDTOToEntity(newEntriesDTO.getEntries()))
 				.build());
 	}
 
-	private List<DailyRecordDTO> insertAbsentForLastWeek(String day, int size, Long profileId, Locale locale,
-														 Map<String, DailyRecordDTO> weeklyRecords) {
+	private List<DailyRecordDTO> insertAbsentDays(String day, int size, Long profileId, Locale locale,
+												  Map<String, DailyRecordDTO> weeklyRecords) {
 		for (int i = 0; i < size; i++) {
 			String currentDay = LocalDate.parse(day).minusDays(i).toString();
-			weeklyRecords.put(currentDay, DailyRecordDTO.builder()
+			weeklyRecords.putIfAbsent(currentDay, DailyRecordDTO.builder()
 					.recordDate(currentDay)
 					.userProfileId(profileId)
 					.dateHeader(dailyRecordMapper.getShortDateHeader(currentDay, locale))
