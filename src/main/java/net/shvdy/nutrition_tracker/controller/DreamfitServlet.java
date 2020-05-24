@@ -21,6 +21,7 @@ public class DreamfitServlet extends HttpServlet {
 
 	public void init(ServletConfig servletConfig) {
 		servletConfig.getServletContext().setAttribute("loggedUsers", new HashSet<String>());
+		servletConfig.getServletContext().setAttribute("page-size", servletConfig.getInitParameter("page-size"));
 
 		UserService userService = null;
 		DailyRecordService dailyRecordService = null;
@@ -46,7 +47,6 @@ public class DreamfitServlet extends HttpServlet {
 		}
 
 		CommandEnum.injectServices(userService, dailyRecordService, foodService);
-
 	}
 
 	@Override

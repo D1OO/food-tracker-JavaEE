@@ -55,7 +55,6 @@ public class JDBCFoodDAO implements FoodDAO {
 				}
 			}
 
-			System.out.println(profileId);
 			insertFoodForProfileStatement.setLong(1, profileId);
 			insertFoodForProfileStatement.setLong(2, generatedFoodId);
 			insertFoodForProfileStatement.executeUpdate();

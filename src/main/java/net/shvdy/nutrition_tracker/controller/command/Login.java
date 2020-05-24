@@ -27,7 +27,7 @@ public class Login implements ActionCommand {
 			return "redirect:/login?error=session-exists";
 		}
 
-		SecurityUtility.setUserInfo(request, user);
+		SecurityUtility.setContextParams(request, user);
 
 		return CommandEnum.REDIRECT_HOME.getActionCommand().execute(request);
 	}

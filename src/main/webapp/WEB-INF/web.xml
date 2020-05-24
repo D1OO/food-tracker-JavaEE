@@ -16,6 +16,10 @@
     <servlet>
         <servlet-name>DreamfitServlet</servlet-name>
         <servlet-class>net.shvdy.nutrition_tracker.controller.DreamfitServlet</servlet-class>
+        <init-param>
+            <param-name>page-size</param-name>
+            <param-value>7</param-value>
+        </init-param>
     </servlet>
 
 

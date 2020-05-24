@@ -1,5 +1,8 @@
 package net.shvdy.nutrition_tracker.dto;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 /**
  * 23.05.2020
  *
@@ -84,6 +87,17 @@ public class FoodDTO {
 
 	public void setProfileId(Long profileId) {
 		this.profileId = profileId;
+	}
+
+	@Override
+	public String toString() {
+		//Jackson (Java object to JSON String mapping)
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			return mapper.writeValueAsString(this);
+		} catch (JsonProcessingException e) {
+			return "";
+		}
 	}
 
 	public static final class FoodDTOBuilder {

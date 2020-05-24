@@ -9,7 +9,7 @@ import javax.servlet.http.HttpSession;
 import java.util.HashSet;
 
 class SecurityUtility {
-	static void setUserInfo(HttpServletRequest request, UserDTO user) {
+	static void setContextParams(HttpServletRequest request, UserDTO user) {
 		HttpSession session = request.getSession();
 		ServletContext context = request.getServletContext();
 		context.setAttribute("userId", user.getId());

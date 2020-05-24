@@ -23,7 +23,7 @@ public class SessionListener implements HttpSessionListener {
                 .getSession().getServletContext()
                 .getAttribute("loggedUsers");
         String userName = (String) httpSessionEvent.getSession()
-                .getAttribute("userName");
+                .getAttribute("userId");
         loggedUsers.remove(userName);
         httpSessionEvent.getSession().setAttribute("loggedUsers", loggedUsers);
     }

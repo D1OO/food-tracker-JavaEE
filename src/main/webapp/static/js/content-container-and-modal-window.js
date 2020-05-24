@@ -9,8 +9,8 @@ $(document).ready(function () {
     $()
 });
 
-function setContentContainerTo(controllerEndpoint) {
-    $.get(controllerEndpoint, function (data) {
+function setContentContainerTo(...controllerEndpoint) {
+    $.get(controllerEndpoint.join(''), function (data) {
         document.getElementById('content-container').innerHTML = data;
     });
 }

@@ -19,19 +19,26 @@ public class FoodDiary implements ActionCommand {
 
 	@Override
 	public String execute(HttpServletRequest request) {
+		String currWeekDay = Optional.ofNullable(request.getParameter("d"))
+				.orElse(LocalDate.now().toString());
+		int pageSize = Integer.parseInt((String) request.getServletContext().getAttribute("page-size"));
+
 		try {
-			request.getSession().getServletContext().setAttribute("paginatedWeeklyRecords",
+			request.getServletContext().setAttribute("paginatedWeeklyRecords",
 					CommandEnum.getDailyRecordService().findPaginated(
 							(Long) request.getServletContext().getAttribute("userId"),
-							Optional.ofNullable((String) request.getAttribute("requestedDate"))
-									.orElse(LocalDate.now().toString()),
-							7,
+							currWeekDay, pageSize,
 							Locale.forLanguageTag((String) request.getSession().getAttribute("lang"))));
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return "/view/user/server-error.jsp";
 		}
-//		request.getSession().getServletContext().setAttribute("lastDate", "lastdate");
+
+		request.getServletContext().setAttribute("prevWeekDay",
+				currWeekDay.equals(LocalDate.now().toString()) ? null :
+				LocalDate.parse(currWeekDay).plusDays(pageSize).toString());
+		request.getServletContext().setAttribute("nextWeekDay",
+				LocalDate.parse(currWeekDay).minusDays(pageSize).toString());
 
 		return "/view/user/food-diary.jsp";
 	}

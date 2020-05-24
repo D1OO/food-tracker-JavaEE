@@ -871,6 +871,14 @@ h6,
     cursor: default;
 }
 
+.visible {
+    visibility: visible;
+}
+
+.unvisible {
+    visibility: hidden;
+}
+
 @font-face {
     font-family: 'Run Medium';
     font-style: normal;
