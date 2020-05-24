@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.InputStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
@@ -52,7 +51,7 @@ public class DreamfitServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		ActionCommand actionCommand = CommandEnum.getByURI(request.getRequestURI());
-		String page = actionCommand.execute(request);
+		String page = actionCommand.execute(request, response);
 
 		if (page.contains("redirect:")) {
 			response.sendRedirect(request.getContextPath() + page.replace("redirect:", ""));

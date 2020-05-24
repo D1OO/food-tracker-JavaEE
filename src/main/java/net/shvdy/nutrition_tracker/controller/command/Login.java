@@ -7,12 +7,13 @@ import net.shvdy.nutrition_tracker.model.exception.InvalidPasswordException;
 import net.shvdy.nutrition_tracker.model.exception.UserNotFoundException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
 
 public class Login implements ActionCommand {
 
 	@Override
-	public String execute(HttpServletRequest request) {
+	public String execute(HttpServletRequest request, HttpServletResponse response) {
 		LoginDTO loginDto = buildLoginDto(request);
 		UserDTO user;
 
@@ -30,7 +31,7 @@ public class Login implements ActionCommand {
 
 		SecurityUtility.setContextParams(request, user);
 
-		return CommandEnum.REDIRECT_HOME.getActionCommand().execute(request);
+		return CommandEnum.REDIRECT_HOME.getActionCommand().execute(request, response);
 	}
 
 	private LoginDTO buildLoginDto(HttpServletRequest request) {

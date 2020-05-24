@@ -55,8 +55,19 @@ function addedNewEntry(foodDTO, foodName) {
 
 function saveCreatedFood(element) {
     let data = $('#createfoodform').serialize();
-    $.post('/save-new-food', data, function (response) {
-        $('.open-modal')[0].onclick();
+    $.ajax({
+        type: "POST",
+        url: '/save-new-food',
+        data: data,
+        statusCode: {
+            406: function (response) {
+                $('.open-modal')[0].onclick();
+                //setErrorBoxesVisible
+            }
+        },
+        success: function () {
+            $('.open-modal')[0].onclick();
+        }
     });
 }
 

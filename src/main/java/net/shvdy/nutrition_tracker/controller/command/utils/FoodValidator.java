@@ -1,10 +1,10 @@
 package net.shvdy.nutrition_tracker.controller.command.utils;
 
 import net.shvdy.nutrition_tracker.PropertiesReader;
-import net.shvdy.nutrition_tracker.dto.FoodDTO;
+import net.shvdy.nutrition_tracker.controller.exception.FoodValidationException;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
+import java.util.Arrays;
 
 /**
  * 24.05.2020
@@ -12,18 +12,52 @@ import java.io.IOException;
  * @author Dmitriy Storozhenko
  * @version 1.0
  */
+
 public class FoodValidator {
 
-	public void validate(HttpServletRequest request) throws IOException {
+	private enum NewFoodFields {
+		NAME("newFoodName", "newFoodNameError",
+				"validation.test", "Incorrect name"),
+		CALORIES("newFoodCalories", "newFoodCaloriesError",
+				"validation.test2", "Incorrect calories");
 
-//		FoodDTO foodDTO = FoodDTO.builder().name(request.getParameter("newFoodName"))
-//				.calories(Integer.parseInt(request.getParameter("newFoodCalories")))
-//				.carbohydrates(Integer.parseInt(request.getParameter("newFoodCarbohydrates")))
-//				.fats(Integer.parseInt(request.getParameter("newFoodFats")))
-//				.proteins(Integer.parseInt(request.getParameter("newFoodProteins")))
-//				.build();
+		String paramName;
+		String paramErrorName;
+		String regexParamName;
+		String errorMsg;
 
-		System.out.println(PropertiesReader.Props.VALIDATION_REGEX.getProp().get("validation_test"));
+		NewFoodFields(String paramName, String paramErrorName, String regexParamName, String errorMsg) {
+			this.paramName = paramName;
+			this.paramErrorName = paramErrorName;
+			this.regexParamName = regexParamName;
+			this.errorMsg = errorMsg;
+		}
+
+		public String getParamName() {
+			return paramName;
+		}
+
+		public String getParamErrorName() {
+			return paramErrorName;
+		}
+
+		public String getRegexParamName() {
+			return regexParamName;
+		}
+
+		public String getErrorMsg() {
+			return errorMsg;
+		}
+	}
+
+	public void validate(HttpServletRequest request) throws FoodValidationException {
+		Arrays.stream(NewFoodFields.values()).forEach(x -> request.getServletContext().setAttribute(x.getParamErrorName(),
+				request.getParameter(x.getParamName()).matches(PropertiesReader.Props.VALIDATION_REGEX.getProp()
+						.getProperty(x.getRegexParamName())) ? null : x.getErrorMsg()));
+
+		if (Arrays.stream(NewFoodFields.values())
+				.anyMatch(x -> request.getServletContext().getAttribute(x.getParamName()) != null))
+			throw new FoodValidationException();
 
 	}
 }

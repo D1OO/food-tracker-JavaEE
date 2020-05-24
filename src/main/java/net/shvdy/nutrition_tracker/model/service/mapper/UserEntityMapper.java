@@ -10,6 +10,8 @@ import java.util.stream.Collectors;
 
 public class UserEntityMapper {
 
+	private FoodEntityMapper foodEntityMapper = new FoodEntityMapper();
+
 	public UserDTO entityToDTO(User user) {
 		return UserDTO.builder()
 				.id(user.getId())
@@ -20,11 +22,7 @@ public class UserEntityMapper {
 				.build();
 	}
 
-	private List<FoodDTO> mapFoodList(List<Food> foodList){
-		System.out.println(foodList.get(0).getName());
-		FoodEntityMapper foodEntityMapper = new FoodEntityMapper();
-		List<FoodDTO> asd = foodList.stream().map(foodEntityMapper::entityToDTO).collect(Collectors.toList());
-		System.out.println(asd.get(0).getName());
-		return asd;
+	private List<FoodDTO> mapFoodList(List<Food> foodList) {
+		return foodList.stream().map(foodEntityMapper::entityToDTO).collect(Collectors.toList());
 	}
 }

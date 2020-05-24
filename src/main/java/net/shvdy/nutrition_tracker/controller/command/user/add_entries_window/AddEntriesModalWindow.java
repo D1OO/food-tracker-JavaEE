@@ -4,6 +4,7 @@ import net.shvdy.nutrition_tracker.controller.command.ActionCommand;
 import net.shvdy.nutrition_tracker.dto.NewEntriesDTO;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 
 /**
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 public class AddEntriesModalWindow implements ActionCommand {
 
 	@Override
-	public String execute(HttpServletRequest request) {
+	public String execute(HttpServletRequest request, HttpServletResponse response) {
 		String recordId = request.getParameter("recordId");
 
 		request.getSession().getServletContext().setAttribute("newEntriesDTO",

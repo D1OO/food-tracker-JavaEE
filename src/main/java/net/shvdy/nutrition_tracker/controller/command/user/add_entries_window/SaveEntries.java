@@ -8,6 +8,7 @@ import net.shvdy.nutrition_tracker.dto.DailyRecordEntryDTO;
 import net.shvdy.nutrition_tracker.dto.NewEntriesDTO;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ import java.util.ArrayList;
 public class SaveEntries implements ActionCommand {
 
 	@Override
-	public String execute(HttpServletRequest request) {
+	public String execute(HttpServletRequest request, HttpServletResponse response) {
 
 		String newEntriesDTOJSON = request.getParameter("newEntriesDTOJSON");
 		String newEntriesListJSON = request.getParameter("newEntriesJSON");
@@ -31,7 +32,8 @@ public class SaveEntries implements ActionCommand {
 		try {
 			newEntriesDTO = new ObjectMapper().readValue(newEntriesDTOJSON, NewEntriesDTO.class);
 			newEntriesList = new ObjectMapper().readValue(newEntriesListJSON,
-					new TypeReference<ArrayList<DailyRecordEntryDTO>>() {});
+					new TypeReference<ArrayList<DailyRecordEntryDTO>>() {
+					});
 			newEntriesDTO.setEntries(newEntriesList);
 
 			CommandEnum.getDailyRecordService().saveNewEntries(newEntriesDTO);

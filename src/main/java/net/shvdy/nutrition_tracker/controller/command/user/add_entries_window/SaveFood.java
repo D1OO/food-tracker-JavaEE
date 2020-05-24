@@ -2,11 +2,12 @@ package net.shvdy.nutrition_tracker.controller.command.user.add_entries_window;
 
 import net.shvdy.nutrition_tracker.controller.command.ActionCommand;
 import net.shvdy.nutrition_tracker.controller.command.CommandEnum;
+import net.shvdy.nutrition_tracker.controller.command.utils.FoodValidator;
+import net.shvdy.nutrition_tracker.controller.exception.FoodValidationException;
 import net.shvdy.nutrition_tracker.dto.FoodDTO;
-import net.shvdy.nutrition_tracker.dto.UserDTO;
-import net.shvdy.nutrition_tracker.model.entity.Food;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -18,8 +19,16 @@ import java.util.List;
  */
 public class SaveFood implements ActionCommand {
 
+	FoodValidator foodValidator = new FoodValidator();
+
 	@Override
-	public String execute(HttpServletRequest request) {
+	public String execute(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			foodValidator.validate(request);
+		} catch (FoodValidationException e) {
+			response.setStatus(HttpServletResponse.SC_NOT_ACCEPTABLE);
+			return "/view/user/add-new-entries-window/window.jsp";
+		}
 
 		Long profileId = Long.parseLong(request.getParameter("profileId"));
 		FoodDTO foodDTO = FoodDTO.builder().name(request.getParameter("newFoodName"))
@@ -39,10 +48,10 @@ public class SaveFood implements ActionCommand {
 
 		foodDTO.setFoodId(generatedFoodId);
 
-		List<FoodDTO> updatedUserFood = (List<FoodDTO>) request.getSession().getAttribute("userFood");
-		updatedUserFood.add(foodDTO);
+		List<FoodDTO> userFoodToUpdate = (List<FoodDTO>) request.getSession().getAttribute("userFood");
+		userFoodToUpdate.add(foodDTO);
 
-		request.getSession().setAttribute("userFood", updatedUserFood);
+		request.getSession().setAttribute("userFood", userFoodToUpdate);
 		return "/view/user/add-new-entries-window/window.jsp";
 
 	}

@@ -1,6 +1,7 @@
 package net.shvdy.nutrition_tracker.controller.command;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Objects;
 
 /**
@@ -12,7 +13,7 @@ import java.util.Objects;
 public class ChangeLang implements ActionCommand {
 
 	@Override
-	public String execute(HttpServletRequest request) {
+	public String execute(HttpServletRequest request, HttpServletResponse response) {
 
 		String lang = request.getParameter("lang");
 		request.getSession().setAttribute("lang", Objects.requireNonNullElse(lang, "ru"));

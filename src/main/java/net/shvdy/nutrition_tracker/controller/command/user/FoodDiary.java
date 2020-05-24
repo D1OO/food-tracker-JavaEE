@@ -4,6 +4,7 @@ import net.shvdy.nutrition_tracker.controller.command.ActionCommand;
 import net.shvdy.nutrition_tracker.controller.command.CommandEnum;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Locale;
@@ -18,7 +19,7 @@ import java.util.Optional;
 public class FoodDiary implements ActionCommand {
 
 	@Override
-	public String execute(HttpServletRequest request) {
+	public String execute(HttpServletRequest request, HttpServletResponse response) {
 		String currWeekDay = Optional.ofNullable(request.getParameter("d"))
 				.orElse(LocalDate.now().toString());
 		int pageSize = Integer.parseInt((String) request.getServletContext().getAttribute("page-size"));
