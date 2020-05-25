@@ -13,7 +13,7 @@ import java.util.Objects;
 public class ChangeLang implements ActionCommand {
 
 	@Override
-	public String execute(HttpServletRequest request, HttpServletResponse response) {
+	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		String lang = request.getParameter("lang");
 		request.getSession().setAttribute("lang", Objects.requireNonNullElse(lang, "ru"));

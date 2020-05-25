@@ -16,7 +16,7 @@ import java.util.List;
 public class ReadArticle implements ActionCommand {
 
 	@Override
-	public String execute(HttpServletRequest request, HttpServletResponse response) {
+	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		int requestedArticleId = Integer.parseInt(request.getParameter("id"));
 		List<ArticleDTO> paginatedArticles = (List<ArticleDTO>) request.getSession().getAttribute("paginatedArticles");
 

@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class NewEntriesWindow implements ActionCommand {
 
 	@Override
-	public String execute(HttpServletRequest request, HttpServletResponse response) {
+	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String recordId = request.getParameter("recordId");
 
 		request.getSession().getServletContext().setAttribute("newEntriesDTO",

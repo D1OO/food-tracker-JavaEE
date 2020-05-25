@@ -16,7 +16,7 @@ import java.sql.SQLException;
 public class AdminPage implements ActionCommand {
 
 	@Override
-	public String execute(HttpServletRequest request, HttpServletResponse response) {
+	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		try {
 			request.getSession().setAttribute("headerNews",
 					CommandEnum.getArticleService().findRandom());

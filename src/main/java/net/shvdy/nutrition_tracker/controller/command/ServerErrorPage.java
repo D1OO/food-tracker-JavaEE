@@ -1,16 +1,18 @@
 package net.shvdy.nutrition_tracker.controller.command;
 
-import net.shvdy.nutrition_tracker.controller.command.utils.SecurityUtility;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class Logout implements ActionCommand {
+/**
+ * 25.05.2020
+ *
+ * @author Dmitriy Storozhenko
+ * @version 1.0
+ */
+public class ServerErrorPage implements ActionCommand {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		SecurityUtility.removeUserFromSession(request);
-		request.getSession().invalidate();
-		return "redirect:/login?logout";
+		return "/view/server-error.jsp";
 	}
 }

@@ -22,7 +22,7 @@ public class SaveNewFood implements ActionCommand {
 	FoodValidator foodValidator = new FoodValidator();
 
 	@Override
-	public String execute(HttpServletRequest request, HttpServletResponse response) {
+	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		try {
 			foodValidator.validate(request);
 		} catch (FoodValidationException e) {

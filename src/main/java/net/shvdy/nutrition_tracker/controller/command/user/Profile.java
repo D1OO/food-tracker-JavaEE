@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 public class Profile implements ActionCommand {
 
 	@Override
-	public String execute(HttpServletRequest request, HttpServletResponse response) {
+	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		return "/view/user/profile.jsp";
 	}
 }

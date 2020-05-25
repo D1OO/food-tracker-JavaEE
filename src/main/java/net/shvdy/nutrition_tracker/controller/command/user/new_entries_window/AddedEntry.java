@@ -30,7 +30,7 @@ import java.util.ArrayList;
 public class AddedEntry implements ActionCommand {
 
 	@Override
-	public String execute(HttpServletRequest request, HttpServletResponse response) {
+	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		String foodDTOJSON = request.getParameter("foodDTOJSON");
 		String foodName = request.getParameter("foodName");

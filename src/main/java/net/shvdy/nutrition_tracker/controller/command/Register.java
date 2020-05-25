@@ -11,7 +11,7 @@ import java.sql.SQLException;
 public class Register implements ActionCommand {
 
 	@Override
-	public String execute(HttpServletRequest request, HttpServletResponse response) {
+	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		try {
 			CommandEnum.getUserService().save(buildUser(request));
 		} catch (SQLException | NullPointerException e) {

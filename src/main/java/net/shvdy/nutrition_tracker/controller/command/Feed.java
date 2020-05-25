@@ -1,7 +1,5 @@
 package net.shvdy.nutrition_tracker.controller.command;
 
-import net.shvdy.nutrition_tracker.controller.command.ActionCommand;
-import net.shvdy.nutrition_tracker.controller.command.CommandEnum;
 import net.shvdy.nutrition_tracker.dto.ArticleDTO;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +17,7 @@ import java.util.List;
 public class Feed implements ActionCommand {
 
 	@Override
-	public String execute(HttpServletRequest request, HttpServletResponse response) {
+	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		List<ArticleDTO> articles = new ArrayList<>();
 		try {

@@ -19,7 +19,7 @@ import java.util.Optional;
 public class FoodDiary implements ActionCommand {
 
 	@Override
-	public String execute(HttpServletRequest request, HttpServletResponse response) {
+	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String currWeekDay = Optional.ofNullable(request.getParameter("d"))
 				.orElse(LocalDate.now().toString());
 		int pageSize = Integer.parseInt((String) request.getServletContext().getAttribute("page-size"));
@@ -37,9 +37,13 @@ public class FoodDiary implements ActionCommand {
 
 		request.getSession().setAttribute("prevWeekDay",
 				currWeekDay.equals(LocalDate.now().toString()) ? null :
-				LocalDate.parse(currWeekDay).plusDays(pageSize).toString());
+						LocalDate.parse(currWeekDay).plusDays(pageSize).toString());
 		request.getSession().setAttribute("nextWeekDay",
 				LocalDate.parse(currWeekDay).minusDays(pageSize).toString());
+
+//		if (request.getParameter("containerRequest") != null)
+//			return "/view/feed.jsp";
+//		else return "/view/" + request.getSession().getAttribute("user.role").toString().toLowerCase() + ".jsp";
 
 		return "/view/user/food-diary.jsp";
 	}

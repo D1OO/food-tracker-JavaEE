@@ -83,7 +83,10 @@ public enum CommandEnum {
 			Set.of(Role.ADMIN, Role.USER)),
 	SAVE_NEW_FOOD(
 			new SaveNewFood(), "/save-new-food",
-			Set.of(Role.ADMIN, Role.USER));
+			Set.of(Role.ADMIN, Role.USER)),
+	SERVER_ERROR(
+			new ServerErrorPage(), "/server-error",
+			Set.of(Role.values()));
 
 	private final ActionCommand actionCommand;
 	private final String path;

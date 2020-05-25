@@ -1,7 +1,6 @@
 package net.shvdy.nutrition_tracker.controller;
 
 import net.shvdy.nutrition_tracker.PropertiesReader;
-import net.shvdy.nutrition_tracker.controller.command.ActionCommand;
 import net.shvdy.nutrition_tracker.controller.command.CommandEnum;
 import net.shvdy.nutrition_tracker.model.service.*;
 
@@ -23,7 +22,6 @@ public class DreamfitServlet extends HttpServlet {
 	public void init(ServletConfig servletConfig) {
 		servletConfig.getServletContext().setAttribute("loggedUsers", new HashSet<Long>());
 		servletConfig.getServletContext().setAttribute("page-size", servletConfig.getInitParameter("page-size"));
-
 		PropertiesReader.readProperties(this.getClass().getClassLoader());
 		loadAndInjectServices();
 	}
@@ -31,10 +29,7 @@ public class DreamfitServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		Locale locale = Locale.forLanguageTag((String) request.getSession().getAttribute("lang"));
-		request.getSession().getServletContext().setAttribute("localizedDate",
-				LocalDate.now().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG).withLocale(locale)));
+		setDateForLocale(request);
 		processRequest(request, response);
 	}
 
@@ -46,14 +41,20 @@ public class DreamfitServlet extends HttpServlet {
 
 	private void processRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		ActionCommand actionCommand = CommandEnum.getByURI(request.getRequestURI());
-		String page = actionCommand.execute(request, response);
-
-		if (page.contains("redirect:")) {
-			response.sendRedirect(request.getContextPath() + page.replace("redirect:", ""));
+		String path = executeCommand(request, response);
+		if ((path).contains("redirect:")) {
+			response.sendRedirect(request.getContextPath() + path.replace("redirect:", ""));
 		} else {
-			request.getRequestDispatcher(page).forward(request, response);
+			request.getRequestDispatcher(path).forward(request, response);
+		}
+	}
+
+	private String executeCommand(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			return CommandEnum.getByURI(request.getRequestURI()).execute(request, response);
+		} catch (Exception e) {
+			request.getSession().setAttribute("error-message", e.getMessage());
+			return CommandEnum.SERVER_ERROR.getPath();
 		}
 	}
 
@@ -89,5 +90,11 @@ public class DreamfitServlet extends HttpServlet {
 		}
 
 		CommandEnum.injectServices(userService, dailyRecordService, foodService, articleService);
+	}
+
+	private void setDateForLocale(HttpServletRequest request) {
+		Locale locale = Locale.forLanguageTag((String) request.getSession().getAttribute("lang"));
+		request.getServletContext().setAttribute("localizedDate",
+				LocalDate.now().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG).withLocale(locale)));
 	}
 }

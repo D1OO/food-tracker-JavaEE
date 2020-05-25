@@ -22,7 +22,7 @@ import java.util.ArrayList;
 public class SaveEntries implements ActionCommand {
 
 	@Override
-	public String execute(HttpServletRequest request, HttpServletResponse response) {
+	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		String newEntriesDTOJSON = request.getParameter("newEntriesDTOJSON");
 		String newEntriesListJSON = request.getParameter("newEntriesJSON");
