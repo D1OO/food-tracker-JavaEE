@@ -7,13 +7,15 @@ package net.shvdy.nutrition_tracker.dto;
  * @version 1.0
  */
 public class ArticleDTO {
+	private int articleId;
 	private String title;
 	private String authorName;
 	private String date;
 	private String text;
 	private String base64Image;
 
-	public ArticleDTO(String title, String authorName, String date, String text, String base64Image) {
+	public ArticleDTO(int articleId, String title, String authorName, String date, String text, String base64Image) {
+		this.articleId = articleId;
 		this.title = title;
 		this.authorName = authorName;
 		this.date = date;
@@ -27,6 +29,14 @@ public class ArticleDTO {
 
 	public String getTitle() {
 		return title;
+	}
+
+	public int getArticleId() {
+		return articleId;
+	}
+
+	public void setArticleId(int articleId) {
+		this.articleId = articleId;
 	}
 
 	public void setTitle(String title) {
@@ -66,6 +76,7 @@ public class ArticleDTO {
 	}
 
 	public static final class ArticleDTOBuilder {
+		private int articleId;
 		private String title;
 		private String authorName;
 		private String date;
@@ -73,6 +84,11 @@ public class ArticleDTO {
 		private String base64Image;
 
 		private ArticleDTOBuilder() {
+		}
+
+		public ArticleDTOBuilder articleId(int articleId) {
+			this.articleId = articleId;
+			return this;
 		}
 
 		public ArticleDTOBuilder title(String title) {
@@ -101,7 +117,7 @@ public class ArticleDTO {
 		}
 
 		public ArticleDTO build() {
-			return new ArticleDTO(title, authorName, date, text, base64Image);
+			return new ArticleDTO(articleId, title, authorName, date, text, base64Image);
 		}
 	}
 }

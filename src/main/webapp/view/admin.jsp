@@ -18,20 +18,16 @@
                 <div class="d-inline-block" data-aos="fade-zoom-in" data-aos-offset="0"
                      style="height: 100%; width: 100%">
                     <div id="modal-window" style="display: none"></div>
-                    <div class="carousel" data-flickity='{ "autoPlay": true, "pageDots": false }'>
-                        <c:forEach var="food" items="${user.userFood}" varStatus="loop">
-                            <div class=" carousel-cell">
-                                <div class="mb-1">
-                                    <div class="user_food m-2">
-                                        <a rel="group" title=""></a>
-                                        <div class="label">
-                                            <div class="label-text">
-                                                <button class="pretty-button foodlink" name='${food}'
-                                                        onclick="addedNewEntry(this.getAttribute('name'), '${food.name}')">${food.name}</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                    <div class="carousel" data-flickity='{ "autoPlay": true, "pageDots": false, "wrapAround": true }'>
+                        <c:forEach var="news" items="${headerNews}" varStatus="loop">
+                            <div class=" carousel-cell"  style="background-image: url('data:image/jpg;base64,${news.base64Image}');
+                                    background-size: cover">
+                                <a rel="group" role="link">
+                                    <h6 style="background-color: white; border-radius: 1rem; padding: 6px 10px 6px 10px;">${news.title}</h6>
+<%--                                    <button class="pretty-button foodlink" name='${food}'--%>
+<%--                                            onclick="addedNewEntry(this.getAttribute('name'),--%>
+<%--                                                    '${food.name}')">${food.name}</button>--%>
+                                </a>
                             </div>
                         </c:forEach>
                     </div>

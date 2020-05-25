@@ -11,9 +11,11 @@ function setContentContainerToEndpoint(...controllerEndpoint) {
     $.get(controllerEndpoint.join(''), function (data) {
         document.getElementById('content-container').innerHTML = data;
     });
+    window.history.pushState("object or string", "Title", controllerEndpoint.join(''));
 }
 
 function setContentContainerToHtml(html) {
+    // $(html).css('display', 'block');
     document.getElementById('content-container').innerHTML = html;
 }
 
@@ -32,7 +34,7 @@ function openAddFoodModalWindow(recordtab) {
     });
 }
 
-function openNewArticleModalWindow() {
+function openCreateArticleModalWindow() {
     $.get('/new-article-window', function (response) {
         document.getElementById('modal-window').innerHTML = response;
         $("#modal-window").css("display", "block");

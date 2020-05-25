@@ -1,5 +1,6 @@
 package net.shvdy.nutrition_tracker.controller.command;
 
+import net.shvdy.nutrition_tracker.controller.command.admin.AdminPage;
 import net.shvdy.nutrition_tracker.controller.command.admin.NewArticleWindow;
 import net.shvdy.nutrition_tracker.controller.command.admin.Feed;
 import net.shvdy.nutrition_tracker.controller.command.admin.SaveNewArticle;
