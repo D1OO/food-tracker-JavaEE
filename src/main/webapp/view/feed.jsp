@@ -12,29 +12,16 @@
     </div>
     <div class="d-flex flex-column content-container">
         <c:forEach var="article" items="${paginatedArticles}" varStatus="loop">
-            <a role="link"
-               onclick="setContentContainerToHtml(document.getElementById('article${article.articleId}').innerHTML)"
-               class="article-block d-inline-flex flex-grow-1 justify-content-between row mx-md-3 mb-2"
-               style="background-color:rgba(228,228,228,0.2);">
+            <button role="link"
+               onclick="loadFromServerIntoContentContainer('/read-article?id=${article.articleId}')"
+               class="article-block d-inline-flex flex-grow-1 justify-content-between row mx-md-3 mb-2">
                 <div class="col-8">
                     <h4 class="mt-2">${article.title}</h4>
                     <p class="float-right" style="color: gray">${article.date}</p>
                 </div>
                 <img class="m-2" src="data:image/jpg;base64,${article.base64Image}"
                      style="border: 3px solid black; border-radius: 0.2rem; object-fit: cover; width: 200px; height: 120px"/>
-            </a>
-
-            <div id="article${article.articleId}" style="display: none !important;">
-                <div class="article-full d-flex flex-column m-4" data-aos="fade-zoom-in" data-aos-offset="0">
-                    <div class="">
-                        <h4 class="mt-2">${article.title}</h4>
-                        <p class="float-right" style="color: gray">${article.date}</p>
-                    </div>
-                    <img class="m-2" src="data:image/jpg;base64,${article.base64Image}"
-                         style="border: 1px solid black; border-radius: 0.2rem; object-fit: cover; width: 200px; height: 120px"/>
-                    <p>${article.text}</p>
-                </div>
-            </div>
+            </button>
         </c:forEach>
         <div class="tabs container m2 mb-4">
             <button class="pretty-button open-modal" style="width: 12em; "

@@ -1,7 +1,6 @@
 package net.shvdy.nutrition_tracker.model.dao;
 
 import net.shvdy.nutrition_tracker.model.entity.Article;
-import net.shvdy.nutrition_tracker.model.entity.DailyRecord;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -14,7 +13,9 @@ import java.util.List;
  */
 public interface ArticleDAO extends GenericDAO<Article> {
 
-	Long save(Article article) throws SQLException;
+	int save(Article article) throws SQLException;
 
 	List<Article> findPaginated() throws SQLException;
+
+	Article findByID(int articleID) throws SQLException;
 }

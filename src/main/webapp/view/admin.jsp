@@ -20,13 +20,12 @@
                     <div id="modal-window" style="display: none"></div>
                     <div class="carousel" data-flickity='{ "autoPlay": true, "pageDots": false, "wrapAround": true }'>
                         <c:forEach var="news" items="${headerNews}" varStatus="loop">
-                            <div class=" carousel-cell"  style="background-image: url('data:image/jpg;base64,${news.base64Image}');
-                                    background-size: cover">
-                                <a rel="group" role="link">
+                            <div class=" carousel-cell"
+                                 style="background-image: url('data:image/jpg;base64,${news.base64Image}');
+                                         background-size: cover">
+                                <a class="carousel-link" rel="group" role="link"
+                                   onclick="loadFromServerIntoContentContainer('/read-article?id=${news.articleId}')">
                                     <h6 style="background-color: white; border-radius: 1rem; padding: 6px 10px 6px 10px;">${news.title}</h6>
-<%--                                    <button class="pretty-button foodlink" name='${food}'--%>
-<%--                                            onclick="addedNewEntry(this.getAttribute('name'),--%>
-<%--                                                    '${food.name}')">${food.name}</button>--%>
                                 </a>
                             </div>
                         </c:forEach>
@@ -35,10 +34,12 @@
                         <div class="d-inline-flex" style="width: 100%">
                             <div class="d-flex flex-column tabs mx-2 flex-grow-1" style="width: 20%">
                                 <button class="pretty-button  menu-pr-button bg my-2"
-                                        onclick="loadFromServerIntoContentContainer('feed')"><fmt:message key="manage-feed"/>
+                                        onclick="loadFromServerIntoContentContainer('feed')"><fmt:message
+                                        key="manage-feed"/>
                                 </button>
                                 <button class="pretty-button  menu-pr-button bg my-2"
-                                        onclick="loadFromServerIntoContentContainer('profile')"><fmt:message key="profile"/>
+                                        onclick="loadFromServerIntoContentContainer('profile')"><fmt:message
+                                        key="profile"/>
                                 </button>
                             </div>
                             <div class="maincontent  d-flex flex-grow-1  m-2" id="content-container"

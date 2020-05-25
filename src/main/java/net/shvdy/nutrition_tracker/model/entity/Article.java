@@ -10,7 +10,7 @@ import java.io.InputStream;
  */
 public class Article {
 
-	private Long articleId;
+	private int articleId;
 	private String title;
 	private Long authorId;
 	private String date;
@@ -19,7 +19,7 @@ public class Article {
 	private String text;
 	private InputStream image;
 
-	public Article(Long articleId, String title, Long authorId, String date, String authorFirstName,
+	public Article(int articleId, String title, Long authorId, String date, String authorFirstName,
 				   String authorLastName, String text, InputStream image) {
 		this.articleId = articleId;
 		this.title = title;
@@ -35,11 +35,11 @@ public class Article {
 		return new ArticleBuilder();
 	}
 
-	public Long getArticleId() {
+	public int getArticleId() {
 		return articleId;
 	}
 
-	public void setArticleId(Long articleId) {
+	public void setArticleId(int articleId) {
 		this.articleId = articleId;
 	}
 
@@ -101,7 +101,7 @@ public class Article {
 
 
 	public static final class ArticleBuilder {
-		private Long articleId;
+		private int articleId;
 		private String title;
 		private Long authorId;
 		private String date;
@@ -113,7 +113,7 @@ public class Article {
 		private ArticleBuilder() {
 		}
 
-		public ArticleBuilder articleId(Long articleId) {
+		public ArticleBuilder articleId(int articleId) {
 			this.articleId = articleId;
 			return this;
 		}

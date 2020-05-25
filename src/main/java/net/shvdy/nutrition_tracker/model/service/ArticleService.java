@@ -31,4 +31,8 @@ public class ArticleService {
 	public List<ArticleDTO> findPaginated() throws SQLException {
 		return articleEntityMapper.entityListToDTO(articleDAO.findPaginated());
 	}
+
+	public ArticleDTO findByID(int articleId) throws SQLException {
+		return articleEntityMapper.entityToDTO(articleDAO.findByID(articleId));
+	}
 }

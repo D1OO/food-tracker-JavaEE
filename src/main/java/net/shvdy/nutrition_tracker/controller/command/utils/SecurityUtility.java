@@ -9,7 +9,6 @@ public class SecurityUtility {
 	public static void setSessionInfo(HttpServletRequest request, UserDTO user) {
 		request.getSession().setAttribute("user", user);
 		request.getSession().setAttribute("user.role", user.getRole());
-		System.out.println(user.getRole().name() + "nnnn");
 		request.getSession().setAttribute("user.userId", user.getUserId());
 		request.getSession().setAttribute("user.userFood", user.getUserFood());
 		request.getSession().setAttribute("user.dailyCaloriesNorm", user.getDailyCaloriesNorm());

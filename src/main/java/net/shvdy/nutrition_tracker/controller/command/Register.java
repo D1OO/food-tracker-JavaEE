@@ -15,8 +15,6 @@ public class Register implements ActionCommand {
 		try {
 			CommandEnum.getUserService().save(buildUser(request));
 		} catch (SQLException | NullPointerException e) {
-			System.out.println(e.getMessage());
-
 			e.printStackTrace();
 			return "redirect:/registration?error";
 		}

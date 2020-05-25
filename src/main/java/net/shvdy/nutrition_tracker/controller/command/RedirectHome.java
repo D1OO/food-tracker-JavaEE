@@ -10,7 +10,6 @@ public class RedirectHome implements ActionCommand {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
 		Role role = (Role) request.getSession().getAttribute("user.role");
-		System.out.println(role.name());
 		if (role.equals(Role.ADMIN)) {
 			return "redirect:/admin";
 		} else if (role.equals(Role.USER)) {

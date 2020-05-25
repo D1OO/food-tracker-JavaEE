@@ -24,7 +24,6 @@ public class SaveNewArticle  implements ActionCommand {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
-		System.out.println(request.getParameter("authorId") + "asdasdada");
 		Article article = Article.builder()
 				.authorId(Long.parseLong(request.getParameter("authorId")))
 				.title(request.getParameter("title"))

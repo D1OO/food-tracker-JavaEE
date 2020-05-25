@@ -18,12 +18,9 @@ public class Login implements ActionCommand {
 		UserDTO user;
 
 		try {
-			System.out.println(loginDto.getPassword());
-			System.out.println(loginDto.getUsername());
 			user = CommandEnum.getUserService().findByLoginDTO(loginDto);
 		} catch (UserNotFoundException | InvalidPasswordException |
 				SQLException | NullPointerException e) {
-			System.out.println(e.getMessage());
 			e.printStackTrace();
 			return "redirect:/login?error";
 		}

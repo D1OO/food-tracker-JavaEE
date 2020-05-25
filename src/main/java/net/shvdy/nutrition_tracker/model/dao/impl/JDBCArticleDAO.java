@@ -3,7 +3,6 @@ package net.shvdy.nutrition_tracker.model.dao.impl;
 import net.shvdy.nutrition_tracker.model.dao.ArticleDAO;
 import net.shvdy.nutrition_tracker.model.dao.resultset_mapper.ResultSetMapper;
 import net.shvdy.nutrition_tracker.model.entity.Article;
-import net.shvdy.nutrition_tracker.model.entity.DailyRecord;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -34,7 +33,7 @@ public class JDBCArticleDAO implements ArticleDAO {
 	}
 
 	@Override
-	public Long save(Article article) throws SQLException {
+	public int save(Article article) throws SQLException {
 		try (Connection connection = dataSource.getConnection();
 			 PreparedStatement insertArticle = connection
 					 .prepareStatement(queries.getProperty("article_dao.INSERT_ARTICLE_SQL"),
@@ -48,10 +47,10 @@ public class JDBCArticleDAO implements ArticleDAO {
 			insertArticle.setBlob(6, article.getImage());
 			insertArticle.executeUpdate();
 
-			if (article.getArticleId() == null) {
+			if (article.getArticleId() == 0) {
 				ResultSet generatedKeys = insertArticle.getGeneratedKeys();
 				if (generatedKeys.next())
-					return generatedKeys.getLong(1);
+					return generatedKeys.getInt(1);
 			}
 			return article.getArticleId();
 		}
@@ -67,7 +66,18 @@ public class JDBCArticleDAO implements ArticleDAO {
 		}
 	}
 
-	private void setLongOrNull(PreparedStatement statement, int index, Long value) throws SQLException {
+	@Override
+	public Article findByID(int articleId) throws SQLException {
+		try (Connection connection = dataSource.getConnection();
+			 PreparedStatement statement = connection
+					 .prepareStatement(queries.getProperty("article_dao.SELECT_BY_ID"))) {
+
+			statement.setInt(1, articleId);
+			return resultSetMapper.map(statement.executeQuery()).get(0);
+		}
+	}
+
+	private void setLongOrNull(PreparedStatement statement, int index, int value) throws SQLException {
 		try {
 			statement.setLong(index, value);
 		} catch (NullPointerException e) {

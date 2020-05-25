@@ -1,4 +1,4 @@
-package net.shvdy.nutrition_tracker.controller.command.admin;
+package net.shvdy.nutrition_tracker.controller.command;
 
 import net.shvdy.nutrition_tracker.controller.command.ActionCommand;
 import net.shvdy.nutrition_tracker.controller.command.CommandEnum;
@@ -29,6 +29,8 @@ public class Feed implements ActionCommand {
 		}
 
 		request.getSession().setAttribute("paginatedArticles", articles);
-		return "/view/feed.jsp";
+		if (request.getParameter("containerRequest") != null)
+			return "/view/feed.jsp";
+		else return "/view/" + request.getSession().getAttribute("user.role").toString().toLowerCase() + ".jsp";
 	}
 }

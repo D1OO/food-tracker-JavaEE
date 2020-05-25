@@ -2,7 +2,6 @@ package net.shvdy.nutrition_tracker.controller.command;
 
 import net.shvdy.nutrition_tracker.controller.command.admin.AdminPage;
 import net.shvdy.nutrition_tracker.controller.command.admin.NewArticleWindow;
-import net.shvdy.nutrition_tracker.controller.command.admin.Feed;
 import net.shvdy.nutrition_tracker.controller.command.admin.SaveNewArticle;
 import net.shvdy.nutrition_tracker.controller.command.user.CompleteProfileToProceed;
 import net.shvdy.nutrition_tracker.controller.command.user.FoodDiary;
@@ -51,6 +50,9 @@ public enum CommandEnum {
 			Set.of(Role.ADMIN)),
 	FEED(
 			new Feed(), "/feed",
+			Set.of(Role.ADMIN, Role.USER)),
+	READ_ARTICLE(
+			new ReadArticle(), "/read-article",
 			Set.of(Role.ADMIN, Role.USER)),
 	CHANGE_LANG(
 			new ChangeLang(), "/lang",

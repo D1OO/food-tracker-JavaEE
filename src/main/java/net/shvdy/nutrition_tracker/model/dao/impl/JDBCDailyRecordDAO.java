@@ -67,8 +67,6 @@ public class JDBCDailyRecordDAO implements DailyRecordDAO {
 
 			for (DailyRecordEntry entry : dailyRecord.getEntries()) {
 				insertEntries.setLong(1, entry.getFood().getFoodId());
-				System.out.println(dailyRecord.getRecordId() + "aa");
-				System.out.println(dailyRecord.getRecordId() == null);
 				insertEntries.setLong(2, Optional.ofNullable(dailyRecord.getRecordId()).orElseThrow());
 				insertEntries.setInt(3, entry.getQuantity());
 				setLongOrNull(insertEntries, 4, entry.getEntryId());

@@ -7,7 +7,6 @@ public class LoginPage implements ActionCommand {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
-		System.out.println(request.getSession().getAttribute("user.role") + "ttt");
 		return "/view/login.jsp";
 	}
 }

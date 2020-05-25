@@ -35,7 +35,6 @@ public class SaveEntries implements ActionCommand {
 					new TypeReference<ArrayList<DailyRecordEntryDTO>>() {
 					});
 			newEntriesDTO.setEntries(newEntriesList);
-			System.out.println(newEntriesDTO.getRecordId());
 			CommandEnum.getDailyRecordService().saveNewEntries(newEntriesDTO);
 
 			return ("redirect:/user");

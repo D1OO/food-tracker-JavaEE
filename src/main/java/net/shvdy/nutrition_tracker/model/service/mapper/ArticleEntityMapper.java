@@ -21,14 +21,17 @@ import java.util.stream.Collectors;
 public class ArticleEntityMapper {
 
 	public List<ArticleDTO> entityListToDTO(List<Article> articleList) {
-		System.out.print(articleList.get(0).getDate());
-		return articleList.stream().map(x -> ArticleDTO.builder()
-				.title(x.getTitle())
-				.date(readDateString(x.getDate()))
-				.text(x.getText())
-				.authorName(x.getAuthorFirstName() + x.getAuthorLastName())
-				.base64Image(getBase64String(x.getImage()))
-				.build()).collect(Collectors.toList());
+		return articleList.stream().map(this::entityToDTO).collect(Collectors.toList());
+	}
+
+	public ArticleDTO entityToDTO(Article article) {
+		return ArticleDTO.builder().articleId(article.getArticleId())
+				.title(article.getTitle())
+				.authorName(article.getAuthorFirstName() + article.getAuthorLastName())
+				.text(article.getText())
+				.date(readDateString(article.getDate()))
+				.base64Image(getBase64String(article.getImage()))
+				.build();
 	}
 
 	private String getBase64String(InputStream inputStream) {
@@ -43,8 +46,6 @@ public class ArticleEntityMapper {
 	private String readDateString(String string) {
 		LocalDateTime date = LocalDateTime.parse(string, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 		return date.format(DateTimeFormatter.ofPattern("d MMM kk:mm"));
-//		return date.getDayOfMonth() + "/" + date.getMonth().getDisplayName(TextStyle.SHORT, Locale.forLanguageTag("ru"))
-//					+ " " + date.getHour() + ":" + date.getMinute();
 	}
 
 	private String readImageString(InputStream inputStream) throws IOException {

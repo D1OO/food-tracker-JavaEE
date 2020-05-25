@@ -53,8 +53,8 @@ dl, ol, ul {
 #content-container {
     height: 100%;
     width: 100%;
-    background: rgba(192, 181, 218, 0.4);
-    background: linear-gradient(180deg, rgba(218, 216, 212, 0.4) 11%, rgba(224, 224, 224, 0.5) 49%, rgba(240, 255, 239, 0.5) 100%);
+    /*background: rgba(192, 181, 218, 0.4);*/
+    /*background: linear-gradient(180deg, rgba(218, 216, 212, 0.4) 11%, rgba(224, 224, 224, 0.5) 49%, rgba(240, 255, 239, 0.5) 100%);*/
     border: 1px solid black;
     margin-bottom: 10px;
 }
@@ -161,8 +161,8 @@ dl, ol, ul {
 }
 
 .food-diary-container {
-    background: rgba(213, 95, 147, 0.24);
-    background: linear-gradient(338deg, rgba(213, 95, 147, 0.19) 10%, rgba(233, 232, 148, 0.4) 100%);
+    /*background: rgba(213, 95, 147, 0.24);*/
+    /*background: linear-gradient(338deg, rgba(213, 95, 147, 0.19) 10%, rgba(233, 232, 148, 0.4) 100%);*/
 }
 
 .recordTab {
@@ -526,7 +526,7 @@ h6,
 }
 
 .open-modal {
-    background-color: rgba(36,168,0,0.41);
+    background-color: rgba(36, 168, 0, 0.41);
 }
 
 .list-line li {
@@ -911,7 +911,7 @@ h6,
 }
 
 
-.first-slide{
+.first-slide {
     height: 100%;
     width: 100%;
     color: white;
@@ -926,8 +926,26 @@ h6,
 }
 
 .article-block {
+    background-color: rgba(255, 255, 255, 0);
+    border-radius: 0.2rem;
+}
+
+.article-block:hover {
+    background: rgb(255,255,255);
+    background: linear-gradient(184deg, rgba(255,255,255,0.6698879380853904) 0%, rgba(134,255,113,0.16008401651676296) 79%);
     border: 1px solid grey;
     border-radius: 0.2rem;
+}
+
+.carousel-link {
+    cursor: pointer;
+    color: rgba(0, 8, 3, 0.98);
+    font-size: 1rem;
+}
+
+.carousel-link:hover {
+    color: rgba(0, 183, 130, 0.98);
+    font-size: 1.2rem;
 }
 
 @font-face {

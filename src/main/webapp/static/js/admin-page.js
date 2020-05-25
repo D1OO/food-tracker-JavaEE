@@ -9,13 +9,13 @@ $(document).ready(function () {
 });
 
 function loadFromServerIntoContentContainer(...endpoint) {
-    const state = { "endpoint": endpoint.join('') };
-    window.history.pushState(state,"Dreamfit", endpoint);
+    const state = {"endpoint": endpoint.join('')};
+    window.history.pushState(state, "Dreamfit", endpoint);
     setContentContainerToEndpoint(endpoint.join(''));
 }
 
 function setContentContainerToEndpoint(...controllerEndpoint) {
-    $.get(controllerEndpoint.join(''), function (data) {
+    $.get(controllerEndpoint.join(''), {containerRequest: true}, function (data) {
         document.getElementById('content-container').innerHTML = data;
     });
 }
@@ -107,7 +107,7 @@ function saveCreatedArticle() {
         },
         success: function (response) {
             closeAddFoodModalWindow();
-            setContentContainerToHtml(response);
+            loadFromServerIntoContentContainer('feed');
         }
     });
 }
