@@ -19,7 +19,7 @@ public class FoodValidator {
 		NAME("newFoodName", "newFoodNameError",
 				"validation.test", "Incorrect name"),
 		CALORIES("newFoodCalories", "newFoodCaloriesError",
-				"validation.test2", "Incorrect calories");
+				"food_calories", "Incorrect calories");
 
 		String paramName;
 		String paramErrorName;

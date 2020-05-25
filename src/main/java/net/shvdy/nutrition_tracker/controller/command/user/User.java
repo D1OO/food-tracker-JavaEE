@@ -1,4 +1,6 @@
-package net.shvdy.nutrition_tracker.controller.command;
+package net.shvdy.nutrition_tracker.controller.command.user;
+
+import net.shvdy.nutrition_tracker.controller.command.ActionCommand;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

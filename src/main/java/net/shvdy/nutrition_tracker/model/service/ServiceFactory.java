@@ -1,6 +1,7 @@
 package net.shvdy.nutrition_tracker.model.service;
 
 import net.shvdy.nutrition_tracker.model.dao.DAOFactory;
+import net.shvdy.nutrition_tracker.model.service.mapper.ArticleEntityMapper;
 import net.shvdy.nutrition_tracker.model.service.mapper.DailyRecordEntityMapper;
 import net.shvdy.nutrition_tracker.model.service.mapper.FoodEntityMapper;
 import net.shvdy.nutrition_tracker.model.service.mapper.UserEntityMapper;
@@ -20,5 +21,9 @@ public abstract class ServiceFactory {
 
     public static FoodService foodService() throws IOException, NamingException {
         return new FoodService(DAOFactory.getJDBCInstance().getFoodDAO(), new FoodEntityMapper());
+    }
+
+    public static ArticleService articleService() throws IOException, NamingException {
+        return new ArticleService(DAOFactory.getJDBCInstance().getArticleDAO(), new ArticleEntityMapper());
     }
 }

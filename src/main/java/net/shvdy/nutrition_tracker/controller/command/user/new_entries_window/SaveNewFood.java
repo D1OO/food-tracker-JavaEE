@@ -50,8 +50,8 @@ public class SaveNewFood implements ActionCommand {
 
 		List<FoodDTO> userFoodToUpdate = (List<FoodDTO>) request.getSession().getAttribute("user.userFood");
 		userFoodToUpdate.add(foodDTO);
-
 		request.getSession().setAttribute("user.userFood", userFoodToUpdate);
+
 		return "/view/user/add-new-entries-window/window.jsp";
 
 	}

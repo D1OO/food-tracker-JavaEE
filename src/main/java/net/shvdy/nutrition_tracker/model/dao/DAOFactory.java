@@ -14,6 +14,7 @@ public abstract class DAOFactory {
     public abstract UserDAO getUserDAO();
     public abstract DailyRecordDAO getDailyRecordDAO();
     public abstract FoodDAO getFoodDAO();
+    public abstract ArticleDAO getArticleDAO();
 
     public static DAOFactory getJDBCInstance() throws IOException, NamingException {
         if (DAOFactory == null) {

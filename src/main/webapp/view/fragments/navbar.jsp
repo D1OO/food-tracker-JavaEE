@@ -24,7 +24,7 @@ background: radial-gradient(circle, rgba(178,183,223,1) 0%, rgba(232,253,203,0.7
                     <c:if test="${user.role eq GUEST}">
                         <li class=" list-inline-item">
                             <a class="pretty-button bg" href="/login"><fmt:message key="sign-in"/></a>
-                            <a class="pretty-button bg signupButton" href="javascript:void(0)"
+                            <a class="pretty-button bg signupButton"
                                href="${pageContext.request.contextPath}/registration"><fmt:message
                                     key="create-account"/></a>
                         </li>

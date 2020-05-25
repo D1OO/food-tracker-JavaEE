@@ -18,9 +18,29 @@
                 <div class="d-inline-block" data-aos="fade-zoom-in" data-aos-offset="0"
                      style="height: 100%; width: 100%">
                     <div id="modal-window" style="display: none"></div>
-                    <div class="maincontent d-flex" style="height: 100%">
+                    <div class="carousel" data-flickity='{ "autoPlay": true, "pageDots": false }'>
+                        <c:forEach var="food" items="${user.userFood}" varStatus="loop">
+                            <div class=" carousel-cell">
+                                <div class="mb-1">
+                                    <div class="user_food m-2">
+                                        <a rel="group" title=""></a>
+                                        <div class="label">
+                                            <div class="label-text">
+                                                <button class="pretty-button foodlink" name='${food}'
+                                                        onclick="addedNewEntry(this.getAttribute('name'), '${food.name}')">${food.name}</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </c:forEach>
+                    </div>
+                    <div class="maincontent d-flex">
                         <div class="d-inline-flex" style="width: 100%">
                             <div class="d-flex flex-column tabs mx-2 flex-grow-1" style="width: 20%">
+                                <button class="pretty-button  menu-pr-button bg my-2"
+                                        onclick="setContentContainerTo('feed')"><fmt:message key="feed"/>
+                                </button>
                                 <button class="pretty-button menu-pr-button bg  my-2"
                                         onclick="setContentContainerTo('food-diary')"><fmt:message key="diary"/>
                                 </button>
@@ -40,7 +60,7 @@
 
 <jsp:include page="/view/fragments/footer.jsp"/>
 <jsp:include page="/view/fragments/scripts.jsp"/>
-<script id="change-lang-param" src="static/js/content-container-and-modal-window.js" type="text/javascript"></script>
+<script src="static/js/admin-page.js" type="text/javascript"></script>
 
 </body>
 </html>

@@ -1,10 +1,8 @@
 package net.shvdy.nutrition_tracker.model.dao.impl;
 
 import net.shvdy.nutrition_tracker.PropertiesReader;
-import net.shvdy.nutrition_tracker.model.dao.DAOFactory;
-import net.shvdy.nutrition_tracker.model.dao.DailyRecordDAO;
-import net.shvdy.nutrition_tracker.model.dao.FoodDAO;
-import net.shvdy.nutrition_tracker.model.dao.UserDAO;
+import net.shvdy.nutrition_tracker.model.dao.*;
+import net.shvdy.nutrition_tracker.model.dao.resultset_mapper.ArticleMapper;
 import net.shvdy.nutrition_tracker.model.dao.resultset_mapper.DailyRecordListMapper;
 import net.shvdy.nutrition_tracker.model.dao.resultset_mapper.FoodMapper;
 import net.shvdy.nutrition_tracker.model.dao.resultset_mapper.UserMapper;
@@ -37,6 +35,11 @@ public class JDBCDAOFactory extends DAOFactory {
 	@Override
 	public FoodDAO getFoodDAO() {
 		return new JDBCFoodDAO(dataSource, new FoodMapper(), DAO_SQL_queries);
+	}
+
+	@Override
+	public ArticleDAO getArticleDAO() {
+		return new JDBCArticleDAO(dataSource, new ArticleMapper(), DAO_SQL_queries);
 	}
 
 }

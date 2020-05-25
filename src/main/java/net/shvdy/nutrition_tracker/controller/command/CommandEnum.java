@@ -1,10 +1,15 @@
 package net.shvdy.nutrition_tracker.controller.command;
 
+import net.shvdy.nutrition_tracker.controller.command.admin.NewArticleWindow;
+import net.shvdy.nutrition_tracker.controller.command.admin.Feed;
+import net.shvdy.nutrition_tracker.controller.command.admin.SaveNewArticle;
 import net.shvdy.nutrition_tracker.controller.command.user.CompleteProfileToProceed;
 import net.shvdy.nutrition_tracker.controller.command.user.FoodDiary;
 import net.shvdy.nutrition_tracker.controller.command.user.Profile;
+import net.shvdy.nutrition_tracker.controller.command.user.User;
 import net.shvdy.nutrition_tracker.controller.command.user.new_entries_window.*;
 import net.shvdy.nutrition_tracker.model.entity.Role;
+import net.shvdy.nutrition_tracker.model.service.ArticleService;
 import net.shvdy.nutrition_tracker.model.service.DailyRecordService;
 import net.shvdy.nutrition_tracker.model.service.FoodService;
 import net.shvdy.nutrition_tracker.model.service.UserService;
@@ -34,6 +39,18 @@ public enum CommandEnum {
 	REDIRECT_HOME(
 			new RedirectHome(), "/redirect:home",
 			Set.of(Role.ADMIN, Role.USER, Role.GUEST)),
+	ADMIN_PAGE(
+			new AdminPage(), "/admin",
+			Set.of(Role.ADMIN)),
+	NEW_ARTICLE_MODAL(
+			new NewArticleWindow(), "/new-article-window",
+			Set.of(Role.ADMIN)),
+	SAVE_NEW_ARTICLE_MODAL(
+			new SaveNewArticle(), "/save-new-article",
+			Set.of(Role.ADMIN)),
+	FEED(
+			new Feed(), "/feed",
+			Set.of(Role.ADMIN, Role.USER)),
 	CHANGE_LANG(
 			new ChangeLang(), "/lang",
 			Set.of(Role.ADMIN, Role.USER, Role.GUEST)),
@@ -71,6 +88,7 @@ public enum CommandEnum {
 	private static UserService userService;
 	private static DailyRecordService dailyRecordService;
 	private static FoodService foodService;
+	private static ArticleService articleService;
 
 	CommandEnum(ActionCommand actionCommand, String path, Set<Role> permittedRoles) {
 		this.actionCommand = actionCommand;
@@ -102,12 +120,15 @@ public enum CommandEnum {
 		return foodService;
 	}
 
+	public static ArticleService getArticleService(){return articleService;}
+
 	public static void injectServices(UserService userService,
 									  DailyRecordService dailyRecordService,
-									  FoodService foodService) {
+									  FoodService foodService, ArticleService articleService) {
 		CommandEnum.userService = userService;
 		CommandEnum.dailyRecordService = dailyRecordService;
 		CommandEnum.foodService = foodService;
+		CommandEnum.articleService = articleService;
 	}
 
 	public static ActionCommand getByURI(String path) {

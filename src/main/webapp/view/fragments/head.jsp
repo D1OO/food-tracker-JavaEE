@@ -25,6 +25,7 @@
     <link href="${pageContext.request.contextPath}/static/vendor/aos/aos.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/static/vendor/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
 
     <!-- Template Main CSS File -->
     <style><%@include file="/static/css/style.css" %></style>

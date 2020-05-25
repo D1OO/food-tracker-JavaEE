@@ -3,10 +3,7 @@ package net.shvdy.nutrition_tracker.controller;
 import net.shvdy.nutrition_tracker.PropertiesReader;
 import net.shvdy.nutrition_tracker.controller.command.ActionCommand;
 import net.shvdy.nutrition_tracker.controller.command.CommandEnum;
-import net.shvdy.nutrition_tracker.model.service.DailyRecordService;
-import net.shvdy.nutrition_tracker.model.service.FoodService;
-import net.shvdy.nutrition_tracker.model.service.ServiceFactory;
-import net.shvdy.nutrition_tracker.model.service.UserService;
+import net.shvdy.nutrition_tracker.model.service.*;
 
 import javax.naming.NamingException;
 import javax.servlet.ServletConfig;
@@ -64,6 +61,7 @@ public class DreamfitServlet extends HttpServlet {
 		UserService userService = null;
 		DailyRecordService dailyRecordService = null;
 		FoodService foodService = null;
+		ArticleService articleService = null;
 
 		try {
 			userService = ServiceFactory.userService();
@@ -83,7 +81,13 @@ public class DreamfitServlet extends HttpServlet {
 			System.err.print(e.getMessage());
 			e.printStackTrace();
 		}
+		try {
+			articleService = ServiceFactory.articleService();
+		} catch (IOException | NamingException e) {
+			System.err.print(e.getMessage());
+			e.printStackTrace();
+		}
 
-		CommandEnum.injectServices(userService, dailyRecordService, foodService);
+		CommandEnum.injectServices(userService, dailyRecordService, foodService, articleService);
 	}
 }
