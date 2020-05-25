@@ -1,24 +1,29 @@
 $(document).ready(function () {
     setContentContainerToEndpoint('/feed');
-    window.onclick = function (event) {
-        if (event.target === $('#modal-window')) {
-            $('modal-window').style.display = "none";
-        }
-    };
+    window.onpopstate = function (e) {
+        if (e.state != null)
+            setContentContainerToEndpoint(e.state.endpoint);
+        else
+            window.location.href = document.location;
+    }
 });
+
+function loadFromServerIntoContentContainer(...endpoint) {
+    const state = { "endpoint": endpoint.join('') };
+    window.history.pushState(state,"Dreamfit", endpoint);
+    setContentContainerToEndpoint(endpoint.join(''));
+}
 
 function setContentContainerToEndpoint(...controllerEndpoint) {
     $.get(controllerEndpoint.join(''), function (data) {
         document.getElementById('content-container').innerHTML = data;
     });
-    window.history.pushState("object or string", "Title", controllerEndpoint.join(''));
 }
 
 function setContentContainerToHtml(html) {
     // $(html).css('display', 'block');
     document.getElementById('content-container').innerHTML = html;
 }
-
 
 function setModalContainerTo(name) {
     $('#modalbody > *').css("display", "none");
