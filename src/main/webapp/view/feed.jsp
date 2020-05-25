@@ -12,8 +12,16 @@
     </div>
     <div class="d-flex flex-column content-container">
         <c:forEach var="article" items="${paginatedArticles}" varStatus="loop">
-            <div class="article-block d-inline-flex flex-grow-1 justify-content-between row mx-md-3 mb-2">
-                <h2 class="col-5">${article.title}</h2><p class="float-right col-3">${article.date}</p>
+
+            <div class="article-block d-inline-flex flex-grow-1 justify-content-between row mx-md-3 mb-2"
+                 style="background-color:rgba(228,228,228,0.2);">
+                <div class="col-7">
+                    <h4 class="mt-2">${article.title}</h4>
+                    <p class="float-right" style="color: gray">${article.date}</p>
+                </div>
+                <img class="m-2" src="data:image/jpg;base64,${article.base64Image}"
+                     style="border: 1px solid black; border-radius: 0.2rem; object-fit: cover; width: 200px; height: 120px"/>
+
             </div>
         </c:forEach>
     </div>

@@ -28,6 +28,8 @@ public class ArticleMapper implements  ResultSetMapper<List<Article>> {
 				.articleId(resultSet.getLong("article_id"))
 				.authorId(resultSet.getLong("article_id"))
 				.date(resultSet.getString("date_created"))
+				.authorFirstName(resultSet.getString("first_name"))
+				.authorLastName(resultSet.getString("last_name"))
 				.title(resultSet.getString("title"))
 				.text(resultSet.getString("text"))
 				.image(resultSet.getBlob("image").getBinaryStream())

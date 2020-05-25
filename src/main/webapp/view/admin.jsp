@@ -39,10 +39,7 @@
                         <div class="d-inline-flex" style="width: 100%">
                             <div class="d-flex flex-column tabs mx-2 flex-grow-1" style="width: 20%">
                                 <button class="pretty-button  menu-pr-button bg my-2"
-                                        onclick="setContentContainerToEndpoint('feed')"><fmt:message key="feed"/>
-                                </button>
-                                <button class="pretty-button menu-pr-button bg  my-2"
-                                        onclick="setContentContainerToEndpoint('food-diary')"><fmt:message key="diary"/>
+                                        onclick="setContentContainerToEndpoint('feed')"><fmt:message key="manage-feed"/>
                                 </button>
                                 <button class="pretty-button  menu-pr-button bg my-2"
                                         onclick="setContentContainerToEndpoint('profile')"><fmt:message key="profile"/>

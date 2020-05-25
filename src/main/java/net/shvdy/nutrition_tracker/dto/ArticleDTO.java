@@ -1,7 +1,5 @@
 package net.shvdy.nutrition_tracker.dto;
 
-import java.io.InputStream;
-
 /**
  * 24.05.2020
  *
@@ -9,19 +7,18 @@ import java.io.InputStream;
  * @version 1.0
  */
 public class ArticleDTO {
-
 	private String title;
-	private String author;
+	private String authorName;
 	private String date;
 	private String text;
-	private InputStream image;
+	private String base64Image;
 
-	public ArticleDTO(String title, String author, String date, String text, InputStream image) {
+	public ArticleDTO(String title, String authorName, String date, String text, String base64Image) {
 		this.title = title;
-		this.author = author;
+		this.authorName = authorName;
 		this.date = date;
 		this.text = text;
-		this.image = image;
+		this.base64Image = base64Image;
 	}
 
 	public static ArticleDTOBuilder builder() {
@@ -36,12 +33,12 @@ public class ArticleDTO {
 		this.title = title;
 	}
 
-	public String getAuthor() {
-		return author;
+	public String getAuthorName() {
+		return authorName;
 	}
 
-	public void setAuthor(String author) {
-		this.author = author;
+	public void setAuthorName(String authorName) {
+		this.authorName = authorName;
 	}
 
 	public String getDate() {
@@ -60,21 +57,20 @@ public class ArticleDTO {
 		this.text = text;
 	}
 
-	public InputStream getImage() {
-		return image;
+	public String getBase64Image() {
+		return base64Image;
 	}
 
-	public void setImage(InputStream image) {
-		this.image = image;
+	public void setBase64Image(String base64Image) {
+		this.base64Image = base64Image;
 	}
-
 
 	public static final class ArticleDTOBuilder {
 		private String title;
-		private String author;
+		private String authorName;
 		private String date;
 		private String text;
-		private InputStream image;
+		private String base64Image;
 
 		private ArticleDTOBuilder() {
 		}
@@ -84,8 +80,8 @@ public class ArticleDTO {
 			return this;
 		}
 
-		public ArticleDTOBuilder author(String author) {
-			this.author = author;
+		public ArticleDTOBuilder authorName(String author) {
+			this.authorName = authorName;
 			return this;
 		}
 
@@ -99,13 +95,13 @@ public class ArticleDTO {
 			return this;
 		}
 
-		public ArticleDTOBuilder image(InputStream image) {
-			this.image = image;
+		public ArticleDTOBuilder base64Image(String base64Image) {
+			this.base64Image = base64Image;
 			return this;
 		}
 
 		public ArticleDTO build() {
-			return new ArticleDTO(title, author, date, text, image);
+			return new ArticleDTO(title, authorName, date, text, base64Image);
 		}
 	}
 }

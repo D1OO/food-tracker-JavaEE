@@ -2,7 +2,7 @@ package net.shvdy.nutrition_tracker.controller.command.admin;
 
 import net.shvdy.nutrition_tracker.controller.command.ActionCommand;
 import net.shvdy.nutrition_tracker.controller.command.CommandEnum;
-import net.shvdy.nutrition_tracker.model.entity.Article;
+import net.shvdy.nutrition_tracker.dto.ArticleDTO;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,15 +21,14 @@ public class Feed implements ActionCommand {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
 
-		List<Article> ar = new ArrayList<>();
+		List<ArticleDTO> articles = new ArrayList<>();
 		try {
-			ar = CommandEnum.getArticleService().findPaginated();
+			articles = CommandEnum.getArticleService().findPaginated();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		ar.add(Article.builder().title("asdsad").build());
 
-		request.getSession().setAttribute("paginatedArticles", ar );
+		request.getSession().setAttribute("paginatedArticles", articles);
 		return "/view/feed.jsp";
 	}
 }

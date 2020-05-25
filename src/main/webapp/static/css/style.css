@@ -924,7 +924,7 @@ h6,
 
 .article-block {
     border: 1px solid grey;
-    border-radius: 1rem;
+    border-radius: 0.2rem;
 }
 
 @font-face {
@@ -946,13 +946,6 @@ h6,
     font-style: normal;
     font-weight: normal;
     src: local('Gotham Rounded Light'), url('/static/fonts/Gotham Rounded Light.woff') format('woff');
-}
-
-@font-face {
-    font-family: 'Gotham Rounded Light Italic';
-    font-style: normal;
-    font-weight: normal;
-    src: local('Gotham Rounded Light Italic'), url('/static/fonts/Gotham Rounded Light Italic.woff') format('woff');
 }
 
 @font-face {

@@ -14,14 +14,19 @@ public class Article {
 	private String title;
 	private Long authorId;
 	private String date;
+	private String authorFirstName;
+	private String authorLastName;
 	private String text;
 	private InputStream image;
 
-	public Article(Long articleId, String title, Long authorId, String date, String text, InputStream image) {
+	public Article(Long articleId, String title, Long authorId, String date, String authorFirstName,
+				   String authorLastName, String text, InputStream image) {
 		this.articleId = articleId;
 		this.title = title;
 		this.authorId = authorId;
 		this.date = date;
+		this.authorFirstName = authorFirstName;
+		this.authorLastName = authorLastName;
 		this.text = text;
 		this.image = image;
 	}
@@ -62,6 +67,22 @@ public class Article {
 		this.date = date;
 	}
 
+	public String getAuthorFirstName() {
+		return authorFirstName;
+	}
+
+	public void setAuthorFirstName(String authorFirstName) {
+		this.authorFirstName = authorFirstName;
+	}
+
+	public String getAuthorLastName() {
+		return authorLastName;
+	}
+
+	public void setAuthorLastName(String authorLastName) {
+		this.authorLastName = authorLastName;
+	}
+
 	public String getText() {
 		return text;
 	}
@@ -84,6 +105,8 @@ public class Article {
 		private String title;
 		private Long authorId;
 		private String date;
+		private String authorFirstName;
+		private String authorLastName;
 		private String text;
 		private InputStream image;
 
@@ -105,6 +128,16 @@ public class Article {
 			return this;
 		}
 
+		public ArticleBuilder authorFirstName(String authorFirstName) {
+			this.authorFirstName = authorFirstName;
+			return this;
+		}
+
+		public ArticleBuilder authorLastName(String authorLastName) {
+			this.authorLastName = authorLastName;
+			return this;
+		}
+
 		public ArticleBuilder date(String date) {
 			this.date = date;
 			return this;
@@ -121,7 +154,8 @@ public class Article {
 		}
 
 		public Article build() {
-			return new Article(articleId, title, authorId, date, text, image);
+			return new Article(articleId, title, authorId, date, authorFirstName,
+					authorLastName, text, image);
 		}
 	}
 }
