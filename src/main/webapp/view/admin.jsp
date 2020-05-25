@@ -21,6 +21,7 @@
                     <div class="maincontent d-flex">
                         <div class="d-inline-flex" style="width: 100%">
                             <div class="d-flex flex-column tabs mx-2 flex-grow-1" style="width: 20%">
+                                <input id="section" value="${containerSection}" type="hidden">
                                 <button class="pretty-button  menu-pr-button bg my-2"
                                         onclick="loadFromServerIntoContentContainer('feed')"><fmt:message
                                         key="manage-feed"/>
@@ -42,6 +43,6 @@
 
 <jsp:include page="/view/fragments/footer.jsp"/>
 <jsp:include page="/view/fragments/scripts.jsp"/>
-<script src="static/js/admin-page.js" type="text/javascript"></script>
+<script src="static/js/main.js" type="text/javascript"></script>
 </body>
 </html>

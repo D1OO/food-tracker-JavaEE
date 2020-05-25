@@ -36,7 +36,7 @@ public class SaveNewArticle  implements ActionCommand {
 			e.printStackTrace();
 		}
 
-		return "/view/feed.jsp";
+		return "/view/fragments/feed.jsp";
 	}
 
 	private InputStream readImage(HttpServletRequest request) {

@@ -20,14 +20,7 @@ public class ReadArticle implements ActionCommand {
 		int requestedArticleId = Integer.parseInt(request.getParameter("id"));
 		List<ArticleDTO> paginatedArticles = (List<ArticleDTO>) request.getSession().getAttribute("paginatedArticles");
 
-		ArticleDTO requestedArticle;
-		try {
-			requestedArticle = getArticleFromCacheOrService(requestedArticleId, paginatedArticles);
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return "/view/feed.jsp";
-		}
-
+		ArticleDTO requestedArticle = getArticleFromCacheOrService(requestedArticleId, paginatedArticles);
 		request.getSession().setAttribute("text", requestedArticle.getText());
 		request.getSession().setAttribute("base64Image", requestedArticle.getBase64Image());
 		request.getSession().setAttribute("title", requestedArticle.getTitle());

@@ -1,6 +1,7 @@
 package net.shvdy.nutrition_tracker.controller.command.user;
 
 import net.shvdy.nutrition_tracker.controller.command.ActionCommand;
+import net.shvdy.nutrition_tracker.controller.command.utils.SecurityUtility;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,6 +16,6 @@ public class Profile implements ActionCommand {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		return "/view/user/profile.jsp";
+		return SecurityUtility.processSectionRequest("profile", request);
 	}
 }
