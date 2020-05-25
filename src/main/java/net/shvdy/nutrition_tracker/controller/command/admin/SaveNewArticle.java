@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * 24.05.2020
@@ -23,10 +24,11 @@ public class SaveNewArticle  implements ActionCommand {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
+		System.out.println(request.getParameter("authorId") + "asdasdada");
 		Article article = Article.builder()
-				.author(request.getParameter("author"))
+				.authorId(Long.parseLong(request.getParameter("authorId")))
 				.title(request.getParameter("title"))
-				.date(LocalDate.now().toString())
+				.date(LocalDateTime.now().toString())
 				.text(request.getParameter("text"))
 				.image(readImage(request))
 				.build();
@@ -36,7 +38,7 @@ public class SaveNewArticle  implements ActionCommand {
 			e.printStackTrace();
 		}
 
-		return "/view/admin/new-article-window.jsp";
+		return "/view/feed.jsp";
 	}
 
 	private InputStream readImage(HttpServletRequest request) {

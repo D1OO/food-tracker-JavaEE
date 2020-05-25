@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    setContentContainerTo('/feed');
+    setContentContainerToEndpoint('/feed');
     window.onclick = function (event) {
         if (event.target === $('#modal-window')) {
             $('modal-window').style.display = "none";
@@ -7,11 +7,16 @@ $(document).ready(function () {
     };
 });
 
-function setContentContainerTo(...controllerEndpoint) {
+function setContentContainerToEndpoint(...controllerEndpoint) {
     $.get(controllerEndpoint.join(''), function (data) {
         document.getElementById('content-container').innerHTML = data;
     });
 }
+
+function setContentContainerToHtml(html) {
+    document.getElementById('content-container').innerHTML = html;
+}
+
 
 function setModalContainerTo(name) {
     $('#modalbody > *').css("display", "none");
@@ -20,18 +25,16 @@ function setModalContainerTo(name) {
 
 function openAddFoodModalWindow(recordtab) {
     // event.preventDefault();
-    let data = $(recordtab).serialize();
+    const data = $(recordtab).serialize();
     $.get('/adding-entries-modal-window', data, function (data) {
         document.getElementById('modal-window').innerHTML = data;
         $("#modal-window").css("display", "block");
     });
 }
 
-function openNewArticleModalWindow(recordtab) {
-    // event.preventDefault();
-    let data = $(recordtab).serialize();
-    $.get('/new-article-window', data, function (data) {
-        document.getElementById('modal-window').innerHTML = data;
+function openNewArticleModalWindow() {
+    $.get('/new-article-window', function (response) {
+        document.getElementById('modal-window').innerHTML = response;
         $("#modal-window").css("display", "block");
     });
 }
@@ -54,7 +57,7 @@ function closeAddFoodModalWindow() {
 }
 
 function addedNewEntry(foodDTO, foodName) {
-    let data = '&foodDTOJSON=' + foodDTO + '&foodName=' + foodName +
+    const data = '&foodDTOJSON=' + foodDTO + '&foodName=' + foodName +
         '&newEntriesJSON=' + getNewEntriesJSONString() + '&newEntriesDTOJSON=' + $('#new-entries-list').val();
 
     $.post('/added-entry', data, function (response) {
@@ -63,7 +66,7 @@ function addedNewEntry(foodDTO, foodName) {
 }
 
 function saveCreatedFood(element) {
-    let data = $('#createfoodform').serialize();
+    const data = $('#createfoodform').serialize();
     $.ajax({
         type: "POST",
         url: '/save-new-food',
@@ -74,33 +77,37 @@ function saveCreatedFood(element) {
                 //setErrorBoxesVisible
             }
         },
-        success: function () {
+        success: function (response) {
             $('.open-modal')[0].onclick();
         }
     });
 }
 
-function saveCreatedArticle(element) {
-    let data = $('#createfoodform').serialize();
+function saveCreatedArticle() {
+    var form = $('#createarticleform')[0];
+    var formData = new FormData(form);
     $.ajax({
         type: "POST",
         url: '/save-new-article',
-        data: data,
+        contentType: false,
+        processData: false,
+        data: formData,
         statusCode: {
             406: function (response) {
                 $('.open-modal')[0].onclick();
                 //setErrorBoxesVisible
             }
         },
-        success: function () {
-            $('.open-modal')[0].onclick();
+        success: function (response) {
+            closeAddFoodModalWindow();
+            setContentContainerToHtml(response);
         }
     });
 }
 
 
 function saveNewEntries() {
-    let data = '&newEntriesJSON=' + getNewEntriesJSONString() +
+    const data = '&newEntriesJSON=' + getNewEntriesJSONString() +
         '&newEntriesDTOJSON=' + $('#new-entries-list').val();
 
     $.post('/save-new-entries', data, replacePageWith);

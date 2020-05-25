@@ -6,6 +6,7 @@ import net.shvdy.nutrition_tracker.model.entity.Article;
 import net.shvdy.nutrition_tracker.model.service.mapper.ArticleEntityMapper;
 
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * 24.05.2020
@@ -25,5 +26,9 @@ public class ArticleService {
 
 	public void save(Article article) throws SQLException {
 		articleDAO.save(article);
+	}
+
+	public List<Article> findPaginated() throws SQLException {
+		return  articleDAO.findPaginated();
 	}
 }

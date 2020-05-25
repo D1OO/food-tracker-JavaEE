@@ -39,13 +39,13 @@
                         <div class="d-inline-flex" style="width: 100%">
                             <div class="d-flex flex-column tabs mx-2 flex-grow-1" style="width: 20%">
                                 <button class="pretty-button  menu-pr-button bg my-2"
-                                        onclick="setContentContainerTo('feed')"><fmt:message key="feed"/>
+                                        onclick="setContentContainerToEndpoint('feed')"><fmt:message key="feed"/>
                                 </button>
                                 <button class="pretty-button menu-pr-button bg  my-2"
-                                        onclick="setContentContainerTo('food-diary')"><fmt:message key="diary"/>
+                                        onclick="setContentContainerToEndpoint('food-diary')"><fmt:message key="diary"/>
                                 </button>
                                 <button class="pretty-button  menu-pr-button bg my-2"
-                                        onclick="setContentContainerTo('profile')"><fmt:message key="profile"/>
+                                        onclick="setContentContainerToEndpoint('profile')"><fmt:message key="profile"/>
                                 </button>
                             </div>
                             <div class="maincontent  d-flex flex-grow-1  m-2" id="content-container"

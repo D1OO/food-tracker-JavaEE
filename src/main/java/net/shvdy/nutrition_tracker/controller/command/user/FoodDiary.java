@@ -25,7 +25,7 @@ public class FoodDiary implements ActionCommand {
 		int pageSize = Integer.parseInt((String) request.getServletContext().getAttribute("page-size"));
 
 		try {
-			request.getServletContext().setAttribute("paginatedWeeklyRecords",
+			request.getSession().setAttribute("paginatedWeeklyRecords",
 					CommandEnum.getDailyRecordService().findPaginated(
 							(Long) request.getSession().getAttribute("user.userId"),
 							currWeekDay, pageSize,
@@ -35,10 +35,10 @@ public class FoodDiary implements ActionCommand {
 			return "/view/user/server-error.jsp";
 		}
 
-		request.getServletContext().setAttribute("prevWeekDay",
+		request.getSession().setAttribute("prevWeekDay",
 				currWeekDay.equals(LocalDate.now().toString()) ? null :
 				LocalDate.parse(currWeekDay).plusDays(pageSize).toString());
-		request.getServletContext().setAttribute("nextWeekDay",
+		request.getSession().setAttribute("nextWeekDay",
 				LocalDate.parse(currWeekDay).minusDays(pageSize).toString());
 
 		return "/view/user/food-diary.jsp";

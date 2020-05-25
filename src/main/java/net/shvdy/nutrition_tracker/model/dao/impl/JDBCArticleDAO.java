@@ -19,10 +19,10 @@ import java.util.Properties;
 public class JDBCArticleDAO implements ArticleDAO {
 
 	private DataSource dataSource;
-	private ResultSetMapper<Article> resultSetMapper;
+	private ResultSetMapper<List<Article>> resultSetMapper;
 	private Properties queries;
 
-	public JDBCArticleDAO(DataSource dataSource, ResultSetMapper<Article> resultSetMapper, Properties queries) {
+	public JDBCArticleDAO(DataSource dataSource, ResultSetMapper<List<Article>> resultSetMapper, Properties queries) {
 		this.dataSource = dataSource;
 		this.resultSetMapper = resultSetMapper;
 		this.queries = queries;
@@ -42,7 +42,7 @@ public class JDBCArticleDAO implements ArticleDAO {
 
 			setLongOrNull(insertArticle, 1, article.getArticleId());
 			insertArticle.setString(2, article.getTitle());
-			insertArticle.setString(3, article.getAuthor());
+			insertArticle.setLong(3, article.getAuthorId());
 			insertArticle.setString(4, article.getDate());
 			insertArticle.setString(5, article.getText());
 			insertArticle.setBlob(6, article.getImage());
@@ -54,6 +54,16 @@ public class JDBCArticleDAO implements ArticleDAO {
 					return generatedKeys.getLong(1);
 			}
 			return article.getArticleId();
+		}
+	}
+
+	@Override
+	public List<Article> findPaginated() throws SQLException {
+		try (Connection connection = dataSource.getConnection();
+			 PreparedStatement statement = connection
+					 .prepareStatement(queries.getProperty("article_dao.SELECT_BY_DATE_AND_QUANTITY"))) {
+
+			return resultSetMapper.map(statement.executeQuery());
 		}
 	}
 

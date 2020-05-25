@@ -12,15 +12,15 @@ public class Article {
 
 	private Long articleId;
 	private String title;
-	private String author;
+	private Long authorId;
 	private String date;
 	private String text;
 	private InputStream image;
 
-	public Article(Long articleId, String title, String author, String date, String text, InputStream image) {
+	public Article(Long articleId, String title, Long authorId, String date, String text, InputStream image) {
 		this.articleId = articleId;
 		this.title = title;
-		this.author = author;
+		this.authorId = authorId;
 		this.date = date;
 		this.text = text;
 		this.image = image;
@@ -46,12 +46,12 @@ public class Article {
 		this.title = title;
 	}
 
-	public String getAuthor() {
-		return author;
+	public Long getAuthorId() {
+		return authorId;
 	}
 
-	public void setAuthor(String author) {
-		this.author = author;
+	public void setAuthorId(Long authorId) {
+		this.authorId = authorId;
 	}
 
 	public String getDate() {
@@ -82,7 +82,7 @@ public class Article {
 	public static final class ArticleBuilder {
 		private Long articleId;
 		private String title;
-		private String author;
+		private Long authorId;
 		private String date;
 		private String text;
 		private InputStream image;
@@ -100,8 +100,8 @@ public class Article {
 			return this;
 		}
 
-		public ArticleBuilder author(String author) {
-			this.author = author;
+		public ArticleBuilder authorId(Long authorId) {
+			this.authorId = authorId;
 			return this;
 		}
 
@@ -121,7 +121,7 @@ public class Article {
 		}
 
 		public Article build() {
-			return new Article(articleId, title, author, date, text, image);
+			return new Article(articleId, title, authorId, date, text, image);
 		}
 	}
 }

@@ -922,6 +922,11 @@ h6,
 
 }
 
+.article-block {
+    border: 1px solid grey;
+    border-radius: 1rem;
+}
+
 @font-face {
     font-family: 'Run Medium';
     font-style: normal;

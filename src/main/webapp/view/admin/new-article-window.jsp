@@ -12,9 +12,9 @@
         </div>
         <div class="modal-body container" id="modalbody">
             <div class="mt-4" id="createfoodcontainer">
-                <form class="form" id="createfoodform" method="post" enctype="multipart/form-data"
+                <form class="form" id="createarticleform" method="post" enctype="multipart/form-data"
                       style="width: 100%" action="save-new-article">
-                    <input name="profileId" value="${user.userId}" type="hidden">
+                    <input name="authorId" value="${user.userId}" type="hidden">
                     <div class="row">
                         <div class="col-3">
                             <div class="form-group col-md-11">
@@ -23,22 +23,6 @@
                                        data-msg="Enter a valid first name"
                                        data-rule="firstnameexp" id="name"
                                        name="title"/>
-                                <div class="validate"></div>
-                            </div>
-                            <div class="form-group col-md-11">
-                                <label class="control-label" for="calories"><fmt:message key="user.calories"/></label>
-                                <input class="form-control"
-                                       data-msg="Enter a valid last name"
-                                       data-rule="lastnameexp" id="calories"
-                                       name="author"/>
-                                <div class="validate"></div>
-                            </div>
-                            <div class="form-group col-md-11">
-                                <label class="control-label" for="proteins"><fmt:message key="user.proteins"/></label>
-                                <input class="form-control"
-                                       data-msg="Enter a valid first name (ukrainian letters)"
-                                       data-rule="firstnameuaexp" id="proteins"
-                                       name="date_created"/>
                                 <div class="validate"></div>
                             </div>
                         </div>
@@ -61,12 +45,11 @@
                                 <div class="validate"></div>
                             </div>
                         </div>
-                    </div> <button class="pretty-button mt-2"  >
-                    <fmt:message key="user.save"/>
-                </button>
+                    </div>
+                    <button>Save</button>
                 </form>
                 <div class="m-2 d-flex flex-column col-5 tabs">
-                    <button class="pretty-button mt-2" id="myBtn" onclick="saveCreatedArticle(this)">
+                    <button class="pretty-button mt-2" id="myBtn" onclick="saveCreatedArticle()">
                         <fmt:message key="user.save"/>
                     </button>
                     <button class="pretty-button switch-content mt-2" onclick="setModalContainerTo('addfoodcontainer')">

@@ -62,7 +62,7 @@ public enum CommandEnum {
 			Set.of(Role.USER)),
 	PROFILE(
 			new Profile(), "/profile",
-			Set.of(Role.USER)),
+			Set.of(Role.USER, Role.ADMIN)),
 	FOOD_DIARY_PAGE(
 			new FoodDiary(), "/food-diary",
 			Set.of(Role.ADMIN, Role.USER)),
