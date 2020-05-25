@@ -20,11 +20,6 @@ function setContentContainerToEndpoint(...controllerEndpoint) {
     });
 }
 
-function setContentContainerToHtml(html) {
-    // $(html).css('display', 'block');
-    document.getElementById('content-container').innerHTML = html;
-}
-
 function setModalContainerTo(name) {
     $('#modalbody > *').css("display", "none");
     document.getElementById(name).style.display = "block";

@@ -931,8 +931,8 @@ h6,
 }
 
 .article-block:hover {
-    background: rgb(255,255,255);
-    background: linear-gradient(184deg, rgba(255,255,255,0.6698879380853904) 0%, rgba(134,255,113,0.16008401651676296) 79%);
+    background: rgb(255, 255, 255);
+    background: linear-gradient(184deg, rgba(255, 255, 255, 0.6698879380853904) 0%, rgba(134, 255, 113, 0.16008401651676296) 79%);
     border: 1px solid grey;
     border-radius: 0.2rem;
 }
@@ -947,6 +947,20 @@ h6,
     color: rgba(0, 183, 130, 0.98);
     font-size: 1.2rem;
 }
+
+.daily-record-table tr:last-child td:first-child {
+    border-bottom-left-radius: 10px;
+}
+
+.daily-record-table tr:last-child td:last-child {
+    border-bottom-right-radius: 10px;
+}
+
+.daily-record-table tbody {
+    text-align: right;
+    /*border-radius: 5px;*/
+}
+
 
 @font-face {
     font-family: 'Run Medium';

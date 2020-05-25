@@ -6,7 +6,7 @@ import net.shvdy.nutrition_tracker.controller.command.admin.SaveNewArticle;
 import net.shvdy.nutrition_tracker.controller.command.user.CompleteProfileToProceed;
 import net.shvdy.nutrition_tracker.controller.command.user.FoodDiary;
 import net.shvdy.nutrition_tracker.controller.command.user.Profile;
-import net.shvdy.nutrition_tracker.controller.command.user.User;
+import net.shvdy.nutrition_tracker.controller.command.user.UserPage;
 import net.shvdy.nutrition_tracker.controller.command.user.new_entries_window.*;
 import net.shvdy.nutrition_tracker.model.entity.Role;
 import net.shvdy.nutrition_tracker.model.service.ArticleService;
@@ -58,7 +58,7 @@ public enum CommandEnum {
 			new ChangeLang(), "/lang",
 			Set.of(Role.ADMIN, Role.USER, Role.GUEST)),
 	USER(
-			new User(), "/user",
+			new UserPage(), "/user",
 			Set.of(Role.USER)),
 	COMPLETE_PROFILE(
 			new CompleteProfileToProceed(), "/complete",

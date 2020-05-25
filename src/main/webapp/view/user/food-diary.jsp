@@ -5,7 +5,7 @@
 <fmt:setLocale value="${sessionScope.lang}"/>
 <fmt:setBundle basename="i18n/messages"/>
 
-<div class="content-container flex-column d-flex food-diary-container" data-aos="fade-zoom-in" data-aos-offset="0"
+<div class="content-container food-diary-container" data-aos="fade-zoom-in" data-aos-offset="0"
      style="width: 100%">
     <div class=" mb-4 m-4 font-rubick " style="width: 100%;">
         <h2><fmt:message key="food-diary"/></h2>
@@ -13,7 +13,7 @@
     <div class="tabs row d-flex ml-2 mb-3" style="width: 100%">
         <button class="pretty-button m4 ml-3 nextb ${prevWeekDay != null ? 'visible' : 'unvisible'}"
         style="background: rgba(40,0,169,0.36)"
-                onclick="setContentContainerTo('/food-diary?d=${prevWeekDay}')">
+                onclick="loadFromServerIntoContentContainer('/food-diary?d=${prevWeekDay}')">
             <fmt:message key="diary.previous"/>
         </button>
         <c:forEach var="record" items="${paginatedWeeklyRecords}" varStatus="loop">
@@ -23,7 +23,7 @@
             </button>
         </c:forEach>
         <button class="pretty-button m4 ml-3 nextb" style="background: rgba(40,0,169,0.36)"
-                onclick='setContentContainerTo("/food-diary?d=${nextWeekDay}")'>
+                onclick='loadFromServerIntoContentContainer("/food-diary?d=${nextWeekDay}")'>
             <fmt:message key="diary.next"/>
         </button>
     </div>
@@ -42,18 +42,17 @@
                             <h4 class="font-rubick">)</h4>
                         </div>
                         <div>
-                            <table class="col-8 table" style="width: 450px; font-size: 1.2em">
+                            <table class="col-8 daily-record-table table" style="width: 450px; font-size: 1.2em; ">
                                 <thead style="font-size: 0.9em; font-weight: normal; text-align: right">
 
-                                <th colspan="2" style="text-align: left">
-                                </th>
+                                <th colspan="2" style="text-align: left"></th>
                                 <th class="bg" id="first"><fmt:message key="user.fat"/></th>
                                 <th class="bg"><fmt:message key="user.carbs"/></th>
                                 <th class="bg"><fmt:message key="user.prot"/></th>
                                 <th class="bg"><fmt:message key="user.calories"/></th>
 
                                 </thead>
-                                <tbody style="text-align: right">
+                                <tbody>
                                 <tr style="background: rgba(42,0,212,0.16)">
                                     <td><fmt:message key="diary.total"/></td>
                                     <td></td>
