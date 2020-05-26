@@ -14,10 +14,8 @@ public class ChangeLang implements ActionCommand {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
-		String lang = request.getParameter("lang");
-		request.getSession().setAttribute("lang", Objects.requireNonNullElse(lang, "ru"));
-
+		request.getSession().setAttribute("lang",
+				Objects.requireNonNullElse(request.getParameter("lang"), "ru"));
 		return "/redirect:home";
 	}
 

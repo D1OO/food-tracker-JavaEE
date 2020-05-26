@@ -9,8 +9,7 @@ public class Logout implements ActionCommand {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		SecurityUtility.removeUserFromSession(request);
-		request.getSession().invalidate();
+		SecurityUtility.processLogout(request);
 		return "redirect:/login?logout";
 	}
 }

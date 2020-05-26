@@ -5,18 +5,12 @@ import net.shvdy.nutrition_tracker.controller.command.CommandEnum;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.sql.SQLException;
 
 public class UserPage implements ActionCommand {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		try {
-			request.getSession().setAttribute("headerNews",
-					CommandEnum.getArticleService().findRandom());
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		request.getSession().setAttribute("headerNews", CommandEnum.getArticleService().findRandom());
 		return "/view/user.jsp";
 	}
 }

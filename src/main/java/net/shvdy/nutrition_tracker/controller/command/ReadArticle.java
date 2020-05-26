@@ -17,16 +17,20 @@ public class ReadArticle implements ActionCommand {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		retrieveArticle(request);
+		return "/view/article.jsp";
+	}
+
+	private void retrieveArticle(HttpServletRequest request) throws SQLException {
 		int requestedArticleId = Integer.parseInt(request.getParameter("id"));
 		List<ArticleDTO> paginatedArticles = (List<ArticleDTO>) request.getSession().getAttribute("paginatedArticles");
-
 		ArticleDTO requestedArticle = getArticleFromCacheOrService(requestedArticleId, paginatedArticles);
+
 		request.getSession().setAttribute("text", requestedArticle.getText());
 		request.getSession().setAttribute("base64Image", requestedArticle.getBase64Image());
 		request.getSession().setAttribute("title", requestedArticle.getTitle());
 		request.getSession().setAttribute("date", requestedArticle.getDate());
 		request.getSession().setAttribute("author", requestedArticle.getAuthorName());
-		return "/view/article.jsp";
 	}
 
 	private ArticleDTO getArticleFromCacheOrService(int id, List<ArticleDTO> cache) throws SQLException {

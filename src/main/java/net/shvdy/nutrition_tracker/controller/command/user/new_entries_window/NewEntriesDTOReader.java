@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import net.shvdy.nutrition_tracker.controller.command.CommandEnum;
 import net.shvdy.nutrition_tracker.dto.DailyRecordEntryDTO;
 import net.shvdy.nutrition_tracker.dto.NewEntriesDTO;
-import net.shvdy.nutrition_tracker.model.entity.DailyRecordEntry;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;

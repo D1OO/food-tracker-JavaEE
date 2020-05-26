@@ -23,10 +23,11 @@ public class SecurityUtility {
 		return true;
 	}
 
-	public static void removeUserFromSession(HttpServletRequest request) {
+	public static void processLogout(HttpServletRequest request) {
 		HashSet<Long> loggedUsers = getLoggedUsers(request);
 		loggedUsers.remove(request.getSession().getAttribute("user.userId"));
 		request.getSession().getServletContext().setAttribute("loggedUsers", loggedUsers);
+		request.getSession().invalidate();
 	}
 
 	private static HashSet<Long> getLoggedUsers(HttpServletRequest request) {
