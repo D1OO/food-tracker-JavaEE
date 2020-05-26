@@ -54,6 +54,7 @@ public class DreamfitServlet extends HttpServlet {
 		try {
 			return CommandEnum.getByURI(request.getRequestURI()).execute(request, response);
 		} catch (Exception e) {
+			e.printStackTrace(); //  logger soon
 			request.getSession().setAttribute("error-message", e.getMessage());
 			return CommandEnum.SERVER_ERROR.getPath();
 		}

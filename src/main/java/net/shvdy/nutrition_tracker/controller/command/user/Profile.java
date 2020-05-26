@@ -16,6 +16,6 @@ public class Profile implements ActionCommand {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		return SecurityUtility.processSectionRequest("profile", request);
+		return SecurityUtility.processAJAXSectionRequest("profile", "", request);
 	}
 }

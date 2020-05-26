@@ -13,6 +13,7 @@ public class ServerErrorPage implements ActionCommand {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
 		return "/view/server-error.jsp";
 	}
 }

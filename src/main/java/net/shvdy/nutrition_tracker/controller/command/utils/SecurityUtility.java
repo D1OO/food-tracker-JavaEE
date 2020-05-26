@@ -34,11 +34,11 @@ public class SecurityUtility {
 		return (HashSet<Long>) request.getServletContext().getAttribute("loggedUsers");
 	}
 
-	public static String processSectionRequest(String section, HttpServletRequest request) {
+	public static String processAJAXSectionRequest(String section, String params, HttpServletRequest request) {
 		if (request.getParameter("AJAXrequest") != null)
 			return String.format("/view/fragments/%s.jsp", section);
 		else {
-			request.getSession().setAttribute("containerSection", section);
+			request.getSession().setAttribute("sectionToFetchWithAJAX", section + params);
 			return "/view/" + request.getSession().getAttribute("user.role").toString().toLowerCase() + ".jsp";
 		}
 	}

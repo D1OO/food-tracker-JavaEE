@@ -1,5 +1,6 @@
 package net.shvdy.nutrition_tracker.controller.command;
 
+import net.shvdy.nutrition_tracker.controller.command.utils.SecurityUtility;
 import net.shvdy.nutrition_tracker.dto.ArticleDTO;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +19,9 @@ public class ReadArticle implements ActionCommand {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		retrieveArticle(request);
-		return "/view/article.jsp";
+		return SecurityUtility.processAJAXSectionRequest("read-article",
+				"?id=" + Integer.parseInt(request.getParameter("id")),
+				request);
 	}
 
 	private void retrieveArticle(HttpServletRequest request) throws SQLException {

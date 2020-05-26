@@ -1,6 +1,6 @@
 $(document).ready(function () {
-    const section = document.getElementById('section').value;
-    setContentContainerToEndpoint(section === true ? section : 'feed');
+    const section = document.getElementById('sectionToFetchWithAJAX').value;
+    setContentContainerToEndpoint(section  ? section : 'feed');
     window.onpopstate = function (e) {
         if (e.state != null)
             setContentContainerToEndpoint(e.state.endpoint);

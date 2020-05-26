@@ -22,7 +22,7 @@ public class FoodDiary implements ActionCommand {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		processPagination(request);
-		return SecurityUtility.processSectionRequest("food-diary", request);
+		return SecurityUtility.processAJAXSectionRequest("food-diary","", request);
 	}
 
 	private void processPagination(HttpServletRequest request) throws SQLException {

@@ -16,6 +16,6 @@ public class Feed implements ActionCommand {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.getSession().setAttribute("paginatedArticles", CommandEnum.getArticleService().findPaginated());
-		return SecurityUtility.processSectionRequest("feed", request);
+		return SecurityUtility.processAJAXSectionRequest("feed", "", request);
 	}
 }
