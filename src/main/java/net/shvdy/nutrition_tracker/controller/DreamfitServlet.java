@@ -1,5 +1,6 @@
 package net.shvdy.nutrition_tracker.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import net.shvdy.nutrition_tracker.PropertiesReader;
 import net.shvdy.nutrition_tracker.controller.command.CommandEnum;
 import net.shvdy.nutrition_tracker.model.service.*;
@@ -89,7 +90,7 @@ public class DreamfitServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		CommandEnum.injectServices(userService, dailyRecordService, foodService, articleService);
+		CommandEnum.injectServices(userService, dailyRecordService, foodService, articleService, new ObjectMapper());
 	}
 
 	private void setDateForLocale(HttpServletRequest request) {
