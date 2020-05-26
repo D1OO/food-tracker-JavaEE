@@ -18,7 +18,6 @@ import java.util.List;
  * @version 1.0
  */
 public class SaveNewFood implements ActionCommand {
-
 	FoodValidator foodValidator = new FoodValidator();
 
 	@Override
@@ -29,7 +28,11 @@ public class SaveNewFood implements ActionCommand {
 			response.setStatus(HttpServletResponse.SC_NOT_ACCEPTABLE);
 			return "/view/user/add-new-entries-window/window.jsp";
 		}
+		saveFoodAndUpdateCache(request);
+		return "/view/user/add-new-entries-window/window.jsp";
+	}
 
+	private void saveFoodAndUpdateCache(HttpServletRequest request) throws SQLException {
 		Long profileId = Long.parseLong(request.getParameter("profileId"));
 		FoodDTO foodDTO = FoodDTO.builder().name(request.getParameter("newFoodName"))
 				.calories(Integer.parseInt(request.getParameter("newFoodCalories")))
@@ -37,22 +40,11 @@ public class SaveNewFood implements ActionCommand {
 				.fats(Integer.parseInt(request.getParameter("newFoodFats")))
 				.proteins(Integer.parseInt(request.getParameter("newFoodProteins")))
 				.build();
-		Long generatedFoodId;
 
-		try {
-			generatedFoodId = CommandEnum.getFoodService().saveForProfile(foodDTO, profileId);
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return "/view/user/error.jsp";
-		}
-
-		foodDTO.setFoodId(generatedFoodId);
-
-		List<FoodDTO> userFoodToUpdate = (List<FoodDTO>) request.getSession().getAttribute("user.userFood");
-		userFoodToUpdate.add(foodDTO);
-		request.getSession().setAttribute("user.userFood", userFoodToUpdate);
-
-		return "/view/user/add-new-entries-window/window.jsp";
-
+		foodDTO.setFoodId(CommandEnum.getFoodService().saveForProfile(foodDTO, profileId));
+		List<FoodDTO> foodCache = (List<FoodDTO>) request.getSession().getAttribute("user.userFood");
+		foodCache.add(foodDTO);
+		request.getSession().setAttribute("user.userFood", foodCache);
 	}
+
 }

@@ -13,8 +13,8 @@
     <div class="d-flex flex-column content-container">
         <c:forEach var="article" items="${paginatedArticles}" varStatus="loop">
             <button role="link"
-               onclick="loadFromServerIntoContentContainer('/read-article?id=${article.articleId}')"
-               class="article-block d-inline-flex flex-grow-1 justify-content-between row mx-md-3 mb-2">
+                    onclick="loadFromServerIntoContentContainer('/read-article?id=${article.articleId}')"
+                    class="article-block d-inline-flex flex-grow-1 justify-content-between row mx-md-3 mb-2">
                 <div class="col-8">
                     <h4 class="mt-2">${article.title}</h4>
                     <p class="float-right" style="color: gray">${article.date}</p>
@@ -23,11 +23,13 @@
                      style="border: 3px solid black; border-radius: 0.2rem; object-fit: cover; width: 200px; height: 120px"/>
             </button>
         </c:forEach>
-        <div class="tabs container m2 mb-4">
-            <button class="pretty-button open-modal" style="width: 12em; "
-                    onclick="openCreateArticleModalWindow()">
-                <fmt:message key="add-new"/>
-            </button>
-        </div>
+        <c:if test="${user.role eq 'ADMIN'}">
+            <div class="tabs container m2 mb-4">
+                <button class="pretty-button open-modal" style="width: 12em; "
+                        onclick="openCreateArticleModalWindow()">
+                    <fmt:message key="add-new"/>
+                </button>
+            </div>
+        </c:if>
     </div>
 </div>

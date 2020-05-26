@@ -17,12 +17,7 @@ public class AdminPage implements ActionCommand {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		try {
-			request.getSession().setAttribute("headerNews",
-					CommandEnum.getArticleService().findRandom());
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		request.getSession().setAttribute("headerNews", CommandEnum.getArticleService().findRandom());
 		return "/view/admin.jsp";
 	}
 }

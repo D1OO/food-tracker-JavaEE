@@ -21,7 +21,8 @@ background: radial-gradient(circle, rgba(178,183,223,1) 0%, rgba(232,253,203,0.7
             </div>
             <div class="align-self-start d-inline-flex mt-sm-1">
                 <ul class="list-inline  navbar-right mr-4">
-                    <c:if test="${user.role eq GUEST}">
+<%--                    <h1>${user.role}</h1>--%>
+                    <c:if test="${user.role eq 'GUEST'}">
                         <li class=" list-inline-item">
                             <a class="pretty-button bg" href="/login"><fmt:message key="sign-in"/></a>
                             <a class="pretty-button bg signupButton"
@@ -29,8 +30,7 @@ background: radial-gradient(circle, rgba(178,183,223,1) 0%, rgba(232,253,203,0.7
                                     key="create-account"/></a>
                         </li>
                     </c:if>
-                    <c:if test="${user.role ne GUEST}">
-                        ${user.role}
+                    <c:if test="${user.role ne 'GUEST'}">
                         <li class="list-inline-item">
                             <ul class="list-inline mt-0" style="margin-top: 0;">
                                 <li class="list-inline-item" style="font-size: 1.1em; max-width: 560px">

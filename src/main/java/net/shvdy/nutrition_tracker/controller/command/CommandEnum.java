@@ -1,5 +1,6 @@
 package net.shvdy.nutrition_tracker.controller.command;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import net.shvdy.nutrition_tracker.controller.command.admin.AdminPage;
 import net.shvdy.nutrition_tracker.controller.command.admin.NewArticleWindow;
 import net.shvdy.nutrition_tracker.controller.command.admin.SaveNewArticle;
@@ -95,6 +96,7 @@ public enum CommandEnum {
 	private static DailyRecordService dailyRecordService;
 	private static FoodService foodService;
 	private static ArticleService articleService;
+	private static ObjectMapper jacksonObjectMapper;
 
 	CommandEnum(ActionCommand actionCommand, String path, Set<Role> permittedRoles) {
 		this.actionCommand = actionCommand;
@@ -128,13 +130,18 @@ public enum CommandEnum {
 
 	public static ArticleService getArticleService(){return articleService;}
 
+	public static ObjectMapper getJacksonObjectMapper() {return jacksonObjectMapper;}
+
 	public static void injectServices(UserService userService,
 									  DailyRecordService dailyRecordService,
-									  FoodService foodService, ArticleService articleService) {
+									  FoodService foodService,
+									  ArticleService articleService,
+									  ObjectMapper jacksonObjectMapper) {
 		CommandEnum.userService = userService;
 		CommandEnum.dailyRecordService = dailyRecordService;
 		CommandEnum.foodService = foodService;
 		CommandEnum.articleService = articleService;
+		CommandEnum.jacksonObjectMapper = jacksonObjectMapper;
 	}
 
 	public static ActionCommand getByURI(String path) {

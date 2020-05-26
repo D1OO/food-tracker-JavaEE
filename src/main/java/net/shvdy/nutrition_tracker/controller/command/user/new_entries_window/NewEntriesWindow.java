@@ -17,8 +17,12 @@ public class NewEntriesWindow implements ActionCommand {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String recordId = request.getParameter("recordId");
+		createNewEntriesDTO(request);
+		return "/view/user/add-new-entries-window/window.jsp";
+	}
 
+	private void createNewEntriesDTO(HttpServletRequest request) {
+		String recordId = request.getParameter("recordId");
 		request.getSession().getServletContext().setAttribute("newEntriesDTO",
 				NewEntriesDTO.builder()
 						.profileId(Long.valueOf(request.getParameter("profileId")))
@@ -26,7 +30,5 @@ public class NewEntriesWindow implements ActionCommand {
 						.recordDate(request.getParameter("recordDate"))
 						.currentDailyCaloriesNorm((Integer) request.getSession().getAttribute("user.dailyCaloriesNorm"))
 						.entries(new ArrayList<>()).build());
-
-		return "/view/user/add-new-entries-window/window.jsp";
 	}
 }
