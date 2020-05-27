@@ -9,7 +9,6 @@ import java.io.InputStream;
  * @version 1.0
  */
 public class Article {
-
 	private int articleId;
 	private String title;
 	private Long authorId;

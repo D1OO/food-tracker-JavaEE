@@ -8,14 +8,10 @@ package net.shvdy.nutrition_tracker.model.entity;
  */
 
 public class DailyRecordEntry {
-
 	private Long entryId;
 	private Long recordId;
 	private int quantity;
 	private Food food;
-
-	public DailyRecordEntry() {
-	}
 
 	public DailyRecordEntry(Long entryId, Long recordId, int quantity, Food food) {
 		this.entryId = entryId;

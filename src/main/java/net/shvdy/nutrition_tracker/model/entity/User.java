@@ -11,9 +11,6 @@ public class User {
     private boolean enabled;
     private Role role;
 
-    public User() {
-    }
-
     public User(Long id, String username, String password, UserProfile userProfile, boolean account_non_expired,
                 boolean account_non_locked, boolean credentials_non_expired, boolean enabled, Role role) {
         this.id = id;

@@ -15,9 +15,6 @@ public class UserProfile {
 	private int weight;
 	private List<Food> userFood;
 
-	public UserProfile() {
-	}
-
 	public UserProfile(User user, Long profileId, String firstNameUa, String lastName, String firstName,
 					   Lifestyle lifestyle, int age, int height, int weight, List<Food> userFood) {
 		this.user = user;

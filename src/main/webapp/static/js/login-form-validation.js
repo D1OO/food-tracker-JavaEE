@@ -8,8 +8,8 @@ jQuery(document).ready(function ($) {
         ferror = false,
         emailExp = /^([a-z0-9_\.-]{1,30})@([\da-z\.-]{1,15})\.([a-z\.]{2,8})$/,
         pwrdExp = /^[0-9a-zA-Z]{8,15}$/i,
-        firstNameExp = /^[a-z ,.'-]{2,15}$/i,
-        lastNameExp = /^[a-z ,.'-]{2,30}$/i,
+        firstNameExp = /^[A-Za-z ,.'-]{2,15}$/i,
+        lastNameExp = /^[A-Za-z ,.'-]{2,30}$/i,
         firstNameUaExp = /^[абвгдежзийклмнопрстуфхцчшщьюяіїґєАБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЬЮЯІЇЄҐ]{2,20}/i;
 
     f.children('input').each(function () { // run all inputs

@@ -49,11 +49,11 @@ public class DailyRecordService {
 
 	private List<DailyRecordDTO> insertAbsentDays(String day, int size, Long profileId, Locale locale,
 												  Map<String, DailyRecordDTO> weeklyRecords) {
-		IntStream.range(0, size).mapToObj(x -> LocalDate.parse(day).minusDays(x).toString())
-				.forEach(i -> weeklyRecords.putIfAbsent(i, DailyRecordDTO.builder()
-						.recordDate(i)
+		IntStream.range(0, size).mapToObj(n -> LocalDate.parse(day).minusDays(n).toString())
+				.forEach(date -> weeklyRecords.putIfAbsent(date, DailyRecordDTO.builder()
+						.recordDate(date)
 						.userProfileId(profileId)
-						.dateHeader(dailyRecordMapper.getShortDateHeader(i, locale))
+						.dateHeader(dailyRecordMapper.getShortDateHeader(date, locale))
 						.entries(new ArrayList<>())
 						.build()));
 

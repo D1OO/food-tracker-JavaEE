@@ -11,23 +11,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  */
 
 public class Food {
-//	@Id
-//	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-//	@NotNull
 	private Long foodId;
-//	@NotNull
 	private String name;
-//	@NotNull
 	private int calories;
-//	@NotNull
 	private int proteins;
-//	@NotNull
 	private int fats;
-//	@NotNull
 	private int carbohydrates;
-
-	public Food() {
-	}
 
 	public Food(Long foodId, String name, int calories, int proteins, int fats, int carbohydrates) {
 		this.foodId = foodId;
@@ -100,20 +89,6 @@ public class Food {
 			return "";
 		}
 	}
-
-//	public String toString() {
-//		return "Food{" +
-//				"foodId=" + foodId +
-//				", name='" + name + '\'' +
-//				", calories=" + calories +
-//				", proteins=" + proteins +
-//				", fats=" + fats +
-//				", carbohydrates=" + carbohydrates +
-////				", course='" + course + '\'' +
-////				", room=" + room +
-////				", students=" + students +
-//				'}';
-//	}
 
 	public static class FoodBuilder {
 		private Long foodId;

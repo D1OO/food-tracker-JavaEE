@@ -6,5 +6,5 @@ package net.shvdy.nutrition_tracker.controller.exception;
  * @author Dmitriy Storozhenko
  * @version 1.0
  */
-public class FoodNotValidException extends Exception {
+public class ValidationErrorException extends Exception {
 }

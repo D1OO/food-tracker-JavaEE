@@ -10,16 +10,11 @@ import java.util.List;
  */
 
 public class DailyRecord {
-
-	//	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long recordId;
 	private String recordDate;
 	private Long userProfileId;
 	private int dailyCaloriesNorm;
 	private List<DailyRecordEntry> entries;
-
-	public DailyRecord() {
-	}
 
 	public DailyRecord(Long recordId, String recordDate, int dailyCaloriesNorm, Long userProfileId,
 					   List<DailyRecordEntry> entries) {
