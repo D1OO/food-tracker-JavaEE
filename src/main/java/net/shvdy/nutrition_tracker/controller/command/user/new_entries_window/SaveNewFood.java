@@ -4,13 +4,13 @@ import net.shvdy.nutrition_tracker.controller.command.ActionCommand;
 import net.shvdy.nutrition_tracker.controller.command.CommandEnum;
 import net.shvdy.nutrition_tracker.controller.command.utils.validation.NewFoodForm;
 import net.shvdy.nutrition_tracker.controller.command.utils.validation.Validator;
-import net.shvdy.nutrition_tracker.controller.exception.ValidationErrorException;
 import net.shvdy.nutrition_tracker.dto.FoodDTO;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 23.05.2020
@@ -22,13 +22,11 @@ public class SaveNewFood implements ActionCommand {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		try {
-			Validator.validateForm(request, NewFoodForm.values());
-		} catch (ValidationErrorException e) {
-			response.setStatus(HttpServletResponse.SC_NOT_ACCEPTABLE);
-			return "/view/user/add-new-entries-window/window.jsp";
+		Map<String, String> errors = Validator.validateFormAndReturnErrors(request, NewFoodForm.values());
+		if (errors.isEmpty()) {
+			saveFoodAndUpdateCache(request);
 		}
-		saveFoodAndUpdateCache(request);
+		errors.forEach((key, value) -> request.getServletContext().setAttribute(key, value));
 		return "/view/user/add-new-entries-window/window.jsp";
 	}
 

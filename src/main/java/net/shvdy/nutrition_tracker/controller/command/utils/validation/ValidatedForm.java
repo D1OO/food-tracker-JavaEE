@@ -10,5 +10,4 @@ public interface ValidatedForm {
 
 	String getFieldErrorMsg();
 
-	ValidatedForm[] getFields();
 }
