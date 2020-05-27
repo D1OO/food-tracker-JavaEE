@@ -1,17 +1,18 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!-- Localized messages -->
 <fmt:setLocale value="${sessionScope.lang}"/>
 <fmt:setBundle basename="i18n/messages"/>
+
 <html>
 <jsp:include page="/view/fragments/head.jsp">
-    <jsp:param name="title" value="Sign-Up"/>
+    <jsp:param name="title" value="Sign Up • Dreamfit"/>
 </jsp:include>
 <body>
-<%@ include file="/view/fragments/navbar.jsp" %>
+<jsp:include page="/view/fragments/navbar.jsp"/>
+
 <div class="maincontent d-flex flex-nowrap p-lg-3" style="height:100%; background: #eeeeee">
-    <%--    <img class="pagepic" th:src="@{/img/signuppic.jpg}">--%>
+    <img class="pagepic" src="static/img/signuppic.jpg" alt="">
     <div class="mr-auto">
         <div class="row d-flex justify-content-start form">
             <div class=" mb-5 mb-md-0">
@@ -81,5 +82,9 @@
         </div>
     </div>
 </div>
+
+<jsp:include page="/view/fragments/footer.jsp"/>
+<jsp:include page="/view/fragments/scripts.jsp"/>
+
 </body>
 </html>

@@ -53,8 +53,8 @@ dl, ol, ul {
 #content-container {
     height: 100%;
     width: 100%;
-    background: rgba(192, 181, 218, 0.4);
-    background: linear-gradient(180deg, rgba(218, 216, 212, 0.4) 11%, rgba(224, 224, 224, 0.5) 49%, rgba(240, 255, 239, 0.5) 100%);
+    /*background: rgba(192, 181, 218, 0.4);*/
+    /*background: linear-gradient(180deg, rgba(218, 216, 212, 0.4) 11%, rgba(224, 224, 224, 0.5) 49%, rgba(240, 255, 239, 0.5) 100%);*/
     border: 1px solid black;
     margin-bottom: 10px;
 }
@@ -157,23 +157,24 @@ dl, ol, ul {
 .tabs .pretty-button:hover {
     color: #000000;
     text-decoration: none;
-    background: rgba(0, 0, 0, 0);
-}
-
-.tabs .pretty-button:hover {
-    background: rgb(213, 95, 147);
-    background: linear-gradient(338deg, rgba(213, 95, 147, 0.62) 10%, rgba(233, 232, 148, 0.73) 100%);
+    background: rgba(213, 95, 147, 0.62);
 }
 
 .food-diary-container {
-    background: rgba(213, 95, 147, 0.24);
-    background: linear-gradient(338deg, rgba(213, 95, 147, 0.19) 10%, rgba(233, 232, 148, 0.4) 100%);
+    /*background: rgba(213, 95, 147, 0.24);*/
+    /*background: linear-gradient(338deg, rgba(213, 95, 147, 0.19) 10%, rgba(233, 232, 148, 0.4) 100%);*/
+}
+
+.recordTab {
+    background: #e2dbff;
+    padding-inline: 10px;
 }
 
 .recordTab :hover {
     background: rgb(213, 95, 147);
     background: linear-gradient(338deg, rgba(213, 95, 147, 0.62) 10%, rgba(233, 232, 148, 0.73) 100%);
 }
+
 
 .active-tab-button {
     background: rgb(213, 95, 147);
@@ -183,7 +184,6 @@ dl, ol, ul {
 .nextb:hover {
     background: #afa5af;
 }
-
 
 .formf input {
 
@@ -217,22 +217,6 @@ table {
 }
 
 
-.left-cell {
-
-}
-
-.right-cell {
-
-}
-
-#cont {
-    /*background: url("../img/loginpic.jpg") center left no-repeat;*/
-    /*background-size: 290px;*/
-    /*background-clip: content-box;*/
-    /*padding-left: 15px;*/
-    /*padding-right: 15px;*/
-}
-
 .pagepic {
     height: 290px;
     width: auto;
@@ -245,18 +229,14 @@ table {
 .logged-in-as {
     background-color: #272727;
     color: white !important;
-
     padding: 5px;
 
 }
 
-
 .logged-in-as2 {
     background-color: #575757;
     color: white !important;
-
     padding: 5px;
-
 }
 
 .form label {
@@ -264,7 +244,6 @@ table {
     color: white;
     padding-left: 3px;
     padding-right: 3px;
-
 }
 
 .form {
@@ -304,24 +283,17 @@ table {
     margin-right: 0.4em;
 }
 
-/*#bg {*/
-/*    background-image: url(/img/bg5.jpg);*/
-/*    background-size: cover;*/
-/*    display: inline-block;*/
-/*    opacity: 0.2;*/
-/*}*/
 
 #tgicon {
-    background: url("../img/telegram.svg") center left no-repeat;
-    /*margin-bottom: 10px;*/
+    background: url("/static/img/telegram.svg") center left no-repeat;
 }
 
 #mailicon {
-    background: url("../img/gmail.svg") center left no-repeat;
+    background: url("/static/img/gmail.svg") center left no-repeat;
 }
 
 #ghicon {
-    background: url("../img/gh.svg") center left no-repeat;
+    background: url("/static/img/gh.svg") center left no-repeat;
 }
 
 .slink {
@@ -334,7 +306,7 @@ main {
 }
 
 a {
-    color: #777;
+    color: #1d1d1d;
 }
 
 p {
@@ -551,6 +523,10 @@ h6,
     position: -webkit-sticky;
     top: 0;
     /* required */
+}
+
+.open-modal {
+    background-color: rgba(36, 168, 0, 0.41);
 }
 
 .list-line li {
@@ -827,7 +803,7 @@ h6,
 
 .footer {
     flex-shrink: 0;
-    padding: 0 0 1rem 0;
+    padding: 1rem 0 1rem 0;
 
     background: rgb(168, 168, 168);
     background: linear-gradient(198deg, rgba(168, 168, 168, 0.4471988624551383) 1%, rgba(216, 255, 158, 0.4612044646960347) 54%, rgba(158, 238, 175, 0.6964985823430935) 93%);
@@ -863,6 +839,14 @@ h6,
     color: #000;
 }
 
+.display-block {
+    display: block;
+}
+
+.display-none {
+    display: none;
+}
+
 @media (max-width: 780px) {
     .custom-navbar > .container {
         padding-right: 0;
@@ -880,6 +864,103 @@ h6,
     text-decoration: none;
     background: #fdbaba;
 }
+
+.selected-record-button {
+    color: white;
+    background: #2b2234;
+}
+
+.selected-record-button:hover {
+    color: white !important;
+    background: #2b2234 !important;
+    cursor: default;
+}
+
+.visible {
+    visibility: visible;
+}
+
+.unvisible {
+    visibility: hidden;
+}
+
+.carousel {
+    background: white;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+.carousel-cell {
+    width: 66%;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+    border-radius: 5px;
+    counter-increment: gallery-cell;
+}
+
+.carousel-cell:before {
+    display: block;
+    text-align: center;
+
+    line-height: 200px;
+    font-size: 80px;
+    color: white;
+}
+
+
+.first-slide {
+    height: 100%;
+    width: 100%;
+    color: white;
+    background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/orange-tree.jpg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.first-slide h1 {
+
+}
+
+.article-block {
+    background-color: rgba(255, 255, 255, 0);
+    border-radius: 0.2rem;
+}
+
+.article-block:hover {
+    background: rgb(255, 255, 255);
+    background: linear-gradient(184deg, rgba(255, 255, 255, 0.6698879380853904) 0%, rgba(134, 255, 113, 0.16008401651676296) 79%);
+    border: 1px solid grey;
+    border-radius: 0.2rem;
+}
+
+.carousel-link {
+    cursor: pointer;
+    color: rgba(0, 8, 3, 0.98);
+    font-size: 1rem;
+}
+
+.carousel-link:hover {
+    color: rgba(0, 183, 130, 0.98);
+    font-size: 1.2rem;
+}
+
+.daily-record-table tr:last-child td:first-child {
+    border-bottom-left-radius: 10px;
+}
+
+.daily-record-table tr:last-child td:last-child {
+    border-bottom-right-radius: 10px;
+}
+
+.daily-record-table tbody {
+    text-align: right;
+    /*border-radius: 5px;*/
+}
+
 
 @font-face {
     font-family: 'Run Medium';
@@ -900,13 +981,6 @@ h6,
     font-style: normal;
     font-weight: normal;
     src: local('Gotham Rounded Light'), url('/static/fonts/Gotham Rounded Light.woff') format('woff');
-}
-
-@font-face {
-    font-family: 'Gotham Rounded Light Italic';
-    font-style: normal;
-    font-weight: normal;
-    src: local('Gotham Rounded Light Italic'), url('/static/fonts/Gotham Rounded Light Italic.woff') format('woff');
 }
 
 @font-face {

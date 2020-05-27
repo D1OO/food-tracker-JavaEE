@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <head>
     <meta charset="utf-8">
     <title>${param.title}</title>
@@ -24,6 +25,7 @@
     <link href="${pageContext.request.contextPath}/static/vendor/aos/aos.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/static/vendor/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
 
     <!-- Template Main CSS File -->
     <style><%@include file="/static/css/style.css" %></style>
