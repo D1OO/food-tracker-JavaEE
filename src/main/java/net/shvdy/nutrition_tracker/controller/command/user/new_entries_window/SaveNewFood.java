@@ -8,6 +8,8 @@ import net.shvdy.nutrition_tracker.dto.FoodDTO;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
@@ -26,23 +28,23 @@ public class SaveNewFood implements ActionCommand {
 		if (errors.isEmpty()) {
 			saveFoodAndUpdateCache(request);
 		}
-		errors.forEach((key, value) -> request.getServletContext().setAttribute(key, value));
-		return "/view/user/add-new-entries-window/window.jsp";
+//		writeJSONResponse(response, CommandEnum.getJacksonObjectMapper().writeValueAsString(errors));
+		return "json:" + CommandEnum.getJacksonObjectMapper().writeValueAsString(errors);
 	}
 
 	private void saveFoodAndUpdateCache(HttpServletRequest request) throws SQLException {
-		Long profileId = Long.parseLong(request.getParameter("profileId"));
 		FoodDTO foodDTO = FoodDTO.builder().name(request.getParameter("newFoodName"))
 				.calories(Integer.parseInt(request.getParameter("newFoodCalories")))
 				.carbohydrates(Integer.parseInt(request.getParameter("newFoodCarbohydrates")))
 				.fats(Integer.parseInt(request.getParameter("newFoodFats")))
-				.proteins(Integer.parseInt(request.getParameter("newFoodProteins")))
+				.proteins(Integer.parseInt(request.getParameter("newFoodProt")))
 				.build();
 
-		foodDTO.setFoodId(CommandEnum.getFoodService().saveForProfile(foodDTO, profileId));
-		List<FoodDTO> foodCache = (List<FoodDTO>) request.getSession().getAttribute("user.userFood");
-		foodCache.add(foodDTO);
-		request.getSession().setAttribute("user.userFood", foodCache);
-	}
+		foodDTO.setFoodId(CommandEnum.getFoodService().saveForProfile(foodDTO,
+				Long.parseLong(request.getParameter("profileId"))));
 
+		List<FoodDTO> updatedFoodCache = (List<FoodDTO>) request.getSession().getAttribute("user.userFood");
+		updatedFoodCache.add(foodDTO);
+		request.getSession().setAttribute("user.userFood", updatedFoodCache);
+	}
 }

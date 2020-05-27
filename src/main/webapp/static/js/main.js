@@ -1,6 +1,6 @@
 $(document).ready(function () {
     const section = document.getElementById('sectionToFetchWithAJAX').value;
-    setContentContainerToEndpoint(section  ? section : 'feed');
+    setContentContainerToEndpoint(section ? section : 'feed');
     window.onpopstate = function (e) {
         if (e.state != null)
             setContentContainerToEndpoint(e.state.endpoint);
@@ -22,12 +22,12 @@ function setContentContainerToEndpoint(...controllerEndpoint) {
 }
 
 function setModalContainerTo(name) {
+    clearErrorMessages();
     $('#modalbody > *').css("display", "none");
     document.getElementById(name).style.display = "block";
 }
 
 function openAddFoodModalWindow(recordtab) {
-    // event.preventDefault();
     const data = $(recordtab).serialize();
     $.get('/adding-entries-modal-window', data, function (data) {
         document.getElementById('modal-window').innerHTML = data;
@@ -69,32 +69,29 @@ function addedNewEntry(foodDTO, foodName) {
 }
 
 function saveCreatedFood(element) {
-    const data = $('#createfoodform').serialize();
+    clearErrorMessages();
     $.ajax({
         type: "POST",
         url: '/save-new-food',
-        data: data,
-        statusCode: {
-            406: function (response) {
-                $('.open-modal')[0].onclick();
-                //setErrorBoxesVisible
-            }
-        },
-        success: function (response) {
-            $('.open-modal')[0].onclick();
+        data: $('#createfoodform').serialize(),
+        success: function (errorsMap) {
+            if (Object.keys(errorsMap).length === 0)
+                $("#foodSavedSuccessBox").show(200);
+            else
+                $.each(errorsMap, function (errorKey, errorMessage) {
+                    $("#" + errorKey).text(errorMessage);
+                })
         }
     });
 }
 
 function saveCreatedArticle() {
-    var form = $('#createarticleform')[0];
-    var formData = new FormData(form);
     $.ajax({
         type: "POST",
         url: '/save-new-article',
         contentType: false,
         processData: false,
-        data: formData,
+        data: new FormData($('#createarticleform')[0]),
         statusCode: {
             406: function (response) {
                 $('.open-modal')[0].onclick();
@@ -114,6 +111,11 @@ function saveNewEntries() {
         '&newEntriesDTOJSON=' + $('#new-entries-list').val();
 
     $.post('/save-new-entries', data, replacePageWith);
+}
+
+function clearErrorMessages() {
+    $('.errorServerValidation').text("");
+    $("#foodSavedSuccessBox").hide(100);
 }
 
 function getNewEntriesJSONString() {

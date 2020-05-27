@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
@@ -31,20 +32,22 @@ public class DreamfitServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		setDateForLocale(request);
-		processRequest(request, response);
+		processResponse(request, response);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		processRequest(request, response);
+		processResponse(request, response);
 	}
 
-	private void processRequest(HttpServletRequest request, HttpServletResponse response)
+	private void processResponse(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String path = executeCommand(request, response);
-		if ((path).contains("redirect:")) {
+		if ((path).startsWith("redirect:")) {
 			response.sendRedirect(request.getContextPath() + path.replace("redirect:", ""));
+		} else if (path.startsWith("json:")) {
+			respondWithJSON(response, path.replace("json:", ""));
 		} else {
 			request.getRequestDispatcher(path).forward(request, response);
 		}
@@ -58,6 +61,14 @@ public class DreamfitServlet extends HttpServlet {
 			request.getSession().setAttribute("error-message", e.getMessage());
 			return CommandEnum.SERVER_ERROR.getPath();
 		}
+	}
+
+	private void respondWithJSON(HttpServletResponse response, String JSONString) throws IOException {
+		PrintWriter out = response.getWriter();
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		out.print(JSONString);
+		out.flush();
 	}
 
 	private void initAndInjectServices() {
