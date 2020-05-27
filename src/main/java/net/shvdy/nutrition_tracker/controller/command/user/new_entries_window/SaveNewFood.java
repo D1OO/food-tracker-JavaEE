@@ -3,7 +3,7 @@ package net.shvdy.nutrition_tracker.controller.command.user.new_entries_window;
 import net.shvdy.nutrition_tracker.controller.command.ActionCommand;
 import net.shvdy.nutrition_tracker.controller.command.CommandEnum;
 import net.shvdy.nutrition_tracker.controller.command.utils.FoodValidator;
-import net.shvdy.nutrition_tracker.controller.exception.FoodValidationException;
+import net.shvdy.nutrition_tracker.controller.exception.FoodNotValidException;
 import net.shvdy.nutrition_tracker.dto.FoodDTO;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,7 +24,7 @@ public class SaveNewFood implements ActionCommand {
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		try {
 			foodValidator.validate(request);
-		} catch (FoodValidationException e) {
+		} catch (FoodNotValidException e) {
 			response.setStatus(HttpServletResponse.SC_NOT_ACCEPTABLE);
 			return "/view/user/add-new-entries-window/window.jsp";
 		}

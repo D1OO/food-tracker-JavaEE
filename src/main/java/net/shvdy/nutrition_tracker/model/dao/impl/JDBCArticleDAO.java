@@ -16,7 +16,6 @@ import java.util.Properties;
  * @version 1.0
  */
 public class JDBCArticleDAO implements ArticleDAO {
-
 	private DataSource dataSource;
 	private ResultSetMapper<List<Article>> resultSetMapper;
 	private Properties queries;
@@ -25,11 +24,6 @@ public class JDBCArticleDAO implements ArticleDAO {
 		this.dataSource = dataSource;
 		this.resultSetMapper = resultSetMapper;
 		this.queries = queries;
-	}
-
-	@Override
-	public void create(Article entity) throws SQLException {
-
 	}
 
 	@Override

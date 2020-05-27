@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * 20.05.2020
@@ -48,15 +49,13 @@ public class DailyRecordService {
 
 	private List<DailyRecordDTO> insertAbsentDays(String day, int size, Long profileId, Locale locale,
 												  Map<String, DailyRecordDTO> weeklyRecords) {
-		for (int i = 0; i < size; i++) {
-			String currentDay = LocalDate.parse(day).minusDays(i).toString();
-			weeklyRecords.putIfAbsent(currentDay, DailyRecordDTO.builder()
-					.recordDate(currentDay)
-					.userProfileId(profileId)
-					.dateHeader(dailyRecordMapper.getShortDateHeader(currentDay, locale))
-					.entries(new ArrayList<>())
-					.build());
-		}
+		IntStream.range(0, size).mapToObj(x -> LocalDate.parse(day).minusDays(x).toString())
+				.forEach(i -> weeklyRecords.putIfAbsent(i, DailyRecordDTO.builder()
+						.recordDate(i)
+						.userProfileId(profileId)
+						.dateHeader(dailyRecordMapper.getShortDateHeader(i, locale))
+						.entries(new ArrayList<>())
+						.build()));
 
 		return new ArrayList<>(weeklyRecords.values()).stream()
 				.sorted(Comparator.comparing(DailyRecordDTO::getRecordDate).reversed())

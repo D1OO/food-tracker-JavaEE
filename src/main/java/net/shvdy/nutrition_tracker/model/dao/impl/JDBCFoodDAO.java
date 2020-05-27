@@ -64,8 +64,4 @@ public class JDBCFoodDAO implements FoodDAO {
 
 	}
 
-	@Override
-	public void create(Food entity) throws SQLException {
-
-	}
 }

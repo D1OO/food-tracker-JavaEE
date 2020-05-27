@@ -1,7 +1,8 @@
 package net.shvdy.nutrition_tracker;
 
 import java.io.IOException;
-import java.io.InputStream;
+import java.util.Arrays;
+import java.util.Objects;
 import java.util.Properties;
 
 /**
@@ -37,14 +38,14 @@ public class PropertiesReader {
 	}
 
 	public static void readProperties(ClassLoader classLoader) {
-		for (Props propsValue : Props.values()) {
+		Arrays.stream(Props.values()).forEach(property -> {
 			Properties loadedProperty = new Properties();
 			try {
-				loadedProperty.load(classLoader.getResourceAsStream(propsValue.getPath()));
+				loadedProperty.load(Objects.requireNonNull(classLoader.getResourceAsStream(property.getPath())));
 			} catch (IOException | NullPointerException e) {
-				System.err.println("Could not read properties from file " + propsValue.getPath() + " in classpath. " + e);
+				System.err.println("Could not read properties from file " + property.getPath() + " in classpath. " + e);
 			}
-			propsValue.setProp(loadedProperty);
-		}
+			property.setProp(loadedProperty);
+		});
 	}
 }

@@ -1,7 +1,7 @@
 package net.shvdy.nutrition_tracker.controller.command.utils;
 
 import net.shvdy.nutrition_tracker.PropertiesReader;
-import net.shvdy.nutrition_tracker.controller.exception.FoodValidationException;
+import net.shvdy.nutrition_tracker.controller.exception.FoodNotValidException;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
@@ -50,14 +50,15 @@ public class FoodValidator {
 		}
 	}
 
-	public void validate(HttpServletRequest request) throws FoodValidationException {
-		Arrays.stream(NewFoodFields.values()).forEach(x -> request.getServletContext().setAttribute(x.getParamErrorName(),
-				request.getParameter(x.getParamName()).matches(PropertiesReader.Props.VALIDATION_REGEX.getProp()
-						.getProperty(x.getRegexParamName())) ? null : x.getErrorMsg()));
+	public void validate(HttpServletRequest request) throws FoodNotValidException {
+		Arrays.stream(NewFoodFields.values()).forEach(x ->
+				request.getServletContext().setAttribute(x.getParamErrorName(),
+						request.getParameter(x.getParamName()).matches(PropertiesReader.Props.VALIDATION_REGEX.getProp()
+								.getProperty(x.getRegexParamName())) ? "" : x.getErrorMsg()));
 
 		if (Arrays.stream(NewFoodFields.values())
-				.anyMatch(x -> request.getServletContext().getAttribute(x.getParamName()) != null))
-			throw new FoodValidationException();
+				.anyMatch(x -> request.getServletContext().getAttribute(x.getParamErrorName()).toString().length() > 0))
+			throw new FoodNotValidException();
 
 	}
 }

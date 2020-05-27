@@ -21,7 +21,7 @@
                     <div class="maincontent d-flex">
                         <div class="d-inline-flex" style="width: 100%">
                             <div class="d-flex flex-column tabs mx-2 flex-grow-1" style="width: 20%">
-                                <input id="section" value="${containerSection}" type="hidden">
+                                <input id="sectionToFetchWithAJAX" value="${sectionToFetchWithAJAX}" type="hidden">
                                 <button class="pretty-button  menu-pr-button bg my-2"
                                         onclick="loadFromServerIntoContentContainer('feed')"><fmt:message
                                         key="my-feed"/>

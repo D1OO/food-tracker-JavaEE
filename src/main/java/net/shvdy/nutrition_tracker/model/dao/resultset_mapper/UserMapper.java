@@ -38,22 +38,11 @@ public class UserMapper implements ResultSetMapper<User> {
 
 	private List<Food> setFood(ResultSet rs) throws SQLException {
 		List<Food> userFood = new ArrayList<>();
-
-		userFood.add(extractFoodFromResultSet(rs));
-		while (rs.next()){
-			userFood.add(extractFoodFromResultSet(rs));
+		userFood.add(Builder.buildFood(rs));
+		while (rs.next()) {
+			userFood.add(Builder.buildFood(rs));
 		}
 		return userFood;
 	}
 
-	private Food extractFoodFromResultSet(ResultSet rs) throws SQLException {
-		return Food.builder()
-				.food_id(rs.getLong("food_id"))
-				.name(rs.getString("name"))
-				.calories(rs.getInt("calories"))
-				.carbohydrates(rs.getInt("carbohydrates"))
-				.proteins(rs.getInt("proteins"))
-				.fats(rs.getInt("fats"))
-				.build();
-	}
 }

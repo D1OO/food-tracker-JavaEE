@@ -21,7 +21,6 @@ public class JDBCUserDAO implements UserDAO {
 		this.queries = queries;
 	}
 
-	@Override
 	public void create(User user) throws SQLException {
 		try (Connection connection = dataSource.getConnection();
 			 PreparedStatement insertUserStatement = connection

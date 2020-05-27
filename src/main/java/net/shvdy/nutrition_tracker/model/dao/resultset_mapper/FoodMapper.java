@@ -15,11 +15,6 @@ public class FoodMapper implements ResultSetMapper<Food> {
 
 	@Override
 	public Food map(ResultSet resultSet) throws SQLException {
-		return Food.builder()
-				.name(resultSet.getString("name"))
-				.calories(resultSet.getInt("calories"))
-				.fats(resultSet.getInt("fats"))
-				.carbohydrates(resultSet.getInt("carbohydrates"))
-				.proteins(resultSet.getInt("proteins")).build();
+		return Builder.buildFood(resultSet);
 	}
 }

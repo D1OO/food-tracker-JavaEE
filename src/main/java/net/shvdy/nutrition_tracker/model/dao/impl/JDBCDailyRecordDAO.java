@@ -53,13 +53,14 @@ public class JDBCDailyRecordDAO implements DailyRecordDAO {
 
 			connection.setAutoCommit(false);
 
-			setLongOrNull(insertDailyRecord, 1, dailyRecord.getRecordId());
+			Optional<Long> dailyRecordID = Optional.ofNullable(dailyRecord.getRecordId());
+			setLongOrNull(insertDailyRecord, 1, dailyRecordID);
 			insertDailyRecord.setLong(2, dailyRecord.getUserProfileId());
 			insertDailyRecord.setString(3, dailyRecord.getRecordDate());
 			insertDailyRecord.setInt(4, dailyRecord.getDailyCaloriesNorm());
 			insertDailyRecord.executeUpdate();
 
-			if (dailyRecord.getRecordId() == null) {
+			if (dailyRecordID.isEmpty()) {
 				ResultSet generatedKeys = insertDailyRecord.getGeneratedKeys();
 				if (generatedKeys.next())
 					dailyRecord.setRecordId(generatedKeys.getLong(1));
@@ -69,27 +70,22 @@ public class JDBCDailyRecordDAO implements DailyRecordDAO {
 				insertEntries.setLong(1, entry.getFood().getFoodId());
 				insertEntries.setLong(2, Optional.ofNullable(dailyRecord.getRecordId()).orElseThrow());
 				insertEntries.setInt(3, entry.getQuantity());
-				setLongOrNull(insertEntries, 4, entry.getEntryId());
+				setLongOrNull(insertEntries, 4, Optional.ofNullable(entry.getEntryId()));
 
 				insertEntries.addBatch();
 			}
 
 			insertEntries.executeBatch();
-
 			connection.commit();
 		}
 	}
 
-	private void setLongOrNull(PreparedStatement statement, int index, Long value) throws SQLException {
-		try {
-			statement.setLong(index, value);
-		} catch (NullPointerException e) {
+	private void setLongOrNull(PreparedStatement statement, int index, Optional<Long> value) throws SQLException {
+		if (value.isPresent()) {
+			statement.setLong(index, value.get()); //setLong doesn't accept null values
+		} else {
 			statement.setNull(index, Types.BIGINT);
 		}
 	}
 
-	@Override
-	public void create(DailyRecord entity) throws SQLException {
-
-	}
 }

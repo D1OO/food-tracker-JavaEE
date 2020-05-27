@@ -29,13 +29,8 @@ public class UserService {
 				.orElseThrow(() -> new UserNotFoundException(String.format("Username '%s' not found", username)));
 	}
 
-	public UserDTO findByLoginDTO(LoginDTO loginDTO) throws SQLException {
-		User user = null;
-		try {
-			user = findByUsername(loginDTO.getUsername());
-		} catch (UserNotFoundException e) {
-			e.printStackTrace();
-		}
+	public UserDTO findByLoginDTO(LoginDTO loginDTO) throws SQLException, UserNotFoundException, InvalidPasswordException {
+		User user = findByUsername(loginDTO.getUsername());
 		if (!loginDTO.getPassword().equals(user.getPassword())) {
 			throw new InvalidPasswordException();
 		}

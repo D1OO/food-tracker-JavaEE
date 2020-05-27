@@ -24,7 +24,7 @@ public class DreamfitServlet extends HttpServlet {
 		servletConfig.getServletContext().setAttribute("loggedUsers", new HashSet<Long>());
 		servletConfig.getServletContext().setAttribute("page-size", servletConfig.getInitParameter("page-size"));
 		PropertiesReader.readProperties(this.getClass().getClassLoader());
-		loadAndInjectServices();
+		initAndInjectServices();
 	}
 
 	@Override
@@ -60,7 +60,7 @@ public class DreamfitServlet extends HttpServlet {
 		}
 	}
 
-	private void loadAndInjectServices() {
+	private void initAndInjectServices() {
 		UserService userService = null;
 		DailyRecordService dailyRecordService = null;
 		FoodService foodService = null;
@@ -69,28 +69,23 @@ public class DreamfitServlet extends HttpServlet {
 		try {
 			userService = ServiceFactory.userService();
 		} catch (IOException | NamingException e) {
-			System.err.print(e.getMessage());
 			e.printStackTrace();
 		}
 		try {
 			dailyRecordService = ServiceFactory.dailyRecordService();
 		} catch (IOException | NamingException e) {
-			System.err.print(e.getMessage());
 			e.printStackTrace();
 		}
 		try {
 			foodService = ServiceFactory.foodService();
 		} catch (IOException | NamingException e) {
-			System.err.print(e.getMessage());
 			e.printStackTrace();
 		}
 		try {
 			articleService = ServiceFactory.articleService();
 		} catch (IOException | NamingException e) {
-			System.err.print(e.getMessage());
 			e.printStackTrace();
 		}
-
 		CommandEnum.injectServices(userService, dailyRecordService, foodService, articleService, new ObjectMapper());
 	}
 
