@@ -1,7 +1,7 @@
 package net.shvdy.nutrition_tracker.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import net.shvdy.nutrition_tracker.PropertiesReader;
+import net.shvdy.nutrition_tracker.PropertiesContainer;
 import net.shvdy.nutrition_tracker.controller.command.CommandEnum;
 import net.shvdy.nutrition_tracker.model.service.*;
 
@@ -24,7 +24,7 @@ public class DreamfitServlet extends HttpServlet {
 	public void init(ServletConfig servletConfig) {
 		servletConfig.getServletContext().setAttribute("loggedUsers", new HashSet<Long>());
 		servletConfig.getServletContext().setAttribute("page-size", servletConfig.getInitParameter("page-size"));
-		PropertiesReader.readProperties(this.getClass().getClassLoader());
+		PropertiesContainer.readProperties(this.getClass().getClassLoader());
 		initAndInjectServices();
 	}
 

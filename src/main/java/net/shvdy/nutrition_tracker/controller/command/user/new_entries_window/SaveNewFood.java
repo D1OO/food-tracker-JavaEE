@@ -1,15 +1,13 @@
 package net.shvdy.nutrition_tracker.controller.command.user.new_entries_window;
 
+import net.shvdy.nutrition_tracker.PropertiesContainer;
 import net.shvdy.nutrition_tracker.controller.command.ActionCommand;
 import net.shvdy.nutrition_tracker.controller.command.CommandEnum;
-import net.shvdy.nutrition_tracker.controller.command.utils.validation.NewFoodForm;
-import net.shvdy.nutrition_tracker.controller.command.utils.validation.Validator;
+import net.shvdy.nutrition_tracker.controller.command.utils.Validator;
 import net.shvdy.nutrition_tracker.dto.FoodDTO;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
@@ -24,11 +22,11 @@ public class SaveNewFood implements ActionCommand {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		Map<String, String> errors = Validator.validateFormAndReturnErrors(request, NewFoodForm.values());
+		Map<String, String> errors = Validator.validateFormAndReturnErrors(request,
+				PropertiesContainer.JSONProperties.FOOD_FORM_VALIDATION_DATA.getFormFieldsValidationData());
 		if (errors.isEmpty()) {
 			saveFoodAndUpdateCache(request);
 		}
-//		writeJSONResponse(response, CommandEnum.getJacksonObjectMapper().writeValueAsString(errors));
 		return "json:" + CommandEnum.getJacksonObjectMapper().writeValueAsString(errors);
 	}
 

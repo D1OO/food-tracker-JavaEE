@@ -1,6 +1,6 @@
 package net.shvdy.nutrition_tracker.model.dao.impl;
 
-import net.shvdy.nutrition_tracker.PropertiesReader;
+import net.shvdy.nutrition_tracker.PropertiesContainer;
 import net.shvdy.nutrition_tracker.model.dao.*;
 import net.shvdy.nutrition_tracker.model.dao.resultset_mapper.ArticleMapper;
 import net.shvdy.nutrition_tracker.model.dao.resultset_mapper.DailyRecordListMapper;
@@ -19,7 +19,7 @@ public class JDBCDAOFactory extends DAOFactory {
 
 	public JDBCDAOFactory() throws NamingException, IOException {
 		dataSource = ConnectionPoolHolder.getDataSource();
-		DAO_SQL_queries = PropertiesReader.Props.DAO_SQL_QUERIES.getProp();
+		DAO_SQL_queries = PropertiesContainer.Props.DAO_SQL_QUERIES.getProp();
 	}
 
 	@Override

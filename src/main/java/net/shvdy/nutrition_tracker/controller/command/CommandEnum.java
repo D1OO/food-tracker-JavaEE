@@ -97,7 +97,6 @@ public enum CommandEnum {
 	private static FoodService foodService;
 	private static ArticleService articleService;
 	private static ObjectMapper jacksonObjectMapper;
-
 	CommandEnum(ActionCommand actionCommand, String path, Set<Role> permittedRoles) {
 		this.actionCommand = actionCommand;
 		this.path = path;

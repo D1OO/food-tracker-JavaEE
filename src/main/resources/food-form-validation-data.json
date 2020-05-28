@@ -1,0 +1,22 @@
+{
+    "newFoodName": {
+        "regex": "(?i)(^[a-z])((?![ .,'-]$)[a-z .,'-]){2,24}$",
+        "errorMessage": "Incorrect name"
+    },
+    "newFoodProt": {
+        "regex": "[0-9]{1,4}$",
+        "errorMessage": "Incorrect value (only digits)"
+    },
+    "newFoodCalories": {
+        "regex": "[0-9]{1,4}$",
+        "errorMessage": "Incorrect value (only digits)"
+    },
+    "newFoodFats": {
+        "regex": "[0-9]{1,4}$",
+        "errorMessage": "Incorrect value (only digits)"
+    },
+    "newFoodCarbohydrates": {
+        "regex": "[0-9]{1,4}$",
+        "errorMessage": "Incorrect value (only digits)"
+    }
+}
