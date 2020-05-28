@@ -7,6 +7,9 @@
 
 <div class="content-container food-diary-container" data-aos="fade-zoom-in" data-aos-offset="0"
      style="width: 100%">
+    <div id="entriesSavedSuccessBox" class="alert-success alert col-md-11 mb-3 display-none" role="alert">
+        <fmt:message key="entries.saved"/>
+    </div>
     <div class=" mb-4 m-4 font-rubick " style="width: 100%;">
         <h2><fmt:message key="food-diary"/></h2>
     </div>

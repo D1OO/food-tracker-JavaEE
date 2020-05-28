@@ -63,8 +63,9 @@ public class DreamfitServlet extends HttpServlet {
 		try {
 			return CommandEnum.getByURI(request.getRequestURI()).execute(request, response);
 		} catch (Exception e) {
-			ContextContainer.getLogger().error("Command threw and exception:" + e.getMessage());
+			ContextContainer.getLogger().error("Command threw an exception: " + e.getMessage());
 			request.getSession().setAttribute("error-message", e.getMessage());
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			return CommandEnum.SERVER_ERROR.getPath();
 		}
 	}

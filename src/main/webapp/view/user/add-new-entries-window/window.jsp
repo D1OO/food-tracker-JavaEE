@@ -14,6 +14,9 @@
         <div class="modal-body container" id="modalbody">
             <div class="m-2 tabs" id="addfoodcontainer" style="display: block">
                 <div class="d-inline-flex flex-wrap">
+                    <div id="entriesSavingErrorBox" class="alert-danger alert col-md-11 mb-3 display-none" role="alert">
+                        <fmt:message key="entries.not-saved"/>
+                    </div>
                     <c:forEach var="food" items="${user.userFood}" varStatus="loop">
                         <div class="mb-1">
                             <div class="user_food m-2">
@@ -40,6 +43,9 @@
             <div class="mt-4" id="createfoodcontainer" style="display: none">
                 <div id="foodSavedSuccessBox" class="alert-success alert col-md-11 mb-3 display-none" role="alert">
                     <fmt:message key="food.saved"/>
+                </div>
+                <div id="foodSavingErrorBox" class="alert-danger alert col-md-11 mb-3 display-none" role="alert">
+                    <fmt:message key="food.not-saved"/>
                 </div>
                 <form class="form" id="createfoodform" method="post" style="width: 100%" action="save-new-food">
                     <input name="profileId" value="${user.userId}" type="hidden">

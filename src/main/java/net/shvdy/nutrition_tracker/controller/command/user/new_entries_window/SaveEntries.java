@@ -18,6 +18,6 @@ public class SaveEntries implements ActionCommand {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 			ContextContainer.getDailyRecordService().saveNewEntries(NewEntriesDTOReader.read(request));
-			return ("redirect:/user");
+			return "json:";
 	}
 }

@@ -74,6 +74,11 @@ function saveCreatedFood(element) {
         type: "POST",
         url: '/save-new-food',
         data: $('#createfoodform').serialize(),
+        statusCode: {
+            500: function (response) {
+                $("#foodSavingErrorBox").show(200);
+            }
+        },
         success: function (errorsMap) {
             if (Object.keys(errorsMap).length === 0)
                 $("#foodSavedSuccessBox").show(200);
@@ -81,6 +86,28 @@ function saveCreatedFood(element) {
                 $.each(errorsMap, function (errorKey, errorMessage) {
                     $("#" + errorKey).text(errorMessage);
                 })
+        }
+    });
+}
+
+function saveNewEntries() {
+    const data = '&newEntriesJSON=' + getNewEntriesJSONString() +
+        '&newEntriesDTOJSON=' + $('#new-entries-list').val();
+    $.ajax({
+        type: "POST",
+        url: '/save-new-entries',
+        contentType: false,
+        processData: false,
+        data: data,
+        statusCode: {
+            500: function (response) {
+                $("#entriesSavingErrorBox").show(200);
+            }
+        },
+        success: function (response) {
+            closeAddFoodModalWindow();
+            $("#entriesSavedSuccessBox").show(200);
+            loadFromServerIntoContentContainer('food-diary');
         }
     });
 }
@@ -93,7 +120,7 @@ function saveCreatedArticle() {
         processData: false,
         data: new FormData($('#createarticleform')[0]),
         statusCode: {
-            406: function (response) {
+            500: function (response) {
                 $('.open-modal')[0].onclick();
                 //setErrorBoxesVisible
             }
@@ -105,16 +132,9 @@ function saveCreatedArticle() {
     });
 }
 
-
-function saveNewEntries() {
-    const data = '&newEntriesJSON=' + getNewEntriesJSONString() +
-        '&newEntriesDTOJSON=' + $('#new-entries-list').val();
-
-    $.post('/save-new-entries', data, replacePageWith);
-}
-
 function clearErrorMessages() {
     $('.errorServerValidation').text("");
+    $("#foodSavingErrorBox").hide(100);
     $("#foodSavedSuccessBox").hide(100);
 }
 

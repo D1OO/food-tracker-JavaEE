@@ -54,7 +54,6 @@ public class DailyRecordEntityMapper {
 			return JsonMapper.readValue(jsonString, type);
 		} catch (IOException e) {
 			ContextContainer.getLogger().error(e.getMessage());
-			e.printStackTrace();
 			throw new RuntimeException();
 		}
 	}
