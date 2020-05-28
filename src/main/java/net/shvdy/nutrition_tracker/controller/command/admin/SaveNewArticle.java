@@ -1,18 +1,19 @@
 package net.shvdy.nutrition_tracker.controller.command.admin;
 
-import net.shvdy.nutrition_tracker.controller.ContextContainer;
+import net.shvdy.nutrition_tracker.controller.ContextHolder;
 import net.shvdy.nutrition_tracker.controller.command.ActionCommand;
-import net.shvdy.nutrition_tracker.controller.command.CommandEnum;
 import net.shvdy.nutrition_tracker.model.entity.Article;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+import javax.swing.text.html.Option;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 /**
  * 24.05.2020
@@ -29,31 +30,31 @@ public class SaveNewArticle  implements ActionCommand {
 				.title(request.getParameter("title"))
 				.date(LocalDateTime.now().toString())
 				.text(request.getParameter("text"))
-				.image(readImage(request))
+				.image(readImage(request).orElse(InputStream.nullInputStream()))
 				.build();
 		try {
-			ContextContainer.getArticleService().save(article);
+			ContextHolder.getArticleService().save(article);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			ContextHolder.getLogger().error("Article saving exception: " + e.getMessage());
 		}
 
 		return "/view/fragments/feed.jsp";
 	}
 
-	private InputStream readImage(HttpServletRequest request) {
-		Part filePart = null;
+	private Optional<InputStream> readImage(HttpServletRequest request) {
+		Optional<Part> filePart = Optional.empty();
 		try {
-			filePart = request.getPart("image");
+			filePart = Optional.ofNullable(request.getPart("image"));
 		} catch (IOException | ServletException e) {
-			e.printStackTrace();
+			ContextHolder.getLogger().error("Image loading error: " + e.getMessage());
 		}
-		if (filePart != null) {
+		if (filePart.isPresent()) {
 			try {
-				return filePart.getInputStream();
+				return Optional.of(filePart.get().getInputStream());
 			} catch (IOException e) {
-				e.printStackTrace();
+				ContextHolder.getLogger().error("Image loading error: " + e.getMessage());
 			}
 		}
-		return null;
+		return Optional.empty();
 	}
 }

@@ -5,6 +5,7 @@ import net.shvdy.nutrition_tracker.model.dao.resultset_mapper.ResultSetMapper;
 import net.shvdy.nutrition_tracker.model.entity.Article;
 
 import javax.sql.DataSource;
+import java.io.IOException;
 import java.sql.*;
 import java.util.List;
 import java.util.Properties;
@@ -27,7 +28,7 @@ public class JDBCArticleDAO implements ArticleDAO {
 	}
 
 	@Override
-	public int save(Article article) throws SQLException {
+	public int save(Article article) throws SQLException, IOException {
 		try (Connection connection = dataSource.getConnection();
 			 PreparedStatement insertArticle = connection
 					 .prepareStatement(queries.getProperty("article_dao.INSERT_ARTICLE_SQL"),
@@ -46,6 +47,8 @@ public class JDBCArticleDAO implements ArticleDAO {
 				if (generatedKeys.next())
 					return generatedKeys.getInt(1);
 			}
+
+			article.getImage().close();
 			return article.getArticleId();
 		}
 	}

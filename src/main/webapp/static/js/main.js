@@ -27,8 +27,8 @@ function setModalContainerTo(name) {
     document.getElementById(name).style.display = "block";
 }
 
-function openAddFoodModalWindow(recordtab) {
-    const data = $(recordtab).serialize();
+function openAddFoodModalWindow(recordtabIndex) {
+    const data = $('#data-food-modal-window' + recordtabIndex).serialize();
     $.get('/adding-entries-modal-window', data, function (data) {
         document.getElementById('modal-window').innerHTML = data;
         $("#modal-window").css("display", "block");
@@ -68,7 +68,7 @@ function addedNewEntry(foodDTO, foodName) {
     });
 }
 
-function saveCreatedFood(element) {
+function saveCreatedFood() {
     clearErrorMessages();
     $.ajax({
         type: "POST",
@@ -80,9 +80,9 @@ function saveCreatedFood(element) {
             }
         },
         success: function (errorsMap) {
-            if (Object.keys(errorsMap).length === 0)
+            if (Object.keys(errorsMap).length === 0) {
                 $("#foodSavedSuccessBox").show(200);
-            else
+            } else
                 $.each(errorsMap, function (errorKey, errorMessage) {
                     $("#" + errorKey).text(errorMessage);
                 })
@@ -96,8 +96,6 @@ function saveNewEntries() {
     $.ajax({
         type: "POST",
         url: '/save-new-entries',
-        contentType: false,
-        processData: false,
         data: data,
         statusCode: {
             500: function (response) {

@@ -1,5 +1,6 @@
 package net.shvdy.nutrition_tracker.model.service.mapper;
 
+import net.shvdy.nutrition_tracker.controller.ContextHolder;
 import net.shvdy.nutrition_tracker.dto.ArticleDTO;
 import net.shvdy.nutrition_tracker.model.entity.Article;
 
@@ -38,7 +39,7 @@ public class ArticleEntityMapper {
 		try {
 			return readImageString(inputStream);
 		} catch (IOException e) {
-			e.printStackTrace();
+			ContextHolder.getLogger().warn("Image could not be read");
 			return "";
 		}
 	}

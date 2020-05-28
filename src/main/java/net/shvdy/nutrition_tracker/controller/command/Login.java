@@ -1,6 +1,6 @@
 package net.shvdy.nutrition_tracker.controller.command;
 
-import net.shvdy.nutrition_tracker.controller.ContextContainer;
+import net.shvdy.nutrition_tracker.controller.ContextHolder;
 import net.shvdy.nutrition_tracker.controller.command.utils.SecurityUtility;
 import net.shvdy.nutrition_tracker.dto.LoginDTO;
 import net.shvdy.nutrition_tracker.dto.UserDTO;
@@ -19,14 +19,15 @@ public class Login implements ActionCommand {
 		UserDTO user;
 
 		try {
-			user = ContextContainer.getUserService().findByLoginDTO(loginDto);
+			user = ContextHolder.getUserService().findByLoginDTO(loginDto);
 		} catch (UserNotFoundException | InvalidPasswordException |
 				SQLException | NullPointerException e) {
-			e.printStackTrace();
+			ContextHolder.getLogger().warn("User log in error: " + e.getMessage());
 			return "redirect:/login?error";
 		}
 
 		if (SecurityUtility.checkIsLoginNOTFresh(request, user.getUserId())) {
+			ContextHolder.getLogger().warn("Session duplication try ID=: " + user.getUserId());
 			return "redirect:/login?error=session-exists";
 		}
 

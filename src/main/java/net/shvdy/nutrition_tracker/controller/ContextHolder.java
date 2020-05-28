@@ -1,7 +1,6 @@
 package net.shvdy.nutrition_tracker.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import net.shvdy.nutrition_tracker.controller.command.CommandEnum;
 import net.shvdy.nutrition_tracker.model.service.ArticleService;
 import net.shvdy.nutrition_tracker.model.service.DailyRecordService;
 import net.shvdy.nutrition_tracker.model.service.FoodService;
@@ -14,7 +13,7 @@ import org.apache.logging.log4j.Logger;
  * @author Dmitriy Storozhenko
  * @version 1.0
  */
-public class ContextContainer {
+public class ContextHolder {
 
 	private static UserService userService;
 	private static DailyRecordService dailyRecordService;
@@ -48,14 +47,14 @@ public class ContextContainer {
 									  FoodService foodService,
 									  ArticleService articleService,
 									  ObjectMapper jacksonObjectMapper) {
-		ContextContainer.userService = userService;
-		ContextContainer.dailyRecordService = dailyRecordService;
-		ContextContainer.foodService = foodService;
-		ContextContainer.articleService = articleService;
-		ContextContainer.jacksonObjectMapper = jacksonObjectMapper;
+		ContextHolder.userService = userService;
+		ContextHolder.dailyRecordService = dailyRecordService;
+		ContextHolder.foodService = foodService;
+		ContextHolder.articleService = articleService;
+		ContextHolder.jacksonObjectMapper = jacksonObjectMapper;
 	}
 
 	public static void injectLogger(Logger logger) {
-		ContextContainer.logger = logger;
+		ContextHolder.logger = logger;
 	}
 }

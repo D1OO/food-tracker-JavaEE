@@ -23,15 +23,15 @@ import java.util.Locale;
 public class DreamfitServlet extends HttpServlet {
 
 	public void init(ServletConfig servletConfig) {
-		ContextContainer.injectLogger(LogManager.getLogger(DreamfitServlet.class));
-		ContextContainer.getLogger().info("Servlet initialization started");
+		ContextHolder.injectLogger(LogManager.getLogger(DreamfitServlet.class));
+		ContextHolder.getLogger().info("Servlet initialization started");
 
 		PropertiesContainer.readProperties(this.getClass().getClassLoader());
 		servletConfig.getServletContext().setAttribute("loggedUsers", new HashSet<Long>());
 		servletConfig.getServletContext().setAttribute("page-size", servletConfig.getInitParameter("page-size"));
 		initAndInjectServices();
 
-		ContextContainer.getLogger().info("Servlet initialization ended");
+		ContextHolder.getLogger().info("Servlet initialization ended");
 	}
 
 	@Override
@@ -54,6 +54,8 @@ public class DreamfitServlet extends HttpServlet {
 			response.sendRedirect(request.getContextPath() + path.replace("redirect:", ""));
 		} else if (path.startsWith("json:")) {
 			respondWithJSON(response, path.replace("json:", ""));
+		} else if (path.startsWith("ok")) {
+			response.setStatus(HttpServletResponse.SC_OK);
 		} else {
 			request.getRequestDispatcher(path).forward(request, response);
 		}
@@ -63,7 +65,8 @@ public class DreamfitServlet extends HttpServlet {
 		try {
 			return CommandEnum.getByURI(request.getRequestURI()).execute(request, response);
 		} catch (Exception e) {
-			ContextContainer.getLogger().error("Command threw an exception: " + e.getMessage());
+			e.printStackTrace();
+			ContextHolder.getLogger().error("Command threw an exception: " + e.getMessage());
 			request.getSession().setAttribute("error-message", e.getMessage());
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			return CommandEnum.SERVER_ERROR.getPath();
@@ -87,25 +90,25 @@ public class DreamfitServlet extends HttpServlet {
 		try {
 			userService = ServiceFactory.userService();
 		} catch (IOException | NamingException e) {
-			ContextContainer.getLogger().error(e.getMessage() + "User Service initialization failed");
+			ContextHolder.getLogger().error(e.getMessage() + "User Service initialization failed");
 		}
 		try {
 			dailyRecordService = ServiceFactory.dailyRecordService();
 		} catch (IOException | NamingException e) {
-			ContextContainer.getLogger().error(e.getMessage() + "DailyRecord Service initialization failed");
+			ContextHolder.getLogger().error(e.getMessage() + "DailyRecord Service initialization failed");
 		}
 		try {
 			foodService = ServiceFactory.foodService();
 		} catch (IOException | NamingException e) {
-			ContextContainer.getLogger().error(e.getMessage() + "Food Service initialization failed");
+			ContextHolder.getLogger().error(e.getMessage() + "Food Service initialization failed");
 		}
 		try {
 			articleService = ServiceFactory.articleService();
 		} catch (IOException | NamingException e) {
-			ContextContainer.getLogger().error(e.getMessage() + "Article Service initialization failed");
+			ContextHolder.getLogger().error(e.getMessage() + "Article Service initialization failed");
 		}
 
-		ContextContainer.injectServices(userService, dailyRecordService, foodService, articleService,
+		ContextHolder.injectServices(userService, dailyRecordService, foodService, articleService,
 				new ObjectMapper());
 	}
 

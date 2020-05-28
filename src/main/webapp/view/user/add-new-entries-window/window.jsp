@@ -41,11 +41,11 @@
                 </button>
             </div>
             <div class="mt-4" id="createfoodcontainer" style="display: none">
-                <div id="foodSavedSuccessBox" class="alert-success alert col-md-11 mb-3 display-none" role="alert">
-                    <fmt:message key="food.saved"/>
-                </div>
                 <div id="foodSavingErrorBox" class="alert-danger alert col-md-11 mb-3 display-none" role="alert">
                     <fmt:message key="food.not-saved"/>
+                </div>
+                <div id="foodSavedSuccessBox" class="alert-success alert col-md-11 mb-3 display-none" role="alert">
+                    <fmt:message key="food.saved"/>
                 </div>
                 <form class="form" id="createfoodform" method="post" style="width: 100%" action="save-new-food">
                     <input name="profileId" value="${user.userId}" type="hidden">
@@ -102,7 +102,7 @@
                     </div>
                 </form>
                 <div class="m-2 d-flex flex-column col-5 tabs">
-                    <button class="pretty-button mt-2" id="myBtn" onclick="saveCreatedFood(this)">
+                    <button class="pretty-button mt-2" id="myBtn" onclick="saveCreatedFood()">
                         <fmt:message key="user.save"/>
                     </button>
                     <button class="pretty-button switch-content mt-2" onclick="setModalContainerTo('addfoodcontainer')">

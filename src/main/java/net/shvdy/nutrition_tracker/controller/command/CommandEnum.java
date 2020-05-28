@@ -75,7 +75,7 @@ public enum CommandEnum {
 			new RemovedEntry(), "/removed-entry",
 			Set.of(Role.ADMIN, Role.USER)),
 	SAVE_NEW_ENTRIES(
-			new SaveEntries(), "/save-new-entries",
+			new SaveNewEntries(), "/save-new-entries",
 			Set.of(Role.ADMIN, Role.USER)),
 	SAVE_NEW_FOOD(
 			new SaveNewFood(), "/save-new-food",

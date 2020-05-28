@@ -1,6 +1,6 @@
 package net.shvdy.nutrition_tracker.controller.command;
 
-import net.shvdy.nutrition_tracker.controller.ContextContainer;
+import net.shvdy.nutrition_tracker.controller.ContextHolder;
 import net.shvdy.nutrition_tracker.model.entity.Role;
 import net.shvdy.nutrition_tracker.model.entity.User;
 import net.shvdy.nutrition_tracker.model.entity.UserProfile;
@@ -14,9 +14,9 @@ public class Register implements ActionCommand {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		try {
-			ContextContainer.getUserService().save(buildUser(request));
+			ContextHolder.getUserService().save(buildUser(request));
 		} catch (SQLException | NullPointerException e) {
-			e.printStackTrace();
+			ContextHolder.getLogger().error("User saving exception: " + e.getMessage());
 			return "redirect:/registration?error";
 		}
 		return "redirect:/login?signed-up";
