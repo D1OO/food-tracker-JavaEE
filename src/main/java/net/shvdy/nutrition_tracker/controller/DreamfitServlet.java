@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import net.shvdy.nutrition_tracker.PropertiesContainer;
 import net.shvdy.nutrition_tracker.controller.command.CommandEnum;
 import net.shvdy.nutrition_tracker.model.service.*;
+import org.apache.logging.log4j.LogManager;
 
 import javax.naming.NamingException;
 import javax.servlet.ServletConfig;
@@ -22,10 +23,15 @@ import java.util.Locale;
 public class DreamfitServlet extends HttpServlet {
 
 	public void init(ServletConfig servletConfig) {
+		ContextContainer.injectLogger(LogManager.getLogger(DreamfitServlet.class));
+		ContextContainer.getLogger().info("Servlet initialization started");
+
+		PropertiesContainer.readProperties(this.getClass().getClassLoader());
 		servletConfig.getServletContext().setAttribute("loggedUsers", new HashSet<Long>());
 		servletConfig.getServletContext().setAttribute("page-size", servletConfig.getInitParameter("page-size"));
-		PropertiesContainer.readProperties(this.getClass().getClassLoader());
 		initAndInjectServices();
+
+		ContextContainer.getLogger().info("Servlet initialization ended");
 	}
 
 	@Override
@@ -57,7 +63,7 @@ public class DreamfitServlet extends HttpServlet {
 		try {
 			return CommandEnum.getByURI(request.getRequestURI()).execute(request, response);
 		} catch (Exception e) {
-			e.printStackTrace(); //  logger soon
+			ContextContainer.getLogger().error("Command threw and exception:" + e.getMessage());
 			request.getSession().setAttribute("error-message", e.getMessage());
 			return CommandEnum.SERVER_ERROR.getPath();
 		}
@@ -80,24 +86,26 @@ public class DreamfitServlet extends HttpServlet {
 		try {
 			userService = ServiceFactory.userService();
 		} catch (IOException | NamingException e) {
-			e.printStackTrace();
+			ContextContainer.getLogger().error(e.getMessage() + "User Service initialization failed");
 		}
 		try {
 			dailyRecordService = ServiceFactory.dailyRecordService();
 		} catch (IOException | NamingException e) {
-			e.printStackTrace();
+			ContextContainer.getLogger().error(e.getMessage() + "DailyRecord Service initialization failed");
 		}
 		try {
 			foodService = ServiceFactory.foodService();
 		} catch (IOException | NamingException e) {
-			e.printStackTrace();
+			ContextContainer.getLogger().error(e.getMessage() + "Food Service initialization failed");
 		}
 		try {
 			articleService = ServiceFactory.articleService();
 		} catch (IOException | NamingException e) {
-			e.printStackTrace();
+			ContextContainer.getLogger().error(e.getMessage() + "Article Service initialization failed");
 		}
-		CommandEnum.injectServices(userService, dailyRecordService, foodService, articleService, new ObjectMapper());
+
+		ContextContainer.injectServices(userService, dailyRecordService, foodService, articleService,
+				new ObjectMapper());
 	}
 
 	private void setDateForLocale(HttpServletRequest request) {

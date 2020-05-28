@@ -1,5 +1,6 @@
 package net.shvdy.nutrition_tracker.controller.command;
 
+import net.shvdy.nutrition_tracker.controller.ContextContainer;
 import net.shvdy.nutrition_tracker.controller.command.utils.SecurityUtility;
 import net.shvdy.nutrition_tracker.dto.ArticleDTO;
 
@@ -44,6 +45,6 @@ public class ReadArticle implements ActionCommand {
 	}
 
 	private ArticleDTO getFromService(int id) throws SQLException {
-		return CommandEnum.getArticleService().findByID(id);
+		return ContextContainer.getArticleService().findByID(id);
 	}
 }

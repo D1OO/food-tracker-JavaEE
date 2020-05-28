@@ -1,5 +1,6 @@
 package net.shvdy.nutrition_tracker.controller.command;
 
+import net.shvdy.nutrition_tracker.controller.ContextContainer;
 import net.shvdy.nutrition_tracker.controller.command.utils.SecurityUtility;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +16,7 @@ public class Feed implements ActionCommand {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		request.getSession().setAttribute("paginatedArticles", CommandEnum.getArticleService().findPaginated());
+		request.getSession().setAttribute("paginatedArticles", ContextContainer.getArticleService().findPaginated());
 		return SecurityUtility.processAJAXSectionRequest("feed", "", request);
 	}
 }

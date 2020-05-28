@@ -1,6 +1,7 @@
 package net.shvdy.nutrition_tracker.model.service.mapper;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import net.shvdy.nutrition_tracker.controller.ContextContainer;
 import net.shvdy.nutrition_tracker.dto.DailyRecordDTO;
 import net.shvdy.nutrition_tracker.dto.DailyRecordEntryDTO;
 import net.shvdy.nutrition_tracker.model.entity.DailyRecord;
@@ -52,6 +53,7 @@ public class DailyRecordEntityMapper {
 		try {
 			return JsonMapper.readValue(jsonString, type);
 		} catch (IOException e) {
+			ContextContainer.getLogger().error(e.getMessage());
 			e.printStackTrace();
 			throw new RuntimeException();
 		}

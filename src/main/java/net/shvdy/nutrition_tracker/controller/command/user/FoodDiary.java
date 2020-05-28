@@ -1,5 +1,6 @@
 package net.shvdy.nutrition_tracker.controller.command.user;
 
+import net.shvdy.nutrition_tracker.controller.ContextContainer;
 import net.shvdy.nutrition_tracker.controller.command.ActionCommand;
 import net.shvdy.nutrition_tracker.controller.command.CommandEnum;
 import net.shvdy.nutrition_tracker.controller.command.utils.SecurityUtility;
@@ -30,7 +31,7 @@ public class FoodDiary implements ActionCommand {
 				.orElse(LocalDate.now().toString());
 		int pageSize = Integer.parseInt((String) request.getServletContext().getAttribute("page-size"));
 		request.getSession().setAttribute("paginatedWeeklyRecords",
-				CommandEnum.getDailyRecordService().findPaginated(
+				ContextContainer.getDailyRecordService().findPaginated(
 						(Long) request.getSession().getAttribute("user.userId"),
 						currWeekDay, pageSize,
 						Locale.forLanguageTag((String) request.getSession().getAttribute("lang"))));

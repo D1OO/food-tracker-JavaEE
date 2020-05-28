@@ -1,6 +1,7 @@
 package net.shvdy.nutrition_tracker.controller.command.user.new_entries_window;
 
 import net.shvdy.nutrition_tracker.PropertiesContainer;
+import net.shvdy.nutrition_tracker.controller.ContextContainer;
 import net.shvdy.nutrition_tracker.controller.command.ActionCommand;
 import net.shvdy.nutrition_tracker.controller.command.CommandEnum;
 import net.shvdy.nutrition_tracker.controller.command.utils.Validator;
@@ -27,7 +28,7 @@ public class SaveNewFood implements ActionCommand {
 		if (errors.isEmpty()) {
 			saveFoodAndUpdateCache(request);
 		}
-		return "json:" + CommandEnum.getJacksonObjectMapper().writeValueAsString(errors);
+		return "json:" + ContextContainer.getJacksonObjectMapper().writeValueAsString(errors);
 	}
 
 	private void saveFoodAndUpdateCache(HttpServletRequest request) throws SQLException {
@@ -38,7 +39,7 @@ public class SaveNewFood implements ActionCommand {
 				.proteins(Integer.parseInt(request.getParameter("newFoodProt")))
 				.build();
 
-		foodDTO.setFoodId(CommandEnum.getFoodService().saveForProfile(foodDTO,
+		foodDTO.setFoodId(ContextContainer.getFoodService().saveForProfile(foodDTO,
 				Long.parseLong(request.getParameter("profileId"))));
 
 		List<FoodDTO> updatedFoodCache = (List<FoodDTO>) request.getSession().getAttribute("user.userFood");

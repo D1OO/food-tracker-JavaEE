@@ -1,5 +1,6 @@
 package net.shvdy.nutrition_tracker.controller.command;
 
+import net.shvdy.nutrition_tracker.controller.ContextContainer;
 import net.shvdy.nutrition_tracker.controller.command.utils.SecurityUtility;
 import net.shvdy.nutrition_tracker.dto.LoginDTO;
 import net.shvdy.nutrition_tracker.dto.UserDTO;
@@ -18,7 +19,7 @@ public class Login implements ActionCommand {
 		UserDTO user;
 
 		try {
-			user = CommandEnum.getUserService().findByLoginDTO(loginDto);
+			user = ContextContainer.getUserService().findByLoginDTO(loginDto);
 		} catch (UserNotFoundException | InvalidPasswordException |
 				SQLException | NullPointerException e) {
 			e.printStackTrace();

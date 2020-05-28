@@ -1,6 +1,5 @@
 package net.shvdy.nutrition_tracker.controller.command;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import net.shvdy.nutrition_tracker.controller.command.admin.AdminPage;
 import net.shvdy.nutrition_tracker.controller.command.admin.NewArticleWindow;
 import net.shvdy.nutrition_tracker.controller.command.admin.SaveNewArticle;
@@ -10,10 +9,6 @@ import net.shvdy.nutrition_tracker.controller.command.user.Profile;
 import net.shvdy.nutrition_tracker.controller.command.user.UserPage;
 import net.shvdy.nutrition_tracker.controller.command.user.new_entries_window.*;
 import net.shvdy.nutrition_tracker.model.entity.Role;
-import net.shvdy.nutrition_tracker.model.service.ArticleService;
-import net.shvdy.nutrition_tracker.model.service.DailyRecordService;
-import net.shvdy.nutrition_tracker.model.service.FoodService;
-import net.shvdy.nutrition_tracker.model.service.UserService;
 
 import java.util.Arrays;
 import java.util.Set;
@@ -92,11 +87,7 @@ public enum CommandEnum {
 	private final ActionCommand actionCommand;
 	private final String path;
 	private final Set<Role> permittedRoles;
-	private static UserService userService;
-	private static DailyRecordService dailyRecordService;
-	private static FoodService foodService;
-	private static ArticleService articleService;
-	private static ObjectMapper jacksonObjectMapper;
+
 	CommandEnum(ActionCommand actionCommand, String path, Set<Role> permittedRoles) {
 		this.actionCommand = actionCommand;
 		this.path = path;
@@ -113,34 +104,6 @@ public enum CommandEnum {
 
 	public Set<Role> getPermittedRoles() {
 		return this.permittedRoles;
-	}
-
-	public static UserService getUserService() {
-		return userService;
-	}
-
-	public static DailyRecordService getDailyRecordService() {
-		return dailyRecordService;
-	}
-
-	public static FoodService getFoodService() {
-		return foodService;
-	}
-
-	public static ArticleService getArticleService(){return articleService;}
-
-	public static ObjectMapper getJacksonObjectMapper() {return jacksonObjectMapper;}
-
-	public static void injectServices(UserService userService,
-									  DailyRecordService dailyRecordService,
-									  FoodService foodService,
-									  ArticleService articleService,
-									  ObjectMapper jacksonObjectMapper) {
-		CommandEnum.userService = userService;
-		CommandEnum.dailyRecordService = dailyRecordService;
-		CommandEnum.foodService = foodService;
-		CommandEnum.articleService = articleService;
-		CommandEnum.jacksonObjectMapper = jacksonObjectMapper;
 	}
 
 	public static ActionCommand getByURI(String path) {

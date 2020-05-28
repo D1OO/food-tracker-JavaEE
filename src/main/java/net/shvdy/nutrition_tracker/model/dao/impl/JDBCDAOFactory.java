@@ -17,7 +17,7 @@ public class JDBCDAOFactory extends DAOFactory {
 	private final DataSource dataSource;
 	private final Properties DAO_SQL_queries;
 
-	public JDBCDAOFactory() throws NamingException, IOException {
+	public JDBCDAOFactory() throws NamingException {
 		dataSource = ConnectionPoolHolder.getDataSource();
 		DAO_SQL_queries = PropertiesContainer.Props.DAO_SQL_QUERIES.getProp();
 	}

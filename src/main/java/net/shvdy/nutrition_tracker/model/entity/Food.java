@@ -18,6 +18,9 @@ public class Food {
 	private int fats;
 	private int carbohydrates;
 
+	public Food() {
+	}
+
 	public Food(Long foodId, String name, int calories, int proteins, int fats, int carbohydrates) {
 		this.foodId = foodId;
 		this.name = name;
@@ -81,7 +84,6 @@ public class Food {
 
 	@Override
 	public String toString() {
-		//Jackson (Java object to JSON String mapping)
 		ObjectMapper mapper = new ObjectMapper();
 		try {
 			return mapper.writeValueAsString(this);

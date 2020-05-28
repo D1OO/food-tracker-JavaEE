@@ -1,6 +1,7 @@
 package net.shvdy.nutrition_tracker.controller.command.user.new_entries_window;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import net.shvdy.nutrition_tracker.controller.ContextContainer;
 import net.shvdy.nutrition_tracker.controller.command.CommandEnum;
 import net.shvdy.nutrition_tracker.dto.DailyRecordEntryDTO;
 import net.shvdy.nutrition_tracker.dto.NewEntriesDTO;
@@ -34,12 +35,12 @@ public class NewEntriesDTOReader {
 
 	static NewEntriesDTO readDTO(HttpServletRequest request) throws IOException {
 		String newEntriesDTOJSON = request.getParameter("newEntriesDTOJSON");
-		return CommandEnum.getJacksonObjectMapper().readValue(newEntriesDTOJSON, NewEntriesDTO.class);
+		return ContextContainer.getJacksonObjectMapper().readValue(newEntriesDTOJSON, NewEntriesDTO.class);
 	}
 
 	static List<DailyRecordEntryDTO> readList(HttpServletRequest request) throws IOException {
 		String newEntriesListJSON = request.getParameter("newEntriesJSON");
-		return CommandEnum.getJacksonObjectMapper()
+		return ContextContainer.getJacksonObjectMapper()
 				.readValue(newEntriesListJSON, new TypeReference<ArrayList<DailyRecordEntryDTO>>() {});
 	}
 }

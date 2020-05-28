@@ -1,5 +1,6 @@
 package net.shvdy.nutrition_tracker.controller.command.admin;
 
+import net.shvdy.nutrition_tracker.controller.ContextContainer;
 import net.shvdy.nutrition_tracker.controller.command.ActionCommand;
 import net.shvdy.nutrition_tracker.controller.command.CommandEnum;
 import net.shvdy.nutrition_tracker.model.entity.Article;
@@ -31,7 +32,7 @@ public class SaveNewArticle  implements ActionCommand {
 				.image(readImage(request))
 				.build();
 		try {
-			CommandEnum.getArticleService().save(article);
+			ContextContainer.getArticleService().save(article);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
