@@ -19,11 +19,12 @@
                      data-aos="fade-zoom-in" data-aos-offset="0"
                      style="height: 100%; width: 100%; background: #eeeeee; border: 1px solid #b8b8b8; border-radius: 0.5rem;">
                     <div class="maincontent d-flex flex-nowrap p-lg-3"
-                         style="border: 1px solid rgba(31,171,0,0.49); border-radius: 0.5rem; background: white ">
+                         style="border: 7px solid rgba(171,9,78,0.31); border-radius: 0.5rem; background: rgba(221,252,207,0.25)">
                         <div class="mr-auto">
                             <div class="row d-flex justify-content-start form">
-                                <div class="d-flex flex-column flex-grow-1 mb-5 mb-md-0">
-                                    <form id="user-sign-up-form">
+                                <div class="mb-5 mb-md-0">
+                                    <h3 class="ml-2" style="text-align: center">Sign up</h3>
+                                    <form class="form" id="user-sign-up-form">
                                         <div id="userSavingErrorBox" class="alert-danger alert col-md-11 mb-3 display-none" role="alert">
                                             <fmt:message key="entries.not-saved"/>
                                         </div>

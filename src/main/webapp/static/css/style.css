@@ -55,7 +55,7 @@ dl, ol, ul {
     width: 100%;
     /*background: rgba(192, 181, 218, 0.4);*/
     /*background: linear-gradient(180deg, rgba(218, 216, 212, 0.4) 11%, rgba(224, 224, 224, 0.5) 49%, rgba(240, 255, 239, 0.5) 100%);*/
-    border: 1px solid black;
+    border: 1px solid #e4afcd;
     margin-bottom: 10px;
 }
 
@@ -240,8 +240,8 @@ table {
 }
 
 .form label {
-    background-color: black;
-    color: white;
+    background-color: #3f3f3f;
+    color: rgb(255, 255, 255);
     padding-left: 3px;
     padding-right: 3px;
 }
