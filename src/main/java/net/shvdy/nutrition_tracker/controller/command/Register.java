@@ -11,25 +11,25 @@ import java.sql.SQLException;
 
 public class Register implements ActionCommand {
 
-	@Override
-	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		try {
-			ContextHolder.getUserService().save(buildUser(request));
-		} catch (SQLException | NullPointerException e) {
-			ContextHolder.getLogger().error("User saving exception: " + e.getMessage());
-			return "redirect:/registration?error";
-		}
-		return "redirect:/login?signed-up";
-	}
+    @Override
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        try {
+            ContextHolder.getUserService().save(buildUser(request));
+        } catch (SQLException | NullPointerException e) {
+            ContextHolder.getLogger().error("User saving exception: " + e.getMessage());
+            return "redirect:/registration?error";
+        }
+        return "redirect:/login?signed-up";
+    }
 
-	private User buildUser(HttpServletRequest request) {
-		return User.builder()
-				.username(request.getParameter("username"))
-				.password(request.getParameter("password"))
-				.userProfile(UserProfile.builder()
-						.firstName(request.getParameter("firstName"))
-						.lastName(request.getParameter("lastName")).build())
-				.role(Role.USER)
-				.build();
-	}
+    private User buildUser(HttpServletRequest request) {
+        return User.builder()
+                .username(request.getParameter("username"))
+                .password(request.getParameter("password"))
+                .userProfile(UserProfile.builder()
+                        .firstName(request.getParameter("firstName"))
+                        .lastName(request.getParameter("lastName")).build())
+                .role(Role.USER)
+                .build();
+    }
 }

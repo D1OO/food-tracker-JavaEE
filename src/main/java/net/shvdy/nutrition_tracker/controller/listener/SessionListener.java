@@ -1,11 +1,8 @@
 package net.shvdy.nutrition_tracker.controller.listener;
 
-import net.shvdy.nutrition_tracker.dto.UserDTO;
 import net.shvdy.nutrition_tracker.model.entity.Role;
-import net.shvdy.nutrition_tracker.model.entity.User;
 
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 import java.util.HashSet;

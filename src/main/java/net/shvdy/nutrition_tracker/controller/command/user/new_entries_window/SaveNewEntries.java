@@ -16,7 +16,7 @@ public class SaveNewEntries implements ActionCommand {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-			ContextHolder.getDailyRecordService().saveNewEntries(NewEntriesDTOReader.read(request));
-			return "ok";
+		ContextHolder.getDailyRecordService().saveNewEntries(NewEntriesDTOReader.read(request));
+		return "ok";
 	}
 }

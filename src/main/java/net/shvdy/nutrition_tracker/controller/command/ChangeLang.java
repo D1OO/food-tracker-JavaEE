@@ -12,11 +12,11 @@ import java.util.Objects;
  */
 public class ChangeLang implements ActionCommand {
 
-	@Override
-	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		request.getSession().setAttribute("lang",
-				Objects.requireNonNullElse(request.getParameter("lang"), "ru"));
-		return "/redirect:home";
-	}
+    @Override
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        request.getSession().setAttribute("lang",
+                Objects.requireNonNullElse(request.getParameter("lang"), "ru"));
+        return "/redirect:home";
+    }
 
 }

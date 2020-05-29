@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class NewArticleWindow implements ActionCommand {
 
-	@Override
-	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		return "/view/admin/new-article-window.jsp";
-	}
+    @Override
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        return "/view/admin/new-article-window.jsp";
+    }
 }

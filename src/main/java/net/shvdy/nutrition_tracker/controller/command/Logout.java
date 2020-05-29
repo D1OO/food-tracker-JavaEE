@@ -7,9 +7,9 @@ import javax.servlet.http.HttpServletResponse;
 
 public class Logout implements ActionCommand {
 
-	@Override
-	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		SecurityUtility.processLogout(request);
-		return "redirect:/login?logout";
-	}
+    @Override
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        SecurityUtility.processLogout(request);
+        return "redirect:/login?logout";
+    }
 }

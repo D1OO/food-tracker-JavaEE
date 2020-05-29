@@ -34,9 +34,13 @@ public class ContextHolder {
 		return foodService;
 	}
 
-	public static ArticleService getArticleService(){return articleService;}
+	public static ArticleService getArticleService() {
+		return articleService;
+	}
 
-	public static ObjectMapper getJacksonObjectMapper() {return jacksonObjectMapper;}
+	public static ObjectMapper getJacksonObjectMapper() {
+		return jacksonObjectMapper;
+	}
 
 	public static Logger getLogger() {
 		return logger;

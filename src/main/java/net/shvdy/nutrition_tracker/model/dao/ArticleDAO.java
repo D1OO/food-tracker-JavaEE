@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface ArticleDAO extends GenericDAO<Article> {
 
-	int save(Article article) throws SQLException, IOException;
+    int save(Article article) throws SQLException, IOException;
 
 	List<Article> findPaginated() throws SQLException;
 

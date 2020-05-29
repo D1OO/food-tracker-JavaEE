@@ -15,13 +15,13 @@ import javax.servlet.http.HttpServletResponse;
 
 public class AddedEntry implements ActionCommand {
 
-	@Override
-	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		request.getSession().getServletContext().setAttribute("newEntriesDTO",
-				NewEntriesDTOReader.readAddNew(request,DailyRecordEntryDTO.builder()
-					.foodName(request.getParameter("foodName"))
-					.foodDTOJSON(request.getParameter("foodDTOJSON")).build()));
+    @Override
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        request.getSession().getServletContext().setAttribute("newEntriesDTO",
+                NewEntriesDTOReader.readAddNew(request, DailyRecordEntryDTO.builder()
+                        .foodName(request.getParameter("foodName"))
+                        .foodDTOJSON(request.getParameter("foodDTOJSON")).build()));
 
-		return "/view/user/add-new-entries-window/new-entries-list.jsp";
-	}
+        return "/view/user/add-new-entries-window/new-entries-list.jsp";
+    }
 }

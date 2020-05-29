@@ -13,8 +13,8 @@ import java.sql.SQLException;
  */
 public class FoodMapper implements ResultSetMapper<Food> {
 
-	@Override
-	public Food map(ResultSet resultSet) throws SQLException {
-		return Builder.buildFood(resultSet);
-	}
+    @Override
+    public Food map(ResultSet resultSet) throws SQLException {
+        return Builder.buildFood(resultSet);
+    }
 }

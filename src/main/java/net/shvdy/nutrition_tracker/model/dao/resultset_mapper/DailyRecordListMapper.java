@@ -17,29 +17,29 @@ import java.util.List;
  */
 public class DailyRecordListMapper implements ResultSetMapper<List<DailyRecord>> {
 
-	@Override
-	public List<DailyRecord> map(ResultSet resultSet) throws SQLException {
-		ArrayList<DailyRecordEntry> entries = new ArrayList<>();
-		HashMap<Long, DailyRecord> paginatedRecords = new HashMap<>();
+    @Override
+    public List<DailyRecord> map(ResultSet resultSet) throws SQLException {
+        ArrayList<DailyRecordEntry> entries = new ArrayList<>();
+        HashMap<Long, DailyRecord> paginatedRecords = new HashMap<>();
 
-		while (resultSet.next()) {
-			paginatedRecords.putIfAbsent(resultSet.getLong("record_id"), extractRecordFromResultSet(resultSet));
-			entries.add(extractEntryFromResultSet(resultSet));
-		}
+        while (resultSet.next()) {
+            paginatedRecords.putIfAbsent(resultSet.getLong("record_id"), extractRecordFromResultSet(resultSet));
+            entries.add(extractEntryFromResultSet(resultSet));
+        }
 
-		entries.forEach(entry -> paginatedRecords.get(entry.getRecordId())
-				.getEntries().add(entry));
+        entries.forEach(entry -> paginatedRecords.get(entry.getRecordId())
+                .getEntries().add(entry));
 
-		return new ArrayList<>(paginatedRecords.values());
-	}
+        return new ArrayList<>(paginatedRecords.values());
+    }
 
-	private DailyRecordEntry extractEntryFromResultSet(ResultSet resultSet) throws SQLException {
-		return Builder.buildDailyRecordEntry(resultSet);
-	}
+    private DailyRecordEntry extractEntryFromResultSet(ResultSet resultSet) throws SQLException {
+        return Builder.buildDailyRecordEntry(resultSet);
+    }
 
-	private DailyRecord extractRecordFromResultSet(ResultSet resultSet) throws SQLException {
-		return Builder.buildDailyRecord(resultSet);
-	}
+    private DailyRecord extractRecordFromResultSet(ResultSet resultSet) throws SQLException {
+        return Builder.buildDailyRecord(resultSet);
+    }
 
 }
 

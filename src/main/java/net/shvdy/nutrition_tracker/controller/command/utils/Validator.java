@@ -12,10 +12,10 @@ import java.util.stream.Collectors;
  */
 public class Validator {
 
-	public static Map<String, String> validateFormAndReturnErrors(HttpServletRequest request,
-																  Map<String, Map<String, String>> fieldsValidationData) {
-		return fieldsValidationData.entrySet().stream()
-				.filter(field -> !request.getParameter(field.getKey()).matches((field.getValue().get("regex"))))
-				.collect(Collectors.toMap(field -> field.getKey() + "Error", field -> field.getValue().get("errorMessage")));
-	}
+    public static Map<String, String> validateFormAndReturnErrors(HttpServletRequest request,
+                                                                  Map<String, Map<String, String>> fieldsValidationData) {
+        return fieldsValidationData.entrySet().stream()
+                .filter(field -> !request.getParameter(field.getKey()).matches((field.getValue().get("regex"))))
+                .collect(Collectors.toMap(field -> field.getKey() + "Error", field -> field.getValue().get("errorMessage")));
+    }
 }

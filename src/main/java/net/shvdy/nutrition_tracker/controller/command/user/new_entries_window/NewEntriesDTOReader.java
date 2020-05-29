@@ -18,28 +18,29 @@ import java.util.List;
  */
 public class NewEntriesDTOReader {
 
-	static NewEntriesDTO read(HttpServletRequest request) throws IOException {
-		NewEntriesDTO dto = readDTO(request);
-		dto.setEntries(readList(request));
-		return dto;
-	}
+    static NewEntriesDTO read(HttpServletRequest request) throws IOException {
+        NewEntriesDTO dto = readDTO(request);
+        dto.setEntries(readList(request));
+        return dto;
+    }
 
-	static NewEntriesDTO readAddNew(HttpServletRequest request, DailyRecordEntryDTO newEntry) throws IOException {
-		NewEntriesDTO dto = readDTO(request);
-		List<DailyRecordEntryDTO> list = readList(request);
-		list.add(newEntry);
-		dto.setEntries(list);
-		return dto;
-	}
+    static NewEntriesDTO readAddNew(HttpServletRequest request, DailyRecordEntryDTO newEntry) throws IOException {
+        NewEntriesDTO dto = readDTO(request);
+        List<DailyRecordEntryDTO> list = readList(request);
+        list.add(newEntry);
+        dto.setEntries(list);
+        return dto;
+    }
 
-	static NewEntriesDTO readDTO(HttpServletRequest request) throws IOException {
-		String newEntriesDTOJSON = request.getParameter("newEntriesDTOJSON");
-		return ContextHolder.getJacksonObjectMapper().readValue(newEntriesDTOJSON, NewEntriesDTO.class);
-	}
+    static NewEntriesDTO readDTO(HttpServletRequest request) throws IOException {
+        String newEntriesDTOJSON = request.getParameter("newEntriesDTOJSON");
+        return ContextHolder.getJacksonObjectMapper().readValue(newEntriesDTOJSON, NewEntriesDTO.class);
+    }
 
-	static List<DailyRecordEntryDTO> readList(HttpServletRequest request) throws IOException {
-		String newEntriesListJSON = request.getParameter("newEntriesJSON");
-		return ContextHolder.getJacksonObjectMapper()
-				.readValue(newEntriesListJSON, new TypeReference<ArrayList<DailyRecordEntryDTO>>() {});
-	}
+    static List<DailyRecordEntryDTO> readList(HttpServletRequest request) throws IOException {
+        String newEntriesListJSON = request.getParameter("newEntriesJSON");
+        return ContextHolder.getJacksonObjectMapper()
+                .readValue(newEntriesListJSON, new TypeReference<ArrayList<DailyRecordEntryDTO>>() {
+                });
+    }
 }

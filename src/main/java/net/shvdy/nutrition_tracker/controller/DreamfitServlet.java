@@ -22,99 +22,98 @@ import java.util.Locale;
 
 public class DreamfitServlet extends HttpServlet {
 
-	public void init(ServletConfig servletConfig) {
-		ContextHolder.injectLogger(LogManager.getLogger(DreamfitServlet.class));
-		ContextHolder.getLogger().info("Servlet initialization started");
+    public void init(ServletConfig servletConfig) {
+        ContextHolder.injectLogger(LogManager.getLogger(DreamfitServlet.class));
+        ContextHolder.getLogger().info("Servlet initialization started");
 
-		PropertiesContainer.readProperties(this.getClass().getClassLoader());
-		servletConfig.getServletContext().setAttribute("loggedUsers", new HashSet<Long>());
-		servletConfig.getServletContext().setAttribute("page-size", servletConfig.getInitParameter("page-size"));
-		initAndInjectServices();
+        PropertiesContainer.readProperties(this.getClass().getClassLoader());
+        servletConfig.getServletContext().setAttribute("loggedUsers", new HashSet<Long>());
+        servletConfig.getServletContext().setAttribute("page-size", servletConfig.getInitParameter("page-size"));
+        initAndInjectServicesIntoContext();
 
-		ContextHolder.getLogger().info("Servlet initialization ended");
-	}
+        ContextHolder.getLogger().info("Servlet initialization ended");
+    }
 
-	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		setDateForLocale(request);
-		processResponse(request, response);
-	}
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        setDateForLocale(request);
+        processResponse(request, response);
+    }
 
-	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		processResponse(request, response);
-	}
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processResponse(request, response);
+    }
 
-	private void processResponse(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		String path = executeCommand(request, response);
-		if ((path).startsWith("redirect:")) {
-			response.sendRedirect(request.getContextPath() + path.replace("redirect:", ""));
-		} else if (path.startsWith("json:")) {
-			respondWithJSON(response, path.replace("json:", ""));
-		} else if (path.startsWith("ok")) {
-			response.setStatus(HttpServletResponse.SC_OK);
-		} else {
-			request.getRequestDispatcher(path).forward(request, response);
-		}
-	}
+    private void processResponse(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String path = executeCommand(request, response);
+        if ((path).startsWith("redirect:")) {
+            response.sendRedirect(request.getContextPath() + path.replace("redirect:", ""));
+        } else if (path.startsWith("json:")) {
+            respondWithJSON(response, path.replace("json:", ""));
+        } else if (path.startsWith("ok")) {
+            response.setStatus(HttpServletResponse.SC_OK);
+        } else {
+            request.getRequestDispatcher(path).forward(request, response);
+        }
+    }
 
-	private String executeCommand(HttpServletRequest request, HttpServletResponse response) {
-		try {
-			return CommandEnum.getByURI(request.getRequestURI()).execute(request, response);
-		} catch (Exception e) {
-			e.printStackTrace();
-			ContextHolder.getLogger().error("Command threw an exception: " + e.getMessage());
-			request.getSession().setAttribute("error-message", e.getMessage());
-			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-			return CommandEnum.SERVER_ERROR.getPath();
-		}
-	}
+    private String executeCommand(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            return CommandEnum.getByURI(request.getRequestURI()).execute(request, response);
+        } catch (Exception e) {
+            e.printStackTrace();
+            ContextHolder.getLogger().error("Command threw an exception: " + e.getMessage());
+            request.getSession().setAttribute("error-message", e.getMessage());
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            return CommandEnum.SERVER_ERROR.getPath();
+        }
+    }
 
-	private void respondWithJSON(HttpServletResponse response, String JSONString) throws IOException {
-		PrintWriter out = response.getWriter();
-		response.setContentType("application/json");
-		response.setCharacterEncoding("UTF-8");
-		out.print(JSONString);
-		out.flush();
-	}
+    private void respondWithJSON(HttpServletResponse response, String JSONString) throws IOException {
+        PrintWriter out = response.getWriter();
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        out.print(JSONString);
+        out.flush();
+    }
 
-	private void initAndInjectServices() {
-		UserService userService = null;
-		DailyRecordService dailyRecordService = null;
-		FoodService foodService = null;
-		ArticleService articleService = null;
+    private void initAndInjectServicesIntoContext() {
+        UserService userService = null;
+        DailyRecordService dailyRecordService = null;
+        FoodService foodService = null;
+        ArticleService articleService = null;
 
-		try {
-			userService = ServiceFactory.userService();
-		} catch (IOException | NamingException e) {
-			ContextHolder.getLogger().error(e.getMessage() + "User Service initialization failed");
-		}
-		try {
-			dailyRecordService = ServiceFactory.dailyRecordService();
-		} catch (IOException | NamingException e) {
-			ContextHolder.getLogger().error(e.getMessage() + "DailyRecord Service initialization failed");
-		}
-		try {
-			foodService = ServiceFactory.foodService();
-		} catch (IOException | NamingException e) {
-			ContextHolder.getLogger().error(e.getMessage() + "Food Service initialization failed");
-		}
-		try {
-			articleService = ServiceFactory.articleService();
-		} catch (IOException | NamingException e) {
-			ContextHolder.getLogger().error(e.getMessage() + "Article Service initialization failed");
-		}
+        try {
+            userService = ServiceFactory.userService();
+        } catch (IOException | NamingException e) {
+            ContextHolder.getLogger().error(e.getMessage() + "User Service initialization failed");
+        }
+        try {
+            dailyRecordService = ServiceFactory.dailyRecordService();
+        } catch (IOException | NamingException e) {
+            ContextHolder.getLogger().error(e.getMessage() + "DailyRecord Service initialization failed");
+        }
+        try {
+            foodService = ServiceFactory.foodService();
+        } catch (IOException | NamingException e) {
+            ContextHolder.getLogger().error(e.getMessage() + "Food Service initialization failed");
+        }
+        try {
+            articleService = ServiceFactory.articleService();
+        } catch (IOException | NamingException e) {
+            ContextHolder.getLogger().error(e.getMessage() + "Article Service initialization failed");
+        }
 
-		ContextHolder.injectServices(userService, dailyRecordService, foodService, articleService,
-				new ObjectMapper());
-	}
+        ContextHolder.injectServices(userService, dailyRecordService, foodService, articleService, new ObjectMapper());
+    }
 
-	private void setDateForLocale(HttpServletRequest request) {
-		Locale locale = Locale.forLanguageTag((String) request.getSession().getAttribute("lang"));
-		request.getServletContext().setAttribute("localizedDate",
-				LocalDate.now().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG).withLocale(locale)));
-	}
+    private void setDateForLocale(HttpServletRequest request) {
+        Locale locale = Locale.forLanguageTag((String) request.getSession().getAttribute("lang"));
+        request.getServletContext().setAttribute("localizedDate",
+                LocalDate.now().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG).withLocale(locale)));
+    }
 }

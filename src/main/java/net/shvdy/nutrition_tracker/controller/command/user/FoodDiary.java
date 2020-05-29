@@ -19,25 +19,25 @@ import java.util.Optional;
  */
 public class FoodDiary implements ActionCommand {
 
-	@Override
-	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		processPagination(request);
-		return SecurityUtility.processAJAXSectionRequest("food-diary","", request);
-	}
+    @Override
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        processPagination(request);
+        return SecurityUtility.processAJAXSectionRequest("food-diary", "", request);
+    }
 
-	private void processPagination(HttpServletRequest request) throws SQLException {
-		String currWeekDay = Optional.ofNullable(request.getParameter("d"))
-				.orElse(LocalDate.now().toString());
-		int pageSize = Integer.parseInt((String) request.getServletContext().getAttribute("page-size"));
-		request.getSession().setAttribute("paginatedWeeklyRecords",
-				ContextHolder.getDailyRecordService().findPaginated(
-						(Long) request.getSession().getAttribute("user.userId"),
-						currWeekDay, pageSize,
-						Locale.forLanguageTag((String) request.getSession().getAttribute("lang"))));
-		request.getSession().setAttribute("prevWeekDay",
-				currWeekDay.equals(LocalDate.now().toString()) ? null :
-						LocalDate.parse(currWeekDay).plusDays(pageSize).toString());
-		request.getSession().setAttribute("nextWeekDay",
-				LocalDate.parse(currWeekDay).minusDays(pageSize).toString());
-	}
+    private void processPagination(HttpServletRequest request) throws SQLException {
+        String currWeekDay = Optional.ofNullable(request.getParameter("d"))
+                .orElse(LocalDate.now().toString());
+        int pageSize = Integer.parseInt((String) request.getServletContext().getAttribute("page-size"));
+        request.getSession().setAttribute("paginatedWeeklyRecords",
+                ContextHolder.getDailyRecordService().findPaginated(
+                        (Long) request.getSession().getAttribute("user.userId"),
+                        currWeekDay, pageSize,
+                        Locale.forLanguageTag((String) request.getSession().getAttribute("lang"))));
+        request.getSession().setAttribute("prevWeekDay",
+                currWeekDay.equals(LocalDate.now().toString()) ? null :
+                        LocalDate.parse(currWeekDay).plusDays(pageSize).toString());
+        request.getSession().setAttribute("nextWeekDay",
+                LocalDate.parse(currWeekDay).minusDays(pageSize).toString());
+    }
 }

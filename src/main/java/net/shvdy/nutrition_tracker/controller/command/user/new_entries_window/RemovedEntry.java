@@ -14,9 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 
 public class RemovedEntry implements ActionCommand {
 
-	@Override
-	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		request.getSession().getServletContext().setAttribute("newEntriesDTO", NewEntriesDTOReader.read(request));
-		return "/view/user/add-new-entries-window/new-entries-list.jsp";
-	}
+    @Override
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        request.getSession().getServletContext().setAttribute("newEntriesDTO", NewEntriesDTOReader.read(request));
+        return "/view/user/add-new-entries-window/new-entries-list.jsp";
+    }
 }

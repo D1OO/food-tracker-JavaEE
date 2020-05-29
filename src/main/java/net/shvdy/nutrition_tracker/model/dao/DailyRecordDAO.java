@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface DailyRecordDAO extends GenericDAO<DailyRecord> {
 
-	List<DailyRecord> findFromDateByQuantity(String recordDate, int quantity, Long profileId) throws SQLException;
+    List<DailyRecord> findFromDateByQuantity(String recordDate, int quantity, Long profileId) throws SQLException;
 
 	void save(DailyRecord dailyRecord) throws SQLException;
 }

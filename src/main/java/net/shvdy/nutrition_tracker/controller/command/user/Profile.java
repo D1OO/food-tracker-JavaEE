@@ -14,8 +14,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class Profile implements ActionCommand {
 
-	@Override
-	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		return SecurityUtility.processAJAXSectionRequest("profile", "", request);
-	}
+    @Override
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        return SecurityUtility.processAJAXSectionRequest("profile", "", request);
+    }
 }

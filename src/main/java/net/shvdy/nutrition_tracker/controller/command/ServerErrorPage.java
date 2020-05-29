@@ -11,9 +11,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class ServerErrorPage implements ActionCommand {
 
-	@Override
-	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    @Override
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		return "/view/server-error.jsp";
-	}
+        return "/view/server-error.jsp";
+    }
 }

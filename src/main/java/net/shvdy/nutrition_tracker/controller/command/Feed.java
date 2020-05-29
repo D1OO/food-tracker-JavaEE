@@ -14,9 +14,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class Feed implements ActionCommand {
 
-	@Override
-	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		request.getSession().setAttribute("paginatedArticles", ContextHolder.getArticleService().findPaginated());
-		return SecurityUtility.processAJAXSectionRequest("feed", "", request);
-	}
+    @Override
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        request.getSession().setAttribute("paginatedArticles", ContextHolder.getArticleService().findPaginated());
+        return SecurityUtility.processAJAXSectionRequest("feed", "", request);
+    }
 }

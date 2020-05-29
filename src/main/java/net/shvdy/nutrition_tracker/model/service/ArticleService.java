@@ -5,6 +5,7 @@ import net.shvdy.nutrition_tracker.model.dao.ArticleDAO;
 import net.shvdy.nutrition_tracker.model.entity.Article;
 import net.shvdy.nutrition_tracker.model.service.mapper.ArticleEntityMapper;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
@@ -17,29 +18,29 @@ import java.util.List;
  */
 public class ArticleService {
 
-	private final ArticleDAO articleDAO;
-	private final ArticleEntityMapper articleEntityMapper;
+    private final ArticleDAO articleDAO;
+    private final ArticleEntityMapper articleEntityMapper;
 
-	public ArticleService(ArticleDAO articleDAO, ArticleEntityMapper articleEntityMapper) {
-		this.articleDAO = articleDAO;
-		this.articleEntityMapper = articleEntityMapper;
-	}
+    public ArticleService(ArticleDAO articleDAO, ArticleEntityMapper articleEntityMapper) {
+        this.articleDAO = articleDAO;
+        this.articleEntityMapper = articleEntityMapper;
+    }
 
-	public void save(Article article) throws SQLException {
-		articleDAO.save(article);
-	}
+    public void save(Article article) throws SQLException, IOException {
+        articleDAO.save(article);
+    }
 
-	public List<ArticleDTO> findPaginated() throws SQLException {
-		return articleEntityMapper.entityListToDTO(articleDAO.findPaginated());
-	}
+    public List<ArticleDTO> findPaginated() throws SQLException {
+        return articleEntityMapper.entityListToDTO(articleDAO.findPaginated());
+    }
 
-	public ArticleDTO findByID(int articleId) throws SQLException {
-		return articleEntityMapper.entityToDTO(articleDAO.findByID(articleId));
-	}
+    public ArticleDTO findByID(int articleId) throws SQLException {
+        return articleEntityMapper.entityToDTO(articleDAO.findByID(articleId));
+    }
 
-	public List<ArticleDTO> findRandom() throws SQLException {
-		List<ArticleDTO> randomNews = findPaginated().subList(0, 3);
-		Collections.shuffle(randomNews);
-		return randomNews;
-	}
+    public List<ArticleDTO> findRandom() throws SQLException {
+        List<ArticleDTO> randomNews = findPaginated().subList(0, 3);
+        Collections.shuffle(randomNews);
+        return randomNews;
+    }
 }

@@ -15,20 +15,20 @@ import java.util.ArrayList;
  */
 public class NewEntriesWindow implements ActionCommand {
 
-	@Override
-	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		createNewEntriesDTO(request);
-		return "/view/user/add-new-entries-window/window.jsp";
-	}
+    @Override
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        createNewEntriesDTO(request);
+        return "/view/user/add-new-entries-window/window.jsp";
+    }
 
-	private void createNewEntriesDTO(HttpServletRequest request) {
-		String recordId = request.getParameter("recordId");
-		request.getSession().getServletContext().setAttribute("newEntriesDTO",
-				NewEntriesDTO.builder()
-						.profileId(Long.valueOf(request.getParameter("profileId")))
-						.recordId(recordId.isEmpty() ? null : Long.parseLong(recordId))
-						.recordDate(request.getParameter("recordDate"))
-						.currentDailyCaloriesNorm((Integer) request.getSession().getAttribute("user.dailyCaloriesNorm"))
-						.entries(new ArrayList<>()).build());
-	}
+    private void createNewEntriesDTO(HttpServletRequest request) {
+        String recordId = request.getParameter("recordId");
+        request.getSession().getServletContext().setAttribute("newEntriesDTO",
+                NewEntriesDTO.builder()
+                        .profileId(Long.valueOf(request.getParameter("profileId")))
+                        .recordId(recordId.isEmpty() ? null : Long.parseLong(recordId))
+                        .recordDate(request.getParameter("recordDate"))
+                        .currentDailyCaloriesNorm((Integer) request.getSession().getAttribute("user.dailyCaloriesNorm"))
+                        .entries(new ArrayList<>()).build());
+    }
 }

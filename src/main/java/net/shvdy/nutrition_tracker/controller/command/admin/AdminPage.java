@@ -14,9 +14,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class AdminPage implements ActionCommand {
 
-	@Override
-	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		request.getSession().setAttribute("headerNews", ContextHolder.getArticleService().findRandom());
-		return "/view/admin.jsp";
-	}
+    @Override
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        request.getSession().setAttribute("headerNews", ContextHolder.getArticleService().findRandom());
+        return "/view/admin.jsp";
+    }
 }

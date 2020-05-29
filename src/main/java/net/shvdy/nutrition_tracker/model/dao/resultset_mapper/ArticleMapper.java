@@ -13,7 +13,7 @@ import java.util.List;
  * @author Dmitriy Storozhenko
  * @version 1.0
  */
-public class ArticleMapper implements  ResultSetMapper<List<Article>> {
+public class ArticleMapper implements ResultSetMapper<List<Article>> {
 	@Override
 	public List<Article> map(ResultSet resultSet) throws SQLException {
 		ArrayList<Article> articles = new ArrayList<>();

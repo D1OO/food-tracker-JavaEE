@@ -5,8 +5,8 @@ import javax.servlet.http.HttpServletResponse;
 
 public class Home implements ActionCommand {
 
-	@Override
-	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		return "/view/index.jsp";
-	}
+    @Override
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        return "/view/index.jsp";
+    }
 }

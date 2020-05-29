@@ -21,45 +21,45 @@ import java.util.stream.IntStream;
  */
 public class DailyRecordService {
 
-	private final DailyRecordDAO dailyRecordDAO;
-	private final DailyRecordEntityMapper dailyRecordMapper;
+    private final DailyRecordDAO dailyRecordDAO;
+    private final DailyRecordEntityMapper dailyRecordMapper;
 
-	public DailyRecordService(DailyRecordDAO dailyRecordDAO, DailyRecordEntityMapper dailyRecordMapper) {
-		this.dailyRecordDAO = dailyRecordDAO;
-		this.dailyRecordMapper = dailyRecordMapper;
-	}
+    public DailyRecordService(DailyRecordDAO dailyRecordDAO, DailyRecordEntityMapper dailyRecordMapper) {
+        this.dailyRecordDAO = dailyRecordDAO;
+        this.dailyRecordMapper = dailyRecordMapper;
+    }
 
-	public List<DailyRecordDTO> findPaginated(Long profileId, String date, int quantity,
-											  Locale currentLocale) throws SQLException {
-		return insertAbsentDays(date, quantity, profileId, currentLocale,
-				dailyRecordDAO.findFromDateByQuantity(date, quantity, profileId).stream()
-						.map(x -> dailyRecordMapper.recordEntityToDTO(x, currentLocale))
-						.collect(Collectors.toMap(DailyRecordDTO::getRecordDate, Function.identity())));
-	}
+    public List<DailyRecordDTO> findPaginated(Long profileId, String date, int quantity,
+                                              Locale currentLocale) throws SQLException {
+        return insertAbsentDays(date, quantity, profileId, currentLocale,
+                dailyRecordDAO.findFromDateByQuantity(date, quantity, profileId).stream()
+                        .map(x -> dailyRecordMapper.recordEntityToDTO(x, currentLocale))
+                        .collect(Collectors.toMap(DailyRecordDTO::getRecordDate, Function.identity())));
+    }
 
-	public void saveNewEntries(NewEntriesDTO newEntriesDTO) throws SQLException, RuntimeException {
-		dailyRecordDAO.save(DailyRecord.builder()
-				.recordId(newEntriesDTO.getRecordId())
-				.recordDate(newEntriesDTO.getRecordDate())
-				.userProfileId(newEntriesDTO.getProfileId())
-				.dailyCaloriesNorm(newEntriesDTO.getCurrentDailyCaloriesNorm())
-				.entries(dailyRecordMapper.entriesListDTOToEntity(newEntriesDTO.getEntries()))
-				.build());
-	}
+    public void saveNewEntries(NewEntriesDTO newEntriesDTO) throws SQLException, RuntimeException {
+        dailyRecordDAO.save(DailyRecord.builder()
+                .recordId(newEntriesDTO.getRecordId())
+                .recordDate(newEntriesDTO.getRecordDate())
+                .userProfileId(newEntriesDTO.getProfileId())
+                .dailyCaloriesNorm(newEntriesDTO.getCurrentDailyCaloriesNorm())
+                .entries(dailyRecordMapper.entriesListDTOToEntity(newEntriesDTO.getEntries()))
+                .build());
+    }
 
-	private List<DailyRecordDTO> insertAbsentDays(String day, int size, Long profileId, Locale locale,
-												  Map<String, DailyRecordDTO> weeklyRecords) {
-		IntStream.range(0, size).mapToObj(n -> LocalDate.parse(day).minusDays(n).toString())
-				.forEach(date -> weeklyRecords.putIfAbsent(date, DailyRecordDTO.builder()
-						.recordDate(date)
-						.userProfileId(profileId)
-						.dateHeader(dailyRecordMapper.getShortDateHeader(date, locale))
-						.entries(new ArrayList<>())
-						.build()));
+    private List<DailyRecordDTO> insertAbsentDays(String day, int size, Long profileId, Locale locale,
+                                                  Map<String, DailyRecordDTO> weeklyRecords) {
+        IntStream.range(0, size).mapToObj(n -> LocalDate.parse(day).minusDays(n).toString())
+                .forEach(date -> weeklyRecords.putIfAbsent(date, DailyRecordDTO.builder()
+                        .recordDate(date)
+                        .userProfileId(profileId)
+                        .dateHeader(dailyRecordMapper.getShortDateHeader(date, locale))
+                        .entries(new ArrayList<>())
+                        .build()));
 
-		return new ArrayList<>(weeklyRecords.values()).stream()
-				.sorted(Comparator.comparing(DailyRecordDTO::getRecordDate).reversed())
-				.limit(size)
-				.collect(Collectors.toList());
-	}
+        return new ArrayList<>(weeklyRecords.values()).stream()
+                .sorted(Comparator.comparing(DailyRecordDTO::getRecordDate).reversed())
+                .limit(size)
+                .collect(Collectors.toList());
+    }
 }

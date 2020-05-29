@@ -9,7 +9,7 @@ import net.shvdy.nutrition_tracker.model.service.mapper.UserEntityMapper;
 import javax.naming.NamingException;
 import java.io.IOException;
 
-public abstract class ServiceFactory {
+public class ServiceFactory {
 
     public static UserService userService() throws IOException, NamingException {
         return new UserService(DAOFactory.getJDBCInstance().getUserDAO(), new UserEntityMapper());
