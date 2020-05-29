@@ -25,7 +25,8 @@
                                 <div class="mb-5 mb-md-0">
                                     <h3 class="ml-2" style="text-align: center">Sign up</h3>
                                     <form class="form" id="user-sign-up-form">
-                                        <div id="userSavingErrorBox" class="alert-danger alert col-md-11 mb-3 display-none" role="alert">
+                                        <div id="userSavingErrorBox"
+                                             class="alert-danger alert col-md-11 mb-3 display-none" role="alert">
                                             <fmt:message key="entries.not-saved"/>
                                         </div>
 <%--                                        <div class="col-md-12 mb-3" style="background: #eeeeee">--%>

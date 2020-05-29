@@ -15,16 +15,25 @@
     <div class="site-section pb-0" id="bg" style="height: 100%">
         <div class="container" id="cont" style=" height: 100%">
             <div class="d-inline-block" style="height: 100%; width: 100%">
-                <div class="d-flex flex-grow-1 justify-content-center align-items-center mt-2" data-aos="fade-zoom-in" data-aos-offset="0"
+                <div class="d-flex flex-grow-1 justify-content-center align-items-center mt-2"
+                     data-aos="fade-zoom-in" data-aos-offset="0"
                      style="height: 100%; width: 100%; background: #eeeeee; border: 1px solid #b8b8b8; border-radius: 0.5rem;">
                     <div class="maincontent d-flex flex-nowrap p-lg-3"
-                         style="position:relative; top:-5rem; border: 7px solid rgba(31,171,0,0.27); border-radius: 0.5rem; background: rgba(194,175,215,0.34) ">
+                         style="border: 7px solid rgba(31,171,0,0.27); border-radius: 0.5rem; background: rgba(194,175,215,0.34) ">
                         <div class="mr-auto">
                             <div class="row d-flex justify-content-start form">
                                 <div class=" mb-5 mb-md-0">
                                     <div id="signupSuccessBox" class="alert-success alert col-md-11 mb-3 display-none"
                                          role="alert">
                                         <fmt:message key="signup-success"/>
+                                    </div>
+                                    <div id="logoutBox" class="alert-info alert col-md-11 mb-3 display-none"
+                                         role="alert">
+                                        <fmt:message key="logged-out"/>
+                                    </div>
+                                    <div id="wrongCredentialsBox" class="alert-danger alert col-md-11 mb-3 display-none"
+                                         role="alert">
+                                        <fmt:message key="wrong-credentials"/>
                                     </div>
                                     <h3 class="ml-2" style="text-align: center">Login</h3>
                                     <form class="form" method="post" action="log-in">
