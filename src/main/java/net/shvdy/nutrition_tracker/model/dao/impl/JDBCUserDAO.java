@@ -1,21 +1,22 @@
 package net.shvdy.nutrition_tracker.model.dao.impl;
 
 import net.shvdy.nutrition_tracker.model.dao.UserDAO;
-import net.shvdy.nutrition_tracker.model.dao.resultset_mapper.ResultSetMapper;
+import net.shvdy.nutrition_tracker.model.dao.resultset_mapper.ResultSetMapperLocalised;
 import net.shvdy.nutrition_tracker.model.entity.User;
 
 import javax.sql.DataSource;
 import java.sql.*;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.Properties;
 
 public class JDBCUserDAO implements UserDAO {
 
     private DataSource dataSource;
-    private ResultSetMapper<User> resultSetMapper;
+    private ResultSetMapperLocalised<User> resultSetMapper;
     private Properties queries;
 
-    public JDBCUserDAO(DataSource dataSource, ResultSetMapper<User> resultSetMapper, Properties queries) {
+    public JDBCUserDAO(DataSource dataSource, ResultSetMapperLocalised<User> resultSetMapper, Properties queries) {
         this.dataSource = dataSource;
         this.resultSetMapper = resultSetMapper;
         this.queries = queries;
@@ -34,7 +35,8 @@ public class JDBCUserDAO implements UserDAO {
             insertUserStatement.executeUpdate();
 
             insertUserProfileStatement.setLong(1, getUserIdByEmail(connection, user));
-            insertUserProfileStatement.setString(2, user.getUserProfile().getFirstName());
+            insertUserProfileStatement.setString(2, user.getUserProfile().getFirstNameEN());
+            insertUserProfileStatement.setString(2, user.getUserProfile().getFirstNameRU());
             insertUserProfileStatement.setString(3, user.getUserProfile().getLastName());
             insertUserProfileStatement.executeUpdate();
 
@@ -43,7 +45,7 @@ public class JDBCUserDAO implements UserDAO {
     }
 
     @Override
-    public Optional<User> findByUsername(String username) throws SQLException {
+    public Optional<User> findByUsernameLocalised(String username, Locale locale) throws SQLException {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection
                      .prepareStatement(queries.getProperty("user_dao.SELECT_BY_USERNAME_SQL"))) {
@@ -52,7 +54,7 @@ public class JDBCUserDAO implements UserDAO {
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
-                    return Optional.of(resultSetMapper.map(resultSet));
+                    return Optional.of(resultSetMapper.mapLocalised(resultSet, locale));
                 }
             }
         }

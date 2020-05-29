@@ -6,22 +6,24 @@ import java.util.List;
 public class UserProfile {
     User user;
     private Long profileId;
-    private String firstNameUa;
+    private String firstNameLocalisation;
+    private String firstNameEN;
+    private String firstNameRU;
     private String lastName;
-    private String firstName;
     private Lifestyle lifestyle;
     private int age;
     private int height;
     private int weight;
     private List<Food> userFood;
 
-    public UserProfile(User user, Long profileId, String firstNameUa, String lastName, String firstName,
-                       Lifestyle lifestyle, int age, int height, int weight, List<Food> userFood) {
+    public UserProfile(User user, Long profileId, String lastName, String firstNameLocalisation, String firstNameEN,
+                       String firstNameRU, Lifestyle lifestyle, int age, int height, int weight, List<Food> userFood) {
         this.user = user;
         this.profileId = profileId;
-        this.firstNameUa = firstNameUa;
         this.lastName = lastName;
-        this.firstName = firstName;
+        this.firstNameLocalisation = firstNameLocalisation;
+        this.firstNameEN = firstNameEN;
+        this.firstNameRU = firstNameRU;
         this.lifestyle = lifestyle;
         this.age = age;
         this.height = height;
@@ -49,14 +51,6 @@ public class UserProfile {
         this.profileId = profileId;
     }
 
-    public String getFirstNameUa() {
-        return firstNameUa;
-    }
-
-    public void setFirstNameUa(String firstNameUa) {
-        this.firstNameUa = firstNameUa;
-    }
-
     public String getLastName() {
         return lastName;
     }
@@ -65,12 +59,28 @@ public class UserProfile {
         this.lastName = lastName;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getFirstNameLocalisation() {
+        return firstNameLocalisation;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setFirstNameLocalisation(String firstNameLocalisation) {
+        this.firstNameLocalisation = firstNameLocalisation;
+    }
+
+    public String getFirstNameEN() {
+        return firstNameEN;
+    }
+
+    public void setFirstNameEN(String firstNameEN) {
+        this.firstNameEN = firstNameEN;
+    }
+
+    public String getFirstNameRU() {
+        return firstNameRU;
+    }
+
+    public void setFirstNameRU(String firstNameRU) {
+        this.firstNameRU = firstNameRU;
     }
 
     public Lifestyle getLifestyle() {
@@ -134,9 +144,10 @@ public class UserProfile {
     public static class UserProfileBuilder {
         User user;
         private Long profileId;
-        private String firstNameUa;
+        private String firstNameLocalisation;
+        private String firstNameEN;
+        private String firstNameRU;
         private String lastName;
-        private String firstName;
         private Lifestyle lifestyle;
         private int age;
         private int height;
@@ -156,18 +167,23 @@ public class UserProfile {
             return this;
         }
 
-        public UserProfileBuilder firstNameUa(String firstNameUa) {
-            this.firstNameUa = firstNameUa;
-            return this;
-        }
-
         public UserProfileBuilder lastName(String lastName) {
             this.lastName = lastName;
             return this;
         }
 
-        public UserProfileBuilder firstName(String firstName) {
-            this.firstName = firstName;
+        public UserProfileBuilder firstNameLocalised(String firstNameLocalised) {
+            this.firstNameLocalisation = firstNameLocalised;
+            return this;
+        }
+
+        public UserProfileBuilder firstNameEN(String firstNameEN) {
+            this.firstNameEN = firstNameEN;
+            return this;
+        }
+
+        public UserProfileBuilder firstNameRU(String firstNameRU) {
+            this.firstNameRU = firstNameRU;
             return this;
         }
 
@@ -197,8 +213,8 @@ public class UserProfile {
         }
 
         public UserProfile build() {
-            return new UserProfile(this.user, this.profileId, this.firstNameUa, this.lastName, this.firstName,
-                    this.lifestyle, this.age, this.height, this.weight, this.userFood);
+            return new UserProfile(this.user, this.profileId, this.lastName, this.firstNameLocalisation,
+                    this.firstNameEN, this.firstNameRU, this.lifestyle, this.age, this.height, this.weight, this.userFood);
         }
     }
 

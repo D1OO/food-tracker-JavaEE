@@ -6,8 +6,9 @@ import java.util.List;
 
 public class UserDTO {
     private Long userId;
+    private String username;
     private Role role;
-    private String firstName;
+    private String firstNameLocalisation;
     private String lastName;
     private int dailyCaloriesNorm;
     private List<FoodDTO> userFood;
@@ -16,10 +17,11 @@ public class UserDTO {
         return new UserDTOBuilder();
     }
 
-    public UserDTO(Long userId, Role role, String firstName, String lastName, int dailyCaloriesNorm, List<FoodDTO> userFood) {
+    public UserDTO(Long userId, String username, Role role, String firstNameLocalisation, String lastName, int dailyCaloriesNorm, List<FoodDTO> userFood) {
         this.userId = userId;
+        this.username = username;
         this.role = role;
-        this.firstName = firstName;
+        this.firstNameLocalisation = firstNameLocalisation;
         this.lastName = lastName;
         this.dailyCaloriesNorm = dailyCaloriesNorm;
         this.userFood = userFood;
@@ -33,6 +35,14 @@ public class UserDTO {
         this.userId = userId;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public Role getRole() {
         return role;
     }
@@ -41,12 +51,12 @@ public class UserDTO {
         this.role = role;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getFirstNameLocalisation() {
+        return firstNameLocalisation;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setFirstNameLocalisation(String firstNameLocalisation) {
+        this.firstNameLocalisation = firstNameLocalisation;
     }
 
     public String getLastName() {
@@ -75,8 +85,9 @@ public class UserDTO {
 
     public static class UserDTOBuilder {
         private Long userId;
+        private String username;
         private Role role;
-        private String firstName;
+        private String firstNameLocalisation;
         private String lastName;
         private int dailyCaloriesNorm;
         private List<FoodDTO> userFood;
@@ -89,13 +100,18 @@ public class UserDTO {
             return this;
         }
 
+        public UserDTOBuilder username(String username) {
+            this.username = username;
+            return this;
+        }
+
         public UserDTOBuilder role(Role role) {
             this.role = role;
             return this;
         }
 
-        public UserDTOBuilder firstName(String firstName) {
-            this.firstName = firstName;
+        public UserDTOBuilder firstNameLocalisation(String firstNameLocalisation) {
+            this.firstNameLocalisation = firstNameLocalisation;
             return this;
         }
 
@@ -115,7 +131,8 @@ public class UserDTO {
         }
 
         public UserDTO build() {
-            return new UserDTO(this.userId, this.role, this.firstName, this.lastName, this.dailyCaloriesNorm, this.userFood);
+            return new UserDTO(this.userId, this.username, this.role, this.firstNameLocalisation, this.lastName,
+                    this.dailyCaloriesNorm, this.userFood);
         }
     }
 }

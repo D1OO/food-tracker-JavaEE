@@ -28,7 +28,8 @@ public class Register implements ActionCommand {
                 .username(request.getParameter("username"))
                 .password(SecurityUtility.bCryptHash(request.getParameter("password")))
                 .userProfile(UserProfile.builder()
-                        .firstName(request.getParameter("firstName"))
+                        .firstNameEN(request.getParameter("firstNameEN"))
+                        .firstNameRU(request.getParameter("firstNameRU"))
                         .lastName(request.getParameter("lastName")).build())
                 .role(Role.USER)
                 .build();

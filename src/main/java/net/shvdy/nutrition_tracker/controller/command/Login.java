@@ -10,6 +10,7 @@ import net.shvdy.nutrition_tracker.model.exception.UserNotFoundException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
+import java.util.Locale;
 
 public class Login implements ActionCommand {
 
@@ -19,9 +20,11 @@ public class Login implements ActionCommand {
         UserDTO user;
 
         try {
-            user = ContextHolder.getUserService().findByLoginDTO(loginDto);
+            user = ContextHolder.getUserService()
+                    .findByLoginDTO(loginDto, Locale.forLanguageTag((String) request.getSession().getAttribute("lang")));
         } catch (UserNotFoundException | InvalidPasswordException |
                 SQLException | NullPointerException e) {
+            e.printStackTrace();
             ContextHolder.getLogger().warn("User log in error: " + e.getMessage());
             return "redirect:/login?error";
         }

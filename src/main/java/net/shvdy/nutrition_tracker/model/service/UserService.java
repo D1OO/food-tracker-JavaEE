@@ -9,6 +9,7 @@ import net.shvdy.nutrition_tracker.model.exception.UserNotFoundException;
 import net.shvdy.nutrition_tracker.model.service.mapper.UserEntityMapper;
 
 import java.sql.SQLException;
+import java.util.Locale;
 
 public class UserService {
 
@@ -24,13 +25,14 @@ public class UserService {
 		userDao.create(user);
 	}
 
-	public User findByUsername(String username) throws SQLException {
-		return userDao.findByUsername(username)
-				.orElseThrow(() -> new UserNotFoundException(String.format("Username '%s' not found", username)));
+	public UserDTO findByUsernameLocalised(String username, Locale locale) throws SQLException {
+		return entityMapper.entityToDTO(userDao.findByUsernameLocalised(username, locale)
+				.orElseThrow(() -> new UserNotFoundException(String.format("Username '%s' not found", username))));
 	}
 
-	public UserDTO findByLoginDTO(LoginDTO loginDTO) throws SQLException, UserNotFoundException, InvalidPasswordException {
-		User user = findByUsername(loginDTO.getUsername());
+	public UserDTO findByLoginDTO(LoginDTO loginDTO, Locale locale) throws SQLException, UserNotFoundException, InvalidPasswordException {
+		User user = userDao.findByUsernameLocalised(loginDTO.getUsername(), locale)
+				.orElseThrow(() -> new UserNotFoundException(String.format("Username '%s' not found", loginDTO.getUsername())));
 		if (!loginDTO.getPassword().equals(user.getPassword())) {
 			throw new InvalidPasswordException();
 		}

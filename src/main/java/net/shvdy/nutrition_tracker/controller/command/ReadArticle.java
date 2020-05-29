@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * 25.05.2020
@@ -27,8 +28,9 @@ public class ReadArticle implements ActionCommand {
 
     private void retrieveArticle(HttpServletRequest request) throws SQLException {
         int requestedArticleId = Integer.parseInt(request.getParameter("id"));
-        List<ArticleDTO> paginatedArticles = (List<ArticleDTO>) request.getSession().getAttribute("paginatedArticles");
-        ArticleDTO requestedArticle = getArticleFromCacheOrService(requestedArticleId, paginatedArticles);
+        List<ArticleDTO> cachePaginatedArticles = (List<ArticleDTO>) request.getSession().getAttribute("paginatedArticles");
+        ArticleDTO requestedArticle = getArticleFromCacheOrService(requestedArticleId, cachePaginatedArticles,
+                Locale.forLanguageTag((String) request.getSession().getAttribute("lang")));
 
         request.getSession().setAttribute("text", requestedArticle.getText());
         request.getSession().setAttribute("base64Image", requestedArticle.getBase64Image());
@@ -37,14 +39,14 @@ public class ReadArticle implements ActionCommand {
         request.getSession().setAttribute("author", requestedArticle.getAuthorName());
     }
 
-    private ArticleDTO getArticleFromCacheOrService(int id, List<ArticleDTO> cache) throws SQLException {
+    private ArticleDTO getArticleFromCacheOrService(int id, List<ArticleDTO> cache, Locale locale) throws SQLException {
         return cache.stream()
                 .filter(x -> x.getArticleId() == id)
                 .findAny()
-                .orElse(getFromService(id));
+                .orElse(getFromService(id, locale));
     }
 
-    private ArticleDTO getFromService(int id) throws SQLException {
-        return ContextHolder.getArticleService().findByID(id);
+    private ArticleDTO getFromService(int id, Locale locale) throws SQLException {
+        return ContextHolder.getArticleService().findByIDForLocale(id, locale);
     }
 }

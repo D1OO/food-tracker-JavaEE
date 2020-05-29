@@ -9,11 +9,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
-public class UserMapper implements ResultSetMapper<User> {
+public class UserMapper implements ResultSetMapperLocalised<User> {
 
     @Override
-    public User map(ResultSet resultSet) throws SQLException {
+    public User mapLocalised(ResultSet resultSet, Locale locale) throws SQLException {
         return User.builder()
                 .id(resultSet.getLong("id"))
                 .username(resultSet.getString("email"))
@@ -25,8 +26,7 @@ public class UserMapper implements ResultSetMapper<User> {
                 .enabled(resultSet.getBoolean("enabled"))
                 .userProfile(UserProfile.builder()
                         .profileId(resultSet.getLong("profile_id"))
-                        .firstName(resultSet.getString("first_name"))
-                        .firstNameUa(resultSet.getString("first_name_ua"))
+                        .firstNameLocalised(resultSet.getString("first_name_" + locale.getLanguage()))
                         .lastName(resultSet.getString("last_name"))
                         .age(resultSet.getInt("age"))
                         .weight(resultSet.getInt("weight"))

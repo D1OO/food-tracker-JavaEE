@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * 24.05.2020
@@ -30,16 +31,16 @@ public class ArticleService {
         articleDAO.save(article);
     }
 
-    public List<ArticleDTO> findPaginated() throws SQLException {
-        return articleEntityMapper.entityListToDTO(articleDAO.findPaginated());
+    public List<ArticleDTO> findPaginatedForLocale(Locale locale) throws SQLException {
+        return articleEntityMapper.entityListToDTO(articleDAO.findPaginatedLocalised(locale));
     }
 
-    public ArticleDTO findByID(int articleId) throws SQLException {
-        return articleEntityMapper.entityToDTO(articleDAO.findByID(articleId));
+    public ArticleDTO findByIDForLocale(int articleId, Locale locale) throws SQLException {
+        return articleEntityMapper.entityToDTO(articleDAO.findByIDLocalised(articleId, locale));
     }
 
-    public List<ArticleDTO> findRandom() throws SQLException {
-        List<ArticleDTO> randomNews = findPaginated().subList(0, 3);
+    public List<ArticleDTO> findRandomForLocale(Locale locale) throws SQLException {
+        List<ArticleDTO> randomNews = findPaginatedForLocale(locale).subList(0, 3);
         Collections.shuffle(randomNews);
         return randomNews;
     }

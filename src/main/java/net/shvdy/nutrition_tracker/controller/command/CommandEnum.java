@@ -51,7 +51,7 @@ public enum CommandEnum {
             new ReadArticle(), "/read-article",
             Set.of(Role.ADMIN, Role.USER)),
     CHANGE_LANG(
-            new ChangeLang(), "/lang",
+            new LanguageChange(), "/lang",
             Set.of(Role.ADMIN, Role.USER, Role.GUEST)),
     USER(
             new UserPage(), "/user",

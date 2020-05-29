@@ -1,13 +1,14 @@
 package net.shvdy.nutrition_tracker.model.dao.impl;
 
 import net.shvdy.nutrition_tracker.model.dao.ArticleDAO;
-import net.shvdy.nutrition_tracker.model.dao.resultset_mapper.ResultSetMapper;
+import net.shvdy.nutrition_tracker.model.dao.resultset_mapper.ResultSetMapperLocalised;
 import net.shvdy.nutrition_tracker.model.entity.Article;
 
 import javax.sql.DataSource;
 import java.io.IOException;
 import java.sql.*;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.Properties;
 
@@ -19,10 +20,10 @@ import java.util.Properties;
  */
 public class JDBCArticleDAO implements ArticleDAO {
     private DataSource dataSource;
-    private ResultSetMapper<List<Article>> resultSetMapper;
+    private ResultSetMapperLocalised<List<Article>> resultSetMapper;
     private Properties queries;
 
-    public JDBCArticleDAO(DataSource dataSource, ResultSetMapper<List<Article>> resultSetMapper, Properties queries) {
+    public JDBCArticleDAO(DataSource dataSource, ResultSetMapperLocalised<List<Article>> resultSetMapper, Properties queries) {
         this.dataSource = dataSource;
         this.resultSetMapper = resultSetMapper;
         this.queries = queries;
@@ -55,23 +56,23 @@ public class JDBCArticleDAO implements ArticleDAO {
     }
 
     @Override
-    public List<Article> findPaginated() throws SQLException {
+    public List<Article> findPaginatedLocalised(Locale locale) throws SQLException {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection
                      .prepareStatement(queries.getProperty("article_dao.SELECT_BY_DATE_AND_QUANTITY"))) {
 
-            return resultSetMapper.map(statement.executeQuery());
+            return resultSetMapper.mapLocalised(statement.executeQuery(), locale);
         }
     }
 
     @Override
-    public Article findByID(int articleId) throws SQLException {
+    public Article findByIDLocalised(int articleId, Locale locale) throws SQLException {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection
                      .prepareStatement(queries.getProperty("article_dao.SELECT_BY_ID"))) {
 
             statement.setInt(1, articleId);
-            return resultSetMapper.map(statement.executeQuery()).get(0);
+            return resultSetMapper.mapLocalised(statement.executeQuery(), locale).get(0); //TODO f
         }
     }
 

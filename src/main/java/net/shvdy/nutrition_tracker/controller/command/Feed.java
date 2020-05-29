@@ -5,6 +5,7 @@ import net.shvdy.nutrition_tracker.controller.command.utils.SecurityUtility;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Locale;
 
 /**
  * 24.05.2020
@@ -16,7 +17,9 @@ public class Feed implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        request.getSession().setAttribute("paginatedArticles", ContextHolder.getArticleService().findPaginated());
+        request.getSession().setAttribute("paginatedArticles",
+                ContextHolder.getArticleService().findPaginatedForLocale(Locale
+                        .forLanguageTag((String) request.getSession().getAttribute("lang"))));
         return SecurityUtility.processAJAXSectionRequest("feed", "", request);
     }
 }

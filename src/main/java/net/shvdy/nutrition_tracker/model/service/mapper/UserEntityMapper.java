@@ -18,7 +18,8 @@ public class UserEntityMapper {
         return UserDTO.builder()
                 .id(user.getId())
                 .role(user.getRole())
-                .firstName(user.getUserProfile().getFirstName())
+                .username(user.getUsername())
+                .firstNameLocalisation(user.getUserProfile().getFirstNameLocalisation())
                 .lastName(user.getUserProfile().getLastName())
                 .dailyCaloriesNorm(getDailyCaloriesNorm(user))
                 .userFood(mapFoodList(user.getUserProfile().getUserFood()))
@@ -31,13 +32,17 @@ public class UserEntityMapper {
 
     private int getDailyCaloriesNorm(User user) {
         Properties formulaData = PropertiesContainer.DotProperties.APP_PROPERTIES.getProp();
-        int coef1 = (int) formulaData.get("daily-calories-norm-formula.coef1");
-        int weightModifier = (int) formulaData.get("daily-calories-norm-formula.weight-modifier");
-        int heightModifier = (int) formulaData.get("daily-calories-norm-formula.height-modifier");
-        int ageModifier = (int) formulaData.get("daily-calories-norm-formula.age-modifier");
+        double coef1 = parsePropertyValue(formulaData.get("daily-calories-norm-formula.coef1"));
+        double weightModifier = parsePropertyValue(formulaData.get("daily-calories-norm-formula.weight-modifier"));
+        double heightModifier = parsePropertyValue(formulaData.get("daily-calories-norm-formula.height-modifier"));
+        double ageModifier = parsePropertyValue(formulaData.get("daily-calories-norm-formula.age-modifier"));
 
         return (int) (coef1 + weightModifier * user.getUserProfile().getWeight() + heightModifier
                 * user.getUserProfile().getHeight() - ageModifier * user.getUserProfile().getAge()
                 * user.getUserProfile().getLifestyle().getFactor());
+    }
+
+    private Double parsePropertyValue(Object propertyValue) {
+        return Double.parseDouble(String.valueOf(propertyValue));
     }
 }

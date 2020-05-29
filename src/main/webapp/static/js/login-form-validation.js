@@ -10,7 +10,7 @@ jQuery(document).ready(function ($) {
         pwrdExp = /^[0-9a-zA-Z]{8,15}$/i,
         firstNameExp = /^[A-Za-z ,.'-]{2,15}$/i,
         lastNameExp = /^[A-Za-z ,.'-]{2,30}$/i,
-        firstNameUaExp = /^[абвгдежзийклмнопрстуфхцчшщьюяіїґєАБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЬЮЯІЇЄҐ]{2,20}/i;
+        firstNameRuExp = /^[А-Яа-я]{2,20}/i;
 
     f.children('input').each(function () { // run all inputs
 
@@ -66,9 +66,9 @@ jQuery(document).ready(function ($) {
 
           case 'firstnameuaexp':
             if (i.val() != null)
-              if (!firstNameUaExp.test(i.val())) {
-                ferror = ierror = true;
-              }
+                if (!firstNameRuExp.test(i.val())) {
+                    ferror = ierror = true;
+                }
             break;
 
           case 'checked':

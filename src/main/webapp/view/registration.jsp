@@ -28,46 +28,56 @@
                                data-rule="email" id="username"
                                name="username"/>
                     </div>
-                    <div class="form-group col-md-11">
-                        <label class="control-label" for="password"><fmt:message key="login.password"/></label>
-                        <input class="form-control"
-                               data-msg="Enter a valid password <br>(8+ digit or latin characters)"
-                               data-rule="pwrd" id="password"
-                               name="password"
-                               type="password"/>
-                        <div class="validate"></div>
-                    </div>
-                    <div class="form-group col-md-11">
-                        <label class="control-label" for="userProfile.firstName"><fmt:message
-                                key="login.first-name"/></label>
-                        <input class="form-control"
-                               data-msg="Enter a valid first name"
-                               data-rule="firstnameexp" id="userProfile.firstName"
-                               name="firstName"/>
-                        <div class="validate"></div>
-                    </div>
-                    <div class="form-group col-md-11">
-                        <label class="control-label" for="userProfile.lastName"><fmt:message
-                                key="login.last-name"/></label>
-                        <input class="form-control"
-                               data-msg="Enter a valid last name"
-                               data-rule="lastnameexp" id="userProfile.lastName"
-                               name="lastName"/>
-                        <div class="validate"></div>
-                    </div>
+                        <div class="form-group col-md-11">
+                            <label class="control-label" for="password"><fmt:message key="login.password"/></label>
+                            <input class="form-control"
+                                   data-msg="Enter a valid password <br>(8+ digit or latin characters)"
+                                   data-rule="pwrd" id="password"
+                                   name="password"
+                                   type="password"/>
+                            <div class="validate"></div>
+                        </div>
+                        <div class="form-group col-md-11">
+                            <label class="control-label" for="firstNameEN"><fmt:message
+                                    key="login.first-name.en"/></label>
+                            <input class="form-control"
+                                   data-msg="Enter a valid first name"
+                                   data-rule="firstnameexp" id="firstNameEN"
+                                   name="firstNameEN"/>
+                            <div class="validate"></div>
+                        </div>
+                        <div class="form-group col-md-11">
+                            <label class="control-label" for="firstNameRU"><fmt:message
+                                    key="login.first-name.ru"/></label>
+                            <input class="form-control"
+                                   data-msg="Enter a valid first name"
+                                   data-rule="firstnameexp" id="firstNameRU"
+                                   name="firstNameRU"/>
+                            <div class="validate"></div>
+                        </div>
+                        <div class="form-group col-md-11">
+                            <label class="control-label" for="userProfile.lastName"><fmt:message
+                                    key="login.last-name"/></label>
+                            <input class="form-control"
+                                   data-msg="Enter a valid last name"
+                                   data-rule="lastnameexp" id="userProfile.lastName"
+                                   name="lastName"/>
+                            <div class="validate"></div>
+                        </div>
 
-                    <div class="form-group col-md-5">
-                        <button class="pretty-button submit-button d-block w-100" <%--disabled="disabled"--%> type="submit">
-                            <fmt:message key="login.sign-up"/></button>
-                    </div>
-                    <div class="form-group col-md-12 ">
-                        <span class="mr-2"><fmt:message key="login.already-signed-up"/></span>
-                        <a style="color:#34ce57" href="login"><fmt:message key="login.login"/></a>
-                    </div>
+                        <div class="form-group col-md-5">
+                            <button class="pretty-button submit-button d-block w-100" <%--disabled="disabled"--%>
+                                    type="submit">
+                                <fmt:message key="login.sign-up"/></button>
+                        </div>
+                        <div class="form-group col-md-12 ">
+                            <span class="mr-2"><fmt:message key="login.already-signed-up"/></span>
+                            <a style="color:#34ce57" href="login"><fmt:message key="login.login"/></a>
+                        </div>
 
-                    <%--                    <div class="alert alert-info col-md-12 mb-3" role="alert" th:if="${logout}">You've been logged--%>
-                    <%--                        out--%>
-                    <%--                        successfully.--%>
+                        <%--                    <div class="alert alert-info col-md-12 mb-3" role="alert" th:if="${logout}">You've been logged--%>
+                        <%--                        out--%>
+                        <%--                        successfully.--%>
                     <%--                    </div>--%>
                     <%--                    <div class="alert alert-danger col-md-12 mb-3" role="alert" th:if="${error}">Invalid Username or--%>
                     <%--                        Password!--%>

@@ -11,6 +11,7 @@ public class SecurityUtility {
         request.getSession().setAttribute("user", user);
         request.getSession().setAttribute("user.role", user.getRole());
         request.getSession().setAttribute("user.userId", user.getUserId());
+        request.getSession().setAttribute("user.username", user.getUsername());
         request.getSession().setAttribute("user.userFood", user.getUserFood());
         request.getSession().setAttribute("user.dailyCaloriesNorm", user.getDailyCaloriesNorm());
     }

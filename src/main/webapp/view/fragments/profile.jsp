@@ -15,7 +15,7 @@
                     <input class="form-control"
                            data-msg="Enter a valid first name"
                            data-rule="firstnameexp" id="firstName"
-                           name="firstName"/>
+                           name="firstNameEN"/>
                     <div class="validate"></div>
                 </div>
                 <div class="form-group col-md-11"
@@ -29,12 +29,12 @@
                 </div>
                 <div class="form-group col-md-11"
                 >
-                    <label class="control-label" for="firstNameUa"><fmt:message key="login.first-name-ua"/></label>
+                    <label class="control-label" for="firstNameRu"><fmt:message key="login.first-name-ua"/></label>
                     <p style="font-size: 0.9em;">(not required)</p>
                     <input class="form-control"
-                           data-msg="Enter a valid first name (ukrainian letters)"
-                           data-rule="firstnameuaexp" id="firstNameUa"
-                           name="firstNameUa"/>
+                           data-msg="Enter a valid first name (cyrillic letters)"
+                           data-rule="firstnameuaexp" id="firstNameRu"
+                           name="firstNameRU"/>
                     <div class="validate"></div>
                 </div>
             </div>
