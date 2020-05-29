@@ -2,6 +2,7 @@ package net.shvdy.nutrition_tracker.controller.command.admin;
 
 import net.shvdy.nutrition_tracker.controller.ContextHolder;
 import net.shvdy.nutrition_tracker.controller.command.ActionCommand;
+import net.shvdy.nutrition_tracker.controller.command.PostEndpoint;
 import net.shvdy.nutrition_tracker.model.entity.Article;
 
 import javax.servlet.ServletException;
@@ -20,6 +21,7 @@ import java.util.Optional;
  * @author Dmitriy Storozhenko
  * @version 1.0
  */
+@PostEndpoint
 public class SaveNewArticle implements ActionCommand {
 
     @Override

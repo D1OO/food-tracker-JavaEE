@@ -3,6 +3,7 @@ package net.shvdy.nutrition_tracker.controller.command.user.new_entries_window;
 import net.shvdy.nutrition_tracker.PropertiesContainer;
 import net.shvdy.nutrition_tracker.controller.ContextHolder;
 import net.shvdy.nutrition_tracker.controller.command.ActionCommand;
+import net.shvdy.nutrition_tracker.controller.command.PostEndpoint;
 import net.shvdy.nutrition_tracker.controller.command.utils.Validator;
 import net.shvdy.nutrition_tracker.dto.FoodDTO;
 
@@ -18,6 +19,7 @@ import java.util.Map;
  * @author Dmitriy Storozhenko
  * @version 1.0
  */
+@PostEndpoint
 public class SaveNewFood implements ActionCommand {
 
     @Override

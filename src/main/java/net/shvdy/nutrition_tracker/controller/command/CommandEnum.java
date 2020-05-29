@@ -11,6 +11,8 @@ import net.shvdy.nutrition_tracker.controller.command.user.new_entries_window.*;
 import net.shvdy.nutrition_tracker.model.entity.Role;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Set;
 
 public enum CommandEnum {
@@ -64,19 +66,19 @@ public enum CommandEnum {
             Set.of(Role.USER, Role.ADMIN)),
     FOOD_DIARY_PAGE(
             new FoodDiary(), "/food-diary",
-            Set.of(Role.ADMIN, Role.USER)),
+            Set.of(Role.USER)),
     FOOD_MODAL_WINDOW(
             new NewEntriesWindow(), "/adding-entries-modal-window",
             Set.of(Role.ADMIN, Role.USER)),
-    NEW_ENTRY_RESPONSE(
+    NEW_RECORD_ENTRY(
             new AddedEntry(), "/added-entry",
-            Set.of(Role.ADMIN, Role.USER)),
-    REMOVED_ENTRY_RESPONSE(
+            Set.of(Role.USER)),
+    REMOVED__RECORD_ENTRY(
             new RemovedEntry(), "/removed-entry",
-            Set.of(Role.ADMIN, Role.USER)),
+            Set.of(Role.USER)),
     SAVE_NEW_ENTRIES(
             new SaveNewEntries(), "/save-new-entries",
-            Set.of(Role.ADMIN, Role.USER)),
+            Set.of(Role.USER)),
     SAVE_NEW_FOOD(
             new SaveNewFood(), "/save-new-food",
             Set.of(Role.ADMIN, Role.USER)),
@@ -90,6 +92,7 @@ public enum CommandEnum {
     private final ActionCommand actionCommand;
     private final String path;
     private final Set<Role> permittedRoles;
+    private static HashSet<String> postEndpoints;
 
     CommandEnum(ActionCommand actionCommand, String path, Set<Role> permittedRoles) {
         this.actionCommand = actionCommand;
@@ -109,6 +112,14 @@ public enum CommandEnum {
         return this.permittedRoles;
     }
 
+    public static HashSet<String> getPostEndpoints() {
+        return postEndpoints;
+    }
+
+    public static void setPostEndpoints(HashSet<String> postEndpoints) {
+        CommandEnum.postEndpoints = postEndpoints;
+    }
+
     public static ActionCommand getByURI(String path) {
         return Arrays.stream(CommandEnum.values())
                 .filter(ac -> path.matches(ac.getPath()))
@@ -123,4 +134,5 @@ public enum CommandEnum {
                 .map(ac -> !ac.getPermittedRoles().contains(role))
                 .orElse(true);
     }
+
 }

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
 import java.util.Locale;
 
+@PostEndpoint
 public class Login implements ActionCommand {
 
     @Override

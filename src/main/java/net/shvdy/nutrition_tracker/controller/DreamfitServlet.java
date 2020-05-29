@@ -3,6 +3,7 @@ package net.shvdy.nutrition_tracker.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.shvdy.nutrition_tracker.PropertiesContainer;
 import net.shvdy.nutrition_tracker.controller.command.CommandEnum;
+import net.shvdy.nutrition_tracker.controller.command.PostEndpoint;
 import net.shvdy.nutrition_tracker.model.service.*;
 import org.apache.logging.log4j.LogManager;
 
@@ -17,8 +18,10 @@ import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 public class DreamfitServlet extends HttpServlet {
 
@@ -29,7 +32,13 @@ public class DreamfitServlet extends HttpServlet {
         PropertiesContainer.readProperties(this.getClass().getClassLoader());
         servletConfig.getServletContext().setAttribute("loggedUsers", new HashSet<Long>());
         servletConfig.getServletContext().setAttribute("page-size", servletConfig.getInitParameter("page-size"));
+
         initAndInjectServicesIntoContext();
+
+        CommandEnum.setPostEndpoints(new HashSet<>(Arrays.stream(CommandEnum.values())
+                .filter(c -> c.getActionCommand().getClass().isAnnotationPresent(PostEndpoint.class))
+                .map(CommandEnum::getPath)
+                .collect(Collectors.toSet())));
 
         ContextHolder.getLogger().info("Servlet initialization ended");
     }
@@ -38,7 +47,10 @@ public class DreamfitServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         setDateForLocale(request);
-        processResponse(request, response);
+        if (checkGETRequestToOnlyPOSTEndpoint(request))
+            request.getRequestDispatcher("/view/not_found.jsp").forward(request, response);
+        else
+            processResponse(request, response);
     }
 
     @Override
@@ -71,6 +83,10 @@ public class DreamfitServlet extends HttpServlet {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             return CommandEnum.SERVER_ERROR.getPath();
         }
+    }
+
+    private boolean checkGETRequestToOnlyPOSTEndpoint(HttpServletRequest request) {
+        return CommandEnum.getPostEndpoints().contains(request.getRequestURI());
     }
 
     private void respondWithJSON(HttpServletResponse response, String JSONString) throws IOException {

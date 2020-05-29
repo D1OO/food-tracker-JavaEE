@@ -2,6 +2,7 @@ package net.shvdy.nutrition_tracker.controller.command.user.new_entries_window;
 
 import net.shvdy.nutrition_tracker.controller.ContextHolder;
 import net.shvdy.nutrition_tracker.controller.command.ActionCommand;
+import net.shvdy.nutrition_tracker.controller.command.PostEndpoint;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author Dmitriy Storozhenko
  * @version 1.0
  */
+@PostEndpoint
 public class SaveNewEntries implements ActionCommand {
 
 	@Override
