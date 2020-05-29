@@ -21,7 +21,8 @@ import java.util.Properties;
 public class PropertiesContainer {
 
     public enum DotProperties {
-        DAO_SQL_QUERIES("/DAO_SQL_queries.properties");
+        DAO_SQL_QUERIES("/DAO_SQL_queries.properties"),
+        APP_PROPERTIES("/application.properties");
 
         final String FILE_PATH;
         private Properties prop;

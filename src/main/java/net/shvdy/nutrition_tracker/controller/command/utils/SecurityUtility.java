@@ -1,6 +1,7 @@
 package net.shvdy.nutrition_tracker.controller.command.utils;
 
 import net.shvdy.nutrition_tracker.dto.UserDTO;
+import org.mindrot.jbcrypt.BCrypt;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashSet;
@@ -32,6 +33,10 @@ public class SecurityUtility {
 
     private static HashSet<Long> getLoggedUsers(HttpServletRequest request) {
         return (HashSet<Long>) request.getServletContext().getAttribute("loggedUsers");
+    }
+
+    public static String bCryptHash(String data) {
+        return BCrypt.hashpw(data, BCrypt.gensalt(10));
     }
 
     public static String processAJAXSectionRequest(String section, String params, HttpServletRequest request) {

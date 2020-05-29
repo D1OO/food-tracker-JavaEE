@@ -1,6 +1,5 @@
 package net.shvdy.nutrition_tracker.model.service.mapper;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import net.shvdy.nutrition_tracker.controller.ContextHolder;
 import net.shvdy.nutrition_tracker.dto.DailyRecordDTO;
 import net.shvdy.nutrition_tracker.dto.DailyRecordEntryDTO;
@@ -13,6 +12,7 @@ import java.time.LocalDate;
 import java.time.format.TextStyle;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -22,8 +22,6 @@ import java.util.stream.Collectors;
  * @version 1.0
  */
 public class DailyRecordEntityMapper {
-
-    ObjectMapper JsonMapper = new ObjectMapper();
 
     public List<DailyRecordEntry> entriesListDTOToEntity(List<DailyRecordEntryDTO> newEntriesDTO) throws RuntimeException {
         return newEntriesDTO.stream()
@@ -51,7 +49,7 @@ public class DailyRecordEntityMapper {
 
     private <T> T readFromJSONString(String jsonString, Class<T> type) {
         try {
-            return JsonMapper.readValue(jsonString, type);
+            return ContextHolder.getJacksonObjectMapper().readValue(jsonString, type);
         } catch (IOException e) {
             ContextHolder.getLogger().error(e.getMessage());
             throw new RuntimeException();
@@ -78,26 +76,27 @@ public class DailyRecordEntityMapper {
     }
 
     private int getPercentage(List<DailyRecordEntry> entries, int dailyCaloriesNorm) {
-        return entries == null ? 0 : (int) (getTotalCalories(entries) / (double) dailyCaloriesNorm * 100);
+        return Optional.ofNullable(entries).isEmpty() ?
+                0 : (int) (getTotalCalories(entries) / (double) dailyCaloriesNorm * 100);
     }
 
     private int getTotalCalories(List<DailyRecordEntry> entries) {
-        return entries == null ? 0 : entries.stream()
-                .mapToInt(x -> x.getFood().getCalories() * x.getQuantity() / 100).sum();
+        return Optional.ofNullable(entries).isEmpty() ?
+                0 : entries.stream().mapToInt(x -> x.getFood().getCalories() * x.getQuantity() / 100).sum();
     }
 
     private int getTotalFats(List<DailyRecordEntry> entries) {
-        return entries == null ? 0 : entries.stream()
-                .mapToInt(x -> x.getFood().getFats() * x.getQuantity() / 100).sum();
+        return Optional.ofNullable(entries).isEmpty() ?
+                0 : entries.stream().mapToInt(x -> x.getFood().getFats() * x.getQuantity() / 100).sum();
     }
 
     private int getTotalProteins(List<DailyRecordEntry> entries) {
-        return entries == null ? 0 : entries.stream()
-                .mapToInt(x -> x.getFood().getProteins() * x.getQuantity() / 100).sum();
+        return Optional.ofNullable(entries).isEmpty() ?
+                0 : entries.stream().mapToInt(x -> x.getFood().getProteins() * x.getQuantity() / 100).sum();
     }
 
     private int getTotalCarbs(List<DailyRecordEntry> entries) {
-        return entries == null ? 0 : entries.stream()
-                .mapToInt(x -> x.getFood().getCarbohydrates() * x.getQuantity() / 100).sum();
+        return Optional.ofNullable(entries).isEmpty() ?
+                0 : entries.stream().mapToInt(x -> x.getFood().getCarbohydrates() * x.getQuantity() / 100).sum();
     }
 }
