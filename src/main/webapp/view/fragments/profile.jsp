@@ -5,13 +5,13 @@
 <fmt:setBundle basename="i18n/messages"/>
 
 <div class="content-container" data-aos="fade-zoom-in" data-aos-offset="0">
-    <div class="h2 mb-4 m-4 font-rubick d-flex">${user.firstName}</div>
+    <div class="h2 mb-4 m-4 font-rubick d-flex">${user.username}</div>
     <form class="form" method="post" style="width: 100%" action="update-profile">
         <%--        <input id="profileId" name="profileId" th:value="${#authentication.getPrincipal().getId()}" type="hidden"/>--%>
         <div class="row" style="width: 100%;">
             <div class="col-6">
                 <div class="form-group col-md-11">
-                    <label class="control-label" for="firstName"><fmt:message key="login.first-name"/></label>
+                    <label class="control-label" for="firstName"><fmt:message key="login.first-name.en"/></label>
                     <input class="form-control"
                            data-msg="Enter a valid first name"
                            data-rule="firstnameexp" id="firstName"
@@ -29,7 +29,7 @@
                 </div>
                 <div class="form-group col-md-11"
                 >
-                    <label class="control-label" for="firstNameRu"><fmt:message key="login.first-name-ua"/></label>
+                    <label class="control-label" for="firstNameRu"><fmt:message key="login.first-name.ru"/></label>
                     <p style="font-size: 0.9em;">(not required)</p>
                     <input class="form-control"
                            data-msg="Enter a valid first name (cyrillic letters)"

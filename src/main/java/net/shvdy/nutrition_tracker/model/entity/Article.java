@@ -10,23 +10,32 @@ import java.io.InputStream;
  */
 public class Article {
     private int articleId;
-    private String title;
+    private String titleLocalisation;
+    private String titleEN;
+    private String titleRU;
     private Long authorId;
     private String date;
     private String authorFirstName;
     private String authorLastName;
-    private String text;
+    private String textLocalisation;
+    private String textEN;
+    private String textRU;
     private InputStream image;
 
-    public Article(int articleId, String title, Long authorId, String date, String authorFirstName,
-                   String authorLastName, String text, InputStream image) {
+    public Article(int articleId, String titleLocalisation, String titleEN, String titleRU, Long authorId, String date,
+                   String authorFirstName, String authorLastName, String textLocalisation, String textEN, String textRU,
+                   InputStream image) {
         this.articleId = articleId;
-        this.title = title;
+        this.titleLocalisation = titleLocalisation;
+        this.titleEN = titleEN;
+        this.titleRU = titleRU;
         this.authorId = authorId;
         this.date = date;
         this.authorFirstName = authorFirstName;
         this.authorLastName = authorLastName;
-        this.text = text;
+        this.textLocalisation = textLocalisation;
+        this.textEN = textEN;
+        this.textRU = textRU;
         this.image = image;
     }
 
@@ -42,12 +51,28 @@ public class Article {
         this.articleId = articleId;
     }
 
-    public String getTitle() {
-        return title;
+    public String getTitleLocalisation() {
+        return titleLocalisation;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setTitleLocalisation(String titleLocalisation) {
+        this.titleLocalisation = titleLocalisation;
+    }
+
+    public String getTitleEN() {
+        return titleEN;
+    }
+
+    public void setTitleEN(String titleEN) {
+        this.titleEN = titleEN;
+    }
+
+    public String getTitleRU() {
+        return titleRU;
+    }
+
+    public void setTitleRU(String titleRU) {
+        this.titleRU = titleRU;
     }
 
     public Long getAuthorId() {
@@ -82,12 +107,28 @@ public class Article {
         this.authorLastName = authorLastName;
     }
 
-    public String getText() {
-        return text;
+    public String getTextLocalisation() {
+        return textLocalisation;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setTextLocalisation(String textLocalisation) {
+        this.textLocalisation = textLocalisation;
+    }
+
+    public String getTextEN() {
+        return textEN;
+    }
+
+    public void setTextEN(String textEN) {
+        this.textEN = textEN;
+    }
+
+    public String getTextRU() {
+        return textRU;
+    }
+
+    public void setTextRU(String textRU) {
+        this.textRU = textRU;
     }
 
     public InputStream getImage() {
@@ -101,12 +142,16 @@ public class Article {
 
     public static final class ArticleBuilder {
         private int articleId;
-        private String title;
+        private String titleLocalisation;
+        private String titleEN;
+        private String titleRU;
         private Long authorId;
         private String date;
         private String authorFirstName;
         private String authorLastName;
-        private String text;
+        private String textLocalisation;
+        private String textEN;
+        private String textRU;
         private InputStream image;
 
         private ArticleBuilder() {
@@ -117,13 +162,28 @@ public class Article {
             return this;
         }
 
-        public ArticleBuilder title(String title) {
-            this.title = title;
+        public ArticleBuilder titleLocalisation(String titleLocalisation) {
+            this.titleLocalisation = titleLocalisation;
+            return this;
+        }
+
+        public ArticleBuilder titleEN(String titleEN) {
+            this.titleEN = titleEN;
+            return this;
+        }
+
+        public ArticleBuilder titleRU(String titleRU) {
+            this.titleRU = titleRU;
             return this;
         }
 
         public ArticleBuilder authorId(Long authorId) {
             this.authorId = authorId;
+            return this;
+        }
+
+        public ArticleBuilder date(String date) {
+            this.date = date;
             return this;
         }
 
@@ -137,13 +197,18 @@ public class Article {
             return this;
         }
 
-        public ArticleBuilder date(String date) {
-            this.date = date;
+        public ArticleBuilder textLocalisation(String textLocalisation) {
+            this.textLocalisation = textLocalisation;
             return this;
         }
 
-        public ArticleBuilder text(String text) {
-            this.text = text;
+        public ArticleBuilder textEN(String textEN) {
+            this.textEN = textEN;
+            return this;
+        }
+
+        public ArticleBuilder textRU(String textRU) {
+            this.textRU = textRU;
             return this;
         }
 
@@ -153,8 +218,8 @@ public class Article {
         }
 
         public Article build() {
-            return new Article(articleId, title, authorId, date, authorFirstName,
-                    authorLastName, text, image);
+            return new Article(articleId, titleLocalisation, titleEN, titleRU, authorId, date, authorFirstName,
+                    authorLastName, textLocalisation, textEN, textRU, image);
         }
     }
 }

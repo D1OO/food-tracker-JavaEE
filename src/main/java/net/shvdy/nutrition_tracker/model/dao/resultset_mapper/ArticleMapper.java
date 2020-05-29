@@ -25,7 +25,7 @@ public class ArticleMapper implements ResultSetMapperLocalised<List<Article>> {
     }
 
     private Article extractArticleFromResultSet(ResultSet resultSet, Locale locale) throws SQLException {
-        return Builder.buildArticle(resultSet, locale);
+        return EntityExtractor.extractArticle(resultSet, locale);
     }
 
 }

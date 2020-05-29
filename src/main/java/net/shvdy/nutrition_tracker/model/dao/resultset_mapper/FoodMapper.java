@@ -15,6 +15,6 @@ public class FoodMapper implements ResultSetMapper<Food> {
 
     @Override
     public Food map(ResultSet resultSet) throws SQLException {
-        return Builder.buildFood(resultSet);
+        return EntityExtractor.extractFood(resultSet);
     }
 }

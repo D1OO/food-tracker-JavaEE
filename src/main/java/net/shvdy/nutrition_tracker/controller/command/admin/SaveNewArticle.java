@@ -26,9 +26,11 @@ public class SaveNewArticle implements ActionCommand {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Article article = Article.builder()
                 .authorId(Long.parseLong(request.getParameter("authorId")))
-                .title(request.getParameter("title"))
+                .titleEN(request.getParameter("titleEN"))
+                .titleRU(request.getParameter("titleRU"))
                 .date(LocalDateTime.now().toString())
-                .text(request.getParameter("text"))
+                .textEN(request.getParameter("textEN"))
+                .textRU(request.getParameter("textRU"))
                 .image(readImage(request).orElse(InputStream.nullInputStream()))
                 .build();
         try {

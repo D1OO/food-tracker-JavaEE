@@ -37,11 +37,13 @@ public class JDBCArticleDAO implements ArticleDAO {
                              Statement.RETURN_GENERATED_KEYS)) {
 
             setLongOrNull(insertArticle, 1, article.getArticleId());
-            insertArticle.setString(2, article.getTitle());
-            insertArticle.setLong(3, article.getAuthorId());
-            insertArticle.setString(4, article.getDate());
-            insertArticle.setString(5, article.getText());
-            insertArticle.setBlob(6, article.getImage());
+            insertArticle.setString(2, article.getTitleEN());
+            insertArticle.setString(3, article.getTitleRU());
+            insertArticle.setLong(4, article.getAuthorId());
+            insertArticle.setString(5, article.getDate());
+            insertArticle.setString(6, article.getTextEN());
+            insertArticle.setString(7, article.getTextRU());
+            insertArticle.setBlob(8, article.getImage());
             insertArticle.executeUpdate();
 
             if (Optional.ofNullable(article.getArticleId()).isEmpty()) {
@@ -59,7 +61,8 @@ public class JDBCArticleDAO implements ArticleDAO {
     public List<Article> findPaginatedLocalised(Locale locale) throws SQLException {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection
-                     .prepareStatement(queries.getProperty("article_dao.SELECT_BY_DATE_AND_QUANTITY"))) {
+                     .prepareStatement(setLocaleColumnParameter(queries
+                             .getProperty("article_dao.SELECT_BY_DATE_AND_QUANTITY"), locale))) {
 
             return resultSetMapper.mapLocalised(statement.executeQuery(), locale);
         }
@@ -69,7 +72,7 @@ public class JDBCArticleDAO implements ArticleDAO {
     public Article findByIDLocalised(int articleId, Locale locale) throws SQLException {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection
-                     .prepareStatement(queries.getProperty("article_dao.SELECT_BY_ID"))) {
+                     .prepareStatement(setLocaleColumnParameter(queries.getProperty("article_dao.SELECT_BY_ID"), locale))) {
 
             statement.setInt(1, articleId);
             return resultSetMapper.mapLocalised(statement.executeQuery(), locale).get(0); //TODO f
@@ -82,5 +85,12 @@ public class JDBCArticleDAO implements ArticleDAO {
         } catch (NullPointerException e) {
             statement.setNull(index, Types.BIGINT);
         }
+    }
+
+    private String setLocaleColumnParameter(String statement, Locale locale) {
+        return statement
+                .replace("title_?", "title_" + locale.getLanguage())
+                .replace("text_?", "text_" + locale.getLanguage())
+                .replace("first_name_?", "first_name_" + locale.getLanguage());
     }
 }

@@ -16,9 +16,9 @@ import java.util.Locale;
  * @author Dmitriy Storozhenko
  * @version 1.0
  */
-public class Builder {
+public class EntityExtractor {
 
-    static Food buildFood(ResultSet rs) throws SQLException {
+    static Food extractFood(ResultSet rs) throws SQLException {
         return Food.builder()
                 .food_id(rs.getLong("food_id"))
                 .name(rs.getString("name"))
@@ -29,7 +29,7 @@ public class Builder {
                 .build();
     }
 
-    static DailyRecord buildDailyRecord(ResultSet rs) throws SQLException {
+    static DailyRecord extractDailyRecord(ResultSet rs) throws SQLException {
         return DailyRecord.builder()
                 .recordId(rs.getLong("record_id"))
                 .userProfileId(rs.getLong("profile_id"))
@@ -39,24 +39,24 @@ public class Builder {
                 .build();
     }
 
-    static DailyRecordEntry buildDailyRecordEntry(ResultSet rs) throws SQLException {
+    static DailyRecordEntry extractDailyRecordEntry(ResultSet rs) throws SQLException {
         return DailyRecordEntry.builder()
                 .entryId(rs.getLong("entry_id"))
                 .recordId(rs.getLong("record_id"))
                 .quantity(rs.getInt("quantity"))
-                .food(Builder.buildFood(rs))
+                .food(EntityExtractor.extractFood(rs))
                 .build();
     }
 
-    static Article buildArticle(ResultSet rs, Locale locale) throws SQLException {
+    static Article extractArticle(ResultSet rs, Locale locale) throws SQLException {
         return Article.builder()
                 .articleId(rs.getInt("article_id"))
                 .authorId(rs.getLong("article_id"))
                 .date(rs.getString("date_created"))
                 .authorFirstName(rs.getString("first_name_" + locale.getLanguage()))
                 .authorLastName(rs.getString("last_name"))
-                .title(rs.getString("title"))
-                .text(rs.getString("text"))
+                .titleLocalisation(rs.getString("title_" + locale.getLanguage()))
+                .textLocalisation(rs.getString("text_" + locale.getLanguage()))
                 .image(rs.getBlob("image").getBinaryStream())
                 .build();
     }

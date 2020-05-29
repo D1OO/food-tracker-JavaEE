@@ -12,7 +12,7 @@
                      background-size: cover">
             <a class="carousel-link" rel="group" role="link"
                onclick="loadFromServerIntoContentContainer('/read-article?id=${news.articleId}')">
-                <h6 style="background-color: white; border-radius: 1rem; padding: 6px 10px 6px 10px;">${news.title}</h6>
+                <h6 style="background-color: white; border-radius: 1rem; padding: 6px 10px 6px 10px;">${news.titleLocalisation}</h6>
             </a>
         </div>
     </c:forEach>

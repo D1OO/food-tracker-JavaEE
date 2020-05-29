@@ -27,10 +27,10 @@ public class ArticleEntityMapper {
 
     public ArticleDTO entityToDTO(Article article) {
         return ArticleDTO.builder().articleId(article.getArticleId())
-                .title(article.getTitle())
                 .authorName(article.getAuthorFirstName() + article.getAuthorLastName())
-                .text(article.getText())
                 .date(readDateString(article.getDate()))
+                .titleLocalisation(article.getTitleLocalisation())
+                .textLocalisation(article.getTextLocalisation())
                 .base64Image(getBase64String(article.getImage()))
                 .build();
     }

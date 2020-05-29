@@ -38,9 +38,9 @@ public class UserMapper implements ResultSetMapperLocalised<User> {
 
     private List<Food> setFood(ResultSet rs) throws SQLException {
         List<Food> userFood = new ArrayList<>();
-        userFood.add(Builder.buildFood(rs));
+        userFood.add(EntityExtractor.extractFood(rs));
         while (rs.next()) {
-            userFood.add(Builder.buildFood(rs));
+            userFood.add(EntityExtractor.extractFood(rs));
         }
         return userFood;
     }

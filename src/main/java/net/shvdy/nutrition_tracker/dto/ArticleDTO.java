@@ -8,18 +8,27 @@ package net.shvdy.nutrition_tracker.dto;
  */
 public class ArticleDTO {
     private int articleId;
-    private String title;
+    private String titleLocalisation;
+    private String titleEN;
+    private String titleRU;
     private String authorName;
     private String date;
-    private String text;
+    private String textLocalisation;
+    private String textEN;
+    private String textRU;
     private String base64Image;
 
-    public ArticleDTO(int articleId, String title, String authorName, String date, String text, String base64Image) {
+    public ArticleDTO(int articleId, String titleLocalisation, String titleEN, String titleRU, String authorName,
+                      String date, String textLocalisation, String textEN, String textRU, String base64Image) {
         this.articleId = articleId;
-        this.title = title;
+        this.titleLocalisation = titleLocalisation;
+        this.titleEN = titleEN;
+        this.titleRU = titleRU;
         this.authorName = authorName;
         this.date = date;
-        this.text = text;
+        this.textLocalisation = textLocalisation;
+        this.textEN = textEN;
+        this.textRU = textRU;
         this.base64Image = base64Image;
     }
 
@@ -27,8 +36,8 @@ public class ArticleDTO {
         return new ArticleDTOBuilder();
     }
 
-    public String getTitle() {
-        return title;
+    public String getTitleLocalisation() {
+        return titleLocalisation;
     }
 
     public int getArticleId() {
@@ -39,8 +48,40 @@ public class ArticleDTO {
         this.articleId = articleId;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setTitleLocalisation(String titleLocalisation) {
+        this.titleLocalisation = titleLocalisation;
+    }
+
+    public String getTitleEN() {
+        return titleEN;
+    }
+
+    public void setTitleEN(String titleEN) {
+        this.titleEN = titleEN;
+    }
+
+    public String getTitleRU() {
+        return titleRU;
+    }
+
+    public void setTitleRU(String titleRU) {
+        this.titleRU = titleRU;
+    }
+
+    public String getTextEN() {
+        return textEN;
+    }
+
+    public void setTextEN(String textEN) {
+        this.textEN = textEN;
+    }
+
+    public String getTextRU() {
+        return textRU;
+    }
+
+    public void setTextRU(String textRU) {
+        this.textRU = textRU;
     }
 
     public String getAuthorName() {
@@ -59,12 +100,12 @@ public class ArticleDTO {
         this.date = date;
     }
 
-    public String getText() {
-        return text;
+    public String getTextLocalisation() {
+        return textLocalisation;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setTextLocalisation(String textLocalisation) {
+        this.textLocalisation = textLocalisation;
     }
 
     public String getBase64Image() {
@@ -77,10 +118,14 @@ public class ArticleDTO {
 
     public static final class ArticleDTOBuilder {
         private int articleId;
-        private String title;
+        private String titleLocalisation;
+        private String titleEN;
+        private String titleRU;
         private String authorName;
         private String date;
-        private String text;
+        private String textLocalisation;
+        private String textEN;
+        private String textRU;
         private String base64Image;
 
         private ArticleDTOBuilder() {
@@ -91,8 +136,18 @@ public class ArticleDTO {
             return this;
         }
 
-        public ArticleDTOBuilder title(String title) {
-            this.title = title;
+        public ArticleDTOBuilder titleLocalisation(String titleLocalisation) {
+            this.titleLocalisation = titleLocalisation;
+            return this;
+        }
+
+        public ArticleDTOBuilder titleEN(String titleEN) {
+            this.titleEN = titleEN;
+            return this;
+        }
+
+        public ArticleDTOBuilder titleRU(String titleRU) {
+            this.titleRU = titleRU;
             return this;
         }
 
@@ -106,8 +161,18 @@ public class ArticleDTO {
             return this;
         }
 
-        public ArticleDTOBuilder text(String text) {
-            this.text = text;
+        public ArticleDTOBuilder textEN(String textEN) {
+            this.textEN = textEN;
+            return this;
+        }
+
+        public ArticleDTOBuilder textRU(String textRU) {
+            this.textRU = textRU;
+            return this;
+        }
+
+        public ArticleDTOBuilder textLocalisation(String textLocalisation) {
+            this.textLocalisation = textLocalisation;
             return this;
         }
 
@@ -117,7 +182,8 @@ public class ArticleDTO {
         }
 
         public ArticleDTO build() {
-            return new ArticleDTO(articleId, title, authorName, date, text, base64Image);
+            return new ArticleDTO(articleId, titleLocalisation, titleEN, textRU, authorName, date,
+                    textLocalisation, textEN, textRU, base64Image);
         }
     }
 }

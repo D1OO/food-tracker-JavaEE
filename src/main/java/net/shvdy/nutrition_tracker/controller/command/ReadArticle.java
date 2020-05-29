@@ -22,8 +22,7 @@ public class ReadArticle implements ActionCommand {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         retrieveArticle(request);
         return SecurityUtility.processAJAXSectionRequest("read-article",
-                "?id=" + Integer.parseInt(request.getParameter("id")),
-                request);
+                "?id=" + Integer.parseInt(request.getParameter("id")), request);
     }
 
     private void retrieveArticle(HttpServletRequest request) throws SQLException {
@@ -32,9 +31,9 @@ public class ReadArticle implements ActionCommand {
         ArticleDTO requestedArticle = getArticleFromCacheOrService(requestedArticleId, cachePaginatedArticles,
                 Locale.forLanguageTag((String) request.getSession().getAttribute("lang")));
 
-        request.getSession().setAttribute("text", requestedArticle.getText());
+        request.getSession().setAttribute("titleLocalisation", requestedArticle.getTitleLocalisation());
+        request.getSession().setAttribute("textLocalisation", requestedArticle.getTextLocalisation());
         request.getSession().setAttribute("base64Image", requestedArticle.getBase64Image());
-        request.getSession().setAttribute("title", requestedArticle.getTitle());
         request.getSession().setAttribute("date", requestedArticle.getDate());
         request.getSession().setAttribute("author", requestedArticle.getAuthorName());
     }

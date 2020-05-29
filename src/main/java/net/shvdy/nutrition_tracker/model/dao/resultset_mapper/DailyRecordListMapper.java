@@ -34,11 +34,11 @@ public class DailyRecordListMapper implements ResultSetMapper<List<DailyRecord>>
     }
 
     private DailyRecordEntry extractEntryFromResultSet(ResultSet resultSet) throws SQLException {
-        return Builder.buildDailyRecordEntry(resultSet);
+        return EntityExtractor.extractDailyRecordEntry(resultSet);
     }
 
     private DailyRecord extractRecordFromResultSet(ResultSet resultSet) throws SQLException {
-        return Builder.buildDailyRecord(resultSet);
+        return EntityExtractor.extractDailyRecord(resultSet);
     }
 
 }
