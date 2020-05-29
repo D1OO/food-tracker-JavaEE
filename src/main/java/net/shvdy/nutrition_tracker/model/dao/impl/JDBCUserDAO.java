@@ -36,8 +36,8 @@ public class JDBCUserDAO implements UserDAO {
 
             insertUserProfileStatement.setLong(1, getUserIdByEmail(connection, user));
             insertUserProfileStatement.setString(2, user.getUserProfile().getFirstNameEN());
-            insertUserProfileStatement.setString(2, user.getUserProfile().getFirstNameRU());
-            insertUserProfileStatement.setString(3, user.getUserProfile().getLastName());
+            insertUserProfileStatement.setString(3, user.getUserProfile().getFirstNameRU());
+            insertUserProfileStatement.setString(4, user.getUserProfile().getLastName());
             insertUserProfileStatement.executeUpdate();
 
             connection.commit();

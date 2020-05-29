@@ -26,8 +26,11 @@ public class SaveNewFood implements ActionCommand {
                 PropertiesContainer.JSONProperties.FOOD_FORM_VALIDATION_DATA.getFormFieldsValidationData());
         if (errors.isEmpty()) {
             saveFoodAndUpdateCache(request);
+            return "ok";
+        } else {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return "json:" + ContextHolder.getJacksonObjectMapper().writeValueAsString(errors);
         }
-        return "json:" + ContextHolder.getJacksonObjectMapper().writeValueAsString(errors);
     }
 
     private void saveFoodAndUpdateCache(HttpServletRequest request) throws SQLException {

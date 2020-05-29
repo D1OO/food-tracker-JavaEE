@@ -11,7 +11,7 @@
 <body>
 <jsp:include page="/view/fragments/navbar.jsp"/>
 
-<main id="main" >
+<main id="main">
     <div class="site-section pb-0" id="bg" style="height: 100%">
         <div class="container" id="cont" style=" height: 100%">
             <div class="d-inline-block" style="height: 100%; width: 100%">
@@ -22,17 +22,10 @@
                         <div class="mr-auto">
                             <div class="row d-flex justify-content-start form">
                                 <div class=" mb-5 mb-md-0">
-                                    <%--                            <div class="alert alert-info col-md-11 mb-3" role="alert" th:if="${logout}">--%>
-                                    <%--                                You've been logged out--%>
-                                    <%--                                successfully.--%>
-                                    <%--                            </div>--%>
-                                    <%--                            <div class="alert alert-danger col-md-11 mb-3" role="alert" th:if="${error}">--%>
-                                    <%--                                Invalid Username or--%>
-                                    <%--                                Password!--%>
-                                    <%--                            </div>--%>
-                                    <%--                            <div class="alert alert-success col-md-11 mb-3" role="alert" th:if="${signedup}">--%>
-                                    <%--                                Signed up successfully!--%>
-                                    <%--                            </div>--%>
+                                    <div id="signupSuccessBox" class="alert-success alert col-md-11 mb-3 display-none"
+                                         role="alert">
+                                        <fmt:message key="signup-success"/>
+                                    </div>
                                     <form class="form" method="post" action="log-in">
                                         <div class="col-md-11 form-group">
                                             <label for="email">E-mail</label>
@@ -53,26 +46,21 @@
                                                    type="password">
                                             <div class="validate"></div>
                                         </div>
-
-                                        <%--                                <div class="col-md-11 mb-3" style="background: #eeeeee">--%>
-                                        <%--                                    <div class="loading">Loading</div>--%>
-                                        <%--                                    <div class="error-message"></div>--%>
-                                        <%--                                    <div class="sent-message">fifler</div>--%>
-                                        <%--                                </div>--%>
-
+                                        <div class="col-md-11 mb-3" style="background: #eeeeee">
+                                            <div class="loading">Loading</div>
+                                            <div class="error-message"></div>
+                                            <div class="sent-message">fifler</div>
+                                        </div>
 
                                         <div class="col-md-6 form-group">
-                                            <input class="pretty-button d-block w-100 submit-button" <%--disabled="disabled"--%> type="submit"
+                                            <input class="pretty-button d-block w-100 submit-button" disabled="disabled"
+                                                   type="submit"
                                                    value="SIGN IN">
                                         </div>
 
                                         <div class="col-md-12 form-group">
-                                            <span>Don't have an account? <a style="color:#34ce57" href="registration">SIGN UP</a></span>
+                                            <span>Don't have an account? <a style="color:#34ce57" href="registration"><fmt:message key="login.sign-up"/></a></span>
                                         </div>
-                                        <%--                                <div class="col-md-11 mb-2" style="color: #a55444; font-size: 0.8em">--%>
-                                        <%--                                    <div class="alert alert-danger col-md-12 mb-3" role="alert"--%>
-                                        <%--                                         th:if="${error}">Invalid Username or Password!</div>--%>
-                                        <%--                                </div>--%>
                                     </form>
                                 </div>
                             </div>
@@ -86,6 +74,7 @@
 
 <jsp:include page="/view/fragments/footer.jsp"/>
 <jsp:include page="/view/fragments/scripts.jsp"/>
+<script src="static/js/login.js" type="text/javascript"></script>
 
 </body>
 </html>

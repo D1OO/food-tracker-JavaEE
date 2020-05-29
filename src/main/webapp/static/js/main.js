@@ -77,15 +77,15 @@ function saveCreatedFood() {
         statusCode: {
             500: function (response) {
                 $("#foodSavingErrorBox").show(200);
+            },
+            200: function (response) {
+                $("#foodSavedSuccessBox").show(200);
             }
         },
         success: function (errorsMap) {
-            if (Object.keys(errorsMap).length === 0) {
-                $("#foodSavedSuccessBox").show(200);
-            } else
-                $.each(errorsMap, function (errorKey, errorMessage) {
-                    $("#" + errorKey).text(errorMessage);
-                })
+            $.each(errorsMap, function (errorKey, errorMessage) {
+                $("#" + errorKey).text(errorMessage);
+            });
         }
     });
 }

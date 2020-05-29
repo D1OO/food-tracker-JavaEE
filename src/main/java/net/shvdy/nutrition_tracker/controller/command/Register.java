@@ -1,26 +1,31 @@
 package net.shvdy.nutrition_tracker.controller.command;
 
+import net.shvdy.nutrition_tracker.PropertiesContainer;
 import net.shvdy.nutrition_tracker.controller.ContextHolder;
 import net.shvdy.nutrition_tracker.controller.command.utils.SecurityUtility;
+import net.shvdy.nutrition_tracker.controller.command.utils.Validator;
 import net.shvdy.nutrition_tracker.model.entity.Role;
 import net.shvdy.nutrition_tracker.model.entity.User;
 import net.shvdy.nutrition_tracker.model.entity.UserProfile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.sql.SQLException;
+import java.util.Map;
 
 public class Register implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        try {
+
+        Map<String, String> formErrors = Validator.validateFormAndReturnErrors(request,
+                PropertiesContainer.JSONProperties.USER_SIGN_UP_FORM_VALIDATION_DATA.getFormFieldsValidationData());
+
+        if (formErrors.isEmpty()) {
             ContextHolder.getUserService().save(getUser(request));
-        } catch (SQLException | NullPointerException e) {
-            ContextHolder.getLogger().error("User saving exception: " + e.getMessage());
-            return "redirect:/registration?error";
+            return "json:" + "{ \"url\": \"/login?signedup\"}";
+        } else {
+            return "json:" + ContextHolder.getJacksonObjectMapper().writeValueAsString(formErrors);
         }
-        return "redirect:/login?signed-up";
     }
 
     private User getUser(HttpServletRequest request) {
