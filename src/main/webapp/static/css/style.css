@@ -928,13 +928,16 @@ h6,
 .article-block {
     background-color: rgba(255, 255, 255, 0);
     border-radius: 0.2rem;
+    outline: none;
+    border: none;
 }
 
 .article-block:hover {
     background: rgb(255, 255, 255);
     background: linear-gradient(184deg, rgba(255, 255, 255, 0.6698879380853904) 0%, rgba(134, 255, 113, 0.16008401651676296) 79%);
-    border: 1px solid grey;
     border-radius: 0.2rem;
+    outline: none;
+    border: none;
 }
 
 .carousel-link {

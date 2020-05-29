@@ -6,7 +6,7 @@
 
 <html>
 <jsp:include page="/view/fragments/head.jsp">
-    <jsp:param name="title" value="Server Error • Dreamfit"/>
+    <jsp:param name="title" value="Not Found • Dreamfit"/>
 </jsp:include>
 <body>
 <jsp:include page="/view/fragments/navbar.jsp"/>
@@ -21,8 +21,8 @@
                          style="border: 7px solid rgba(31,171,0,0.27); border-radius: 0.5rem; background: rgba(194,175,215,0.34) ">
                         <div class="d-flex flex-grow-1 flex-column mb-5 mb-md-0 align-content-md-start"
                              style="margin-top: 10%">
-                            <h1 style="text-align: center">Server encountered an error</h1>
-                            <h2 style="text-align: center">Please, contact our support team</h2>
+                            <h1 style="text-align: center">404 Not Found</h1>
+                            <h2 style="text-align: center">Sorry, this recourse isn't present here anymore :(</h2>
 <%--                            <c:if test="${user.role eq GUEST}">--%>
 <%--                                <div class="form-group d-inline-flex justify-content-center">--%>
 <%--                                    <button class="btn-success p-3 pl-5 pr-5" style="border-radius: 0.2rem"><a--%>

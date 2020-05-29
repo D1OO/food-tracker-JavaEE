@@ -4,15 +4,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * 25.05.2020
+ * 29.05.2020
  *
  * @author Dmitriy Storozhenko
  * @version 1.0
  */
-public class ServerErrorPage implements ActionCommand {
+public class NotFound404 implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        return "/view/server-error.jsp";
+        return "/view/not_found.jsp";
     }
 }

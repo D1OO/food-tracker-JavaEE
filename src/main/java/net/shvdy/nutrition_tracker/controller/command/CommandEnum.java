@@ -80,9 +80,12 @@ public enum CommandEnum {
     SAVE_NEW_FOOD(
             new SaveNewFood(), "/save-new-food",
             Set.of(Role.ADMIN, Role.USER)),
+    NOT_FOUND(
+            new NotFound404(), "",
+            Set.of(Role.ADMIN, Role.USER, Role.GUEST)),
     SERVER_ERROR(
-            new ServerErrorPage(), "/server-error",
-            Set.of(Role.values()));
+            new ServerErrorPage(), "",
+            Set.of(Role.ADMIN, Role.USER, Role.GUEST));
 
     private final ActionCommand actionCommand;
     private final String path;
@@ -109,15 +112,15 @@ public enum CommandEnum {
     public static ActionCommand getByURI(String path) {
         return Arrays.stream(CommandEnum.values())
                 .filter(ac -> path.matches(ac.getPath()))
-                .findFirst().orElse(CommandEnum.REDIRECT_HOME)
+                .findFirst().orElse(CommandEnum.NOT_FOUND)
                 .getActionCommand();
     }
 
-    public static boolean checkIsPathPermitted(String path, Role role) {
+    public static boolean checkIsPathForbidden(String path, Role role) {
         return Arrays.stream(CommandEnum.values())
                 .filter(ac -> path.matches(ac.getPath()))
                 .findFirst()
-                .map(ac -> ac.getPermittedRoles().contains(role))
-                .orElse(false);
+                .map(ac -> !ac.getPermittedRoles().contains(role))
+                .orElse(true);
     }
 }

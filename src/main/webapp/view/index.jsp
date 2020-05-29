@@ -23,11 +23,14 @@
                              style="margin-top: 10%">
                             <h1 style="text-align: center">Track your nutrition, fitness & health data.</h1>
                             <h2 style="text-align: center">Log your diet, exercise, biometrics and notes.</h2>
-                            <div class="form-group d-inline-flex justify-content-center">
-                                <button class="btn-success p-3 pl-5 pr-5" style="border-radius: 0.2rem"><a
-                                        style="color:rgb(251,251,255); text-decoration: none"
-                                        href="registration"><fmt:message key="login.sign-up"/></a></button>
-                            </div>
+                            <c:if test="${user.role eq GUEST}">
+                                <div class="form-group d-inline-flex justify-content-center">
+                                    <button class="btn-success p-3 pl-5 pr-5" style="border-radius: 0.2rem"><a
+                                            style="color:rgb(251,251,255); text-decoration: none"
+                                            href="registration"><fmt:message key="login.sign-up"/></a></button>
+                                </div>
+                            </c:if>
+
                         </div>
                     </div>
                 </div>

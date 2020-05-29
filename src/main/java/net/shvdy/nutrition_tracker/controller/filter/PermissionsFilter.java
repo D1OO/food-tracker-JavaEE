@@ -5,7 +5,6 @@ import net.shvdy.nutrition_tracker.model.entity.Role;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class PermissionsFilter implements Filter {
@@ -17,16 +16,14 @@ public class PermissionsFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain)
             throws IOException, ServletException {
+        Role role = (Role) ((HttpServletRequest) request).getSession().getAttribute("user.role");
 
-        HttpSession session = ((HttpServletRequest) request).getSession();
-        Role role = (Role) session.getAttribute("user.role");
-        String path = ((HttpServletRequest) request).getRequestURI();
-
-        if (CommandEnum.checkIsPathPermitted(path, role)) {
-            filterChain.doFilter(request, response);
-        } else {
-            request.getRequestDispatcher("/redirect:home").forward(request, response);
+        if (CommandEnum.checkIsPathForbidden(((HttpServletRequest) request).getRequestURI(), role)) {
+            request.getRequestDispatcher(
+                    role.equals(Role.GUEST) ? "/redirect:home" : "/view/not_found.jsp").forward(request, response);
         }
+        else
+            filterChain.doFilter(request, response);
     }
 
     @Override
