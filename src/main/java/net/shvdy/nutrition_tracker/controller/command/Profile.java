@@ -1,4 +1,4 @@
-package net.shvdy.nutrition_tracker.controller.command.user;
+package net.shvdy.nutrition_tracker.controller.command;
 
 import net.shvdy.nutrition_tracker.controller.command.ActionCommand;
 import net.shvdy.nutrition_tracker.controller.command.utils.SecurityUtility;

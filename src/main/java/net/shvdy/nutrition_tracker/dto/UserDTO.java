@@ -11,19 +11,22 @@ public class UserDTO {
     private String firstNameLocalisation;
     private String lastName;
     private int dailyCaloriesNorm;
+    private UserProfileDTO userProfileDTO;
     private List<FoodDTO> userFood;
 
     public static UserDTOBuilder builder() {
         return new UserDTOBuilder();
     }
 
-    public UserDTO(Long userId, String username, Role role, String firstNameLocalisation, String lastName, int dailyCaloriesNorm, List<FoodDTO> userFood) {
+    public UserDTO(Long userId, String username, Role role, String firstNameLocalisation, String lastName,
+                   int dailyCaloriesNorm, UserProfileDTO userProfileDTO, List<FoodDTO> userFood) {
         this.userId = userId;
         this.username = username;
         this.role = role;
         this.firstNameLocalisation = firstNameLocalisation;
         this.lastName = lastName;
         this.dailyCaloriesNorm = dailyCaloriesNorm;
+        this.userProfileDTO = userProfileDTO;
         this.userFood = userFood;
     }
 
@@ -75,6 +78,14 @@ public class UserDTO {
         this.dailyCaloriesNorm = dailyCaloriesNorm;
     }
 
+    public UserProfileDTO getUserProfileDTO() {
+        return userProfileDTO;
+    }
+
+    public void setUserProfileDTO(UserProfileDTO userProfileDTO) {
+        this.userProfileDTO = userProfileDTO;
+    }
+
     public List<FoodDTO> getUserFood() {
         return userFood;
     }
@@ -90,6 +101,7 @@ public class UserDTO {
         private String firstNameLocalisation;
         private String lastName;
         private int dailyCaloriesNorm;
+        private UserProfileDTO userProfileDTO;
         private List<FoodDTO> userFood;
 
         UserDTOBuilder() {
@@ -125,6 +137,11 @@ public class UserDTO {
             return this;
         }
 
+        public UserDTOBuilder userProfileDTO(UserProfileDTO userProfileDTO) {
+            this.userProfileDTO = userProfileDTO;
+            return this;
+        }
+
         public UserDTOBuilder dailyCaloriesNorm(int dailyCaloriesNorm) {
             this.dailyCaloriesNorm = dailyCaloriesNorm;
             return this;
@@ -132,7 +149,7 @@ public class UserDTO {
 
         public UserDTO build() {
             return new UserDTO(this.userId, this.username, this.role, this.firstNameLocalisation, this.lastName,
-                    this.dailyCaloriesNorm, this.userFood);
+                    this.dailyCaloriesNorm, this.userProfileDTO, this.userFood);
         }
     }
 }

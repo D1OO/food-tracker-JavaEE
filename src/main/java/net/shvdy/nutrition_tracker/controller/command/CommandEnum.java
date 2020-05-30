@@ -5,13 +5,11 @@ import net.shvdy.nutrition_tracker.controller.command.admin.NewArticleWindow;
 import net.shvdy.nutrition_tracker.controller.command.admin.SaveNewArticle;
 import net.shvdy.nutrition_tracker.controller.command.user.CompleteProfileToProceed;
 import net.shvdy.nutrition_tracker.controller.command.user.FoodDiary;
-import net.shvdy.nutrition_tracker.controller.command.user.Profile;
 import net.shvdy.nutrition_tracker.controller.command.user.UserPage;
 import net.shvdy.nutrition_tracker.controller.command.user.new_entries_window.*;
 import net.shvdy.nutrition_tracker.model.entity.Role;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -64,6 +62,9 @@ public enum CommandEnum {
     PROFILE(
             new Profile(), "/profile",
             Set.of(Role.USER, Role.ADMIN)),
+    UPDATE_PROFILE(
+            new UpdateProfile(), "/update-profile",
+            Set.of(Role.ADMIN, Role.USER)),
     FOOD_DIARY_PAGE(
             new FoodDiary(), "/food-diary",
             Set.of(Role.USER)),

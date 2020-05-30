@@ -6,7 +6,13 @@ $(document).ready(function () {
             setContentContainerToEndpoint(e.state.endpoint);
         else
             window.location.href = document.location;
-    }
+    };
+
+    $(document).ready(function () {
+        const param = new URLSearchParams(window.location.search);
+        if (param.has('save-success'))
+            $("#updateSuccessBox").show(200);
+    });
 });
 
 function loadFromServerIntoContentContainer(...endpoint) {
@@ -40,12 +46,6 @@ function openCreateArticleModalWindow() {
         document.getElementById('modal-window').innerHTML = response;
         $("#modal-window").css("display", "block");
     });
-}
-
-function replacePageWith(html) {
-    let newDoc = document.open("text/html", "replace");
-    newDoc.write(html);
-    newDoc.close();
 }
 
 function tabClick(tab) {
@@ -137,7 +137,7 @@ function clearErrorMessages() {
 }
 
 function getNewEntriesJSONString() {
-    let entriesJSON = [];
+    const entriesJSON = [];
     $(".entry").each(function () {
         entriesJSON.push({
             foodName: $(this).find('.foodName').text(),

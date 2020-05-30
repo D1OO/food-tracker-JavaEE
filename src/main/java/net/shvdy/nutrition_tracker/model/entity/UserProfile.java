@@ -4,7 +4,6 @@ package net.shvdy.nutrition_tracker.model.entity;
 import java.util.List;
 
 public class UserProfile {
-    User user;
     private Long profileId;
     private String firstNameLocalisation;
     private String firstNameEN;
@@ -16,9 +15,8 @@ public class UserProfile {
     private int weight;
     private List<Food> userFood;
 
-    public UserProfile(User user, Long profileId, String lastName, String firstNameLocalisation, String firstNameEN,
+    public UserProfile(Long profileId, String lastName, String firstNameLocalisation, String firstNameEN,
                        String firstNameRU, Lifestyle lifestyle, int age, int height, int weight, List<Food> userFood) {
-        this.user = user;
         this.profileId = profileId;
         this.lastName = lastName;
         this.firstNameLocalisation = firstNameLocalisation;
@@ -33,14 +31,6 @@ public class UserProfile {
 
     public static UserProfileBuilder builder() {
         return new UserProfileBuilder();
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     public Long getProfileId() {
@@ -142,7 +132,6 @@ public class UserProfile {
     }
 
     public static class UserProfileBuilder {
-        User user;
         private Long profileId;
         private String firstNameLocalisation;
         private String firstNameEN;
@@ -154,12 +143,7 @@ public class UserProfile {
         private int weight;
         private List<Food> userFood;
 
-        UserProfileBuilder() {
-        }
-
-        public UserProfileBuilder user(User user) {
-            this.user = user;
-            return this;
+        private UserProfileBuilder() {
         }
 
         public UserProfileBuilder profileId(Long profileId) {
@@ -213,7 +197,7 @@ public class UserProfile {
         }
 
         public UserProfile build() {
-            return new UserProfile(this.user, this.profileId, this.lastName, this.firstNameLocalisation,
+            return new UserProfile(this.profileId, this.lastName, this.firstNameLocalisation,
                     this.firstNameEN, this.firstNameRU, this.lifestyle, this.age, this.height, this.weight, this.userFood);
         }
     }

@@ -3,6 +3,7 @@ package net.shvdy.nutrition_tracker.model.dao.impl;
 import net.shvdy.nutrition_tracker.model.dao.UserDAO;
 import net.shvdy.nutrition_tracker.model.dao.resultset_mapper.ResultSetMapperLocalised;
 import net.shvdy.nutrition_tracker.model.entity.User;
+import net.shvdy.nutrition_tracker.model.entity.UserProfile;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -26,7 +27,7 @@ public class JDBCUserDAO implements UserDAO {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement insertUserStatement = connection
                      .prepareStatement(queries.getProperty("userdao.INSERT_USER_SQL"));
-             PreparedStatement insertUserProfileStatement = connection
+             PreparedStatement insertUserProfile = connection
                      .prepareStatement(queries.getProperty("userdao.INSERT_USER_PROFILE_SQL"))) {
 
             connection.setAutoCommit(false);
@@ -34,13 +35,30 @@ public class JDBCUserDAO implements UserDAO {
             prepareInsert(insertUserStatement, user);
             insertUserStatement.executeUpdate();
 
-            insertUserProfileStatement.setLong(1, getUserIdByEmail(connection, user));
-            insertUserProfileStatement.setString(2, user.getUserProfile().getFirstNameEN());
-            insertUserProfileStatement.setString(3, user.getUserProfile().getFirstNameRU());
-            insertUserProfileStatement.setString(4, user.getUserProfile().getLastName());
-            insertUserProfileStatement.executeUpdate();
+            insertUserProfile.setLong(1, getUserIdByEmail(connection, user));
+            insertUserProfile.setString(2, user.getUserProfile().getFirstNameEN());
+            insertUserProfile.setString(3, user.getUserProfile().getFirstNameRU());
+            insertUserProfile.setString(4, user.getUserProfile().getLastName());
+            insertUserProfile.executeUpdate();
 
             connection.commit();
+        }
+    }
+
+    @Override
+    public void updateProfile(UserProfile userProfile) throws SQLException {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement updateProfile = connection
+                     .prepareStatement(queries.getProperty("userdao.UPDATE_USER_PROFILE_SQL"))) {
+            updateProfile.setString(1, userProfile.getFirstNameEN());
+            updateProfile.setString(2, userProfile.getFirstNameRU());
+            updateProfile.setString(3, userProfile.getLastName());
+            updateProfile.setInt(4, userProfile.getAge());
+            updateProfile.setInt(5, userProfile.getHeight());
+            updateProfile.setInt(6, userProfile.getWeight());
+            updateProfile.setString(7, userProfile.getLifestyle().name());
+            updateProfile.setLong(8, userProfile.getProfileId());
+            updateProfile.executeUpdate();
         }
     }
 
@@ -60,6 +78,8 @@ public class JDBCUserDAO implements UserDAO {
         }
         return Optional.empty();
     }
+
+
 
     private Long getUserIdByEmail(Connection connection, User user) throws SQLException {
         Statement s = connection.createStatement();

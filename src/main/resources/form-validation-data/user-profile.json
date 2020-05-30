@@ -1,0 +1,27 @@
+{
+  "firstNameEN": {
+    "regex": "(?i)(^[a-z])((?![ .,'-]$)[a-z .,'-]){2,24}$",
+    "errorMessage": "Incorrect value"
+  },
+  "firstNameRU": {
+    "regex": "[А-Я]((?![ .,'-]$)[а-я .,'-]){2,24}$|^$",
+    "errorMessage": "Incorrect value"
+  },
+  "lastName": {
+    "regex": "(?i)(^[a-z])((?![ .,'-]$)[a-z .,'-]){2,24}$",
+    "errorMessage": "Incorrect value"
+  },
+  "age": {
+    "regex": "[0-9]{1,3}$",
+    "max": "120",
+    "errorMessage": "Incorrect value, must be less than 120"
+  },
+  "weight": {
+    "regex": "[0-9]{1,3}$",
+    "errorMessage": "Incorrect value"
+  },
+  "height": {
+    "regex": "[0-9]{1,3}$",
+    "errorMessage": "Incorrect value"
+  }
+}

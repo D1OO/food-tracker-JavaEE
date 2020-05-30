@@ -231,6 +231,10 @@ dl, ol, ul {
     background: #fdbaba !important;
 }
 
+.option {
+    font-family: "Gotham Rounded Medium", sans-serif;
+}
+
 .formf input {
     width: 8em;
 }

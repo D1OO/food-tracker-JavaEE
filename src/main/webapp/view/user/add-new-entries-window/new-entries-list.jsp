@@ -39,4 +39,4 @@
     </form>
 </div>
 
-<script id="change-lang-param" src="static/js/new-entries-window.js" type="text/javascript"></script>
+<script src="static/js/new-entries-window.js" type="text/javascript"></script>

@@ -14,13 +14,13 @@
         <c:forEach var="article" items="${paginatedArticles}" varStatus="loop">
             <button role="link"
                     onclick="loadFromServerIntoContentContainer('/read-article?id=${article.articleId}')"
-                    class="article-block d-inline-flex flex-grow-1 justify-content-between row mx-md-3 mb-2">
-                <div class="col-8">
-                    <h4 class="mt-2">${article.titleLocalisation}</h4>
-                    <p class="float-right" style="color: gray">${article.date}</p>
-                </div>
+                    class="article-block d-inline-flex flex-grow-1 justify-content-left row mx-md-3 mb-2">
                 <img class="m-2" src="data:image/jpg;base64,${article.base64Image}"
-                     style="border: 3px solid black; border-radius: 0.2rem; object-fit: cover; width: 200px; height: 120px"/>
+                     style="border-radius: 0.2rem; object-fit: cover; width: 200px; height: 120px"/>
+                <div class="col-8">
+                    <h4 class="mt-2" style="text-align: left">${article.titleLocalisation}</h4>
+                    <p class="float-left" style="color: gray">${article.date}</p>
+                </div>
             </button>
         </c:forEach>
         <c:if test="${user.role eq 'ADMIN'}">

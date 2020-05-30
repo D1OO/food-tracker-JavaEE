@@ -2,6 +2,7 @@ package net.shvdy.nutrition_tracker.model.service;
 
 import net.shvdy.nutrition_tracker.dto.LoginDTO;
 import net.shvdy.nutrition_tracker.dto.UserDTO;
+import net.shvdy.nutrition_tracker.dto.UserProfileDTO;
 import net.shvdy.nutrition_tracker.model.dao.UserDAO;
 import net.shvdy.nutrition_tracker.model.entity.User;
 import net.shvdy.nutrition_tracker.model.exception.InvalidPasswordException;
@@ -23,6 +24,10 @@ public class UserService {
 
 	public void save(User user) throws SQLException {
 		userDao.create(user);
+	}
+
+	public void updateProfile(UserProfileDTO userProfileDTO) throws SQLException {
+		userDao.updateProfile(entityMapper.userProfileDTOToEntity(userProfileDTO));
 	}
 
 	public UserDTO findByUsernameLocalised(String username, Locale locale) throws SQLException {

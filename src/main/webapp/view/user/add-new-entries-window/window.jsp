@@ -102,7 +102,7 @@
                     </div>
                 </form>
                 <div class="m-2 d-flex flex-column col-5 tabs">
-                    <button class="modal-save-food pretty-button mt-2" id="myBtn" onclick="saveCreatedFood()">
+                    <button class="modal-save-food pretty-button mt-2" onclick="saveCreatedFood()">
                         <fmt:message key="user.save"/>
                     </button>
                     <button class="modal-back pretty-button mt-2" onclick="setModalContainerTo('addfoodcontainer')">

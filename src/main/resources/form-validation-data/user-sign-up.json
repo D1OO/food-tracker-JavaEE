@@ -12,7 +12,7 @@
         "errorMessage": "Incorrect value"
     },
     "firstNameRU": {
-        "regex": "(?i)(^[а-я])((?![ .,'-]$)[а-я .,'-]){2,24}$",
+        "regex": "[А-Я]((?![ .,'-]$)[а-я .,'-]){2,24}$|^$",
         "errorMessage": "Incorrect value"
     },
     "lastName": {
