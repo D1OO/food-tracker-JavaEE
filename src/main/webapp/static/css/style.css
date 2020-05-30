@@ -138,9 +138,9 @@ dl, ol, ul {
     font-family: "Run Medium", sans-serif !important;
     font-weight: lighter;
     font-size: 1.5em !important;
-    background: rgb(192, 181, 218);
-    background: linear-gradient(180deg, rgba(192, 181, 218, 0.8281512434075192) 19%,
-    rgba(224, 224, 224, 0.8813725319229254) 65%, rgba(217, 255, 166, 0.6040616075531775) 100%);
+    /*background: rgb(192, 181, 218);*/
+    /*background: linear-gradient(180deg, rgba(192, 181, 218, 0.8281512434075192) 19%,*/
+    /*rgba(224, 224, 224, 0.8813725319229254) 65%, rgba(217, 255, 166, 0.6040616075531775) 100%);*/
     border: none !important;
 }
 
@@ -151,13 +151,13 @@ dl, ol, ul {
     font-size: 1em;
     padding-top: 8px;
     padding-bottom: 8px;
-    border: 1px solid #292929;
+    /*border: 1px solid #292929;*/
 }
 
 .tabs .pretty-button:hover {
     color: #000000;
     text-decoration: none;
-    background: rgba(213, 95, 147, 0.62);
+    background: rgba(213, 95, 147, 0.37);
 }
 
 .food-diary-container {
@@ -166,8 +166,9 @@ dl, ol, ul {
 }
 
 .recordTab {
-    background: #e2dbff;
+    background: #f0f0f0;
     padding-inline: 10px;
+    border: none;
 }
 
 .recordTab :hover {
@@ -181,12 +182,56 @@ dl, ol, ul {
     background: linear-gradient(338deg, rgba(213, 95, 147, 1) 10%, rgba(233, 232, 148, 1) 100%);
 }
 
+.nextb {
+    background: rgba(136, 143, 206, 0.65);
+    border: none;
+}
+
 .nextb:hover {
-    background: #afa5af;
+    background: #b2a5b2;
+}
+
+.foodlink {
+    border: none;
+}
+
+.modal-save {
+    border: none;
+    width: 40%;
+    background-color: rgba(30, 132, 51, 0.55);
+}
+
+.modal-create-food {
+    width: 40%;
+    border: none;
+    background-color: rgba(191, 181, 218, 0.8);
+}
+
+.modal-back {
+    border: none;
+    background-color: rgba(218, 160, 170, 0.8);
+}
+
+.modal-save-food {
+    border: none;
+    background-color: rgba(180, 218, 174, 0.8);
+}
+
+.modal-remove-entry {
+    padding: 4px 8px;
+    color: rgba(168, 56, 59, 0.66) !important;
+    background: transparent;
+    border-radius: 999px;
+}
+
+.modal-remove-entry:hover {
+    /*background: indianred !important;*/
+    /*color: #000;*/
+    text-decoration: none;
+    background: #fdbaba !important;
 }
 
 .formf input {
-
     width: 8em;
 }
 
@@ -526,7 +571,10 @@ h6,
 }
 
 .open-modal {
-    background-color: rgba(36, 168, 0, 0.41);
+    width: 12em;
+    background-color: rgba(44, 147, 0, 0.67);
+    color: white;
+    border: none;
 }
 
 .list-line li {
@@ -859,20 +907,14 @@ h6,
     }
 }
 
-.removeButton:hover {
-    color: #000;
-    text-decoration: none;
-    background: #fdbaba;
-}
-
 .selected-record-button {
-    color: white;
-    background: #2b2234;
+    color: #000000;
+    background: #d78287;
 }
 
 .selected-record-button:hover {
-    color: white !important;
-    background: #2b2234 !important;
+    color: #000000 !important;
+    background: #d78287 !important;
     cursor: default;
 }
 
@@ -934,7 +976,7 @@ h6,
 
 .article-block:hover {
     background: rgb(255, 255, 255);
-    background: linear-gradient(184deg, rgba(255, 255, 255, 0.6698879380853904) 0%, rgba(134, 255, 113, 0.16008401651676296) 79%);
+    background: linear-gradient(184deg, rgba(185, 188, 104, 0.24) 0%, rgba(185, 188, 104, 0.25) 79%);
     border-radius: 0.2rem;
     outline: none;
     border: none;

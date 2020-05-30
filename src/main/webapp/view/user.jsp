@@ -36,7 +36,7 @@
                                 </button>
                             </div>
                             <div class="maincontent m-2" id="content-container"
-                                 style="border-radius: 5px"></div>
+                                 style=" border-radius: 5px"></div>
                         </div>
                     </div>
                 </div>

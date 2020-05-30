@@ -32,7 +32,7 @@ public class Login implements ActionCommand {
 
         if (SecurityUtility.checkIsLoginNOTFresh(request, user.getUserId())) {
             ContextHolder.getLogger().warn("Session duplication try ID=: " + user.getUserId());
-            return "redirect:/login?error=session-exists";
+            return "redirect:/login?session-exists";
         }
 
         SecurityUtility.setSessionInfo(request, user);

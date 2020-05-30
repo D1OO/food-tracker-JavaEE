@@ -16,25 +16,22 @@
                    value="${newEntriesDTO.recordDate}" type="hidden"/>
             <c:forEach var="entry" items="${newEntriesDTO.entries}" varStatus="loop">
                 <tr align="center" class="row align-items-top m-1 entry" id="fff">
-                    <td class="foodlabel  row justify-content-end m-1"
-                        style="width: 18%; justify-content: end">
+                    <td class="foodlabel col-9 row m-1"
+                        style="max-width: 40%; justify-content: end">
                         <p class="mr-2 foodName" style="text-align: right">${entry.foodName}</p>
                     </td>
-                    <td class="d-inline-flex col-sm-auto align-items-top m-1">
+                    <td class="col-3 row m-1">
                         <input class="form-control mr-2 quantity" placeholder="quantity(g)"
-                               style="width: 50%" name="newEntriesDTO.entries[${loop.index}].quantity"
+                               style="width: 60%" name="newEntriesDTO.entries[${loop.index}].quantity"
                                value="${newEntriesDTO.entries[loop.index].quantity}">
                         <input class="form-control foodDTOJSON"
                                name="newEntriesDTO.entries[${loop.index}].foodDTOJSON"
                                value='${newEntriesDTO.entries[loop.index].foodDTOJSON}'
                                type="hidden">
-                        <label><fmt:message key="food.grams"/></label>
+                        <label class="justify-content-center"><fmt:message key="food.grams"/></label>
                     </td>
-                    <td class="">
-                        <a class=" mt-2 removeButton"
-                           style="padding: 4px 8px; color: rgba(168,56,59,0.66)"
-                           type="button"><fmt:message key="user.remove"/>
-                        </a>
+                    <td>
+                        <a class="modal-remove-entry mt-2" type="button">x</a>
                     </td>
                 </tr>
             </c:forEach>

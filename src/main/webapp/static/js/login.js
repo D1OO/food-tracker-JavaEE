@@ -13,4 +13,6 @@ $(document).ready(function () {
         $("#logoutBox").show(200);
     else if (param.has('error'))
         $("#wrongCredentialsBox").show(200);
+    else if (param.has('session-exists'))
+        $("#sessionExistsBox").show(200);
 });

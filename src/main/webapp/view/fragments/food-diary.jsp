@@ -15,7 +15,6 @@
     </div>
     <div class="tabs row d-flex ml-2 mb-3" style="width: 100%">
         <button class="pretty-button m4 ml-3 nextb ${prevWeekDay != null ? 'visible' : 'unvisible'}"
-        style="background: rgba(40,0,169,0.36)"
                 onclick="loadFromServerIntoContentContainer('/food-diary?d=${prevWeekDay}')">
             <fmt:message key="diary.previous"/>
         </button>
@@ -25,7 +24,7 @@
                     ${record.dateHeader}
             </button>
         </c:forEach>
-        <button class="pretty-button m4 ml-3 nextb" style="background: rgba(40,0,169,0.36)"
+        <button class="pretty-button m4 ml-3 nextb"
                 onclick='loadFromServerIntoContentContainer("/food-diary?d=${nextWeekDay}")'>
             <fmt:message key="diary.next"/>
         </button>
@@ -41,7 +40,7 @@
                         <div class="row ml-4 align-items-center">
                             <h4 class="mr-2"><fmt:message key="daily-cals-norm"/></h4>
                             <h4 class="logged-in-as">${rec.percentage}%</h4>
-                            <h4 class="float-right"> (${rec.totalCalories}/${rec.dailyCaloriesNorm}</h4>
+                            <h4 class="float-right ml-1"> (${rec.totalCalories}/${rec.dailyCaloriesNorm}</h4>
                             <h4 class="font-rubick">)</h4>
                         </div>
                         <div>
@@ -94,7 +93,7 @@
                     <input id="recordId" name="recordId" value="${rec.recordId}" type="hidden">
                     <input id="recordDate" name="recordDate" value="${rec.recordDate}" type="hidden">
                 </form>
-                <button class="pretty-button open-modal" style="width: 12em; "
+                <button class="pretty-button open-modal"
                         onclick="openAddFoodModalWindow(${loop.index})">
                     <fmt:message key="add-new"/>
                 </button>

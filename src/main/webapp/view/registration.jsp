@@ -17,9 +17,9 @@
             <div class="d-inline-block" style="height: 100%; width: 100%">
                 <div class="d-flex flex-grow-1 justify-content-center align-items-center mt-2"
                      data-aos="fade-zoom-in" data-aos-offset="0"
-                     style="height: 100%; width: 100%; background: #eeeeee; border: 1px solid #b8b8b8; border-radius: 0.5rem;">
+                     style="height: 100%; width: 100%; background-image: url('static/img/271678.jpg'); background-size: cover; border: 1px solid #b8b8b8; border-radius: 0.5rem;">
                     <div class="maincontent d-flex flex-nowrap p-lg-3"
-                         style="border: 7px solid rgba(171,9,78,0.31); border-radius: 0.5rem; background: rgba(221,252,207,0.25)">
+                         style="box-shadow: 0px 0px 45px -5px rgba(0,0,0,0.68); border: 5px solid rgba(171,9,78,0.31); border-radius: 0.5rem; background: white">
                         <div class="mr-auto">
                             <div class="row d-flex justify-content-start form">
                                 <div class="mb-5 mb-md-0">

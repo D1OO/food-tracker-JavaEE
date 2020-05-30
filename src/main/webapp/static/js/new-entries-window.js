@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $(".removeButton").click(function () {
+    $(".modal-remove-entry").click(function () {
         event.preventDefault();
         $(this).closest('.entry').remove();
 

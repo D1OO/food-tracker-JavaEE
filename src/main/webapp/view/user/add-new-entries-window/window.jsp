@@ -36,8 +36,8 @@
                         <jsp:include page="/view/user/add-new-entries-window/new-entries-list.jsp"/>
                     </div>
                 </div>
-                <button class="pretty-button switch-content" onclick="setModalContainerTo('createfoodcontainer')"
-                        style="width: 40%"><fmt:message key="user.create-new"/>
+                <button class="pretty-button modal-create-food" onclick="setModalContainerTo('createfoodcontainer')">
+                    <fmt:message key="user.create-new"/>
                 </button>
             </div>
             <div class="mt-4" id="createfoodcontainer" style="display: none">
@@ -102,17 +102,17 @@
                     </div>
                 </form>
                 <div class="m-2 d-flex flex-column col-5 tabs">
-                    <button class="pretty-button mt-2" id="myBtn" onclick="saveCreatedFood()">
+                    <button class="modal-save-food pretty-button mt-2" id="myBtn" onclick="saveCreatedFood()">
                         <fmt:message key="user.save"/>
                     </button>
-                    <button class="pretty-button switch-content mt-2" onclick="setModalContainerTo('addfoodcontainer')">
+                    <button class="modal-back pretty-button mt-2" onclick="setModalContainerTo('addfoodcontainer')">
                         <fmt:message key="user.back"/>
                     </button>
                 </div>
             </div>
         </div>
         <div class="modal-footer d-flex justify-content-center">
-            <button class="pretty-button" onclick="saveNewEntries()" style="width: 40%">
+            <button class="modal-save pretty-button" onclick="saveNewEntries()">
                 <fmt:message key="user.save"/>
             </button>
         </div>
