@@ -75,17 +75,17 @@ function saveCreatedFood() {
         url: '/save-new-food',
         data: $('#createfoodform').serialize(),
         statusCode: {
-            500: function (response) {
+            500: function () {
                 $("#foodSavingErrorBox").show(200);
             },
-            200: function (response) {
-                $("#foodSavedSuccessBox").show(200);
+            400: function (response) {
+                $.each(response.responseJSON, function (errorKey, errorMessage) {
+                    $("#" + errorKey).text(errorMessage);
+                });
             }
         },
-        success: function (errorsMap) {
-            $.each(errorsMap, function (errorKey, errorMessage) {
-                $("#" + errorKey).text(errorMessage);
-            });
+        success: function () {
+            $("#foodSavedSuccessBox").show(200);
         }
     });
 }
@@ -115,6 +115,7 @@ function saveNewEntries() {
 }
 
 function saveCreatedArticle() {
+    clearErrorMessages();
     $.ajax({
         type: "POST",
         url: '/save-new-article',
@@ -122,12 +123,16 @@ function saveCreatedArticle() {
         processData: false,
         data: new FormData($('#createarticleform')[0]),
         statusCode: {
-            500: function (response) {
-                $('.open-modal')[0].onclick();
-                //setErrorBoxesVisible
+            500: function () {
+                $("#articleSavingErrorBox").show(200);
+            },
+            400: function (response) {
+                $.each(response.responseJSON, function (errorKey, errorMessage) {
+                    $("#" + errorKey).text(errorMessage);
+                });
             }
         },
-        success: function (response) {
+        success: function () {
             closeAddFoodModalWindow();
             loadFromServerIntoContentContainer('feed');
         }
@@ -137,6 +142,7 @@ function saveCreatedArticle() {
 function clearErrorMessages() {
     $('.errorServerValidation').text("");
     $("#foodSavingErrorBox").hide(100);
+    $("#articleSavingErrorBox").hide(100);
     $("#foodSavedSuccessBox").hide(100);
 }
 

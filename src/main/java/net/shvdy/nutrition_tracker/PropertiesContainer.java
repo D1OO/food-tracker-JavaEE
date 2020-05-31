@@ -42,9 +42,10 @@ public class PropertiesContainer {
     }
 
     public enum JSONProperties {
-        FOOD_FORM_VALIDATION_DATA("form-validation-data/food.json"),
         USER_SIGN_UP_FORM_VALIDATION_DATA("form-validation-data/user-sign-up.json"),
-        USER_PROFILE_FORM_VALIDATION_DATA("form-validation-data/user-profile.json");
+        USER_PROFILE_FORM_VALIDATION_DATA("form-validation-data/user-profile.json"),
+        FOOD_FORM_VALIDATION_DATA("form-validation-data/food.json"),
+        ARTICLE_FORM_VALIDATION_DATA("form-validation-data/article.json");
 
         final String FILE_PATH;
         private Map<String, Map<String, String>> formFieldsValidationData;

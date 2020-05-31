@@ -12,9 +12,6 @@ function saveNewUser() {
         success: function (response) {
             if (response.url != null) {
                 window.location.replace(response.url);
-                // window.history.pushState("empty", "", "/login?signed-up");
-                // $("html").html(response);
-                // replacePageWith(response);
             } else {
                 $.each(response, function (errorKey, errorMessage) {
                     $("#" + errorKey).text(errorMessage);
@@ -28,10 +25,3 @@ function clearErrorMessages() {
     $('.errorServerValidation').text("");
     $("#userSavingErrorBox").hide(200);
 }
-
-function replacePageWith(html) {
-    let newDoc = document.open("text/html", "replace");
-    newDoc.write(html);
-    newDoc.close();
-}
-

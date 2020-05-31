@@ -1,0 +1,18 @@
+{
+    "titleEN": {
+        "regex": "^.{2,120}$",
+        "errorMessage": "Incorrect value, length must be between 2 and 120"
+    },
+    "titleRU": {
+        "regex": "^.{2,120}$",
+        "errorMessage": "Incorrect value, length must be between 2 and 120"
+    },
+    "textEN": {
+        "regex": "^.{2,2245}$",
+        "errorMessage": "Incorrect value, length must be between 2 and 2245"
+    },
+    "textRU": {
+        "regex": "^.{2,2245}$",
+        "errorMessage": "Incorrect value, length must be between 2 and 2245"
+    }
+}

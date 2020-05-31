@@ -11,28 +11,28 @@
             <span class="close mt-0" onclick="closeAddFoodModalWindow()">&times;</span>
         </div>
         <div class="modal-body container" id="modalbody">
-            <div class="mt-4" id="createfoodcontainer">
-                <form class="form" id="createarticleform" method="post" enctype="multipart/form-data"
-                      style="width: 100%" action="save-new-article">
+            <div class="mt-4">
+                <div id="articleSavingErrorBox" class="alert-danger alert col-md-11 mb-3 display-none" role="alert">
+                    <fmt:message key="article.not-saved"/>
+                </div>
+                <form class="form" id="createarticleform" enctype="multipart/form-data" style="width: 100%">
                     <input name="authorId" value="${user.userId}" type="hidden">
                     <div class="row">
                         <div class="col-6">
                             <div class="form-group col-md-11">
-                                <label class="control-label" for="name"><fmt:message key="article.titleEN"/></label>
-                                <input class="form-control"
-                                       name="titleEN"/>
-                                <div class="validate"></div>
+                                <label class="control-label"><fmt:message key="article.titleEN"/></label>
+                                <input class="form-control" name="titleEN"/>
+                                <p id="titleENError" class="errorServerValidation"></p>
                             </div>
                             <div class="form-group col-md-11">
-                                <label class="control-label" for="name"><fmt:message key="article.titleRU"/></label>
-                                <input class="form-control"
-                                       name="titleRU"/>
-                                <div class="validate"></div>
+                                <label class="control-label"><fmt:message key="article.titleRU"/></label>
+                                <input class="form-control" name="titleRU"/>
+                                <p id="titleRUError" class="errorServerValidation"></p>
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-group col-md-11 col">
-                                <label class="control-label" for="article-image"><fmt:message
+                                <label class="control-label"><fmt:message
                                         key="article.image"/></label>
                                 <input class="form-control-file"
                                        type="file"
@@ -41,42 +41,18 @@
                         </div>
                     </div>
                     <div class="form-group col-md-11">
-                        <label class="control-label" for="fats"><fmt:message key="article.textEN"/></label>
+                        <label class="control-label"><fmt:message key="article.textEN"/></label>
                         <textarea class="form-control"
-                                  type="text" style="width: 740px; height: 380px"
-                                  name="textEN"></textarea>
-                        <div class="validate"></div>
+                                  type="text" style="width: 740px; height: 380px" name="textEN"></textarea>
+                        <p id="textENError" class="errorServerValidation"></p>
                     </div>
                     <div class="form-group col-md-11">
-                        <label class="control-label" for="fats"><fmt:message key="article.textRU"/></label>
+                        <label class="control-label"><fmt:message key="article.textRU"/></label>
                         <textarea class="form-control"
-                                  type="text" style="width: 740px; height: 380px"
-                                  name="textRU"></textarea>
-                        <div class="validate"></div>
+                                  type="text" style="width: 740px; height: 380px" name="textRU"></textarea>
+                        <p id="textRUError" class="errorServerValidation"></p>
                     </div>
                 </form>
-                <%--                <!--                <p class="error-validation"-->--%>
-                <%--                <!--                   th:each="error : ${#fields.errors('global')}"-->--%>
-                <%--                <!--                   th:if="${#fields.hasGlobalErrors()}"-->--%>
-                <%--                <!--                   th:text="${error}">Validation error</p>-->--%>
-
-                <%--                <!--                <div class="form-group col-md-5">-->--%>
-                <%--                <!--                    <input class="pretty-button d-block w-100" disabled="disabled" type="submit" value="SIGN UP">-->--%>
-                <%--                <!--                </div>-->--%>
-                <%--                <!--                <div class="form-group col-md-12">-->--%>
-                <%--                <!--                    <span>Already signed up? <a style="color:#34ce57" th:href="@{/login}">LOGIN</a></span>-->--%>
-                <%--                <!--                </div>-->--%>
-
-                <%--                <!--                <div class="alert alert-info col-md-12 mb-3" role="alert" th:if="${logout}">You've been logged-->--%>
-                <%--                <!--                    out-->--%>
-                <%--                <!--                    successfully.-->--%>
-                <%--                <!--                </div>-->--%>
-
-                <%--                <!--                <div class="col-md-12 mb-3" style="background: #eeeeee">-->--%>
-                <%--                <!--                    <div class="loading" style="background: #eeeeee">Loading</div>-->--%>
-                <%--                <!--                    <div class="error-message"></div>-->--%>
-                <%--                <!--                    <div class="sent-message">filler</div>-->--%>
-                <%--                <!--                </div>-->--%>
             </div>
         </div>
         <div class="modal-footer d-flex justify-content-center">

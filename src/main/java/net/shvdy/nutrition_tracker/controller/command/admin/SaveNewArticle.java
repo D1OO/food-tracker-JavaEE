@@ -1,8 +1,10 @@
 package net.shvdy.nutrition_tracker.controller.command.admin;
 
+import net.shvdy.nutrition_tracker.PropertiesContainer;
 import net.shvdy.nutrition_tracker.controller.ContextHolder;
 import net.shvdy.nutrition_tracker.controller.command.ActionCommand;
 import net.shvdy.nutrition_tracker.controller.command.PostEndpoint;
+import net.shvdy.nutrition_tracker.controller.command.utils.Validator;
 import net.shvdy.nutrition_tracker.model.entity.Article;
 
 import javax.servlet.ServletException;
@@ -11,8 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -26,7 +28,21 @@ public class SaveNewArticle implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        Article article = Article.builder()
+        Map<String, String> errors = Validator.validateFormAndReturnErrors(request,
+                PropertiesContainer.JSONProperties.ARTICLE_FORM_VALIDATION_DATA.getFormFieldsValidationData());
+
+        if (errors.isEmpty()) {
+//            saveFoodAndUpdateCache(request);
+            ContextHolder.getArticleService().save(getArticle(request));
+            return "/view/fragments/feed.jsp";
+        } else {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return "json:" + ContextHolder.getJacksonObjectMapper().writeValueAsString(errors);
+        }
+    }
+
+    private Article getArticle(HttpServletRequest request) {
+        return Article.builder()
                 .authorId(Long.parseLong(request.getParameter("authorId")))
                 .titleEN(request.getParameter("titleEN"))
                 .titleRU(request.getParameter("titleRU"))
@@ -35,13 +51,6 @@ public class SaveNewArticle implements ActionCommand {
                 .textRU(request.getParameter("textRU"))
                 .image(readImage(request).orElse(InputStream.nullInputStream()))
                 .build();
-        try {
-            ContextHolder.getArticleService().save(article);
-        } catch (SQLException e) {
-            ContextHolder.getLogger().error("Article saving exception: " + e.getMessage());
-        }
-
-        return "/view/fragments/feed.jsp";
     }
 
     private Optional<InputStream> readImage(HttpServletRequest request) {
