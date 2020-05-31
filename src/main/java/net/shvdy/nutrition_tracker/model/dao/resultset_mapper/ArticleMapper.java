@@ -15,6 +15,7 @@ import java.util.Locale;
  * @version 1.0
  */
 public class ArticleMapper implements ResultSetMapperLocalised<List<Article>> {
+
     @Override
     public List<Article> mapLocalised(ResultSet resultSet, Locale locale) throws SQLException {
         ArrayList<Article> articles = new ArrayList<>();

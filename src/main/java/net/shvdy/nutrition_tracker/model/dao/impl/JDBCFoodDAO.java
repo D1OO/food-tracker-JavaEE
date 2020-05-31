@@ -1,7 +1,6 @@
 package net.shvdy.nutrition_tracker.model.dao.impl;
 
 import net.shvdy.nutrition_tracker.model.dao.FoodDAO;
-import net.shvdy.nutrition_tracker.model.dao.resultset_mapper.ResultSetMapper;
 import net.shvdy.nutrition_tracker.model.entity.Food;
 
 import javax.sql.DataSource;
@@ -17,12 +16,10 @@ import java.util.Properties;
 public class JDBCFoodDAO implements FoodDAO {
 
     private DataSource dataSource;
-    private ResultSetMapper<Food> resultSetMapper;
-    private Properties queries;
+    private final Properties queries;
 
-    public JDBCFoodDAO(DataSource dataSource, ResultSetMapper<Food> resultSetMapper, Properties queries) {
+    public JDBCFoodDAO(DataSource dataSource, Properties queries) {
         this.dataSource = dataSource;
-        this.resultSetMapper = resultSetMapper;
         this.queries = queries;
     }
 

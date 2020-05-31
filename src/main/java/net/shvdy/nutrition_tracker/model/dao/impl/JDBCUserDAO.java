@@ -15,7 +15,7 @@ public class JDBCUserDAO implements UserDAO {
 
     private DataSource dataSource;
     private ResultSetMapperLocalised<User> resultSetMapper;
-    private Properties queries;
+    private final Properties queries;
 
     public JDBCUserDAO(DataSource dataSource, ResultSetMapperLocalised<User> resultSetMapper, Properties queries) {
         this.dataSource = dataSource;
@@ -78,8 +78,6 @@ public class JDBCUserDAO implements UserDAO {
         }
         return Optional.empty();
     }
-
-
 
     private Long getUserIdByEmail(Connection connection, User user) throws SQLException {
         Statement s = connection.createStatement();

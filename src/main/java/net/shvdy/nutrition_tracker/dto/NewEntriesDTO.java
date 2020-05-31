@@ -12,6 +12,7 @@ import java.util.List;
  * @version 1.0
  */
 public class NewEntriesDTO {
+
     private Long recordId;
     private Long profileId;
     private String recordDate;

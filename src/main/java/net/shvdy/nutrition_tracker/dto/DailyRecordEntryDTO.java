@@ -11,6 +11,7 @@ import net.shvdy.nutrition_tracker.model.entity.Food;
  * @version 1.0
  */
 public class DailyRecordEntryDTO {
+
     private Food food;
     private int quantity;
     private String quantityError;

@@ -1,9 +1,6 @@
 package net.shvdy.nutrition_tracker.dto;
 
-import net.shvdy.nutrition_tracker.model.entity.Food;
 import net.shvdy.nutrition_tracker.model.entity.UserProfile;
-
-import java.util.List;
 
 /**
  * 30.05.2020
@@ -12,6 +9,7 @@ import java.util.List;
  * @version 1.0
  */
 public class UserProfileDTO {
+
     private Long profileId;
     private String firstNameEN;
     private String firstNameRU;

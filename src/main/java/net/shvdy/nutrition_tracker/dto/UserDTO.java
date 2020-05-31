@@ -5,6 +5,7 @@ import net.shvdy.nutrition_tracker.model.entity.Role;
 import java.util.List;
 
 public class UserDTO {
+
     private Long userId;
     private String username;
     private Role role;

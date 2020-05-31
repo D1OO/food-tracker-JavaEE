@@ -19,9 +19,10 @@ import java.util.Properties;
  * @version 1.0
  */
 public class JDBCDailyRecordDAO implements DailyRecordDAO {
+
 	private DataSource dataSource;
 	private ResultSetMapper<List<DailyRecord>> resultSetMapper;
-	private Properties queries;
+	private final Properties queries;
 
 	public JDBCDailyRecordDAO(DataSource dataSource, ResultSetMapper<List<DailyRecord>> resultSetMapper,
 							  Properties queries) {

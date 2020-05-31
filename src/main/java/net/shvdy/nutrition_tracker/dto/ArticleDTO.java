@@ -7,6 +7,7 @@ package net.shvdy.nutrition_tracker.dto;
  * @version 1.0
  */
 public class ArticleDTO {
+
     private int articleId;
     private String titleLocalisation;
     private String titleEN;

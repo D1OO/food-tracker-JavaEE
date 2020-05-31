@@ -1,6 +1,7 @@
 package net.shvdy.nutrition_tracker.model.dao.impl;
 
 import net.shvdy.nutrition_tracker.model.dao.ArticleDAO;
+import net.shvdy.nutrition_tracker.model.dao.resultset_mapper.EntityExtractor;
 import net.shvdy.nutrition_tracker.model.dao.resultset_mapper.ResultSetMapperLocalised;
 import net.shvdy.nutrition_tracker.model.entity.Article;
 
@@ -19,11 +20,13 @@ import java.util.Properties;
  * @version 1.0
  */
 public class JDBCArticleDAO implements ArticleDAO {
+
     private DataSource dataSource;
     private ResultSetMapperLocalised<List<Article>> resultSetMapper;
-    private Properties queries;
+    private final Properties queries;
 
-    public JDBCArticleDAO(DataSource dataSource, ResultSetMapperLocalised<List<Article>> resultSetMapper, Properties queries) {
+    public JDBCArticleDAO(DataSource dataSource, ResultSetMapperLocalised<List<Article>> resultSetMapper,
+                          Properties queries) {
         this.dataSource = dataSource;
         this.resultSetMapper = resultSetMapper;
         this.queries = queries;
@@ -75,15 +78,7 @@ public class JDBCArticleDAO implements ArticleDAO {
                      .prepareStatement(setLocaleColumnParameter(queries.getProperty("article_dao.SELECT_BY_ID"), locale))) {
 
             statement.setInt(1, articleId);
-            return resultSetMapper.mapLocalised(statement.executeQuery(), locale).get(0); //TODO f
-        }
-    }
-
-    private void setLongOrNull(PreparedStatement statement, int index, int value) throws SQLException {
-        try {
-            statement.setLong(index, value);
-        } catch (NullPointerException e) {
-            statement.setNull(index, Types.BIGINT);
+            return EntityExtractor.extractArticle(statement.executeQuery(), locale);
         }
     }
 
@@ -92,5 +87,13 @@ public class JDBCArticleDAO implements ArticleDAO {
                 .replace("title_?", "title_" + locale.getLanguage())
                 .replace("text_?", "text_" + locale.getLanguage())
                 .replace("first_name_?", "first_name_" + locale.getLanguage());
+    }
+
+    private void setLongOrNull(PreparedStatement statement, int index, int value) throws SQLException {
+        try {
+            statement.setLong(index, value);
+        } catch (NullPointerException e) {
+            statement.setNull(index, Types.BIGINT);
+        }
     }
 }
