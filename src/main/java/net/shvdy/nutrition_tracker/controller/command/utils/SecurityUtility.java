@@ -1,13 +1,14 @@
 package net.shvdy.nutrition_tracker.controller.command.utils;
 
 import net.shvdy.nutrition_tracker.dto.UserDTO;
-import net.shvdy.nutrition_tracker.dto.UserProfileDTO;
-import net.shvdy.nutrition_tracker.model.entity.Role;
 import net.shvdy.nutrition_tracker.model.entity.UserProfile;
 import org.mindrot.jbcrypt.BCrypt;
 
+import javax.servlet.Servlet;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashSet;
+import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.Optional;
 
 public class SecurityUtility {
@@ -23,27 +24,21 @@ public class SecurityUtility {
     }
 
     public static boolean checkIsLoginNOTFresh(HttpServletRequest request, Long id) {
-        HashSet<Long> loggedUsers = getLoggedUsers(request);
-        if (loggedUsers.add(id)) {
-            request.getSession().getServletContext().setAttribute("loggedUsers", loggedUsers);
-            return false;
-        }
-        return true;
+        return getLoggedUsers(request).containsKey(id);
     }
 
-    public static void processLogout(HttpServletRequest request) {
-        HashSet<Long> loggedUsers = getLoggedUsers(request);
-        loggedUsers.remove(request.getSession().getAttribute("user.userId"));
-        request.getSession().getServletContext().setAttribute("loggedUsers", loggedUsers);
-        request.getSession().invalidate();
+    public static void createNewSessionForUserId(HttpServletRequest request, Long id){
+        HashMap<Long, HttpSession> loggedUsers = getLoggedUsers(request);
+        loggedUsers.put(id, request.getSession());
+        request.getServletContext().setAttribute("loggedUsers", loggedUsers);
     }
 
-    private static HashSet<Long> getLoggedUsers(HttpServletRequest request) {
-        return (HashSet<Long>) request.getServletContext().getAttribute("loggedUsers");
+    public static void invalidateExistingSessionForUserId(HttpServletRequest request, Long id){
+        getLoggedUsers(request).get(id).invalidate();
     }
 
-    public static String bCryptHash(String data) {
-        return BCrypt.hashpw(data, BCrypt.gensalt(10));
+    private static HashMap<Long, HttpSession> getLoggedUsers(HttpServletRequest request) {
+        return (HashMap<Long, HttpSession>) request.getServletContext().getAttribute("loggedUsers");
     }
 
     public static String processAJAXSectionRequest(String section, String params, HttpServletRequest request) {
@@ -53,6 +48,10 @@ public class SecurityUtility {
             request.getSession().setAttribute("sectionToFetchWithAJAX", section + params);
             return "/view/" + request.getSession().getAttribute("user.role").toString().toLowerCase() + ".jsp";
         }
+    }
+
+    public static String bCryptHash(String data) {
+        return BCrypt.hashpw(data, BCrypt.gensalt(10));
     }
 
 }

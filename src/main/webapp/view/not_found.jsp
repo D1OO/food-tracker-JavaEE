@@ -22,7 +22,7 @@
                         <div class="d-flex flex-grow-1 flex-column mb-5 mb-md-0 align-content-md-start"
                              style="margin-top: 10%">
                             <h1 style="text-align: center">404 Not Found</h1>
-                            <h2 style="text-align: center">Sorry, this recourse isn't present here anymore :(</h2>
+                            <h2 style="text-align: center">Sorry, this resource isn't present here anymore :(</h2>
 <%--                            <c:if test="${user.role eq GUEST}">--%>
 <%--                                <div class="form-group d-inline-flex justify-content-center">--%>
 <%--                                    <button class="btn-success p-3 pl-5 pr-5" style="border-radius: 0.2rem"><a--%>

@@ -4,6 +4,10 @@
     version="4.0">
     <display-name>Nutrition Tracker</display-name>
 
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
+
     <servlet-mapping>
         <servlet-name>default</servlet-name>
         <url-pattern>/static/*</url-pattern>

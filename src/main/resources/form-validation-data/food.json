@@ -4,19 +4,27 @@
         "errorMessage": "Incorrect name"
     },
     "newFoodProt": {
-        "regex": "[0-9]{1,4}$",
+        "regex": "[0-9]{1,2}$",
+        "min": "1",
+        "max": "40",
         "errorMessage": "Incorrect value (only digits)"
     },
     "newFoodCalories": {
-        "regex": "[0-9]{1,4}$",
+        "regex": "[0-9]{1,3}$",
+        "min": "1",
+        "max": "910",
         "errorMessage": "Incorrect value (only digits)"
     },
     "newFoodFats": {
-        "regex": "[0-9]{1,4}$",
+        "regex": "[0-9]{1,3}$",
+        "min": "1",
+        "max": "100",
         "errorMessage": "Incorrect value (only digits)"
     },
     "newFoodCarbohydrates": {
-        "regex": "[0-9]{1,4}$",
+        "regex": "[0-9]{1,3}$",
+        "min": "1",
+        "max": "100",
         "errorMessage": "Incorrect value (only digits)"
     }
 }

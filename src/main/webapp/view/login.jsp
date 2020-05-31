@@ -38,7 +38,8 @@
                                     </div>
                                     <div id="sessionExistsBox" class="alert-warning alert col-md-11 mb-3 display-none"
                                          role="alert">
-                                        <fmt:message key="session-exists"/>
+                                        <fmt:message key="session-exists"/><br>
+                                        <a href="/log-in-existing" style="color: cornflowerblue"><fmt:message key="terminate-and-login"/></a>
                                     </div>
                                     <form class="form" method="post" action="log-in">
                                         <div class="col-md-11 form-group">

@@ -13,12 +13,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.stream.Collectors;
@@ -30,7 +32,7 @@ public class DreamfitServlet extends HttpServlet {
         ContextHolder.getLogger().info("Servlet initialization started");
 
         PropertiesContainer.readProperties(this.getClass().getClassLoader());
-        servletConfig.getServletContext().setAttribute("loggedUsers", new HashSet<Long>());
+        servletConfig.getServletContext().setAttribute("loggedUsers", new HashMap<Long, HttpSession>());
         servletConfig.getServletContext().setAttribute("page-size", servletConfig.getInitParameter("page-size"));
 
         initAndInjectServicesIntoContext();

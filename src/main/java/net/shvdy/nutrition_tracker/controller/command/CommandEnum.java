@@ -20,6 +20,9 @@ public enum CommandEnum {
     LOGIN(
             new Login(), "/log-in",
             Set.of(Role.GUEST)),
+    LOGIN_EXISTING_SESSION(
+            new LoginExistingSession(), "/log-in-existing",
+            Set.of(Role.GUEST)),
     LOGOUT(
             new Logout(), "/logout",
             Set.of(Role.ADMIN, Role.USER)),

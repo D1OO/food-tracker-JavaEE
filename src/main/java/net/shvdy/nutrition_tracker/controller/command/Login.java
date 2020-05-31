@@ -17,33 +17,28 @@ public class Login implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        LoginDTO loginDto = buildLoginDto(request);
+        LoginDTO loginDTO = new LoginDTO( request.getParameter("username"), request.getParameter("password"));
         UserDTO user;
 
         try {
             user = ContextHolder.getUserService()
-                    .findByLoginDTO(loginDto, Locale.forLanguageTag((String) request.getSession().getAttribute("lang")));
-        } catch (UserNotFoundException | InvalidPasswordException |
-                SQLException | NullPointerException e) {
-            e.printStackTrace();
+                    .findByLoginDTO(loginDTO, Locale.forLanguageTag((String) request.getSession().getAttribute("lang")));
+        } catch (UserNotFoundException | InvalidPasswordException | SQLException | NullPointerException e) {
             ContextHolder.getLogger().warn("User log in error: " + e.getMessage());
             return "redirect:/login?error";
         }
 
         if (SecurityUtility.checkIsLoginNOTFresh(request, user.getUserId())) {
             ContextHolder.getLogger().warn("Session duplication try ID=: " + user.getUserId());
+            request.getSession().setAttribute("user", user);
+            request.getSession().setAttribute("user.userId", user.getUserId());
             return "redirect:/login?session-exists";
         }
 
+        SecurityUtility.createNewSessionForUserId(request, user.getUserId());
         SecurityUtility.setSessionInfo(request, user);
 
         return CommandEnum.REDIRECT_HOME.getActionCommand().execute(request, response);
     }
 
-    private LoginDTO buildLoginDto(HttpServletRequest request) {
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-
-        return new LoginDTO(username, password);
-    }
 }
