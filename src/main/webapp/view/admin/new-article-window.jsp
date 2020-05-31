@@ -20,16 +20,12 @@
                             <div class="form-group col-md-11">
                                 <label class="control-label" for="name"><fmt:message key="article.titleEN"/></label>
                                 <input class="form-control"
-                                       data-msg="Enter a valid first name"
-                                       data-rule="firstnameexp" id="name"
                                        name="titleEN"/>
                                 <div class="validate"></div>
                             </div>
                             <div class="form-group col-md-11">
                                 <label class="control-label" for="name"><fmt:message key="article.titleRU"/></label>
                                 <input class="form-control"
-                                       data-msg="Enter a valid first name"
-                                       data-rule="firstnameexp" id="name"
                                        name="titleRU"/>
                                 <div class="validate"></div>
                             </div>
@@ -39,8 +35,6 @@
                                 <label class="control-label" for="article-image"><fmt:message
                                         key="article.image"/></label>
                                 <input class="form-control-file"
-                                       data-msg="Enter a valid last name"
-                                       data-rule="lastnameexp" id="article-image"
                                        type="file"
                                        name="image"/>
                             </div>
@@ -49,8 +43,6 @@
                     <div class="form-group col-md-11">
                         <label class="control-label" for="fats"><fmt:message key="article.textEN"/></label>
                         <textarea class="form-control"
-                                  data-msg="Enter a valid first name"
-                                  data-rule="firstnameexp" id="fats"
                                   type="text" style="width: 740px; height: 380px"
                                   name="textEN"></textarea>
                         <div class="validate"></div>
@@ -58,8 +50,6 @@
                     <div class="form-group col-md-11">
                         <label class="control-label" for="fats"><fmt:message key="article.textRU"/></label>
                         <textarea class="form-control"
-                                  data-msg="Enter a valid first name"
-                                  data-rule="firstnameexp" id="fats"
                                   type="text" style="width: 740px; height: 380px"
                                   name="textRU"></textarea>
                         <div class="validate"></div>

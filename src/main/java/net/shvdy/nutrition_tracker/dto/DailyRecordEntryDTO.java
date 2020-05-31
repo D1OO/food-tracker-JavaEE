@@ -13,6 +13,7 @@ import net.shvdy.nutrition_tracker.model.entity.Food;
 public class DailyRecordEntryDTO {
     private Food food;
     private int quantity;
+    private String quantityError;
     private String foodDTOJSON;
     private String foodName;
     private int entryCalories;
@@ -102,8 +103,15 @@ public class DailyRecordEntryDTO {
         this.foodName = foodName;
     }
 
+    public String getQuantityError() {
+        return quantityError;
+    }
+
+    public void setQuantityError(String quantityError) {
+        this.quantityError = quantityError;
+    }
+
     public String toString() {
-        //Jackson (Java object to JSON String mapping)
         ObjectMapper mapper = new ObjectMapper();
         try {
             return mapper.writeValueAsString(this);

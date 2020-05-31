@@ -103,9 +103,13 @@ function saveNewEntries() {
             }
         },
         success: function (response) {
-            closeAddFoodModalWindow();
-            $("#entriesSavedSuccessBox").show(200);
-            loadFromServerIntoContentContainer('food-diary');
+            if (response.length > 0) {
+                $('#new-entries-container').html(response);
+            } else {
+                closeAddFoodModalWindow();
+                $("#entriesSavedSuccessBox").show(200);
+                loadFromServerIntoContentContainer('food-diary');
+            }
         }
     });
 }

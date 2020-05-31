@@ -33,6 +33,9 @@
                     <td>
                         <a class="modal-remove-entry mt-2" type="button">x</a>
                     </td>
+                    <td class="col-3" style=" font-size:0.85rem; color: darkred">
+                        <p>${newEntriesDTO.entries[loop.index].quantityError}</p>
+                    </td>
                 </tr>
             </c:forEach>
         </table>

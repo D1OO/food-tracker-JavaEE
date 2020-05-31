@@ -16,7 +16,6 @@ public class NewEntriesDTO {
     private Long profileId;
     private String recordDate;
     private int currentDailyCaloriesNorm;
-    //    private String newEntriesContainerJSON;
     private List<DailyRecordEntryDTO> entries;
 
     public NewEntriesDTO() {
@@ -77,7 +76,6 @@ public class NewEntriesDTO {
 
     @Override
     public String toString() {
-        //Jackson (Java object to JSON String mapping)
         ObjectMapper mapper = new ObjectMapper();
         try {
             return mapper.writeValueAsString(this);
