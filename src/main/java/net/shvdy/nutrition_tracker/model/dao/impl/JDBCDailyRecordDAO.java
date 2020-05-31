@@ -30,14 +30,15 @@ public class JDBCDailyRecordDAO implements DailyRecordDAO {
 		this.queries = queries;
 	}
 
-	public List<DailyRecord> findFromDateByQuantity(String recordDate, int quantity, Long profileId) throws SQLException {
+	public List<DailyRecord> findByDatePeriodAndQuantity(Long profileId, String periodStartDate, String periodEndDate)
+			throws SQLException {
 		try (Connection connection = dataSource.getConnection();
 			 PreparedStatement statement = connection
-					 .prepareStatement(queries.getProperty("daily_record_dao.SELECT_BY_DATE_AND_QUANTITY"))) {
+					 .prepareStatement(queries.getProperty("daily_record_dao.SELECT_BY_DATE_PERIOD_AND_QUANTITY"))) {
 
 			statement.setLong(1, profileId);
-			statement.setString(2, recordDate);
-			statement.setInt(3, quantity);
+			statement.setString(2, periodStartDate);
+			statement.setString(3, periodEndDate);
 
 			return resultSetMapper.map(statement.executeQuery());
 		}
