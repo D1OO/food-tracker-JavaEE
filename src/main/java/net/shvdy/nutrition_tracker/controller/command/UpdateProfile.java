@@ -2,9 +2,7 @@ package net.shvdy.nutrition_tracker.controller.command;
 
 import net.shvdy.nutrition_tracker.PropertiesContainer;
 import net.shvdy.nutrition_tracker.controller.ContextHolder;
-import net.shvdy.nutrition_tracker.controller.command.utils.SecurityUtility;
 import net.shvdy.nutrition_tracker.controller.command.utils.Validator;
-import net.shvdy.nutrition_tracker.dto.UserDTO;
 import net.shvdy.nutrition_tracker.dto.UserProfileDTO;
 import net.shvdy.nutrition_tracker.model.entity.UserProfile;
 
@@ -34,7 +32,7 @@ public class UpdateProfile implements ActionCommand {
                             Locale.forLanguageTag((String) request.getSession().getAttribute("lang"))));
             return "json:" + "{ \"url\": \"/profile?save-success\"}";
         } else {
-            return "json:" + ContextHolder.getJacksonObjectMapper().writeValueAsString(formErrors);
+            return "json:" + ContextHolder.getObjectMapper().writeValueAsString(formErrors);
         }
     }
 

@@ -13,7 +13,7 @@ public class ConnectionPoolHolder {
             synchronized (ConnectionPoolHolder.class) {
                 if (dataSource == null) {
                     InitialContext context = new InitialContext();
-                    dataSource = (DataSource) context.lookup("java:comp/env/jdbc/food_tracker");
+                    dataSource = (DataSource) context.lookup("java:comp/env/jdbc/nutrition_tracker");
                 }
             }
         }

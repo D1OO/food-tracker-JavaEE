@@ -31,7 +31,7 @@ public class SaveNewFood implements ActionCommand {
             return "ok";
         } else {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            return "json:" + ContextHolder.getJacksonObjectMapper().writeValueAsString(errors);
+            return "json:" + ContextHolder.getObjectMapper().writeValueAsString(errors);
         }
     }
 

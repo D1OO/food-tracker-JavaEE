@@ -25,7 +25,7 @@ public class Register implements ActionCommand {
             ContextHolder.getUserService().save(getUser(request));
             return "json:" + "{ \"url\": \"/login?signedup\"}";
         } else {
-            return "json:" + ContextHolder.getJacksonObjectMapper().writeValueAsString(formErrors);
+            return "json:" + ContextHolder.getObjectMapper().writeValueAsString(formErrors);
         }
     }
 

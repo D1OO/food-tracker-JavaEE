@@ -44,12 +44,12 @@ public class NewEntriesDTOReader {
 
     private static NewEntriesDTO readDTO(HttpServletRequest request) throws IOException {
         String newEntriesDTOJSON = request.getParameter("newEntriesDTOJSON");
-        return ContextHolder.getJacksonObjectMapper().readValue(newEntriesDTOJSON, NewEntriesDTO.class);
+        return ContextHolder.getObjectMapper().readValue(newEntriesDTOJSON, NewEntriesDTO.class);
     }
 
     private static List<DailyRecordEntryDTO> readList(HttpServletRequest request) throws IOException {
         String newEntriesListJSON = request.getParameter("newEntriesJSON");
-        return ContextHolder.getJacksonObjectMapper()
+        return ContextHolder.getObjectMapper()
                 .readValue(newEntriesListJSON, new TypeReference<ArrayList<DailyRecordEntryDTO>>() {
                 });
     }

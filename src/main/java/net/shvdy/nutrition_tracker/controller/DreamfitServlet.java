@@ -4,7 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import net.shvdy.nutrition_tracker.PropertiesContainer;
 import net.shvdy.nutrition_tracker.controller.command.CommandEnum;
 import net.shvdy.nutrition_tracker.controller.command.PostEndpoint;
-import net.shvdy.nutrition_tracker.model.service.*;
+import net.shvdy.nutrition_tracker.model.dao.DAOFactory;
+import net.shvdy.nutrition_tracker.model.service.ServiceFactory;
 import org.apache.logging.log4j.LogManager;
 
 import javax.naming.NamingException;
@@ -35,7 +36,13 @@ public class DreamfitServlet extends HttpServlet {
         servletConfig.getServletContext().setAttribute("loggedUsers", new HashMap<Long, HttpSession>());
         servletConfig.getServletContext().setAttribute("page-size", servletConfig.getInitParameter("page-size"));
 
-        initAndInjectServicesIntoContext();
+        try {
+            initAndInjectServicesIntoContextHolder();
+        } catch (NamingException e) {
+            ContextHolder.getLogger().error("Services initialization failed (DataSource lookup fail):\n" + e);
+        }
+
+        ContextHolder.injectObjectMapper(new ObjectMapper());
 
         CommandEnum.setPostEndpoints(new HashSet<>(Arrays.stream(CommandEnum.values())
                 .filter(c -> c.getActionCommand().getClass().isAnnotationPresent(PostEndpoint.class))
@@ -49,7 +56,7 @@ public class DreamfitServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         setDateForLocale(request);
-        if (checkGETRequestToOnlyPOSTEndpoint(request))
+        if (CommandEnum.getPostEndpoints().contains(request.getRequestURI()))
             request.getRequestDispatcher("/view/not_found.jsp").forward(request, response);
         else
             processResponse(request, response);
@@ -79,16 +86,10 @@ public class DreamfitServlet extends HttpServlet {
         try {
             return CommandEnum.getByURI(request.getRequestURI()).execute(request, response);
         } catch (Exception e) {
-            e.printStackTrace();
-            ContextHolder.getLogger().error("Command threw an exception: " + e.getMessage());
-            request.getSession().setAttribute("error-message", e.getMessage());
+            ContextHolder.getLogger().error("Command threw an exception: " + e);
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             return CommandEnum.SERVER_ERROR.getPath();
         }
-    }
-
-    private boolean checkGETRequestToOnlyPOSTEndpoint(HttpServletRequest request) {
-        return CommandEnum.getPostEndpoints().contains(request.getRequestURI());
     }
 
     private void respondWithJSON(HttpServletResponse response, String JSONString) throws IOException {
@@ -99,39 +100,19 @@ public class DreamfitServlet extends HttpServlet {
         out.flush();
     }
 
-    private void initAndInjectServicesIntoContext() {
-        UserService userService = null;
-        DailyRecordService dailyRecordService = null;
-        FoodService foodService = null;
-        ArticleService articleService = null;
-
-        try {
-            userService = ServiceFactory.userService();
-        } catch (IOException | NamingException e) {
-            ContextHolder.getLogger().error(e.getMessage() + "User Service initialization failed");
-        }
-        try {
-            dailyRecordService = ServiceFactory.dailyRecordService();
-        } catch (IOException | NamingException e) {
-            ContextHolder.getLogger().error(e.getMessage() + "DailyRecord Service initialization failed");
-        }
-        try {
-            foodService = ServiceFactory.foodService();
-        } catch (IOException | NamingException e) {
-            ContextHolder.getLogger().error(e.getMessage() + "Food Service initialization failed");
-        }
-        try {
-            articleService = ServiceFactory.articleService();
-        } catch (IOException | NamingException e) {
-            ContextHolder.getLogger().error(e.getMessage() + "Article Service initialization failed");
-        }
-
-        ContextHolder.injectServices(userService, dailyRecordService, foodService, articleService, new ObjectMapper());
-    }
-
     private void setDateForLocale(HttpServletRequest request) {
         Locale locale = Locale.forLanguageTag((String) request.getSession().getAttribute("lang"));
         request.getServletContext().setAttribute("localizedDate",
                 LocalDate.now().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG).withLocale(locale)));
     }
+
+    private void initAndInjectServicesIntoContextHolder() throws NamingException {
+        ServiceFactory.injectDaoFactory(DAOFactory.getJDBCInstance());
+        ContextHolder.injectServices(
+                ServiceFactory.userService(),
+                ServiceFactory.dailyRecordService(),
+                ServiceFactory.foodService(),
+                ServiceFactory.articleService());
+    }
+
 }

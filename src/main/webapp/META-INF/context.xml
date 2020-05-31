@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 
 <Context>
-    <Resource name="jdbc/food_tracker"
+    <Resource name="jdbc/nutrition_tracker"
               auth="Container"
               type="javax.sql.DataSource"
               maxIdle="50"

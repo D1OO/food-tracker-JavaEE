@@ -38,7 +38,7 @@ public class ContextHolder {
 		return articleService;
 	}
 
-	public static ObjectMapper getJacksonObjectMapper() {
+	public static ObjectMapper getObjectMapper() {
 		return jacksonObjectMapper;
 	}
 
@@ -49,12 +49,14 @@ public class ContextHolder {
 	public static void injectServices(UserService userService,
 									  DailyRecordService dailyRecordService,
 									  FoodService foodService,
-									  ArticleService articleService,
-									  ObjectMapper jacksonObjectMapper) {
+									  ArticleService articleService) {
 		ContextHolder.userService = userService;
 		ContextHolder.dailyRecordService = dailyRecordService;
 		ContextHolder.foodService = foodService;
 		ContextHolder.articleService = articleService;
+	}
+
+	public static void injectObjectMapper(ObjectMapper jacksonObjectMapper) {
 		ContextHolder.jacksonObjectMapper = jacksonObjectMapper;
 	}
 

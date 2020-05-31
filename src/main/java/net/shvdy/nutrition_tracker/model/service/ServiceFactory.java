@@ -9,21 +9,27 @@ import net.shvdy.nutrition_tracker.model.service.mapper.UserEntityMapper;
 import javax.naming.NamingException;
 import java.io.IOException;
 
-public class ServiceFactory {
+public abstract class ServiceFactory {
 
-    public static UserService userService() throws IOException, NamingException {
-        return new UserService(DAOFactory.getJDBCInstance().getUserDAO(), new UserEntityMapper());
+    private static DAOFactory daoFactory;
+
+    public static void injectDaoFactory(DAOFactory daoFactory) {
+        ServiceFactory.daoFactory = daoFactory;
     }
 
-    public static DailyRecordService dailyRecordService() throws IOException, NamingException {
-        return new DailyRecordService(DAOFactory.getJDBCInstance().getDailyRecordDAO(), new DailyRecordEntityMapper());
+    public static UserService userService() {
+        return new UserService(daoFactory.getUserDAO(), new UserEntityMapper());
     }
 
-    public static FoodService foodService() throws IOException, NamingException {
-        return new FoodService(DAOFactory.getJDBCInstance().getFoodDAO(), new FoodEntityMapper());
+    public static DailyRecordService dailyRecordService()  {
+        return new DailyRecordService(daoFactory.getDailyRecordDAO(), new DailyRecordEntityMapper());
     }
 
-    public static ArticleService articleService() throws IOException, NamingException {
-        return new ArticleService(DAOFactory.getJDBCInstance().getArticleDAO(), new ArticleEntityMapper());
+    public static FoodService foodService() {
+        return new FoodService(daoFactory.getFoodDAO(), new FoodEntityMapper());
+    }
+
+    public static ArticleService articleService() {
+        return new ArticleService(daoFactory.getArticleDAO(), new ArticleEntityMapper());
     }
 }

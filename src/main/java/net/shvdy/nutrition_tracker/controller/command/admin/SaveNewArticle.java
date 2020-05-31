@@ -37,7 +37,7 @@ public class SaveNewArticle implements ActionCommand {
             return "/view/fragments/feed.jsp";
         } else {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            return "json:" + ContextHolder.getJacksonObjectMapper().writeValueAsString(errors);
+            return "json:" + ContextHolder.getObjectMapper().writeValueAsString(errors);
         }
     }
 

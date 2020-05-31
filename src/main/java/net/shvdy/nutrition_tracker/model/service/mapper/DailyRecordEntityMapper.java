@@ -49,7 +49,7 @@ public class DailyRecordEntityMapper {
 
     private <T> T readFromJSONString(String jsonString, Class<T> type) {
         try {
-            return ContextHolder.getJacksonObjectMapper().readValue(jsonString, type);
+            return ContextHolder.getObjectMapper().readValue(jsonString, type);
         } catch (IOException e) {
             ContextHolder.getLogger().error(e.getMessage());
             throw new RuntimeException();
