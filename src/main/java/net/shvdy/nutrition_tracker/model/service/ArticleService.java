@@ -32,11 +32,11 @@ public class ArticleService {
     }
 
     public List<ArticleDTO> findPaginatedForLocale(Locale locale) throws SQLException {
-        return articleEntityMapper.entityListToDTO(articleDAO.findPaginatedLocalised(locale));
+        return articleEntityMapper.entityListToDTO(articleDAO.findPaginatedLocalised(locale), locale);
     }
 
     public ArticleDTO findByIDForLocale(int articleId, Locale locale) throws SQLException {
-        return articleEntityMapper.entityToDTO(articleDAO.findByIDLocalised(articleId, locale));
+        return articleEntityMapper.entityToDTO(articleDAO.findByIDLocalised(articleId, locale), locale);
     }
 
     public List<ArticleDTO> findRandomForLocale(Locale locale) throws SQLException {

@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Base64;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 /**
@@ -21,14 +22,14 @@ import java.util.stream.Collectors;
  */
 public class ArticleEntityMapper {
 
-    public List<ArticleDTO> entityListToDTO(List<Article> articleList) {
-        return articleList.stream().map(this::entityToDTO).collect(Collectors.toList());
+    public List<ArticleDTO> entityListToDTO(List<Article> articleList, Locale locale) {
+        return articleList.stream().map(x-> entityToDTO(x, locale)).collect(Collectors.toList());
     }
 
-    public ArticleDTO entityToDTO(Article article) {
+    public ArticleDTO entityToDTO(Article article, Locale locale) {
         return ArticleDTO.builder().articleId(article.getArticleId())
                 .authorName(article.getAuthorFirstName() + article.getAuthorLastName())
-                .date(readDateString(article.getDate()))
+                .date(readDateString(article.getDate(), locale))
                 .titleLocalisation(article.getTitleLocalisation())
                 .textLocalisation(article.getTextLocalisation())
                 .base64Image(getBase64String(article.getImage()))
@@ -44,9 +45,9 @@ public class ArticleEntityMapper {
         }
     }
 
-    private String readDateString(String string) {
+    private String readDateString(String string, Locale locale) {
         LocalDateTime date = LocalDateTime.parse(string, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        return date.format(DateTimeFormatter.ofPattern("d MMM kk:mm"));
+        return date.format(DateTimeFormatter.ofPattern("d MMM kk:mm", locale));
     }
 
     private String readImageString(InputStream inputStream) throws IOException {
