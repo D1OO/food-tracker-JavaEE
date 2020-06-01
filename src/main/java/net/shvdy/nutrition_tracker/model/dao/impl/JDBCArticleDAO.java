@@ -72,13 +72,18 @@ public class JDBCArticleDAO implements ArticleDAO {
     }
 
     @Override
-    public Article findByIDLocalised(int articleId, Locale locale) throws SQLException {
+    public Optional<Article> findByIDLocalised(int articleId, Locale locale) throws SQLException {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection
                      .prepareStatement(setLocaleColumnParameter(queries.getProperty("article_dao.SELECT_BY_ID"), locale))) {
 
             statement.setInt(1, articleId);
-            return EntityExtractor.extractArticle(statement.executeQuery(), locale);
+
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return Optional.of(EntityExtractor.extractArticle(resultSet, locale));
+            }
+            return Optional.empty();
         }
     }
 

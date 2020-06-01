@@ -17,7 +17,7 @@
             <div class="d-inline-block" style="height: 100%; width: 100%">
                 <div class="d-flex flex-grow-1 justify-content-center align-items-center mt-2"
                      data-aos="fade-zoom-in" data-aos-offset="0"
-                     style="height: 100%; width: 100%; background-image: url('static/img/1189764.jpg'); background-size: cover; border: 1px solid #b8b8b8; border-radius: 0.5rem;">
+                     style="height: 100%; width: 100%; background-image: url('/static/img/1189764.jpg'); background-size: cover; border: 1px solid #b8b8b8; border-radius: 0.5rem;">
                     <div class="maincontent d-flex flex-nowrap p-lg-3"
                          style="box-shadow: 0px 0px 45px -5px rgba(0,0,0,0.68); border: 5px solid rgba(31,171,0,0.27); border-radius: 0.5rem; background: white">
                         <div class="mr-auto">
@@ -44,7 +44,7 @@
                                     <form class="form" method="post" action="log-in">
                                         <div class="col-md-11 form-group">
                                             <label for="email">E-mail</label>
-                                            <input class="form-control"
+                                            <input class="form-control required"
                                                    data-msg="Incorrect email"
                                                    data-rule="email"
                                                    id="email"
@@ -53,7 +53,7 @@
                                         </div>
                                         <div class="col-md-11 form-group">
                                             <label for="password">Password</label>
-                                            <input class="form-control"
+                                            <input class="form-control required"
                                                    data-msg="Enter a valid password <br>((8+ digit or latin characters)"
                                                    data-rule="pwrd"
                                                    id="password"

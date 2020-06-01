@@ -29,14 +29,7 @@ body {
     top: 0;
 }
 
-
-#navbar2 {
-    padding-top: 0;
-    padding-bottom: 0;
-    line-height: 1.0
-}
-
-#navbar2 h1 {
+.navbar-light h1 {
     line-height: 1.0
 }
 
@@ -365,10 +358,6 @@ p {
 #justatest {
     background-color: #323232;
     color: #feff51;
-}
-
-#navbar2 {
-    /*margin-bottom: 1rem;*/
 }
 
 a:hover {
@@ -712,6 +701,11 @@ h6,
 .navbar-light {
     background: rgb(238, 174, 202);
     background: linear-gradient(338deg, rgba(238, 174, 202, 1) 0%, rgba(148, 187, 233, 1) 100%);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding-top: 0;
+    padding-bottom: 0;
+    line-height: 1.0
 }
 
 .navbar-brand {
@@ -721,6 +715,12 @@ h6,
 .top-container {
     background: rgb(238, 174, 202);
     background: linear-gradient(338deg, rgba(238, 174, 202, 1) 0%, rgba(148, 187, 233, 1) 100%);
+    padding: 0;
+    margin-bottom: 0.1rem;
+    border: 5px none rgba(217, 255, 166, 0.53);
+    border-bottom-style: solid;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
 }
 
 .custom-navmenu .custom-menu,
@@ -861,6 +861,8 @@ h6,
     background: linear-gradient(198deg, rgba(168, 168, 168, 0.4471988624551383) 1%, rgba(216, 255, 158, 0.4612044646960347) 54%, rgba(158, 238, 175, 0.6964985823430935) 93%);
     border-top: 2px rgba(40, 0, 169, 0.34);
     border: 4px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
 
 .footer a {

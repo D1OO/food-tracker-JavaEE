@@ -2,10 +2,7 @@ package net.shvdy.nutrition_tracker.controller.command.utils;
 
 import net.shvdy.nutrition_tracker.dto.UserDTO;
 import net.shvdy.nutrition_tracker.model.entity.UserProfile;
-import org.mindrot.jbcrypt.BCrypt;
 
-import javax.servlet.Servlet;
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
@@ -48,10 +45,6 @@ public class SecurityUtility {
             request.getSession().setAttribute("sectionToFetchWithAJAX", section + params);
             return "/view/" + request.getSession().getAttribute("user.role").toString().toLowerCase() + ".jsp";
         }
-    }
-
-    public static String bCryptHash(String data) {
-        return BCrypt.hashpw(data, BCrypt.gensalt(10));
     }
 
 }

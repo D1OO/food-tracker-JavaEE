@@ -4,10 +4,8 @@
 <fmt:setLocale value="${sessionScope.lang}"/>
 <fmt:setBundle basename="i18n/messages"/>
 
-<div class="top-container container"
-     style="padding: 0; margin-bottom: 0.1rem; border: 5px solid rgba(217,255,166,0.53);
-      border-top: none ; border-right: none ; border-left: none">
-    <nav class="navbar navbar-light custom-navbar pt-2" id="navbar2">
+<div class="top-container container">
+    <nav class="navbar navbar-light custom-navbar pt-2">
         <div class="container px-0">
             <div class="align-self-start d-inline-flex mt-sm-1">
                 <span class="font-rubick navbar-light p-lg-2 mr-lg-5 "

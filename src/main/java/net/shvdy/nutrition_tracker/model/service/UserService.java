@@ -1,47 +1,46 @@
 package net.shvdy.nutrition_tracker.model.service;
 
-import net.shvdy.nutrition_tracker.dto.LoginDTO;
 import net.shvdy.nutrition_tracker.dto.UserDTO;
 import net.shvdy.nutrition_tracker.dto.UserProfileDTO;
 import net.shvdy.nutrition_tracker.model.dao.UserDAO;
 import net.shvdy.nutrition_tracker.model.entity.User;
-import net.shvdy.nutrition_tracker.model.exception.InvalidPasswordException;
-import net.shvdy.nutrition_tracker.model.exception.UserNotFoundException;
+import net.shvdy.nutrition_tracker.model.exception.BadCredentialsException;
 import net.shvdy.nutrition_tracker.model.service.mapper.UserEntityMapper;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.SQLException;
 import java.util.Locale;
 
 public class UserService {
 
-	private UserDAO userDao;
-	private UserEntityMapper entityMapper;
+    private UserDAO userDao;
+    private UserEntityMapper entityMapper;
 
-	public UserService(UserDAO userDao, UserEntityMapper entityMapper) {
-		this.userDao = userDao;
-		this.entityMapper = entityMapper;
-	}
+    public UserService(UserDAO userDao, UserEntityMapper entityMapper) {
+        this.userDao = userDao;
+        this.entityMapper = entityMapper;
+    }
 
-	public void save(User user) throws SQLException {
-		userDao.create(user);
-	}
+    public void save(User user) throws SQLException {
+        userDao.create(user);
+    }
 
-	public void updateProfile(UserProfileDTO userProfileDTO) throws SQLException {
-		userDao.updateProfile(entityMapper.userProfileDTOToEntity(userProfileDTO));
-	}
+    public void updateProfile(UserProfileDTO userProfileDTO) throws SQLException {
+        userDao.updateProfile(entityMapper.userProfileDTOToEntity(userProfileDTO));
+    }
 
-	public UserDTO findByUsernameLocalised(String username, Locale locale) throws SQLException {
-		return entityMapper.entityToDTO(userDao.findByUsernameLocalised(username, locale)
-				.orElseThrow(() -> new UserNotFoundException(String.format("Username '%s' not found", username))));
-	}
+    public UserDTO findByUsernameLocalised(String username, Locale locale) throws SQLException, BadCredentialsException {
+        return entityMapper.entityToDTO(userDao.findByUsernameLocalised(username, locale)
+                .orElseThrow(() -> new BadCredentialsException(String.format("Username '%s' not found", username))));
+    }
 
-	public UserDTO findAndCheckCredentials(LoginDTO loginDTO, Locale locale) throws SQLException, UserNotFoundException, InvalidPasswordException {
-		User user = userDao.findByUsernameLocalised(loginDTO.getUsername(), locale)
-				.orElseThrow(() -> new UserNotFoundException(String.format("Username '%s' not found", loginDTO.getUsername())));
-		if (!loginDTO.getPassword().equals(user.getPassword())) {
-			throw new InvalidPasswordException();
-		}
-		return entityMapper.entityToDTO(user);
-	}
+    public UserDTO findByUsernameVerifyPassword(String username, String password, Locale locale)
+            throws SQLException, BadCredentialsException {
+        User user = userDao.findByUsernameLocalised(username, locale)
+                .orElseThrow(() -> new BadCredentialsException(String.format("username '%s' not found", username)));
+        if (!BCrypt.checkpw(password, user.getPassword()))
+            throw new BadCredentialsException(String.format("wrong password for username: %s", username));
+        return entityMapper.entityToDTO(user);
+    }
 
 }

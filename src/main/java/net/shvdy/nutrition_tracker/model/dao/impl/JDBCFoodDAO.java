@@ -54,7 +54,13 @@ public class JDBCFoodDAO implements FoodDAO {
             insertFoodForProfileStatement.setLong(2, generatedFoodId);
             insertFoodForProfileStatement.executeUpdate();
 
-            connection.commit();
+            try {
+                connection.commit();
+            } catch (SQLException e) {
+                connection.rollback();
+                throw e;
+            }
+
             return generatedFoodId;
         }
 

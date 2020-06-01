@@ -5,7 +5,7 @@ $(document).ready(function () {
     });
 
     $(".locale").click(function (event) {
-        var selectedOption = event.target.id;
+        let selectedOption = event.target.id;
         if (selectedOption != '') {
             location.replace('/lang?lang=' + selectedOption);
         }
@@ -14,11 +14,10 @@ $(document).ready(function () {
     $('.slink-container').hover(function () {
         $(this).css("text-decoration", "underline");
     }, function () {
-        // on mouseout, reset the background colour
         $(this).css("text-decoration", "none");
     });
 
-    $('.form-control').keyup(function () {
+    $('.form-control.required').keyup(function () {
         if (allFilled()) {
             $('.pretty-button').removeAttr('disabled')
         } else {
@@ -27,8 +26,8 @@ $(document).ready(function () {
     });
 
     function allFilled() {
-        var filled = true;
-        $('.form-control').each(function () {
+        let filled = true;
+        $('.form-control.required').each(function () {
             if ($(this).val() == '') filled = false;
         });
         return filled;

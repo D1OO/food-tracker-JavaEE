@@ -17,7 +17,7 @@
             <div class="d-inline-block" style="height: 100%; width: 100%">
                 <div class="d-flex flex-grow-1 justify-content-center align-items-center mt-2"
                      data-aos="fade-zoom-in" data-aos-offset="0"
-                     style="height: 100%; width: 100%; background-image: url('static/img/271678.jpg'); background-size: cover; border: 1px solid #b8b8b8; border-radius: 0.5rem;">
+                     style="height: 100%; width: 100%; background-image: url('/static/img/271678.jpg'); background-size: cover; border: 1px solid #b8b8b8; border-radius: 0.5rem;">
                     <div class="maincontent d-flex flex-nowrap p-lg-3"
                          style="box-shadow: 0px 0px 45px -5px rgba(0,0,0,0.68); border: 5px solid rgba(171,9,78,0.31); border-radius: 0.5rem; background: white">
                         <div class="mr-auto">
@@ -37,7 +37,7 @@
                                         <div class="form-group col-md-11">
                                             <label class="control-label" for="username"><fmt:message
                                                     key="login.email"/></label>
-                                            <input class="form-control"
+                                            <input class="form-control required"
                                                    data-msg="Incorrect email"
                                                    data-rule="email" id="username"
                                                    name="username"/>
@@ -46,7 +46,7 @@
                                         <div class="form-group col-md-11">
                                             <label class="control-label" for="password"><fmt:message
                                                     key="login.password"/></label>
-                                            <input class="form-control"
+                                            <input class="form-control required"
                                                    data-msg="Enter a valid password <br>(8+ digit or latin characters)"
                                                    data-rule="pwrd" id="password"
                                                    name="password"
@@ -57,7 +57,7 @@
                                         <div class="form-group col-md-11">
                                             <label class="control-label" for="firstNameEN"><fmt:message
                                                     key="login.first-name.en"/></label>
-                                            <input class="form-control"
+                                            <input class="form-control required"
                                                    data-msg="Enter a valid first name"
                                                    data-rule="firstnameexp" id="firstNameEN"
                                                    name="firstNameEN"/>
@@ -77,7 +77,7 @@
                                         <div class="form-group col-md-11">
                                             <label class="control-label" for="userProfile.lastName"><fmt:message
                                                     key="login.last-name"/></label>
-                                            <input class="form-control"
+                                            <input class="form-control required"
                                                    data-msg="Enter a valid last name"
                                                    data-rule="lastnameexp" id="userProfile.lastName"
                                                    name="lastName"/>

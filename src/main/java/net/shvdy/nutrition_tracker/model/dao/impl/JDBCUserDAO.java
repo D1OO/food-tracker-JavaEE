@@ -41,7 +41,12 @@ public class JDBCUserDAO implements UserDAO {
             insertUserProfile.setString(4, user.getUserProfile().getLastName());
             insertUserProfile.executeUpdate();
 
-            connection.commit();
+            try {
+                connection.commit();
+            } catch (SQLException e) {
+                connection.rollback();
+                throw e;
+            }
         }
     }
 

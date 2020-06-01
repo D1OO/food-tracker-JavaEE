@@ -2,10 +2,8 @@ package net.shvdy.nutrition_tracker.controller.command;
 
 import net.shvdy.nutrition_tracker.controller.ContextHolder;
 import net.shvdy.nutrition_tracker.controller.command.utils.SecurityUtility;
-import net.shvdy.nutrition_tracker.dto.LoginDTO;
 import net.shvdy.nutrition_tracker.dto.UserDTO;
-import net.shvdy.nutrition_tracker.model.exception.InvalidPasswordException;
-import net.shvdy.nutrition_tracker.model.exception.UserNotFoundException;
+import net.shvdy.nutrition_tracker.model.exception.BadCredentialsException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,14 +15,13 @@ public class Login implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        LoginDTO loginDTO = new LoginDTO( request.getParameter("username"), request.getParameter("password"));
         UserDTO user;
-
         try {
-            user = ContextHolder.userService()
-                    .findAndCheckCredentials(loginDTO, Locale.forLanguageTag((String) request.getSession().getAttribute("lang")));
-        } catch (UserNotFoundException | InvalidPasswordException | SQLException | NullPointerException e) {
-            ContextHolder.logger().warn("User login error: " + e.getMessage());
+            user = ContextHolder.userService().findByUsernameVerifyPassword(request.getParameter("username"),
+                    request.getParameter("password"),
+                    Locale.forLanguageTag((String) request.getSession().getAttribute("lang")));
+        } catch (SQLException | BadCredentialsException e) {
+            ContextHolder.logger().warn("Bad login try: " + e.getMessage());
             return "redirect:/login?error";
         }
 

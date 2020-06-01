@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 
 /**
  * 25.05.2020
@@ -19,5 +20,5 @@ public interface ArticleDAO extends GenericDAO<Article> {
 
     List<Article> findPaginatedLocalised(Locale locale) throws SQLException;
 
-    Article findByIDLocalised(int articleID, Locale locale) throws SQLException;
+    Optional<Article> findByIDLocalised(int articleID, Locale locale) throws SQLException;
 }

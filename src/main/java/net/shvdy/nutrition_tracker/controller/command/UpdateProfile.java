@@ -26,7 +26,7 @@ public class UpdateProfile implements ActionCommand {
                 PropertiesContainer.JSONProperties.USER_PROFILE_FORM_VALIDATION_DATA.getFormFieldsValidationData());
 
         if (formErrors.isEmpty()) {
-            UserProfileDTO updatedProfile = getProfile(request);
+            UserProfileDTO updatedProfile = getProfileDTO(request);
             ContextHolder.userService().updateProfile(updatedProfile);
             request.getSession().setAttribute("user", ContextHolder.userService()
                     .findByUsernameLocalised((String) request.getSession().getAttribute("user.username"),
@@ -37,7 +37,7 @@ public class UpdateProfile implements ActionCommand {
         }
     }
 
-    private UserProfileDTO getProfile(HttpServletRequest request) {
+    private UserProfileDTO getProfileDTO(HttpServletRequest request) {
         return UserProfileDTO.builder()
                 .profileId((Long) request.getSession().getAttribute("user.userId"))
                 .firstNameEN(request.getParameter("firstNameEN"))

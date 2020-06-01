@@ -20,74 +20,79 @@ import java.util.Properties;
  */
 public class JDBCDailyRecordDAO implements DailyRecordDAO {
 
-	private DataSource dataSource;
-	private ResultSetMapper<List<DailyRecord>> resultSetMapper;
-	private final Properties queries;
+    private DataSource dataSource;
+    private ResultSetMapper<List<DailyRecord>> resultSetMapper;
+    private final Properties queries;
 
-	public JDBCDailyRecordDAO(DataSource dataSource, ResultSetMapper<List<DailyRecord>> resultSetMapper,
-							  Properties queries) {
-		this.dataSource = dataSource;
-		this.resultSetMapper = resultSetMapper;
-		this.queries = queries;
-	}
+    public JDBCDailyRecordDAO(DataSource dataSource, ResultSetMapper<List<DailyRecord>> resultSetMapper,
+                              Properties queries) {
+        this.dataSource = dataSource;
+        this.resultSetMapper = resultSetMapper;
+        this.queries = queries;
+    }
 
-	public List<DailyRecord> findByDatePeriodAndQuantity(Long profileId, String periodStartDate, String periodEndDate)
-			throws SQLException {
-		try (Connection connection = dataSource.getConnection();
-			 PreparedStatement statement = connection
-					 .prepareStatement(queries.getProperty("daily_record_dao.SELECT_BY_DATE_PERIOD_AND_QUANTITY"))) {
+    public List<DailyRecord> findByDatePeriodAndQuantity(Long profileId, String periodStartDate, String periodEndDate)
+            throws SQLException {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection
+                     .prepareStatement(queries.getProperty("daily_record_dao.SELECT_BY_DATE_PERIOD_AND_QUANTITY"))) {
 
-			statement.setLong(1, profileId);
-			statement.setString(2, periodStartDate);
-			statement.setString(3, periodEndDate);
+            statement.setLong(1, profileId);
+            statement.setString(2, periodStartDate);
+            statement.setString(3, periodEndDate);
 
-			return resultSetMapper.map(statement.executeQuery());
-		}
-	}
+            return resultSetMapper.map(statement.executeQuery());
+        }
+    }
 
-	public void save(DailyRecord dailyRecord) throws SQLException, NoSuchElementException {
-		try (Connection connection = dataSource.getConnection();
-			 PreparedStatement insertDailyRecord = connection
-					 .prepareStatement(queries.getProperty("daily_record_dao.INSERT_DAILY_RECORD_SQL"),
-							 Statement.RETURN_GENERATED_KEYS);
-			 PreparedStatement insertEntries = connection
-					 .prepareStatement(queries.getProperty("daily_record_dao.INSERT_ENTRIES_SQL"))) {
+    public void save(DailyRecord dailyRecord) throws SQLException, NoSuchElementException {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement insertDailyRecord = connection
+                     .prepareStatement(queries.getProperty("daily_record_dao.INSERT_DAILY_RECORD_SQL"),
+                             Statement.RETURN_GENERATED_KEYS);
+             PreparedStatement insertEntries = connection
+                     .prepareStatement(queries.getProperty("daily_record_dao.INSERT_ENTRIES_SQL"))) {
 
-			connection.setAutoCommit(false);
+            connection.setAutoCommit(false);
 
-			Optional<Long> dailyRecordID = Optional.ofNullable(dailyRecord.getRecordId());
-			setLongOrNull(insertDailyRecord, 1, dailyRecordID);
-			insertDailyRecord.setLong(2, dailyRecord.getUserProfileId());
-			insertDailyRecord.setString(3, dailyRecord.getRecordDate());
-			insertDailyRecord.setInt(4, dailyRecord.getDailyCaloriesNorm());
-			insertDailyRecord.executeUpdate();
+            Optional<Long> dailyRecordID = Optional.ofNullable(dailyRecord.getRecordId());
+            setLongOrNull(insertDailyRecord, 1, dailyRecordID);
+            insertDailyRecord.setLong(2, dailyRecord.getUserProfileId());
+            insertDailyRecord.setString(3, dailyRecord.getRecordDate());
+            insertDailyRecord.setInt(4, dailyRecord.getDailyCaloriesNorm());
+            insertDailyRecord.executeUpdate();
 
-			if (dailyRecordID.isEmpty()) {
-				ResultSet generatedKeys = insertDailyRecord.getGeneratedKeys();
-				if (generatedKeys.next())
-					dailyRecord.setRecordId(generatedKeys.getLong(1));
-			}
+            if (dailyRecordID.isEmpty()) {
+                ResultSet generatedKeys = insertDailyRecord.getGeneratedKeys();
+                if (generatedKeys.next())
+                    dailyRecord.setRecordId(generatedKeys.getLong(1));
+            }
 
-			for (DailyRecordEntry entry : dailyRecord.getEntries()) {
-				insertEntries.setLong(1, entry.getFood().getFoodId());
-				insertEntries.setLong(2, Optional.ofNullable(dailyRecord.getRecordId()).orElseThrow());
-				insertEntries.setInt(3, entry.getQuantity());
-				setLongOrNull(insertEntries, 4, Optional.ofNullable(entry.getEntryId()));
+            for (DailyRecordEntry entry : dailyRecord.getEntries()) {
+                insertEntries.setLong(1, entry.getFood().getFoodId());
+                insertEntries.setLong(2, Optional.ofNullable(dailyRecord.getRecordId()).orElseThrow());
+                insertEntries.setInt(3, entry.getQuantity());
+                setLongOrNull(insertEntries, 4, Optional.ofNullable(entry.getEntryId()));
 
-				insertEntries.addBatch();
-			}
+                insertEntries.addBatch();
+            }
+            insertEntries.executeBatch();
 
-			insertEntries.executeBatch();
-			connection.commit();
-		}
-	}
+            try {
+                connection.commit();
+            } catch (SQLException e) {
+                connection.rollback();
+                throw e;
+            }
+        }
+    }
 
-	private void setLongOrNull(PreparedStatement statement, int index, Optional<Long> value) throws SQLException {
-		if (value.isPresent()) {
-			statement.setLong(index, value.get()); //setLong doesn't accept null values
-		} else {
-			statement.setNull(index, Types.BIGINT);
-		}
-	}
+    private void setLongOrNull(PreparedStatement statement, int index, Optional<Long> value) throws SQLException {
+        if (value.isPresent()) {
+            statement.setLong(index, value.get()); //setLong doesn't accept null values
+        } else {
+            statement.setNull(index, Types.BIGINT);
+        }
+    }
 
 }

@@ -2,11 +2,11 @@ package net.shvdy.nutrition_tracker.controller.command;
 
 import net.shvdy.nutrition_tracker.PropertiesContainer;
 import net.shvdy.nutrition_tracker.controller.ContextHolder;
-import net.shvdy.nutrition_tracker.controller.command.utils.SecurityUtility;
 import net.shvdy.nutrition_tracker.controller.command.utils.Validator;
 import net.shvdy.nutrition_tracker.model.entity.Role;
 import net.shvdy.nutrition_tracker.model.entity.User;
 import net.shvdy.nutrition_tracker.model.entity.UserProfile;
+import org.mindrot.jbcrypt.BCrypt;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,7 +32,7 @@ public class Register implements ActionCommand {
     private User getUser(HttpServletRequest request) {
         return User.builder()
                 .username(request.getParameter("username"))
-                .password(SecurityUtility.bCryptHash(request.getParameter("password")))
+                .password(BCrypt.hashpw(request.getParameter("password"), BCrypt.gensalt()))
                 .userProfile(UserProfile.builder()
                         .firstNameEN(request.getParameter("firstNameEN"))
                         .firstNameRU(request.getParameter("firstNameRU"))

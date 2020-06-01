@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+import java.util.NoSuchElementException;
 
 /**
  * 24.05.2020
@@ -35,8 +36,8 @@ public class ArticleService {
         return articleEntityMapper.entityListToDTO(articleDAO.findPaginatedLocalised(locale), locale);
     }
 
-    public ArticleDTO findByIDForLocale(int articleId, Locale locale) throws SQLException {
-        return articleEntityMapper.entityToDTO(articleDAO.findByIDLocalised(articleId, locale), locale);
+    public ArticleDTO findByIDForLocale(int articleId, Locale locale) throws SQLException, NoSuchElementException {
+        return articleEntityMapper.entityToDTO(articleDAO.findByIDLocalised(articleId, locale).orElseThrow(), locale);
     }
 
     public List<ArticleDTO> findRandomForLocale(Locale locale) throws SQLException {

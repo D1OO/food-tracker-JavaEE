@@ -12,15 +12,15 @@
             <p>All Rights Reserved</p>
         </div>
         <div class="d-inline-flex justify-content-end flex-grow-1">
-            <div CLASS="slink-container d-inline-flex align-items-center">
+            <div class="slink-container d-inline-flex align-items-center">
                 <a href="https://github.com/D1OO/Spring-Boot-Project"><i class="sicon" id="ghicon"></i></a>
                 <a class="slink align-self-center" href="https://github.com/D1OO/Spring-Boot-Project">github</a>
             </div>
-            <div CLASS="slink-container d-inline-flex align-items-center">
+            <div class="slink-container d-inline-flex align-items-center">
                 <a href="https://t.me/liveloveasap"><i class="sicon" id="tgicon"></i></a>
                 <a class="slink align-self-center" href="https://t.me/liveloveasap">telegram</a>
             </div>
-            <div CLASS="slink-container d-inline-flex align-items-center">
+            <div class="slink-container d-inline-flex align-items-center">
                 <i class="sicon" id="mailicon"></i>
                 <p class="slink align-self-center">100dmytro@gmail.com</p>
             </div>

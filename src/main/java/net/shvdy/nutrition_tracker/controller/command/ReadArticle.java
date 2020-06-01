@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Locale;
+import java.util.NoSuchElementException;
 
 /**
  * 25.05.2020
@@ -26,10 +27,16 @@ public class ReadArticle implements ActionCommand {
     }
 
     private void retrieveArticle(HttpServletRequest request) throws SQLException {
+        ArticleDTO requestedArticle;
         int requestedArticleId = Integer.parseInt(request.getParameter("id"));
-        List<ArticleDTO> cachePaginatedArticles = (List<ArticleDTO>) request.getSession().getAttribute("paginatedArticles");
-        ArticleDTO requestedArticle = getArticleFromCacheOrService(requestedArticleId, cachePaginatedArticles,
-                Locale.forLanguageTag((String) request.getSession().getAttribute("lang")));
+
+        try {
+            requestedArticle = getArticleFromCacheOrService(request, requestedArticleId,
+                    Locale.forLanguageTag((String) request.getSession().getAttribute("lang")));
+        } catch (NoSuchElementException e) {
+            ContextHolder.logger().warn("Requested article not found: " + requestedArticleId);
+            throw e;
+        }
 
         request.getSession().setAttribute("titleLocalisation", requestedArticle.getTitleLocalisation());
         request.getSession().setAttribute("textLocalisation", requestedArticle.getTextLocalisation());
@@ -38,14 +45,15 @@ public class ReadArticle implements ActionCommand {
         request.getSession().setAttribute("author", requestedArticle.getAuthorName());
     }
 
-    private ArticleDTO getArticleFromCacheOrService(int id, List<ArticleDTO> cache, Locale locale) throws SQLException {
-        return cache.stream()
+    private ArticleDTO getArticleFromCacheOrService(HttpServletRequest request, int id, Locale locale)
+            throws SQLException, NoSuchElementException {
+        return ((List<ArticleDTO>) request.getSession().getAttribute("paginatedArticles")).stream()
                 .filter(x -> x.getArticleId() == id)
                 .findAny()
                 .orElse(getFromService(id, locale));
     }
 
-    private ArticleDTO getFromService(int id, Locale locale) throws SQLException {
+    private ArticleDTO getFromService(int id, Locale locale) throws SQLException, NoSuchElementException {
         return ContextHolder.articleService().findByIDForLocale(id, locale);
     }
 }
