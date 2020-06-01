@@ -31,14 +31,7 @@
         </multipart-config>
     </servlet>
 
-    <filter>
-        <filter-name>StaticResourcesFilter</filter-name>
-        <filter-class>net.shvdy.nutrition_tracker.controller.filter.StaticResourcesFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>StaticResourcesFilter</filter-name>
-        <url-pattern>/static/*</url-pattern>
-    </filter-mapping>
+
     <filter>
         <filter-name>imagesCache</filter-name>
         <filter-class>com.samaxes.filter.CacheFilter</filter-class>
@@ -80,11 +73,18 @@
         <filter-name>cssCache</filter-name>
         <url-pattern>*.css</url-pattern>
     </filter-mapping>
-<!--    <filter-mapping>-->
-<!--        <filter-name>jsCache</filter-name>-->
-<!--        <url-pattern>*.js</url-pattern>-->
-<!--    </filter-mapping>-->
-
+    <!--    <filter-mapping>-->
+    <!--        <filter-name>jsCache</filter-name>-->
+    <!--        <url-pattern>*.js</url-pattern>-->
+    <!--    </filter-mapping>-->
+    <filter>
+        <filter-name>StaticResourcesFilter</filter-name>
+        <filter-class>net.shvdy.nutrition_tracker.controller.filter.StaticResourcesFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>StaticResourcesFilter</filter-name>
+        <url-pattern>/static/*</url-pattern>
+    </filter-mapping>
 
     <filter>
         <filter-name>EncodingFilter</filter-name>

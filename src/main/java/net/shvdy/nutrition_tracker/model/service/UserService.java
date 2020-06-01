@@ -35,7 +35,7 @@ public class UserService {
 				.orElseThrow(() -> new UserNotFoundException(String.format("Username '%s' not found", username))));
 	}
 
-	public UserDTO findByLoginDTO(LoginDTO loginDTO, Locale locale) throws SQLException, UserNotFoundException, InvalidPasswordException {
+	public UserDTO findAndCheckCredentials(LoginDTO loginDTO, Locale locale) throws SQLException, UserNotFoundException, InvalidPasswordException {
 		User user = userDao.findByUsernameLocalised(loginDTO.getUsername(), locale)
 				.orElseThrow(() -> new UserNotFoundException(String.format("Username '%s' not found", loginDTO.getUsername())));
 		if (!loginDTO.getPassword().equals(user.getPassword())) {

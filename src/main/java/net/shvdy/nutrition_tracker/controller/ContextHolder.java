@@ -22,37 +22,43 @@ public class ContextHolder {
 	private static ObjectMapper jacksonObjectMapper;
 	private static Logger logger;
 
-	public static UserService getUserService() {
+	public static UserService userService() {
 		return userService;
 	}
 
-	public static DailyRecordService getDailyRecordService() {
+	public static DailyRecordService dailyRecordService() {
 		return dailyRecordService;
 	}
 
-	public static FoodService getFoodService() {
+	public static FoodService foodService() {
 		return foodService;
 	}
 
-	public static ArticleService getArticleService() {
+	public static ArticleService articleService() {
 		return articleService;
 	}
 
-	public static ObjectMapper getObjectMapper() {
+	public static ObjectMapper objectMapper() {
 		return jacksonObjectMapper;
 	}
 
-	public static Logger getLogger() {
+	public static Logger logger() {
 		return logger;
 	}
 
-	public static void injectServices(UserService userService,
-									  DailyRecordService dailyRecordService,
-									  FoodService foodService,
-									  ArticleService articleService) {
+	public static void injectUserService(UserService userService) {
 		ContextHolder.userService = userService;
+	}
+
+	public static void injectDailyRecordService(DailyRecordService dailyRecordService) {
 		ContextHolder.dailyRecordService = dailyRecordService;
+	}
+
+	public static void injectFoodService(FoodService foodService) {
 		ContextHolder.foodService = foodService;
+	}
+
+	public static void injectArticleService(ArticleService articleService) {
 		ContextHolder.articleService = articleService;
 	}
 

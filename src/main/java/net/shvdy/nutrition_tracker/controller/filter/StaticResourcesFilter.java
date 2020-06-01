@@ -8,9 +8,8 @@ public class StaticResourcesFilter implements Filter {
     private RequestDispatcher defaultRequestDispatcher;
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
-        this.defaultRequestDispatcher =
-                filterConfig.getServletContext().getNamedDispatcher("default");
+    public void init(FilterConfig filterConfig) {
+        this.defaultRequestDispatcher = filterConfig.getServletContext().getNamedDispatcher("default");
     }
 
     @Override

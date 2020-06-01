@@ -21,15 +21,15 @@ public class Login implements ActionCommand {
         UserDTO user;
 
         try {
-            user = ContextHolder.getUserService()
-                    .findByLoginDTO(loginDTO, Locale.forLanguageTag((String) request.getSession().getAttribute("lang")));
+            user = ContextHolder.userService()
+                    .findAndCheckCredentials(loginDTO, Locale.forLanguageTag((String) request.getSession().getAttribute("lang")));
         } catch (UserNotFoundException | InvalidPasswordException | SQLException | NullPointerException e) {
-            ContextHolder.getLogger().warn("User log in error: " + e.getMessage());
+            ContextHolder.logger().warn("User login error: " + e.getMessage());
             return "redirect:/login?error";
         }
 
         if (SecurityUtility.checkIsLoginNOTFresh(request, user.getUserId())) {
-            ContextHolder.getLogger().warn("Session duplication try ID=: " + user.getUserId());
+            ContextHolder.logger().warn("Session duplication try ID=: " + user.getUserId());
             request.getSession().setAttribute("user", user);
             request.getSession().setAttribute("user.userId", user.getUserId());
             return "redirect:/login?session-exists";

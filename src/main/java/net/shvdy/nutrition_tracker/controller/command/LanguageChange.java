@@ -20,7 +20,7 @@ public class LanguageChange implements ActionCommand {
         request.getSession().setAttribute("lang",
                 Objects.requireNonNullElse(request.getParameter("lang"), "en"));
 
-        request.getSession().setAttribute("user", ContextHolder.getUserService()
+        request.getSession().setAttribute("user", ContextHolder.userService()
                 .findByUsernameLocalised((String) request.getSession().getAttribute("user.username"),
                         Locale.forLanguageTag((String) request.getSession().getAttribute("lang"))));
 

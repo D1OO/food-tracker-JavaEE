@@ -46,6 +46,6 @@ public class ReadArticle implements ActionCommand {
     }
 
     private ArticleDTO getFromService(int id, Locale locale) throws SQLException {
-        return ContextHolder.getArticleService().findByIDForLocale(id, locale);
+        return ContextHolder.articleService().findByIDForLocale(id, locale);
     }
 }

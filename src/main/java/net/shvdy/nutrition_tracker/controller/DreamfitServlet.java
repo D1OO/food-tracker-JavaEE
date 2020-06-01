@@ -30,7 +30,7 @@ public class DreamfitServlet extends HttpServlet {
 
     public void init(ServletConfig servletConfig) {
         ContextHolder.injectLogger(LogManager.getLogger(DreamfitServlet.class));
-        ContextHolder.getLogger().info("Servlet initialization started");
+        ContextHolder.logger().info("Servlet initialization started");
 
         PropertiesContainer.readProperties(this.getClass().getClassLoader());
         servletConfig.getServletContext().setAttribute("loggedUsers", new HashMap<Long, HttpSession>());
@@ -39,7 +39,7 @@ public class DreamfitServlet extends HttpServlet {
         try {
             initAndInjectServicesIntoContextHolder();
         } catch (NamingException e) {
-            ContextHolder.getLogger().error("Services initialization failed (DataSource lookup fail):\n" + e);
+            ContextHolder.logger().error("Services initialization failed (DataSource lookup fail):\n" + e);
         }
 
         ContextHolder.injectObjectMapper(new ObjectMapper());
@@ -49,7 +49,7 @@ public class DreamfitServlet extends HttpServlet {
                 .map(CommandEnum::getPath)
                 .collect(Collectors.toSet())));
 
-        ContextHolder.getLogger().info("Servlet initialization ended");
+        ContextHolder.logger().info("Servlet initialization ended");
     }
 
     @Override
@@ -86,7 +86,7 @@ public class DreamfitServlet extends HttpServlet {
         try {
             return CommandEnum.getByURI(request.getRequestURI()).execute(request, response);
         } catch (Exception e) {
-            ContextHolder.getLogger().error("Command threw an exception: " + e);
+            ContextHolder.logger().error("Command threw an exception: " + e);
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             return CommandEnum.SERVER_ERROR.getPath();
         }
@@ -101,18 +101,18 @@ public class DreamfitServlet extends HttpServlet {
     }
 
     private void setDateForLocale(HttpServletRequest request) {
-        Locale locale = Locale.forLanguageTag((String) request.getSession().getAttribute("lang"));
         request.getServletContext().setAttribute("localizedDate",
-                LocalDate.now().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG).withLocale(locale)));
+                LocalDate.now().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)
+                        .withLocale(Locale.forLanguageTag((String) request.getSession().getAttribute("lang")))));
     }
 
     private void initAndInjectServicesIntoContextHolder() throws NamingException {
         ServiceFactory.injectDaoFactory(DAOFactory.getJDBCInstance());
-        ContextHolder.injectServices(
-                ServiceFactory.userService(),
-                ServiceFactory.dailyRecordService(),
-                ServiceFactory.foodService(),
-                ServiceFactory.articleService());
+
+        ContextHolder.injectUserService(ServiceFactory.userService());
+        ContextHolder.injectDailyRecordService(ServiceFactory.dailyRecordService());
+        ContextHolder.injectFoodService(ServiceFactory.foodService());
+        ContextHolder.injectArticleService(ServiceFactory.articleService());
     }
 
 }

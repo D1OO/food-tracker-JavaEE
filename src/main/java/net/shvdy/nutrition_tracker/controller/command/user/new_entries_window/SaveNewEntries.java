@@ -24,9 +24,9 @@ public class SaveNewEntries implements ActionCommand {
 			request.getSession().getServletContext().setAttribute("newEntriesDTO", newEntries);
 			return "/view/user/add-new-entries-window/new-entries-list.jsp";
 		} else {
-			ContextHolder.getDailyRecordService().saveNewEntries(newEntries);
-			return "ok";
-		}
+            ContextHolder.dailyRecordService().saveNewEntries(newEntries);
+            return "ok";
+        }
 	}
 
 }

@@ -21,18 +21,19 @@ public class UpdateProfile implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
         Map<String, String> formErrors = Validator.validateFormAndReturnErrors(request,
                 PropertiesContainer.JSONProperties.USER_PROFILE_FORM_VALIDATION_DATA.getFormFieldsValidationData());
 
         if (formErrors.isEmpty()) {
-            UserProfileDTO updatedProfile= getProfile(request);
-            ContextHolder.getUserService().updateProfile(updatedProfile);
-            request.getSession().setAttribute("user", ContextHolder.getUserService()
+            UserProfileDTO updatedProfile = getProfile(request);
+            ContextHolder.userService().updateProfile(updatedProfile);
+            request.getSession().setAttribute("user", ContextHolder.userService()
                     .findByUsernameLocalised((String) request.getSession().getAttribute("user.username"),
                             Locale.forLanguageTag((String) request.getSession().getAttribute("lang"))));
             return "json:" + "{ \"url\": \"/profile?save-success\"}";
         } else {
-            return "json:" + ContextHolder.getObjectMapper().writeValueAsString(formErrors);
+            return "json:" + ContextHolder.objectMapper().writeValueAsString(formErrors);
         }
     }
 

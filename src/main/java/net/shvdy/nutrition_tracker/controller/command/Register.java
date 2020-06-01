@@ -22,10 +22,10 @@ public class Register implements ActionCommand {
                 PropertiesContainer.JSONProperties.USER_SIGN_UP_FORM_VALIDATION_DATA.getFormFieldsValidationData());
 
         if (formErrors.isEmpty()) {
-            ContextHolder.getUserService().save(getUser(request));
+            ContextHolder.userService().save(getUser(request));
             return "json:" + "{ \"url\": \"/login?signedup\"}";
         } else {
-            return "json:" + ContextHolder.getObjectMapper().writeValueAsString(formErrors);
+            return "json:" + ContextHolder.objectMapper().writeValueAsString(formErrors);
         }
     }
 

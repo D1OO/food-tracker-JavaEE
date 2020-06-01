@@ -70,7 +70,7 @@ public class PropertiesContainer {
             try {
                 loadedProperty.load(Objects.requireNonNull(classLoader.getResourceAsStream(property.FILE_PATH)));
             } catch (IOException | NullPointerException e) {
-                ContextHolder.getLogger()
+                ContextHolder.logger()
                         .error("Could not read properties from file " + property.FILE_PATH + " in classpath. " + e);
             }
             property.setProp(loadedProperty);
@@ -85,7 +85,7 @@ public class PropertiesContainer {
                                 new TypeReference<Map<String, Map<String, String>>>() {
                                 }));
             } catch (IOException e) {
-                ContextHolder.getLogger()
+                ContextHolder.logger()
                         .error("Could not read properties from file " + jsonProperty.FILE_PATH + " in classpath. " + e);
             }
         });

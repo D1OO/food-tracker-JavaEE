@@ -18,7 +18,7 @@ public class AdminPage implements ActionCommand {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         request.getSession().setAttribute("headerNews",
-                ContextHolder.getArticleService().findRandomForLocale(Locale
+                ContextHolder.articleService().findRandomForLocale(Locale
                         .forLanguageTag((String) request.getSession().getAttribute("lang"))));
         return "/view/admin.jsp";
     }

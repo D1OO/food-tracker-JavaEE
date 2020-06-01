@@ -17,9 +17,11 @@ public class Feed implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
         request.getSession().setAttribute("paginatedArticles",
-                ContextHolder.getArticleService().findPaginatedForLocale(Locale
+                ContextHolder.articleService().findPaginatedForLocale(Locale
                         .forLanguageTag((String) request.getSession().getAttribute("lang"))));
+
         return SecurityUtility.processAJAXSectionRequest("feed", "", request);
     }
 }

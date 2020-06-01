@@ -30,7 +30,7 @@ public class FoodDiary implements ActionCommand {
                 .orElse(LocalDate.now().toString());
         int pageSize = Integer.parseInt((String) request.getServletContext().getAttribute("page-size"));
         request.getSession().setAttribute("paginatedWeeklyRecords",
-                ContextHolder.getDailyRecordService().findPaginated(
+                ContextHolder.dailyRecordService().findPaginated(
                         (Long) request.getSession().getAttribute("user.userId"),
                         currWeekDay, pageSize,
                         Locale.forLanguageTag((String) request.getSession().getAttribute("lang"))));

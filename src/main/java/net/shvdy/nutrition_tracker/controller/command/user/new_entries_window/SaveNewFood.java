@@ -31,7 +31,7 @@ public class SaveNewFood implements ActionCommand {
             return "ok";
         } else {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            return "json:" + ContextHolder.getObjectMapper().writeValueAsString(errors);
+            return "json:" + ContextHolder.objectMapper().writeValueAsString(errors);
         }
     }
 
@@ -43,7 +43,7 @@ public class SaveNewFood implements ActionCommand {
                 .proteins(Integer.parseInt(request.getParameter("newFoodProt")))
                 .build();
 
-        foodDTO.setFoodId(ContextHolder.getFoodService().saveForProfile(foodDTO,
+        foodDTO.setFoodId(ContextHolder.foodService().saveForProfile(foodDTO,
                 Long.parseLong(request.getParameter("profileId"))));
 
         List<FoodDTO> updatedFoodCache = (List<FoodDTO>) request.getSession().getAttribute("user.userFood");

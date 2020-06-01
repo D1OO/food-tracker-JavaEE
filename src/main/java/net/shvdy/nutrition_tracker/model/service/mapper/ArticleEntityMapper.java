@@ -40,7 +40,7 @@ public class ArticleEntityMapper {
         try {
             return readImageString(inputStream);
         } catch (IOException e) {
-            ContextHolder.getLogger().warn("Image could not be read");
+            ContextHolder.logger().warn("Image could not be read");
             return "";
         }
     }
