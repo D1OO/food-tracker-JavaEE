@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 public class LoginExistingSession implements ActionCommand {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
         Long id = (Long) request.getSession().getAttribute("user.userId");
 
         SecurityUtility.invalidateExistingSessionForUserId(request, id);

@@ -1,5 +1,7 @@
 package net.shvdy.nutrition_tracker.model.dao.impl;
 
+import net.shvdy.nutrition_tracker.controller.ContextHolder;
+import net.shvdy.nutrition_tracker.exception.SQLRuntimeException;
 import net.shvdy.nutrition_tracker.model.dao.UserDAO;
 import net.shvdy.nutrition_tracker.model.dao.resultset_mapper.ResultSetMapperLocalised;
 import net.shvdy.nutrition_tracker.model.entity.User;
@@ -23,7 +25,7 @@ public class JDBCUserDAO implements UserDAO {
         this.queries = queries;
     }
 
-    public void create(User user) throws SQLException {
+    public void create(User user) {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement insertUserStatement = connection
                      .prepareStatement(queries.getProperty("userdao.INSERT_USER_SQL"));
@@ -47,14 +49,18 @@ public class JDBCUserDAO implements UserDAO {
                 connection.rollback();
                 throw e;
             }
+        } catch (SQLException e) {
+            ContextHolder.logger().error("JDBCUserDAO create: " + e);
+            throw new SQLRuntimeException(e);
         }
     }
 
     @Override
-    public void updateProfile(UserProfile userProfile) throws SQLException {
+    public void updateProfile(UserProfile userProfile) {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement updateProfile = connection
                      .prepareStatement(queries.getProperty("userdao.UPDATE_USER_PROFILE_SQL"))) {
+
             updateProfile.setString(1, userProfile.getFirstNameEN());
             updateProfile.setString(2, userProfile.getFirstNameRU());
             updateProfile.setString(3, userProfile.getLastName());
@@ -64,11 +70,15 @@ public class JDBCUserDAO implements UserDAO {
             updateProfile.setString(7, userProfile.getLifestyle().name());
             updateProfile.setLong(8, userProfile.getProfileId());
             updateProfile.executeUpdate();
+
+        } catch (SQLException e) {
+            ContextHolder.logger().error("JDBCUserDAO updateProfile: " + e);
+            throw new SQLRuntimeException(e);
         }
     }
 
     @Override
-    public Optional<User> findByUsernameLocalised(String username, Locale locale) throws SQLException {
+    public Optional<User> findByUsernameLocalised(String username, Locale locale) {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection
                      .prepareStatement(queries.getProperty("user_dao.SELECT_BY_USERNAME_SQL"))) {
@@ -80,6 +90,9 @@ public class JDBCUserDAO implements UserDAO {
                     return Optional.of(resultSetMapper.mapLocalised(resultSet, locale));
                 }
             }
+        } catch (SQLException e) {
+            ContextHolder.logger().error("JDBCUserDAO findByUsernameLocalised: " + e);
+            throw new SQLRuntimeException(e);
         }
         return Optional.empty();
     }
@@ -90,7 +103,7 @@ public class JDBCUserDAO implements UserDAO {
         if (rs.next()) {
             return rs.getLong("id");
         } else
-            throw new SQLException();
+            throw new SQLException("Failed to retrieve DB-generated user ID");
     }
 
     private void prepareInsert(PreparedStatement insertUserStatement, User user) throws SQLException {

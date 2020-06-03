@@ -9,7 +9,7 @@ import java.util.Set;
 public class RegistrationPage implements ActionCommand {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
         request.setAttribute("roles", Set.of(Role.ADMIN, Role.USER));
         return "/view/registration.jsp";
     }

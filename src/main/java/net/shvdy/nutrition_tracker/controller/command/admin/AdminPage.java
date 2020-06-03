@@ -16,7 +16,7 @@ import java.util.Locale;
 public class AdminPage implements ActionCommand {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
         request.getSession().setAttribute("headerNews",
                 ContextHolder.articleService().findRandomForLocale(Locale
                         .forLanguageTag((String) request.getSession().getAttribute("lang"))));

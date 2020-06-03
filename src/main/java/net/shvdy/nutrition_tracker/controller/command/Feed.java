@@ -16,7 +16,7 @@ import java.util.Locale;
 public class Feed implements ActionCommand {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
 
         request.getSession().setAttribute("paginatedArticles",
                 ContextHolder.articleService().findPaginatedForLocale(Locale

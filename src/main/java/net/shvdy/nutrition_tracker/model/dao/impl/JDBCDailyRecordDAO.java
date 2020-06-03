@@ -1,5 +1,7 @@
 package net.shvdy.nutrition_tracker.model.dao.impl;
 
+import net.shvdy.nutrition_tracker.controller.ContextHolder;
+import net.shvdy.nutrition_tracker.exception.SQLRuntimeException;
 import net.shvdy.nutrition_tracker.model.dao.DailyRecordDAO;
 import net.shvdy.nutrition_tracker.model.dao.resultset_mapper.ResultSetMapper;
 import net.shvdy.nutrition_tracker.model.entity.DailyRecord;
@@ -8,7 +10,6 @@ import net.shvdy.nutrition_tracker.model.entity.DailyRecordEntry;
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Properties;
 
@@ -31,8 +32,7 @@ public class JDBCDailyRecordDAO implements DailyRecordDAO {
         this.queries = queries;
     }
 
-    public List<DailyRecord> findByDatePeriodAndQuantity(Long profileId, String periodStartDate, String periodEndDate)
-            throws SQLException {
+    public List<DailyRecord> findByDatePeriodAndQuantity(Long profileId, String periodStartDate, String periodEndDate) {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection
                      .prepareStatement(queries.getProperty("daily_record_dao.SELECT_BY_DATE_PERIOD_AND_QUANTITY"))) {
@@ -42,10 +42,13 @@ public class JDBCDailyRecordDAO implements DailyRecordDAO {
             statement.setString(3, periodEndDate);
 
             return resultSetMapper.map(statement.executeQuery());
+        } catch (SQLException e) {
+            ContextHolder.logger().error("JDBCDailyRecordDAO findByDatePeriodAndQuantity: " + e);
+            throw new SQLRuntimeException(e);
         }
     }
 
-    public void save(DailyRecord dailyRecord) throws SQLException, NoSuchElementException {
+    public void save(DailyRecord dailyRecord) {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement insertDailyRecord = connection
                      .prepareStatement(queries.getProperty("daily_record_dao.INSERT_DAILY_RECORD_SQL"),
@@ -70,7 +73,8 @@ public class JDBCDailyRecordDAO implements DailyRecordDAO {
 
             for (DailyRecordEntry entry : dailyRecord.getEntries()) {
                 insertEntries.setLong(1, entry.getFood().getFoodId());
-                insertEntries.setLong(2, Optional.ofNullable(dailyRecord.getRecordId()).orElseThrow());
+                insertEntries.setLong(2, Optional.ofNullable(dailyRecord.getRecordId())
+                        .orElseThrow(() -> new SQLException("Failed to retrieve DB-generated DailyRecord ID")));
                 insertEntries.setInt(3, entry.getQuantity());
                 setLongOrNull(insertEntries, 4, Optional.ofNullable(entry.getEntryId()));
 
@@ -84,6 +88,9 @@ public class JDBCDailyRecordDAO implements DailyRecordDAO {
                 connection.rollback();
                 throw e;
             }
+        } catch (SQLException e) {
+            ContextHolder.logger().error("JDBCDailyRecordDAO save: " + e);
+            throw new SQLRuntimeException(e);
         }
     }
 

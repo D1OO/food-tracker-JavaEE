@@ -1,5 +1,7 @@
 package net.shvdy.nutrition_tracker.model.dao.impl;
 
+import net.shvdy.nutrition_tracker.controller.ContextHolder;
+import net.shvdy.nutrition_tracker.exception.SQLRuntimeException;
 import net.shvdy.nutrition_tracker.model.dao.FoodDAO;
 import net.shvdy.nutrition_tracker.model.entity.Food;
 
@@ -24,7 +26,7 @@ public class JDBCFoodDAO implements FoodDAO {
     }
 
     @Override
-    public Long createForProfile(Food food, Long profileId) throws SQLException {
+    public Long createForProfile(Food food, Long profileId) {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement insertFoodStatement = connection
                      .prepareStatement(queries.getProperty("food_dao.INSERT_FOOD_SQL"),
@@ -46,7 +48,7 @@ public class JDBCFoodDAO implements FoodDAO {
                 if (generatedKeys.next()) {
                     generatedFoodId = generatedKeys.getLong(1);
                 } else {
-                    throw new SQLException("Creating food failed, no ID obtained.");
+                    throw new SQLException("Failed to retrieve DB-generated ID value");
                 }
             }
 
@@ -60,10 +62,11 @@ public class JDBCFoodDAO implements FoodDAO {
                 connection.rollback();
                 throw e;
             }
-
             return generatedFoodId;
+
+        } catch (SQLException e) {
+            ContextHolder.logger().error("JDBCFoodDAO createForProfile: " + e);
+            throw new SQLRuntimeException(e);
         }
-
     }
-
 }

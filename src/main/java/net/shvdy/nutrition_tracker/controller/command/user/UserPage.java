@@ -10,10 +10,12 @@ import java.util.Locale;
 public class UserPage implements ActionCommand {
 
 	@Override
-	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		request.getSession().setAttribute("headerNews",
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
+
+        request.getSession().setAttribute("headerNews",
                 ContextHolder.articleService().findRandomForLocale(Locale
                         .forLanguageTag((String) request.getSession().getAttribute("lang"))));
-		return "/view/user.jsp";
-	}
+
+        return "/view/user.jsp";
+    }
 }

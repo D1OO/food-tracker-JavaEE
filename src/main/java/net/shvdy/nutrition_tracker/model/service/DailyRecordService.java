@@ -6,7 +6,6 @@ import net.shvdy.nutrition_tracker.model.dao.DailyRecordDAO;
 import net.shvdy.nutrition_tracker.model.entity.DailyRecord;
 import net.shvdy.nutrition_tracker.model.service.mapper.DailyRecordEntityMapper;
 
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.function.Function;
@@ -29,18 +28,17 @@ public class DailyRecordService {
         this.dailyRecordMapper = dailyRecordMapper;
     }
 
-    public void saveNewEntries(NewEntriesDTO newEntriesDTO) throws SQLException, RuntimeException {
+    public void saveNewEntries(NewEntriesDTO newEntriesDTO) {
         dailyRecordDAO.save(DailyRecord.builder()
                 .recordId(newEntriesDTO.getRecordId())
                 .recordDate(newEntriesDTO.getRecordDate())
                 .userProfileId(newEntriesDTO.getProfileId())
                 .dailyCaloriesNorm(newEntriesDTO.getCurrentDailyCaloriesNorm())
-                .entries(dailyRecordMapper.entriesListDTOToEntity(newEntriesDTO.getEntries()))
-                .build());
+                .entries(dailyRecordMapper.entriesListDTOToEntity(newEntriesDTO.getEntries())).build());
     }
 
     public List<DailyRecordDTO> findPaginated(Long profileId, String periodEndDate, int quantity,
-                                              Locale currentLocale) throws SQLException {
+                                              Locale currentLocale) {
         return insertAbsentDays(profileId, periodEndDate, quantity, currentLocale,
                 dailyRecordDAO.findByDatePeriodAndQuantity(profileId,
                         LocalDate.parse(periodEndDate).minusDays(quantity - 1).toString(),

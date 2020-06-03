@@ -1,22 +1,22 @@
 {
     "username": {
-        "regex": "[a-z0-9_\\.-]{1,30}@[\\da-z\\.-]{1,15}\\.[a-z\\.]{2,8}$",
-        "errorMessage": "Incorrect email"
+      "regex": "^[a-z0-9_\\.-]{1,30}@[\\da-z\\.-]{1,15}\\.[a-z\\.]{2,8}$",
+      "errorMessage": "Incorrect email"
     },
     "password": {
-        "regex":  "[0-9a-zA-Z]{8,15}$",
-        "errorMessage": "Only latin letters and digits are allowed"
+      "regex": "^[0-9a-zA-Z]{8,15}$",
+      "errorMessage": "Only latin letters and digits are allowed"
     },
     "firstNameEN": {
-        "regex": "(?i)(^[a-z])((?![ .,'-]$)[a-z .,'-]){2,24}$",
-        "errorMessage": "Incorrect value"
+      "regex": "^[A-Z]((?![ .,'-]$)[a-z .,'-]){2,24}$",
+      "errorMessage": "Incorrect value"
     },
     "firstNameRU": {
-        "regex": "[А-Я]((?![ .,'-]$)[а-я .,'-]){2,24}$|^$",
-        "errorMessage": "Incorrect value"
+      "regex": "^[А-Я]((?![ .,'-]$)[а-я .,'-]){2,24}$|^$",
+      "errorMessage": "Incorrect value"
     },
     "lastName": {
-        "regex": "(?i)(^[a-z])((?![ .,'-]$)[a-z .,'-]){2,24}$",
-        "errorMessage": "Incorrect value"
+      "regex": "^[A-Z]((?![ .,'-]$)[a-z .,'-]){2,24}$",
+      "errorMessage": "Incorrect value"
     }
 }

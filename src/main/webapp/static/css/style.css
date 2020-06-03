@@ -705,7 +705,7 @@ h6,
     border-bottom-right-radius: 10px;
     padding-top: 0;
     padding-bottom: 0;
-    line-height: 1.0
+    line-height: 1.0;
 }
 
 .navbar-brand {
@@ -721,6 +721,7 @@ h6,
     border-bottom-style: solid;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
+    box-shadow: 0px 6px 9px -1px rgba(0, 0, 0, 0.45);
 }
 
 .custom-navmenu .custom-menu,
@@ -856,13 +857,11 @@ h6,
 .footer {
     flex-shrink: 0;
     padding: 1rem 0 1rem 0;
-
     background: rgb(168, 168, 168);
     background: linear-gradient(198deg, rgba(168, 168, 168, 0.4471988624551383) 1%, rgba(216, 255, 158, 0.4612044646960347) 54%, rgba(158, 238, 175, 0.6964985823430935) 93%);
-    border-top: 2px rgba(40, 0, 169, 0.34);
-    border: 4px;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
+    box-shadow: 0px 0px 11px 1px rgba(0, 0, 0, 0.46);
 }
 
 .footer a {

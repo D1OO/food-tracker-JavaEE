@@ -7,6 +7,7 @@ import net.shvdy.nutrition_tracker.dto.NewEntriesDTO;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * 22.05.2020
@@ -18,15 +19,21 @@ import javax.servlet.http.HttpServletResponse;
 public class SaveNewEntries implements ActionCommand {
 
 	@Override
-	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		NewEntriesDTO newEntries = NewEntriesDTOReader.read(request);
+	public String execute(HttpServletRequest request, HttpServletResponse response) {
+		NewEntriesDTO newEntries;
+		try {
+			newEntries = NewEntriesDTOReader.read(request);
+		} catch (IOException e) {
+			ContextHolder.logger().error("SaveNewEntries execute: : reading from JSON exception: " + e);
+			throw new RuntimeException(e);
+		}
 		if (NewEntriesDTOReader.validateHasErrors(newEntries)) {
 			request.getSession().getServletContext().setAttribute("newEntriesDTO", newEntries);
 			return "/view/user/add-new-entries-window/new-entries-list.jsp";
 		} else {
-            ContextHolder.dailyRecordService().saveNewEntries(newEntries);
-            return "ok";
-        }
+			ContextHolder.dailyRecordService().saveNewEntries(newEntries);
+			return "ok";
+		}
 	}
 
 }

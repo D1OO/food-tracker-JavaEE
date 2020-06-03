@@ -2,8 +2,6 @@ package net.shvdy.nutrition_tracker.model.dao;
 
 import net.shvdy.nutrition_tracker.model.entity.Article;
 
-import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
@@ -16,9 +14,9 @@ import java.util.Optional;
  */
 public interface ArticleDAO extends GenericDAO<Article> {
 
-    int save(Article article) throws SQLException, IOException;
+    int save(Article article);
 
-    List<Article> findPaginatedLocalised(Locale locale) throws SQLException;
+    List<Article> findPaginatedLocalised(Locale locale);
 
-    Optional<Article> findByIDLocalised(int articleID, Locale locale) throws SQLException;
+    Optional<Article> findByIDLocalised(int articleID, Locale locale);
 }

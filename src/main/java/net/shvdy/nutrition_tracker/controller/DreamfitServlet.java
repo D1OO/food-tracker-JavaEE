@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import net.shvdy.nutrition_tracker.PropertiesContainer;
 import net.shvdy.nutrition_tracker.controller.command.CommandEnum;
 import net.shvdy.nutrition_tracker.controller.command.PostEndpoint;
+import net.shvdy.nutrition_tracker.exception.SQLRuntimeException;
 import net.shvdy.nutrition_tracker.model.dao.DAOFactory;
 import net.shvdy.nutrition_tracker.model.service.ServiceFactory;
 import org.apache.logging.log4j.LogManager;
@@ -20,10 +21,7 @@ import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Locale;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class DreamfitServlet extends HttpServlet {
@@ -54,7 +52,7 @@ public class DreamfitServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLRuntimeException, NoSuchElementException {
         setDateForLocale(request);
         if (CommandEnum.getPostEndpoints().contains(request.getRequestURI()))
             request.getRequestDispatcher("/view/not_found.jsp").forward(request, response);
@@ -64,31 +62,21 @@ public class DreamfitServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLRuntimeException, NoSuchElementException {
         processResponse(request, response);
     }
 
     private void processResponse(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String path = executeCommand(request, response);
-        if ((path).startsWith("redirect:")) {
-            response.sendRedirect(request.getContextPath() + path.replace("redirect:", ""));
-        } else if (path.startsWith("json:")) {
-            respondWithJSON(response, path.replace("json:", ""));
-        } else if (path.startsWith("ok")) {
+            throws ServletException, IOException, SQLRuntimeException, NoSuchElementException {
+        String commandResponse = CommandEnum.getByURI(request.getRequestURI()).execute(request, response);
+        if ((commandResponse).startsWith("redirect:")) {
+            response.sendRedirect(request.getContextPath() + commandResponse.replace("redirect:", ""));
+        } else if (commandResponse.startsWith("json:")) {
+            respondWithJSON(response, commandResponse.replace("json:", ""));
+        } else if (commandResponse.startsWith("ok")) {
             response.setStatus(HttpServletResponse.SC_OK);
         } else {
-            request.getRequestDispatcher(path).forward(request, response);
-        }
-    }
-
-    private String executeCommand(HttpServletRequest request, HttpServletResponse response) {
-        try {
-            return CommandEnum.getByURI(request.getRequestURI()).execute(request, response);
-        } catch (Exception e) {
-            ContextHolder.logger().error("Command threw an exception: " + e);
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            return CommandEnum.SERVER_ERROR.getPath();
+            request.getRequestDispatcher(commandResponse).forward(request, response);
         }
     }
 

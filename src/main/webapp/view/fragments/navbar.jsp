@@ -30,7 +30,7 @@ background: radial-gradient(circle, rgba(178,183,223,1) 0%, rgba(232,253,203,0.7
                     </c:if>
                     <c:if test="${user.role ne GUEST}">
                         <li class="list-inline-item">
-                            <ul class="list-inline mt-0" style="margin-top: 0;">
+                            <ul class="list-inline mt-0 pt-0" style="margin-top: 0;">
                                 <li class="list-inline-item" style="font-size: 1.1em; max-width: 560px">
                                     <span class="logged-in-as mt-sm-1">${user.firstNameLocalisation} ${user.lastName}</span>
                                 </li>

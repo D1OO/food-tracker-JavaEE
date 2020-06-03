@@ -1,5 +1,6 @@
 package net.shvdy.nutrition_tracker.controller.command.admin;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import net.shvdy.nutrition_tracker.PropertiesContainer;
 import net.shvdy.nutrition_tracker.controller.ContextHolder;
 import net.shvdy.nutrition_tracker.controller.command.ActionCommand;
@@ -26,7 +27,7 @@ import java.util.Optional;
 public class SaveNewArticle implements ActionCommand {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
 
         Map<String, String> errors = Validator.validateFormAndReturnErrors(request,
                 PropertiesContainer.JSONProperties.ARTICLE_FORM_VALIDATION_DATA.getFormFieldsValidationData());
@@ -36,7 +37,12 @@ public class SaveNewArticle implements ActionCommand {
             return "/view/fragments/feed.jsp";
         } else {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            return "json:" + ContextHolder.objectMapper().writeValueAsString(errors);
+            try {
+                return "json:" + ContextHolder.objectMapper().writeValueAsString(errors);
+            } catch (JsonProcessingException e) {
+                ContextHolder.logger().error("SaveNewArticle execute: objectMapper().writeValueAsString exception: " + e);
+                return "json:";
+            }
         }
     }
 

@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 public class RedirectHome implements ActionCommand {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
         Role role = (Role) request.getSession().getAttribute("user.role");
         if (role.equals(Role.ADMIN)) {
             return "redirect:/admin";

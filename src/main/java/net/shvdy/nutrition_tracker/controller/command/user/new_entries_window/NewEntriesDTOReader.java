@@ -31,8 +31,7 @@ public class NewEntriesDTOReader {
         return dto.getEntries().stream().anyMatch(x -> Optional.ofNullable(x.getQuantityError()).isPresent());
     }
 
-    static NewEntriesDTO readAddNew(HttpServletRequest request, DailyRecordEntryDTO newEntry)
-            throws IOException, NumberFormatException {
+    static NewEntriesDTO readAddNew(HttpServletRequest request, DailyRecordEntryDTO newEntry) throws IOException {
         NewEntriesDTO newEntriesDTO = readDTO(request);
         List<DailyRecordEntryDTO> newEntriesList = readList(request);
 
@@ -43,14 +42,13 @@ public class NewEntriesDTOReader {
     }
 
     private static NewEntriesDTO readDTO(HttpServletRequest request) throws IOException {
-        String newEntriesDTOJSON = request.getParameter("newEntriesDTOJSON");
-        return ContextHolder.objectMapper().readValue(newEntriesDTOJSON, NewEntriesDTO.class);
+        return ContextHolder.objectMapper()
+                .readValue(request.getParameter("newEntriesDTOJSON"), NewEntriesDTO.class);
     }
 
     private static List<DailyRecordEntryDTO> readList(HttpServletRequest request) throws IOException {
-        String newEntriesListJSON = request.getParameter("newEntriesJSON");
         return ContextHolder.objectMapper()
-                .readValue(newEntriesListJSON, new TypeReference<ArrayList<DailyRecordEntryDTO>>() {
+                .readValue(request.getParameter("newEntriesJSON"), new TypeReference<ArrayList<DailyRecordEntryDTO>>() {
                 });
     }
 

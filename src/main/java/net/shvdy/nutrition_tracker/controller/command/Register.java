@@ -1,5 +1,6 @@
 package net.shvdy.nutrition_tracker.controller.command;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import net.shvdy.nutrition_tracker.PropertiesContainer;
 import net.shvdy.nutrition_tracker.controller.ContextHolder;
 import net.shvdy.nutrition_tracker.controller.command.utils.Validator;
@@ -16,7 +17,7 @@ import java.util.Map;
 public class Register implements ActionCommand {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
 
         Map<String, String> formErrors = Validator.validateFormAndReturnErrors(request,
                 PropertiesContainer.JSONProperties.USER_SIGN_UP_FORM_VALIDATION_DATA.getFormFieldsValidationData());
@@ -25,7 +26,12 @@ public class Register implements ActionCommand {
             ContextHolder.userService().save(getUser(request));
             return "json:" + "{ \"url\": \"/login?signedup\"}";
         } else {
-            return "json:" + ContextHolder.objectMapper().writeValueAsString(formErrors);
+            try {
+                return "json:" + ContextHolder.objectMapper().writeValueAsString(formErrors);
+            } catch (JsonProcessingException e) {
+                ContextHolder.logger().error("Register execute: objectMapper().writeValueAsString exception: " + e);
+                return "json:";
+            }
         }
     }
 

@@ -6,7 +6,6 @@ import net.shvdy.nutrition_tracker.dto.ArticleDTO;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Locale;
 import java.util.NoSuchElementException;
@@ -20,13 +19,13 @@ import java.util.NoSuchElementException;
 public class ReadArticle implements ActionCommand {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
         retrieveArticle(request);
         return SecurityUtility.processAJAXSectionRequest("read-article",
                 "?id=" + Integer.parseInt(request.getParameter("id")), request);
     }
 
-    private void retrieveArticle(HttpServletRequest request) throws SQLException {
+    private void retrieveArticle(HttpServletRequest request) {
         ArticleDTO requestedArticle;
         int requestedArticleId = Integer.parseInt(request.getParameter("id"));
 
@@ -46,14 +45,14 @@ public class ReadArticle implements ActionCommand {
     }
 
     private ArticleDTO getArticleFromCacheOrService(HttpServletRequest request, int id, Locale locale)
-            throws SQLException, NoSuchElementException {
+            throws NoSuchElementException {
         return ((List<ArticleDTO>) request.getSession().getAttribute("paginatedArticles")).stream()
                 .filter(x -> x.getArticleId() == id)
                 .findAny()
                 .orElse(getFromService(id, locale));
     }
 
-    private ArticleDTO getFromService(int id, Locale locale) throws SQLException, NoSuchElementException {
+    private ArticleDTO getFromService(int id, Locale locale) throws NoSuchElementException {
         return ContextHolder.articleService().findByIDForLocale(id, locale);
     }
 }

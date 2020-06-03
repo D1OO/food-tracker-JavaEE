@@ -1,5 +1,7 @@
 package net.shvdy.nutrition_tracker.model.dao.impl;
 
+import net.shvdy.nutrition_tracker.controller.ContextHolder;
+import net.shvdy.nutrition_tracker.exception.SQLRuntimeException;
 import net.shvdy.nutrition_tracker.model.dao.ArticleDAO;
 import net.shvdy.nutrition_tracker.model.dao.resultset_mapper.EntityExtractor;
 import net.shvdy.nutrition_tracker.model.dao.resultset_mapper.ResultSetMapperLocalised;
@@ -33,7 +35,7 @@ public class JDBCArticleDAO implements ArticleDAO {
     }
 
     @Override
-    public int save(Article article) throws SQLException, IOException {
+    public int save(Article article) {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement insertArticle = connection
                      .prepareStatement(queries.getProperty("article_dao.INSERT_ARTICLE_SQL"),
@@ -57,22 +59,31 @@ public class JDBCArticleDAO implements ArticleDAO {
 
             article.getImage().close();
             return article.getArticleId();
+        } catch (SQLException e) {
+            ContextHolder.logger().error("JDBCArticleDAO save: " + e);
+            throw new SQLRuntimeException(e);
+        } catch (IOException e) {
+            ContextHolder.logger().error("JDBCArticleDAO save: image InputStream.close() exception: " + e);
+            throw new RuntimeException(e);
         }
     }
 
     @Override
-    public List<Article> findPaginatedLocalised(Locale locale) throws SQLException {
+    public List<Article> findPaginatedLocalised(Locale locale) {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection
                      .prepareStatement(setLocaleColumnParameter(queries
                              .getProperty("article_dao.SELECT_BY_DATE_AND_QUANTITY"), locale))) {
 
             return resultSetMapper.mapLocalised(statement.executeQuery(), locale);
+        } catch (SQLException e) {
+            ContextHolder.logger().error("JDBCArticleDAO findPaginatedLocalised:  " + e);
+            throw new SQLRuntimeException(e);
         }
     }
 
     @Override
-    public Optional<Article> findByIDLocalised(int articleId, Locale locale) throws SQLException {
+    public Optional<Article> findByIDLocalised(int articleId, Locale locale) {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection
                      .prepareStatement(setLocaleColumnParameter(queries.getProperty("article_dao.SELECT_BY_ID"), locale))) {
@@ -84,6 +95,9 @@ public class JDBCArticleDAO implements ArticleDAO {
                 return Optional.of(EntityExtractor.extractArticle(resultSet, locale));
             }
             return Optional.empty();
+        } catch (SQLException e) {
+            ContextHolder.logger().error("JDBCArticleDAO findByIDLocalised: " + e);
+            throw new SQLRuntimeException(e);
         }
     }
 

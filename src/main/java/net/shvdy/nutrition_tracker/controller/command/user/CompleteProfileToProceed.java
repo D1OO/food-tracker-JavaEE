@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 public class CompleteProfileToProceed implements ActionCommand {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
         return "/view/user/complete-profile-to-proceed.jsp";
     }
 }

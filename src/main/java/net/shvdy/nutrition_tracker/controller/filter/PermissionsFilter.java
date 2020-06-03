@@ -26,7 +26,6 @@ public class PermissionsFilter implements Filter {
         }
     }
 
-
     @Override
     public void destroy() {
     }

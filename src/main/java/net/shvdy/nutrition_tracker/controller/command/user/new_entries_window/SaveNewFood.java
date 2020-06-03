@@ -1,5 +1,6 @@
 package net.shvdy.nutrition_tracker.controller.command.user.new_entries_window;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import net.shvdy.nutrition_tracker.PropertiesContainer;
 import net.shvdy.nutrition_tracker.controller.ContextHolder;
 import net.shvdy.nutrition_tracker.controller.command.ActionCommand;
@@ -9,7 +10,6 @@ import net.shvdy.nutrition_tracker.dto.FoodDTO;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -23,19 +23,25 @@ import java.util.Map;
 public class SaveNewFood implements ActionCommand {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
         Map<String, String> errors = Validator.validateFormAndReturnErrors(request,
                 PropertiesContainer.JSONProperties.FOOD_FORM_VALIDATION_DATA.getFormFieldsValidationData());
+
         if (errors.isEmpty()) {
             saveFoodAndUpdateCache(request);
             return "ok";
         } else {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            return "json:" + ContextHolder.objectMapper().writeValueAsString(errors);
+            try {
+                return "json:" + ContextHolder.objectMapper().writeValueAsString(errors);
+            } catch (JsonProcessingException e) {
+                ContextHolder.logger().error("SaveNewFood execute: objectMapper().writeValueAsString exception: " + e);
+                return "json:";
+            }
         }
     }
 
-    private void saveFoodAndUpdateCache(HttpServletRequest request) throws SQLException {
+    private void saveFoodAndUpdateCache(HttpServletRequest request) {
         FoodDTO foodDTO = FoodDTO.builder().name(request.getParameter("newFoodName"))
                 .calories(Integer.parseInt(request.getParameter("newFoodCalories")))
                 .carbohydrates(Integer.parseInt(request.getParameter("newFoodCarbohydrates")))

@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 public class NewArticleWindow implements ActionCommand {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
         return "/view/admin/new-article-window.jsp";
     }
 }
