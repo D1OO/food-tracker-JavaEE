@@ -1,4 +1,4 @@
-package net.shvdy.nutrition_tracker.model.dao.resultset_mapper;
+package net.shvdy.nutrition_tracker.model.dao.impl;
 
 import net.shvdy.nutrition_tracker.model.entity.Food;
 import net.shvdy.nutrition_tracker.model.entity.Role;
@@ -11,9 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class UserMapper implements ResultSetMapperLocalised<User> {
+public class UserMapper {
 
-    @Override
     public User mapLocalised(ResultSet resultSet, Locale locale) throws SQLException {
         return User.builder()
                 .id(resultSet.getLong("id"))
@@ -32,16 +31,17 @@ public class UserMapper implements ResultSetMapperLocalised<User> {
                         .weight(resultSet.getInt("weight"))
                         .height(resultSet.getInt("height"))
                         .lifestyle(Enum.valueOf(UserProfile.Lifestyle.class, resultSet.getString("lifestyle")))
-                        .userFood(setFood(resultSet)).build())
+                        .userFood(extractFood(resultSet)).build())
                 .build();
     }
 
-    private List<Food> setFood(ResultSet rs) throws SQLException {
+    private List<Food> extractFood(ResultSet rs) throws SQLException {
         List<Food> userFood = new ArrayList<>();
-        userFood.add(EntityExtractor.extractFood(rs));
-        while (rs.next()) {
-            userFood.add(EntityExtractor.extractFood(rs));
-        }
+        do {
+            userFood.add(Food.builder().food_id(rs.getLong("food_id")).name(rs.getString("name"))
+                    .calories(rs.getInt("calories")).fats(rs.getInt("fats")).proteins(rs.getInt("proteins"))
+                    .carbohydrates(rs.getInt("carbohydrates")).build());
+        } while (rs.next());
         return userFood;
     }
 

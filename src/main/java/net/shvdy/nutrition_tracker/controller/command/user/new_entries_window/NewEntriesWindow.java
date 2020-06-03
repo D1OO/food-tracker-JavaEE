@@ -6,7 +6,6 @@ import net.shvdy.nutrition_tracker.dto.NewEntriesDTO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
-import java.util.Optional;
 
 /**
  * 22.05.2020
@@ -26,8 +25,8 @@ public class NewEntriesWindow implements ActionCommand {
         request.getSession().getServletContext().setAttribute("newEntriesDTO",
                 NewEntriesDTO.builder()
                         .profileId(Long.valueOf(request.getParameter("profileId")))
-                        .recordId(Optional.ofNullable(request.getParameter("recordId"))
-                                .isPresent() ? Long.parseLong(request.getParameter("recordId")) : null)
+                        .recordId(request.getParameter("recordId")
+                                .isEmpty() ? null : Long.parseLong(request.getParameter("recordId")))
                         .recordDate(request.getParameter("recordDate"))
                         .currentDailyCaloriesNorm((Integer) request.getSession().getAttribute("user.dailyCaloriesNorm"))
                         .entries(new ArrayList<>()).build());

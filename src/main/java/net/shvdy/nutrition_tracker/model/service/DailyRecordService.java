@@ -32,7 +32,7 @@ public class DailyRecordService {
         dailyRecordDAO.save(DailyRecord.builder()
                 .recordId(newEntriesDTO.getRecordId())
                 .recordDate(newEntriesDTO.getRecordDate())
-                .userProfileId(newEntriesDTO.getProfileId())
+                .profileId(newEntriesDTO.getProfileId())
                 .dailyCaloriesNorm(newEntriesDTO.getCurrentDailyCaloriesNorm())
                 .entries(dailyRecordMapper.entriesListDTOToEntity(newEntriesDTO.getEntries())).build());
     }

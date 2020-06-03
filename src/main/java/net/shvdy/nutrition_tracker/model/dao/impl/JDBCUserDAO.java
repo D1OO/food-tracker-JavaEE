@@ -3,7 +3,6 @@ package net.shvdy.nutrition_tracker.model.dao.impl;
 import net.shvdy.nutrition_tracker.controller.ContextHolder;
 import net.shvdy.nutrition_tracker.exception.SQLRuntimeException;
 import net.shvdy.nutrition_tracker.model.dao.UserDAO;
-import net.shvdy.nutrition_tracker.model.dao.resultset_mapper.ResultSetMapperLocalised;
 import net.shvdy.nutrition_tracker.model.entity.User;
 import net.shvdy.nutrition_tracker.model.entity.UserProfile;
 
@@ -16,10 +15,10 @@ import java.util.Properties;
 public class JDBCUserDAO implements UserDAO {
 
     private DataSource dataSource;
-    private ResultSetMapperLocalised<User> resultSetMapper;
+    private UserMapper resultSetMapper;
     private final Properties queries;
 
-    public JDBCUserDAO(DataSource dataSource, ResultSetMapperLocalised<User> resultSetMapper, Properties queries) {
+    public JDBCUserDAO(DataSource dataSource, UserMapper resultSetMapper, Properties queries) {
         this.dataSource = dataSource;
         this.resultSetMapper = resultSetMapper;
         this.queries = queries;

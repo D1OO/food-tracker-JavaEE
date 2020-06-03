@@ -36,7 +36,7 @@ public class DailyRecordEntityMapper {
                 .recordId(dailyRecord.getRecordId())
                 .recordDate(dailyRecord.getRecordDate())
                 .dailyCaloriesNorm(dailyRecord.getDailyCaloriesNorm())
-                .userProfileId(dailyRecord.getUserProfileId())
+                .userProfileId(dailyRecord.getProfileId())
                 .entries(entriesListEntityToDTO(dailyRecord.getEntries()))
                 .percentage(getPercentage(dailyRecord.getEntries(), dailyRecord.getDailyCaloriesNorm()))
                 .totalCalories(getTotalCalories(dailyRecord.getEntries()))

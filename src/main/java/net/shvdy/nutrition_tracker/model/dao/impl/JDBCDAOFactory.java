@@ -2,8 +2,6 @@ package net.shvdy.nutrition_tracker.model.dao.impl;
 
 import net.shvdy.nutrition_tracker.PropertiesContainer;
 import net.shvdy.nutrition_tracker.model.dao.*;
-import net.shvdy.nutrition_tracker.model.dao.resultset_mapper.DailyRecordListMapper;
-import net.shvdy.nutrition_tracker.model.dao.resultset_mapper.UserMapper;
 
 import javax.naming.NamingException;
 import javax.sql.DataSource;
@@ -25,7 +23,7 @@ public class JDBCDAOFactory extends DAOFactory {
 
     @Override
     public DailyRecordDAO getDailyRecordDAO() {
-        return new JDBCDailyRecordDAO(dataSource, new DailyRecordListMapper(), QUERIES);
+        return new JDBCDailyRecordDAO(dataSource, QUERIES);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package net.shvdy.nutrition_tracker.model.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,16 +13,19 @@ import java.util.List;
 public class DailyRecord {
     private Long recordId;
     private String recordDate;
-    private Long userProfileId;
+    private Long profileId;
     private int dailyCaloriesNorm;
-    private List<DailyRecordEntry> entries;
+    private List<DailyRecordEntry> entries = new ArrayList<>();
 
-    public DailyRecord(Long recordId, String recordDate, int dailyCaloriesNorm, Long userProfileId,
+    public DailyRecord() {
+    }
+
+    public DailyRecord(Long recordId, String recordDate, int dailyCaloriesNorm, Long profileId,
                        List<DailyRecordEntry> entries) {
         this.recordId = recordId;
         this.recordDate = recordDate;
         this.dailyCaloriesNorm = dailyCaloriesNorm;
-        this.userProfileId = userProfileId;
+        this.profileId = profileId;
         this.entries = entries;
     }
 
@@ -53,12 +57,12 @@ public class DailyRecord {
         this.dailyCaloriesNorm = dailyCaloriesNorm;
     }
 
-    public Long getUserProfileId() {
-        return userProfileId;
+    public Long getProfileId() {
+        return profileId;
     }
 
-    public void setUserProfileId(Long userProfileId) {
-        this.userProfileId = userProfileId;
+    public void setProfileId(Long profileId) {
+        this.profileId = profileId;
     }
 
     public List<DailyRecordEntry> getEntries() {
@@ -74,7 +78,7 @@ public class DailyRecord {
         private Long recordId;
         private String recordDate;
         private int dailyCaloriesNorm;
-        private Long userProfileId;
+        private Long profileId;
         private List<DailyRecordEntry> entries;
 
         DailyRecordBuilder() {
@@ -95,8 +99,8 @@ public class DailyRecord {
             return this;
         }
 
-        public DailyRecordBuilder userProfileId(Long userProfileId) {
-            this.userProfileId = userProfileId;
+        public DailyRecordBuilder profileId(Long profileId) {
+            this.profileId = profileId;
             return this;
         }
 
@@ -107,7 +111,7 @@ public class DailyRecord {
 
         public DailyRecord build() {
             return new DailyRecord(this.recordId, this.recordDate,
-                    this.dailyCaloriesNorm, this.userProfileId, this.entries);
+                    this.dailyCaloriesNorm, this.profileId, this.entries);
         }
     }
 }

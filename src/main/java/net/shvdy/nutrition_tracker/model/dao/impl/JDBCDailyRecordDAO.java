@@ -3,15 +3,23 @@ package net.shvdy.nutrition_tracker.model.dao.impl;
 import net.shvdy.nutrition_tracker.controller.ContextHolder;
 import net.shvdy.nutrition_tracker.exception.SQLRuntimeException;
 import net.shvdy.nutrition_tracker.model.dao.DailyRecordDAO;
-import net.shvdy.nutrition_tracker.model.dao.resultset_mapper.ResultSetMapper;
 import net.shvdy.nutrition_tracker.model.entity.DailyRecord;
 import net.shvdy.nutrition_tracker.model.entity.DailyRecordEntry;
+import net.shvdy.nutrition_tracker.model.entity.Food;
+import org.apache.commons.dbutils.BasicRowProcessor;
+import org.apache.commons.dbutils.GenerousBeanProcessor;
+import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.ResultSetHandler;
+import org.apache.commons.dbutils.handlers.BeanHandler;
+import org.apache.commons.dbutils.handlers.BeanListHandler;
+import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 import javax.sql.DataSource;
-import java.sql.*;
-import java.util.List;
-import java.util.Optional;
-import java.util.Properties;
+import java.math.BigInteger;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.*;
 
 /**
  * 20.05.2020
@@ -20,28 +28,27 @@ import java.util.Properties;
  * @version 1.0
  */
 public class JDBCDailyRecordDAO implements DailyRecordDAO {
+    private static final BasicRowProcessor ROW_PROCESSOR = new BasicRowProcessor(new DailyRecordBeanProcessor());
+    private static final ResultSetHandler<DailyRecord> RESULT_SET_HANDLER =
+            new BeanHandler<>(DailyRecord.class, ROW_PROCESSOR);
+    private static final ResultSetHandler<List<DailyRecord>> LIST_RESULT_SET_HANDLER =
+            new BeanListHandler<>(DailyRecord.class, ROW_PROCESSOR);
 
+    private Properties queries;
+    private QueryRunner queryRunner;
     private DataSource dataSource;
-    private ResultSetMapper<List<DailyRecord>> resultSetMapper;
-    private final Properties queries;
 
-    public JDBCDailyRecordDAO(DataSource dataSource, ResultSetMapper<List<DailyRecord>> resultSetMapper,
-                              Properties queries) {
-        this.dataSource = dataSource;
-        this.resultSetMapper = resultSetMapper;
+    public JDBCDailyRecordDAO(DataSource dataSource, Properties queries) {
         this.queries = queries;
+        this.dataSource = dataSource;
+        queryRunner = new QueryRunner(dataSource);
     }
 
     public List<DailyRecord> findByDatePeriodAndQuantity(Long profileId, String periodStartDate, String periodEndDate) {
-        try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection
-                     .prepareStatement(queries.getProperty("daily_record_dao.SELECT_BY_DATE_PERIOD_AND_QUANTITY"))) {
-
-            statement.setLong(1, profileId);
-            statement.setString(2, periodStartDate);
-            statement.setString(3, periodEndDate);
-
-            return resultSetMapper.map(statement.executeQuery());
+        try {
+            return queryRunner.query(queries.getProperty("daily_record_dao.SELECT_BY_DATE_PERIOD_AND_QUANTITY"),
+                    LIST_RESULT_SET_HANDLER,
+                    profileId, periodStartDate, periodEndDate);
         } catch (SQLException e) {
             ContextHolder.logger().error("JDBCDailyRecordDAO findByDatePeriodAndQuantity: " + e);
             throw new SQLRuntimeException(e);
@@ -49,38 +56,20 @@ public class JDBCDailyRecordDAO implements DailyRecordDAO {
     }
 
     public void save(DailyRecord dailyRecord) {
-        try (Connection connection = dataSource.getConnection();
-             PreparedStatement insertDailyRecord = connection
-                     .prepareStatement(queries.getProperty("daily_record_dao.INSERT_DAILY_RECORD_SQL"),
-                             Statement.RETURN_GENERATED_KEYS);
-             PreparedStatement insertEntries = connection
-                     .prepareStatement(queries.getProperty("daily_record_dao.INSERT_ENTRIES_SQL"))) {
-
+        try (Connection connection = dataSource.getConnection()) {
             connection.setAutoCommit(false);
 
-            Optional<Long> dailyRecordID = Optional.ofNullable(dailyRecord.getRecordId());
-            setLongOrNull(insertDailyRecord, 1, dailyRecordID);
-            insertDailyRecord.setLong(2, dailyRecord.getUserProfileId());
-            insertDailyRecord.setString(3, dailyRecord.getRecordDate());
-            insertDailyRecord.setInt(4, dailyRecord.getDailyCaloriesNorm());
-            insertDailyRecord.executeUpdate();
+            Optional.ofNullable(queryRunner.insert(queries.getProperty("daily_record_dao.INSERT_DAILY_RECORD_SQL"),
+                    new ScalarHandler<BigInteger>(),
+                    dailyRecord.getRecordId(), dailyRecord.getProfileId(), dailyRecord.getRecordDate(),
+                    dailyRecord.getDailyCaloriesNorm())).ifPresent(x -> dailyRecord.setRecordId(x.longValue()));
 
-            if (dailyRecordID.isEmpty()) {
-                ResultSet generatedKeys = insertDailyRecord.getGeneratedKeys();
-                if (generatedKeys.next())
-                    dailyRecord.setRecordId(generatedKeys.getLong(1));
-            }
-
-            for (DailyRecordEntry entry : dailyRecord.getEntries()) {
-                insertEntries.setLong(1, entry.getFood().getFoodId());
-                insertEntries.setLong(2, Optional.ofNullable(dailyRecord.getRecordId())
-                        .orElseThrow(() -> new SQLException("Failed to retrieve DB-generated DailyRecord ID")));
-                insertEntries.setInt(3, entry.getQuantity());
-                setLongOrNull(insertEntries, 4, Optional.ofNullable(entry.getEntryId()));
-
-                insertEntries.addBatch();
-            }
-            insertEntries.executeBatch();
+            queryRunner.insertBatch(connection, queries.getProperty("daily_record_dao.INSERT_ENTRIES_SQL"),
+                    RESULT_SET_HANDLER,
+                    dailyRecord.getEntries().stream()
+                            .map(u -> new Object[]{u.getFood().getFoodId(), dailyRecord.getRecordId(),
+                                    u.getQuantity(), u.getEntryId()})
+                            .toArray(Object[][]::new));
 
             try {
                 connection.commit();
@@ -94,12 +83,34 @@ public class JDBCDailyRecordDAO implements DailyRecordDAO {
         }
     }
 
-    private void setLongOrNull(PreparedStatement statement, int index, Optional<Long> value) throws SQLException {
-        if (value.isPresent()) {
-            statement.setLong(index, value.get()); //setLong doesn't accept null values
-        } else {
-            statement.setNull(index, Types.BIGINT);
+    private static class DailyRecordBeanProcessor extends GenerousBeanProcessor {
+
+        @Override
+        public <T> List<T> toBeanList(ResultSet rs, Class<? extends T> type) throws SQLException {
+            HashMap<Long, DailyRecord> results = new HashMap<>();
+            if (!rs.next()) {
+                return new ArrayList<>();
+            } else {
+                do {
+                    Long recordId = rs.getLong("record_id");
+                    results.putIfAbsent(recordId, (DailyRecord) toBean(rs, type));
+                    results.get(recordId).getEntries().add(extractDailyRecordEntry(rs));
+                } while (rs.next());
+                return (List<T>) new ArrayList<>(results.values());
+            }
         }
+
+        private DailyRecordEntry extractDailyRecordEntry(ResultSet rs) throws SQLException {
+            return DailyRecordEntry.builder().entryId(rs.getLong("entry_id")).recordId(rs.getLong("record_id"))
+                    .quantity(rs.getInt("quantity")).food(extractFood(rs)).build();
+        }
+
+        private Food extractFood(ResultSet rs) throws SQLException {
+            return Food.builder().food_id(rs.getLong("food_id")).name(rs.getString("name"))
+                    .calories(rs.getInt("calories")).fats(rs.getInt("fats")).proteins(rs.getInt("proteins"))
+                    .carbohydrates(rs.getInt("carbohydrates")).build();
+        }
+
     }
 
 }
