@@ -2,7 +2,6 @@ package net.shvdy.nutrition_tracker.model.dao.impl;
 
 import net.shvdy.nutrition_tracker.PropertiesContainer;
 import net.shvdy.nutrition_tracker.model.dao.*;
-import net.shvdy.nutrition_tracker.model.dao.resultset_mapper.ArticleMapper;
 import net.shvdy.nutrition_tracker.model.dao.resultset_mapper.DailyRecordListMapper;
 import net.shvdy.nutrition_tracker.model.dao.resultset_mapper.UserMapper;
 
@@ -36,7 +35,7 @@ public class JDBCDAOFactory extends DAOFactory {
 
     @Override
     public ArticleDAO getArticleDAO() {
-        return new JDBCArticleDAO(dataSource, new ArticleMapper(), QUERIES);
+        return new JDBCArticleDAO(dataSource, QUERIES);
     }
 
 }

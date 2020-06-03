@@ -12,10 +12,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.util.Map;
-import java.util.Optional;
 
 /**
  * 24.05.2020
@@ -54,16 +52,16 @@ public class SaveNewArticle implements ActionCommand {
                 .date(LocalDateTime.now().toString())
                 .textEN(request.getParameter("textEN"))
                 .textRU(request.getParameter("textRU"))
-                .image(readImage(request).orElse(InputStream.nullInputStream()))
+                .imageBytes(readImageBytes(request))
                 .build();
     }
 
-    private Optional<InputStream> readImage(HttpServletRequest request) {
+    private byte[] readImageBytes(HttpServletRequest request) {
         try {
-            return Optional.of(request.getPart("image").getInputStream());
+            return request.getPart("image").getInputStream().readAllBytes();
         } catch (IOException | ServletException e) {
             ContextHolder.logger().error("Image loading error:\n" + e);
         }
-        return Optional.empty();
+        return null;
     }
 }

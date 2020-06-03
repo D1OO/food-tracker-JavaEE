@@ -1,6 +1,5 @@
 package net.shvdy.nutrition_tracker.model.dao.resultset_mapper;
 
-import net.shvdy.nutrition_tracker.model.entity.Article;
 import net.shvdy.nutrition_tracker.model.entity.DailyRecord;
 import net.shvdy.nutrition_tracker.model.entity.DailyRecordEntry;
 import net.shvdy.nutrition_tracker.model.entity.Food;
@@ -8,7 +7,6 @@ import net.shvdy.nutrition_tracker.model.entity.Food;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Locale;
 
 /**
  * 27.05.2020
@@ -17,19 +15,6 @@ import java.util.Locale;
  * @version 1.0
  */
 public class EntityExtractor {
-
-    public static Article extractArticle(ResultSet rs, Locale locale) throws SQLException {
-        return Article.builder()
-                .articleId(rs.getInt("article_id"))
-                .authorId(rs.getLong("article_id"))
-                .date(rs.getString("date_created"))
-                .authorFirstName(rs.getString("first_name_" + locale.getLanguage()))
-                .authorLastName(rs.getString("last_name"))
-                .titleLocalisation(rs.getString("title_" + locale.getLanguage()))
-                .textLocalisation(rs.getString("text_" + locale.getLanguage()))
-                .image(rs.getBlob("image").getBinaryStream())
-                .build();
-    }
 
     static Food extractFood(ResultSet rs) throws SQLException {
         return Food.builder()
