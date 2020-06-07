@@ -33,7 +33,7 @@
                 </div>
                 <div>
                     <div id="new-entries-container">
-                        <jsp:include page="/view/user/add-new-entries-window/new-entries-list.jsp"/>
+                        <jsp:include page="/view/fragments/user/add-new-entries-window/new-entries-list.jsp"/>
                     </div>
                 </div>
                 <button class="pretty-button modal-create-food" onclick="setModalContainerTo('createfoodcontainer')">

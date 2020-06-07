@@ -34,7 +34,6 @@ public class ValidatorTest {
     @Mock
     RequestDispatcher rd;
 
-
     @BeforeAll
     protected void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);

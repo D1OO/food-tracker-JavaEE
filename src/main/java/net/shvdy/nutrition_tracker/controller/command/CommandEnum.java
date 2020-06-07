@@ -88,9 +88,6 @@ public enum CommandEnum {
             Set.of(Role.ADMIN, Role.USER)),
     NOT_FOUND(
             new NotFound404(), "",
-            Set.of(Role.ADMIN, Role.USER, Role.GUEST)),
-    SERVER_ERROR(
-            new ServerErrorPage(), "",
             Set.of(Role.ADMIN, Role.USER, Role.GUEST));
 
     private final ActionCommand actionCommand;

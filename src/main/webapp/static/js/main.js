@@ -8,11 +8,9 @@ $(document).ready(function () {
             window.location.href = document.location;
     };
 
-    $(document).ready(function () {
-        const param = new URLSearchParams(window.location.search);
-        if (param.has('save-success'))
-            $("#updateSuccessBox").show(200);
-    });
+    const param = new URLSearchParams(window.location.search);
+    if (param.has('save-success'))
+        $("#updateSuccessBox").show(200);
 });
 
 function loadFromServerIntoContentContainer(...endpoint) {

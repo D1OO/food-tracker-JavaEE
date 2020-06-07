@@ -39,7 +39,7 @@ public class DailyRecordService {
 
     public List<DailyRecordDTO> findPaginated(Long profileId, String periodEndDate, int quantity,
                                               Locale currentLocale) {
-        return insertAbsentDays(profileId, periodEndDate, quantity, currentLocale,
+        return insertBlankForAbsentDays(profileId, periodEndDate, quantity, currentLocale,
                 dailyRecordDAO.findByDatePeriodAndQuantity(profileId,
                         LocalDate.parse(periodEndDate).minusDays(quantity - 1).toString(),
                         periodEndDate).stream()
@@ -48,17 +48,17 @@ public class DailyRecordService {
     }
 
 
-    private List<DailyRecordDTO> insertAbsentDays(Long profileId, String periodEndDate, int size, Locale locale,
-                                                  Map<String, DailyRecordDTO> weeklyRecords) {
+    private List<DailyRecordDTO> insertBlankForAbsentDays(Long profileId, String periodEndDate, int size, Locale locale,
+                                                          Map<String, DailyRecordDTO> weeklyRecords) {
         IntStream.range(0, size)
                 .mapToObj(n -> LocalDate.parse(periodEndDate).minusDays(n).toString())
-                .forEach(day -> weeklyRecords.putIfAbsent(day, createEmptyRecord(profileId, day, locale)));
+                .forEach(day -> weeklyRecords.putIfAbsent(day, createBlankRecord(profileId, day, locale)));
         return new ArrayList<>(weeklyRecords.values()).stream()
                 .sorted(Comparator.comparing(DailyRecordDTO::getRecordDate).reversed())
                 .collect(Collectors.toList());
     }
 
-    private DailyRecordDTO createEmptyRecord(Long profileId, String date, Locale locale) {
+    private DailyRecordDTO createBlankRecord(Long profileId, String date, Locale locale) {
         return DailyRecordDTO.builder()
                 .recordDate(date)
                 .userProfileId(profileId)
