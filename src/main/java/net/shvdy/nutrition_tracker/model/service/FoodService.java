@@ -2,7 +2,10 @@ package net.shvdy.nutrition_tracker.model.service;
 
 import net.shvdy.nutrition_tracker.dto.FoodDTO;
 import net.shvdy.nutrition_tracker.model.dao.FoodDAO;
+import net.shvdy.nutrition_tracker.model.entity.Food;
 import net.shvdy.nutrition_tracker.model.service.mapper.FoodEntityMapper;
+
+import java.util.List;
 
 /**
  * 23.05.2020
@@ -22,5 +25,9 @@ public class FoodService {
 
     public Long saveForProfile(FoodDTO foodDTO, Long profileId) {
         return foodDAO.createForProfile(foodMapper.DTOToEntity(foodDTO), profileId);
+    }
+
+    public List<Food> foodSearch(String nameStartsWith) {
+        return foodDAO.findByNameStart(nameStartsWith);
     }
 }

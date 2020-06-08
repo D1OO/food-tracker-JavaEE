@@ -24,6 +24,6 @@ public class RemovedEntry implements ActionCommand {
         } catch (IOException e) {
             ContextHolder.logger().error("RemovedEntry execute: : reading from JSON exception: " + e);
         }
-        return "/view/user/add-new-entries-window/new-entries-list.jsp";
+        return "/view/fragments/user/add-new-entries-window/new-entries-list.jsp";
     }
 }

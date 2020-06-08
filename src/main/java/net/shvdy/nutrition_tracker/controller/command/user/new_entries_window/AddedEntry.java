@@ -29,6 +29,6 @@ public class AddedEntry implements ActionCommand {
             ContextHolder.logger().error("AddedEntry execute: : reading from JSON exception: " + e);
         }
 
-        return "/view/user/add-new-entries-window/new-entries-list.jsp";
+        return "/view/fragments/user/add-new-entries-window/new-entries-list.jsp";
     }
 }

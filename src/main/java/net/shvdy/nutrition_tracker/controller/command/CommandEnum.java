@@ -73,7 +73,10 @@ public enum CommandEnum {
             Set.of(Role.USER)),
     FOOD_MODAL_WINDOW(
             new NewEntriesWindow(), "/adding-entries-modal-window",
-            Set.of(Role.ADMIN, Role.USER)),
+            Set.of(Role.USER)),
+    SEARCH_FOOD(
+            new Search(), "/search",
+            Set.of(Role.USER)),
     NEW_RECORD_ENTRY(
             new AddedEntry(), "/added-entry",
             Set.of(Role.USER)),

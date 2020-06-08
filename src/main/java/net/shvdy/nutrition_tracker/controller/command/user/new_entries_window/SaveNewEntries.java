@@ -29,7 +29,7 @@ public class SaveNewEntries implements ActionCommand {
 		}
 		if (NewEntriesDTOReader.validateHasErrors(newEntries)) {
 			request.getSession().getServletContext().setAttribute("newEntriesDTO", newEntries);
-			return "/view/user/add-new-entries-window/new-entries-list.jsp";
+			return "/view/fragments/user/add-new-entries-window/new-entries-list.jsp";
 		} else {
 			ContextHolder.dailyRecordService().saveNewEntries(newEntries);
 			return "ok";

@@ -7,6 +7,8 @@ import net.shvdy.nutrition_tracker.model.entity.Food;
 
 import javax.sql.DataSource;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 /**
@@ -32,7 +34,7 @@ public class JDBCFoodDAO implements FoodDAO {
                      .prepareStatement(queries.getProperty("food_dao.INSERT_FOOD_SQL"),
                              Statement.RETURN_GENERATED_KEYS);
              PreparedStatement insertFoodForProfileStatement = connection
-                     .prepareStatement(queries.getProperty("fooddao.INSERT_FOOD_FOR_PROFILE_SQL"))) {
+                     .prepareStatement(queries.getProperty("food_dao.INSERT_FOOD_FOR_PROFILE_SQL"))) {
 
             connection.setAutoCommit(false);
 
@@ -68,5 +70,36 @@ public class JDBCFoodDAO implements FoodDAO {
             ContextHolder.logger().error("JDBCFoodDAO createForProfile: " + e);
             throw new SQLRuntimeException(e);
         }
+    }
+
+    @Override
+    public List<Food> findByNameStart(String nameStartsWith) {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement findFood = connection
+                     .prepareStatement(queries.getProperty("food_dao.SELECT_FOOD_SQL"))) {
+
+            findFood.setString(1, "%" + nameStartsWith.toLowerCase() + "%");
+
+            try (ResultSet resultSet = findFood.executeQuery()) {
+                if (resultSet.next()) {
+                    return extractFood(resultSet);
+                } else
+                    return new ArrayList<>();
+            }
+
+        } catch (SQLException e) {
+            ContextHolder.logger().error("JDBCFoodDAO createForProfile: " + e);
+            throw new SQLRuntimeException(e);
+        }
+    }
+
+    private List<Food> extractFood(ResultSet rs) throws SQLException {
+        List<Food> userFood = new ArrayList<>();
+        do {
+            userFood.add(Food.builder().food_id(rs.getLong("food_id")).name(rs.getString("name"))
+                    .calories(rs.getInt("calories")).fats(rs.getInt("fats")).proteins(rs.getInt("proteins"))
+                    .carbohydrates(rs.getInt("carbohydrates")).build());
+        } while (rs.next());
+        return userFood;
     }
 }

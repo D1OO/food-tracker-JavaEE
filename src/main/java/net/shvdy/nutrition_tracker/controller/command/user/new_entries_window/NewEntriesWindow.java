@@ -18,7 +18,8 @@ public class NewEntriesWindow implements ActionCommand {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         createNewEntriesDTO(request);
-        return "/view/user/add-new-entries-window/window.jsp";
+        request.getSession().setAttribute("foodList", request.getSession().getAttribute("user.userFood"));
+        return "/view/fragments/user/add-new-entries-window/window.jsp";
     }
 
     private void createNewEntriesDTO(HttpServletRequest request) {

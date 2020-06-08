@@ -15,6 +15,6 @@ public class NewArticleWindow implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        return "/view/admin/new-article-window.jsp";
+        return "/view/fragments/admin/new-article-window.jsp";
     }
 }

@@ -9,6 +9,6 @@ public class CompleteProfileToProceed implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        return "/view/user/complete-profile-to-proceed.jsp";
+        return "/view/fragments/user/complete-profile-to-proceed.jsp";
     }
 }

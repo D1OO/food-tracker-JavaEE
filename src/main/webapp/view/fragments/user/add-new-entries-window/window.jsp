@@ -7,38 +7,15 @@
 
 <div class="modal" id="myModal" data-aos="fade-zoom-in" data-aos-offset="">
     <div class="modal-content">
-        <div class="modal-header">
+        <div class="modal-header d-inline-flex">
             <p class="p-1 mt-2 mb-2" style="size:4em"><fmt:message key="user.meals-to-add"/></p>
+            <input class="form-control col-5 ml-4 align-self-center" id="search" onclick="assignSearchListener()"
+                   placeholder="search..."/>
             <span class="close mt-0" onclick="closeAddFoodModalWindow()">&times;</span>
         </div>
         <div class="modal-body container" id="modalbody">
             <div class="m-2 tabs" id="addfoodcontainer" style="display: block">
-                <div class="d-inline-flex flex-wrap">
-                    <div id="entriesSavingErrorBox" class="alert-danger alert col-md-11 mb-3 display-none" role="alert">
-                        <fmt:message key="entries.not-saved"/>
-                    </div>
-                    <c:forEach var="food" items="${user.userFood}" varStatus="loop">
-                        <div class="mb-1">
-                            <div class="user_food m-2">
-                                <a rel="group" title=""></a>
-                                <div class="label">
-                                    <div class="label-text">
-                                        <button class="pretty-button foodlink" name='${food}'
-                                                onclick="addedNewEntry(this.getAttribute('name'), '${food.name}')">${food.name}</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </c:forEach>
-                </div>
-                <div>
-                    <div id="new-entries-container">
-                        <jsp:include page="/view/fragments/user/add-new-entries-window/new-entries-list.jsp"/>
-                    </div>
-                </div>
-                <button class="pretty-button modal-create-food" onclick="setModalContainerTo('createfoodcontainer')">
-                    <fmt:message key="user.create-new"/>
-                </button>
+                <jsp:include page="/view/fragments/user/add-new-entries-window/search-results.jsp"/>
             </div>
             <div class="mt-4" id="createfoodcontainer" style="display: none">
                 <div id="foodSavingErrorBox" class="alert-danger alert col-md-11 mb-3 display-none" role="alert">
