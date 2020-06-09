@@ -1,15 +1,11 @@
 package net.shvdy.nutrition_tracker.model.dao.impl;
 
-import net.shvdy.nutrition_tracker.model.entity.Food;
-import net.shvdy.nutrition_tracker.model.entity.Role;
-import net.shvdy.nutrition_tracker.model.entity.User;
-import net.shvdy.nutrition_tracker.model.entity.UserProfile;
+import net.shvdy.nutrition_tracker.dto.UserDTO;
+import net.shvdy.nutrition_tracker.model.entity.*;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 public class UserMapper {
 
@@ -57,6 +53,21 @@ public class UserMapper {
                     .lifestyle(Enum.valueOf(UserProfile.Lifestyle.class, rs.getString("lifestyle"))).build()).build());
         } while (rs.next());
         return group;
+    }
+
+    public Set<Notification> extractNotifications(ResultSet rs, UserDTO receiver) throws SQLException {
+        Set<Notification> notifications = new HashSet<>();
+        do {
+            String timeStampWithMs = rs.getTimestamp("datetime").toString();
+            notifications.add(Notification.builder()
+                    .sender(UserDTO.builder().id(rs.getLong("sender_id"))
+                            .firstNameLocalisation(rs.getString("first_name_en"))
+                            .lastName(rs.getString("last_name")).build())
+                    .receiver(UserDTO.builder().id(receiver.getUserId()).build())
+                    .dateTime(timeStampWithMs.substring(0, timeStampWithMs.length() - 2))
+                    .message(rs.getString("message")).build());
+        } while (rs.next());
+        return notifications;
     }
 
 }

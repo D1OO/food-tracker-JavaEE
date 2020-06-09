@@ -137,6 +137,15 @@ dl, ol, ul {
     border: none !important;
 }
 
+#lifestyle {
+    padding: 0;
+}
+
+.menu {
+    position: sticky;
+    top: 5rem;
+    z-index: 4;
+}
 
 .tabs .pretty-button {
     font-family: 'Gotham Rounded Medium', sans-serif;
@@ -727,6 +736,9 @@ h6,
 }
 
 .top-container {
+    position: sticky;
+    top: 0;
+    z-index: 4;
     background: rgb(238, 174, 202);
     background: linear-gradient(338deg, rgba(238, 174, 202, 1) 0%, rgba(148, 187, 233, 1) 100%);
     padding: 0;
@@ -936,6 +948,21 @@ h6,
     background: #d78287 !important;
     cursor: default;
 }
+
+.notification-sender {
+    padding-left: 4px;
+    padding-right: 4px;
+    background-color: white;
+    border-radius: 4px;
+    color: #000000;
+    font-size: 1.1rem;
+}
+
+.notification-from {
+    font-family: "Gotham Rounded Light";
+    font-size: 0.92rem;
+}
+
 
 .visible {
     visibility: visible;

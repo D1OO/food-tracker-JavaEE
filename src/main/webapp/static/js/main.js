@@ -57,86 +57,6 @@ function closeAddFoodModalWindow() {
     $('#modal-window').css("display", "none");
 }
 
-function addedNewEntry(foodDTO, foodName) {
-    const data = '&foodDTOJSON=' + foodDTO + '&foodName=' + foodName +
-        '&newEntriesJSON=' + getNewEntriesJSONString() + '&newEntriesDTOJSON=' + $('#new-entries-list').val();
-
-    $.post('/added-entry', data, function (response) {
-        $('#new-entries-container').html(response);
-    });
-}
-
-function saveCreatedFood() {
-    clearErrorMessages();
-    $.ajax({
-        type: "POST",
-        url: '/save-new-food',
-        data: $('#createfoodform').serialize(),
-        statusCode: {
-            500: function () {
-                $("#foodSavingErrorBox").show(200);
-            },
-            400: function (response) {
-                $.each(response.responseJSON, function (errorKey, errorMessage) {
-                    $("#" + errorKey).text(errorMessage);
-                });
-            }
-        },
-        success: function () {
-            $("#foodSavedSuccessBox").show(200);
-        }
-    });
-}
-
-function saveNewEntries() {
-    const data = '&newEntriesJSON=' + getNewEntriesJSONString() +
-        '&newEntriesDTOJSON=' + $('#new-entries-list').val();
-    $.ajax({
-        type: "POST",
-        url: '/save-new-entries',
-        data: data,
-        statusCode: {
-            500: function (response) {
-                $("#entriesSavingErrorBox").show(200);
-            }
-        },
-        success: function (response) {
-            if (response.length > 0) {
-                $('#new-entries-container').html(response);
-            } else {
-                closeAddFoodModalWindow();
-                $("#entriesSavedSuccessBox").show(200);
-                loadFromServerIntoContentContainer('food-diary');
-            }
-        }
-    });
-}
-
-function saveCreatedArticle() {
-    clearErrorMessages();
-    $.ajax({
-        type: "POST",
-        url: '/save-new-article',
-        contentType: false,
-        processData: false,
-        data: new FormData($('#createarticleform')[0]),
-        statusCode: {
-            500: function () {
-                $("#articleSavingErrorBox").show(200);
-            },
-            400: function (response) {
-                $.each(response.responseJSON, function (errorKey, errorMessage) {
-                    $("#" + errorKey).text(errorMessage);
-                });
-            }
-        },
-        success: function () {
-            closeAddFoodModalWindow();
-            loadFromServerIntoContentContainer('feed');
-        }
-    });
-}
-
 function clearErrorMessages() {
     $('.errorServerValidation').text("");
     $("#foodSavingErrorBox").hide(100);
@@ -144,20 +64,7 @@ function clearErrorMessages() {
     $("#foodSavedSuccessBox").hide(100);
 }
 
-function getNewEntriesJSONString() {
-    const entriesJSON = [];
-    $(".entry").each(function () {
-        entriesJSON.push({
-            foodName: $(this).find('.foodName').text(),
-            quantity: $(this).find('.quantity').val(),
-            foodDTOJSON: $(this).find('.foodDTOJSON').val()
-        });
-    });
-    return JSON.stringify(entriesJSON);
-}
-
 var doOnce = false;
-
 function assignSearchListener() {
     if (doOnce === false) {
         $('#search').keyup(function () {

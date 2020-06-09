@@ -5,20 +5,31 @@
 <fmt:setBundle basename="i18n/messages"/>
 
 <div class="content-container" data-aos="fade-zoom-in" data-aos-offset="0">
-    <div class="mt-3">
-        <c:forEach var="member" items="${group}" varStatus="loop">
-            <button class="pretty-button m4 recordTab ml-3  ${loop.first ? 'selected-record-button' : ''}"
-                    onclick="tabClick('#user${loop.index}')">
-                    ${member.userProfile.firstNameLocalisation} ${member.userProfile.lastName}
+    <div class="mt-3 d-flex flex-column">
+        <div class="d-inline-flex">
+            <c:forEach var="member" items="${group}" varStatus="loop">
+                <button class="pretty-button m4 recordTab ml-3  ${loop.first ? 'selected-record-button' : ''}"
+                        onclick="userTabClick('#user${loop.index}')">
+                        ${member.userProfile.firstNameLocalisation} ${member.userProfile.lastName}
+                </button>
+            </c:forEach>
+            <button class="pretty-button m4 recordTab ml-3"
+                    onclick="inviteMember()" style="border-radius: 100%; width: 2.4rem; background-color: #99ce9c">
+                <fmt:message key="invite-member"/>
             </button>
-        </c:forEach>
-        <button class="pretty-button m4 recordTab ml-3"
-                onclick="inviteMember()" style="border-radius: 100%; width: 2.4rem; background-color: #99ce9c">
-            <fmt:message key="invite-member"/>
-        </button>
-        <div class="invite-section" style="display: none">
-
         </div>
+
+        <div class="invite-section" style="display: none">
+            <div class="d-inline-flex mt-4">
+                <input class="form-control col-5 ml-4 align-self-center" id="inviteemail"
+                       placeholder="e-mail"/>
+                <button class="pretty-button m4 recordTab ml-3"
+                        onclick="sendInvite()" style="background-color: #99ce9c">
+                    <fmt:message key="invite-member-button"/>
+                </button>
+            </div>
+        </div>
+
         <c:forEach var="member" items="${group}" varStatus="loop">
             <div id="user${loop.index}" class="record-tabs mt-3 mb-3" style="display: none">
                 <div class="userinfo d-inline-flex">

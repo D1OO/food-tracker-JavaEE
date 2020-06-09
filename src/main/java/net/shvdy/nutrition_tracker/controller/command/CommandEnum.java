@@ -1,12 +1,7 @@
 package net.shvdy.nutrition_tracker.controller.command;
 
-import net.shvdy.nutrition_tracker.controller.command.admin.AdminPage;
-import net.shvdy.nutrition_tracker.controller.command.admin.GroupPage;
-import net.shvdy.nutrition_tracker.controller.command.admin.NewArticleWindow;
-import net.shvdy.nutrition_tracker.controller.command.admin.SaveNewArticle;
-import net.shvdy.nutrition_tracker.controller.command.user.CompleteProfileToProceed;
-import net.shvdy.nutrition_tracker.controller.command.user.FoodDiary;
-import net.shvdy.nutrition_tracker.controller.command.user.UserPage;
+import net.shvdy.nutrition_tracker.controller.command.admin.*;
+import net.shvdy.nutrition_tracker.controller.command.user.*;
 import net.shvdy.nutrition_tracker.controller.command.user.new_entries_window.*;
 import net.shvdy.nutrition_tracker.model.entity.Role;
 
@@ -45,6 +40,9 @@ public enum CommandEnum {
     GROUP_PAGE(
             new GroupPage(), "/group",
             Set.of(Role.ADMIN)),
+    SEND_GROUP_INVITATION(
+            new SendGroupInvitation(), "/group/send-invitation",
+            Set.of(Role.ADMIN)),
     NEW_ARTICLE_MODAL(
             new NewArticleWindow(), "/new-article-window",
             Set.of(Role.ADMIN)),
@@ -72,6 +70,12 @@ public enum CommandEnum {
     UPDATE_PROFILE(
             new UpdateProfile(), "/update-profile",
             Set.of(Role.ADMIN, Role.USER)),
+    ACCEPT_INVITATION(
+            new AcceptGroupInvitation(), "/profile/accept-invitation",
+            Set.of(Role.USER)),
+    DECLINE_INVITATION(
+            new DeclineGroupInvitation(), "/profile/decline-invitation",
+            Set.of(Role.USER)),
     FOOD_DIARY_PAGE(
             new FoodDiary(), "/food-diary",
             Set.of(Role.USER)),
@@ -93,6 +97,9 @@ public enum CommandEnum {
     SAVE_NEW_FOOD(
             new SaveNewFood(), "/save-new-food",
             Set.of(Role.ADMIN, Role.USER)),
+    SERVER_ERROR(
+            new ServerError(), "/error",
+            Set.of(Role.ADMIN, Role.USER, Role.GUEST)),
     NOT_FOUND(
             new NotFound404(), "",
             Set.of(Role.ADMIN, Role.USER, Role.GUEST));

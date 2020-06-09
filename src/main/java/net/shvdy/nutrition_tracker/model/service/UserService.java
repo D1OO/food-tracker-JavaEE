@@ -3,6 +3,7 @@ package net.shvdy.nutrition_tracker.model.service;
 import net.shvdy.nutrition_tracker.dto.UserDTO;
 import net.shvdy.nutrition_tracker.dto.UserProfileDTO;
 import net.shvdy.nutrition_tracker.model.dao.UserDAO;
+import net.shvdy.nutrition_tracker.model.entity.Notification;
 import net.shvdy.nutrition_tracker.model.entity.User;
 import net.shvdy.nutrition_tracker.model.exception.BadCredentialsException;
 import net.shvdy.nutrition_tracker.model.service.mapper.UserEntityMapper;
@@ -10,6 +11,7 @@ import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 public class UserService {
 
@@ -48,6 +50,22 @@ public class UserService {
 
     public List<User> findGroup(String adminUsername, Locale locale) {
         return userDao.findGroup(adminUsername, locale);
+    }
+
+    public Set<Notification> findNotifications(UserDTO receiver) {
+        return userDao.findNotifications(receiver);
+    }
+
+    public void acceptGroupInvitation(Notification invite) {
+        userDao.acceptGroupInvitation(invite);
+    }
+
+    public void declineGroupInvitation(Notification invite) {
+        userDao.declineGroupInvitation(invite);
+    }
+
+    public void sendGroupInvitation(Notification invite) {
+        userDao.createGroupInvitation(invite);
     }
 
 }

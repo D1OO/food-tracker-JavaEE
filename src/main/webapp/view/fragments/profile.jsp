@@ -5,9 +5,31 @@
 <fmt:setBundle basename="i18n/messages"/>
 
 <div class="content-container" data-aos="fade-zoom-in" data-aos-offset="0">
+    <c:if test="${notifications ne null}">
+        <div class="notifications-container">
+            <c:forEach var="notif" items="${notifications}" varStatus="loop">
+                <div class="notification ml-4 mr-4 mt-4 p-3 d-inline-flex align-items-center"
+                     style="background-color: #d8f2e6; border-radius: 0.4rem;">
+                    <h5 class="mb-0"><label class="mb-0">${notif.message}</label></h5>
+                    <label class="notification-from ml-2 mb-0"><fmt:message key="notification-from"/></label>
+                    <label class="ml-2 notification-sender mb-0">
+                            ${notif.sender.firstNameLocalisation} ${notif.sender.lastName}</label>
+                    <label class="notification-from ml-2 mb-0">at ${notif.dateTime}</label>
+                    <button class="modal-save-food pretty-button m4  ml-3"
+                            onclick="acceptInvite('${notif.sender.firstNameLocalisation}', '${notif.dateTime}')">
+                        accept
+                    </button>
+                    <button class="modal-back pretty-button m4  ml-3"
+                            onclick="declineInvite('${notif.sender.firstNameLocalisation}', '${notif.dateTime}')">
+                        decline
+                    </button>
+                </div>
+            </c:forEach>
+        </div>
+    </c:if>
     <div class="h2 mb-4 m-4 d-flex">${user.username}</div>
     <div class="h5 mb-4 m-4 d-flex">${user.firstNameLocalisation} ${user.userProfileDTO.lastName}</div>
-    <form id="update-profile-form" class="form m-4" style="width: 100%" >
+    <form id="update-profile-form" class="form m-4" style="width: 100%">
         <div class="row" style="width: 100%;">
             <div class="col-6">
                 <div class="form-group col-md-11">

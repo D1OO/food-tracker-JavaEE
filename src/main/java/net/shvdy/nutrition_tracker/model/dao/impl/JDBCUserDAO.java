@@ -1,8 +1,10 @@
 package net.shvdy.nutrition_tracker.model.dao.impl;
 
 import net.shvdy.nutrition_tracker.controller.ContextHolder;
+import net.shvdy.nutrition_tracker.dto.UserDTO;
 import net.shvdy.nutrition_tracker.exception.SQLRuntimeException;
 import net.shvdy.nutrition_tracker.model.dao.UserDAO;
+import net.shvdy.nutrition_tracker.model.entity.Notification;
 import net.shvdy.nutrition_tracker.model.entity.User;
 import net.shvdy.nutrition_tracker.model.entity.UserProfile;
 
@@ -20,6 +22,26 @@ public class JDBCUserDAO implements UserDAO {
         this.dataSource = dataSource;
         this.resultSetMapper = resultSetMapper;
         this.queries = queries;
+    }
+
+    @Override
+    public Optional<User> findByUsernameLocalised(String username, Locale locale) {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection
+                     .prepareStatement(queries.getProperty("user_dao.SELECT_BY_USERNAME_SQL"))) {
+
+            statement.setString(1, username);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return Optional.of(resultSetMapper.extractUser(resultSet, locale));
+                }
+            }
+        } catch (SQLException e) {
+            ContextHolder.logger().error("JDBCUserDAO findByUsernameLocalised: " + e);
+            throw new SQLRuntimeException(e);
+        }
+        return Optional.empty();
     }
 
     public void create(User user) {
@@ -96,23 +118,86 @@ public class JDBCUserDAO implements UserDAO {
     }
 
     @Override
-    public Optional<User> findByUsernameLocalised(String username, Locale locale) {
+    public Set<Notification> findNotifications(UserDTO receiver) {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection
-                     .prepareStatement(queries.getProperty("user_dao.SELECT_BY_USERNAME_SQL"))) {
+                     .prepareStatement(queries
+                             .getProperty("userdao.SELECT_NOTIFICATIONS_SQL"))) {
 
-            statement.setString(1, username);
+            statement.setLong(1, receiver.getUserId());
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
-                    return Optional.of(resultSetMapper.extractUser(resultSet, locale));
+                    return resultSetMapper.extractNotifications(resultSet, receiver);
                 }
             }
         } catch (SQLException e) {
-            ContextHolder.logger().error("JDBCUserDAO findByUsernameLocalised: " + e);
+            ContextHolder.logger().error("JDBCUserDAO findNotifications: " + e);
             throw new SQLRuntimeException(e);
         }
-        return Optional.empty();
+        return new HashSet<>();
+    }
+
+    public void createGroupInvitation(Notification n) {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection
+                     .prepareStatement(queries.getProperty("userdao.INSERT_INVITATION_SQL"))) {
+
+            statement.setLong(1, n.getSender().getUserId());
+            statement.setString(2, n.getReceiver().getUsername());
+            statement.setString(3, n.getDateTime());
+            statement.setString(4, n.getMessage());
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            ContextHolder.logger().error("JDBCUserDAO createGroupInvitation: " + e);
+            throw new SQLRuntimeException(e);
+        }
+    }
+
+    public void acceptGroupInvitation(Notification n) {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection
+                     .prepareStatement(queries.getProperty("userdao.INSERT_USER_TO_GROUP_SQL"));
+             PreparedStatement statement2 = connection
+                     .prepareStatement(queries.getProperty("userdao.DELETE_NOTIFICATION_SQL"))) {
+            connection.setAutoCommit(false);
+
+            statement.setLong(1, n.getSender().getUserId());
+            statement.setLong(2, n.getReceiver().getUserId());
+            statement.executeUpdate();
+
+            statement2.setLong(1, n.getSender().getUserId());
+            statement2.setLong(2, n.getReceiver().getUserId());
+            statement2.executeUpdate();
+
+            try {
+                connection.commit();
+            } catch (SQLException e) {
+                connection.rollback();
+                throw e;
+            }
+
+        } catch (SQLException e) {
+            ContextHolder.logger().error("JDBCUserDAO acceptGroupInvitation: " + e);
+            throw new SQLRuntimeException(e);
+        }
+    }
+
+    public void declineGroupInvitation(Notification n) {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection
+                     .prepareStatement(queries.getProperty("userdao.DELETE_INVITATION_SQL"))) {
+
+            statement.setLong(1, n.getSender().getUserId());
+            statement.setLong(2, n.getReceiver().getUserId());
+            statement.setString(3, n.getDateTime());
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            ContextHolder.logger().error("JDBCUserDAO declineGroupInvitation: " + e);
+            throw new SQLRuntimeException(e);
+        }
     }
 
     private Long getUserIdByEmail(Connection connection, User user) throws SQLException {
