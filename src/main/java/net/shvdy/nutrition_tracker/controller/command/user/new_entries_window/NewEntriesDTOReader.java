@@ -57,6 +57,7 @@ public class NewEntriesDTOReader {
                 PropertiesContainer.DotProperties.APP_PROPERTIES.getProp().get("min-entry-quantity")));
         int max = Integer.parseInt(String.valueOf(
                 PropertiesContainer.DotProperties.APP_PROPERTIES.getProp().get("max-entry-quantity")));
+        newEntries.forEach(e -> e.setQuantity(Optional.ofNullable(e.getQuantity()).orElse(0)));
         newEntries.stream()
                 .filter(e -> e.getQuantity() < min || e.getQuantity() > max)
                 .forEach(e -> e.setQuantityError(String.format("Must be between %dg and %dg", min, max)));

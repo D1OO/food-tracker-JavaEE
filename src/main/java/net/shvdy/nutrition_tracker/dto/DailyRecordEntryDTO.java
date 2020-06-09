@@ -13,7 +13,7 @@ import net.shvdy.nutrition_tracker.model.entity.Food;
 public class DailyRecordEntryDTO {
 
     private Food food;
-    private int quantity;
+    private Integer quantity;
     private String quantityError;
     private String foodDTOJSON;
     private String foodName;
@@ -25,7 +25,7 @@ public class DailyRecordEntryDTO {
     public DailyRecordEntryDTO() {
     }
 
-    public DailyRecordEntryDTO(Food food, int quantity, String foodDTOJSON, int entryCalories,
+    public DailyRecordEntryDTO(Food food, Integer quantity, String foodDTOJSON, int entryCalories,
                                int entryCarbs, int entryFats, int entryProt) {
         this.food = food;
         this.quantity = quantity;
@@ -48,11 +48,11 @@ public class DailyRecordEntryDTO {
         this.food = food;
     }
 
-    public int getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 
@@ -123,7 +123,7 @@ public class DailyRecordEntryDTO {
 
     public static final class DailyRecordEntryDTOBuilder {
         private Food food;
-        private int quantity;
+        private Integer quantity;
         private String foodDTOJSON;
         private String foodName;
         private int entryCalories;
@@ -139,7 +139,7 @@ public class DailyRecordEntryDTO {
             return this;
         }
 
-        public DailyRecordEntryDTOBuilder quantity(int quantity) {
+        public DailyRecordEntryDTOBuilder quantity(Integer quantity) {
             this.quantity = quantity;
             return this;
         }

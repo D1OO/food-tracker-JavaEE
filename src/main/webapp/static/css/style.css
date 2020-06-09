@@ -527,8 +527,13 @@ h6,
     font-size: 28px;
 }
 
-#search::placeholder {
-
+/*#search::placeholder {*/
+/*    font-size: 0.8rem;*/
+/*    font-family: "Gotham Rounded Light";*/
+/*}*/
+.quantity::placeholder {
+    font-size: 0.8rem;
+    font-family: "Gotham Rounded Light";
 }
 
 .testimonial-carousel .owl-dots {
@@ -605,6 +610,13 @@ h6,
     box-shadow: none;
     border: 1px solid black;
     color: #0d1e2d;
+}
+
+.control-label {
+    background-color: #3f3f3f;
+    color: rgb(255, 255, 255);
+    padding-left: 3px;
+    padding-right: 3px;
 }
 
 .custom-progress {
@@ -916,7 +928,7 @@ h6,
 
 .selected-record-button {
     color: #000000;
-    background: #d78287;
+    background: #c0d7c8;
 }
 
 .selected-record-button:hover {

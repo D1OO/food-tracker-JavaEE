@@ -13,7 +13,7 @@ import java.util.Locale;
 
 public class UserMapper {
 
-    public User mapLocalised(ResultSet resultSet, Locale locale) throws SQLException {
+    public User extractUser(ResultSet resultSet, Locale locale) throws SQLException {
         return User.builder()
                 .id(resultSet.getLong("id"))
                 .username(resultSet.getString("email"))
@@ -43,6 +43,20 @@ public class UserMapper {
                     .carbohydrates(rs.getInt("carbohydrates")).build());
         } while (rs.next());
         return userFood;
+    }
+
+    public List<User> extractGroup(ResultSet rs) throws SQLException {
+        List<User> group = new ArrayList<>();
+        do {
+            group.add(User.builder().userProfile(UserProfile.builder()
+                    .firstNameLocalised(rs.getString("first_name_localized"))
+                    .lastName(rs.getString("last_name"))
+                    .age(rs.getInt("age"))
+                    .height(rs.getInt("height"))
+                    .weight(rs.getInt("weight"))
+                    .lifestyle(Enum.valueOf(UserProfile.Lifestyle.class, rs.getString("lifestyle"))).build()).build());
+        } while (rs.next());
+        return group;
     }
 
 }

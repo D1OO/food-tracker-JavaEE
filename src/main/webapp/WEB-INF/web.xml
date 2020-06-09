@@ -113,6 +113,10 @@
         <location>/view/errors/server-error.jsp</location>
     </error-page>
     <error-page>
+        <error-code>404</error-code>
+        <location>/view/errors/not_found.jsp</location>
+    </error-page>
+    <error-page>
         <exception-type>java.util.NoSuchElementException</exception-type>
         <location>/view/errors/not_found.jsp</location>
     </error-page>

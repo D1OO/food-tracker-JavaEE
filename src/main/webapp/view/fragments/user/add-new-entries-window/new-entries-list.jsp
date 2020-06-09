@@ -15,20 +15,20 @@
             <input name="newEntriesDTO.recordDate"
                    value="${newEntriesDTO.recordDate}" type="hidden"/>
             <c:forEach var="entry" items="${newEntriesDTO.entries}" varStatus="loop">
-                <tr align="center" class="row align-items-top m-1 entry" id="fff">
+                <tr align="center" class="row align-items-center m-1 entry">
                     <td class="foodlabel col-9 row m-1"
                         style="max-width: 40%; justify-content: end">
                         <p class="mr-2 foodName" style="text-align: right">${entry.foodName}</p>
                     </td>
-                    <td class="col-3 row m-1">
-                        <input class="form-control mr-2 quantity" placeholder="quantity(g)"
+                    <td class="col-3 row m-1 align-items-center">
+                        <input class="form-control mr-2 quantity" placeholder="quantity"
                                style="width: 60%" name="newEntriesDTO.entries[${loop.index}].quantity"
                                value="${newEntriesDTO.entries[loop.index].quantity}">
                         <input class="form-control foodDTOJSON"
                                name="newEntriesDTO.entries[${loop.index}].foodDTOJSON"
                                value='${newEntriesDTO.entries[loop.index].foodDTOJSON}'
                                type="hidden">
-                        <label class="justify-content-center"><fmt:message key="food.grams"/></label>
+                        <p><fmt:message key="food.grams"/></p>
                     </td>
                     <td>
                         <a class="modal-remove-entry mt-2" type="button">x</a>

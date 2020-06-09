@@ -1,6 +1,7 @@
 package net.shvdy.nutrition_tracker.controller.command;
 
 import net.shvdy.nutrition_tracker.controller.command.admin.AdminPage;
+import net.shvdy.nutrition_tracker.controller.command.admin.GroupPage;
 import net.shvdy.nutrition_tracker.controller.command.admin.NewArticleWindow;
 import net.shvdy.nutrition_tracker.controller.command.admin.SaveNewArticle;
 import net.shvdy.nutrition_tracker.controller.command.user.CompleteProfileToProceed;
@@ -40,6 +41,9 @@ public enum CommandEnum {
             Set.of(Role.ADMIN, Role.USER, Role.GUEST)),
     ADMIN_PAGE(
             new AdminPage(), "/admin",
+            Set.of(Role.ADMIN)),
+    GROUP_PAGE(
+            new GroupPage(), "/group",
             Set.of(Role.ADMIN)),
     NEW_ARTICLE_MODAL(
             new NewArticleWindow(), "/new-article-window",

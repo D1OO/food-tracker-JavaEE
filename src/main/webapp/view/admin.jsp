@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
+    <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${sessionScope.lang}"/>
@@ -23,6 +23,10 @@
                             <div class="d-flex flex-column tabs mx-2 flex-grow-1" style="width: 20%">
                                 <input id="sectionToFetchWithAJAX" value="${sectionToFetchWithAJAX}" type="hidden">
                                 <button class="pretty-button  menu-pr-button bg my-2"
+                                        onclick="loadFromServerIntoContentContainer('group')"><fmt:message
+                                        key="my-group"/>
+                                </button>
+                                <button class="pretty-button  menu-pr-button bg my-2"
                                         onclick="loadFromServerIntoContentContainer('feed')"><fmt:message
                                         key="manage-feed"/>
                                 </button>
@@ -42,5 +46,6 @@
 </main>
 <jsp:include page="/view/fragments/footer.jsp"/>
 <jsp:include page="/view/fragments/scripts.jsp"/>
+<script src="static/js/admin.js" type="text/javascript"></script>
 </body>
 </html>

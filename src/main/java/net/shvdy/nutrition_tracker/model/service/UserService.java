@@ -8,6 +8,7 @@ import net.shvdy.nutrition_tracker.model.exception.BadCredentialsException;
 import net.shvdy.nutrition_tracker.model.service.mapper.UserEntityMapper;
 import org.mindrot.jbcrypt.BCrypt;
 
+import java.util.List;
 import java.util.Locale;
 
 public class UserService {
@@ -43,6 +44,10 @@ public class UserService {
             throw new BadCredentialsException(String.format("wrong password for username: %s", username));
 
         return entityMapper.entityToDTO(user);
+    }
+
+    public List<User> findGroup(String adminUsername, Locale locale) {
+        return userDao.findGroup(adminUsername, locale);
     }
 
 }

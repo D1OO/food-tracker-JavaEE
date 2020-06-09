@@ -8,9 +8,7 @@ import net.shvdy.nutrition_tracker.model.entity.UserProfile;
 
 import javax.sql.DataSource;
 import java.sql.*;
-import java.util.Locale;
-import java.util.Optional;
-import java.util.Properties;
+import java.util.*;
 
 public class JDBCUserDAO implements UserDAO {
 
@@ -77,6 +75,27 @@ public class JDBCUserDAO implements UserDAO {
     }
 
     @Override
+    public List<User> findGroup(String adminUsername, Locale locale) {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection
+                     .prepareStatement(prepareQueryLocaleParam(queries
+                             .getProperty("userdao.SELECT_GROUP_SQL"), locale))) {
+
+            statement.setString(1, adminUsername);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSetMapper.extractGroup(resultSet);
+                }
+            }
+        } catch (SQLException e) {
+            ContextHolder.logger().error("JDBCUserDAO findGroup: " + e);
+            throw new SQLRuntimeException(e);
+        }
+        return new ArrayList<>();
+    }
+
+    @Override
     public Optional<User> findByUsernameLocalised(String username, Locale locale) {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection
@@ -86,7 +105,7 @@ public class JDBCUserDAO implements UserDAO {
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
-                    return Optional.of(resultSetMapper.mapLocalised(resultSet, locale));
+                    return Optional.of(resultSetMapper.extractUser(resultSet, locale));
                 }
             }
         } catch (SQLException e) {
@@ -103,6 +122,10 @@ public class JDBCUserDAO implements UserDAO {
             return rs.getLong("id");
         } else
             throw new SQLException("Failed to retrieve DB-generated user ID");
+    }
+
+    private String prepareQueryLocaleParam(String statement, Locale locale) {
+        return statement.replace("first_name_?", "first_name_" + locale.getLanguage());
     }
 
     private void prepareInsert(PreparedStatement insertUserStatement, User user) throws SQLException {
