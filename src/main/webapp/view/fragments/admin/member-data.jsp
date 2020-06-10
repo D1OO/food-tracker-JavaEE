@@ -17,10 +17,6 @@
         <label class="h5 m-auto">${member.userProfileDTO.height}</label>
         <div class="h5 mb-4 m-4 d-flex align-items-center">${member.username}</div>
     </div>
-    <%--    <div class="container m2 mb-4 tabs">--%>
-    <%--        <button class="modal-save-food pretty-button" onclick="updateUserProfile()"><fmt:message--%>
-    <%--                key="profile.save"/></button>--%>
-    <%--    </div>--%>
 </div>
 <div class="userDiary">
     <div class="tabs row d-flex ml-2 mb-3" style="width: 100%">
@@ -95,18 +91,6 @@
                     </div>
                 </c:otherwise>
             </c:choose>
-
-            <div class="tabs container m2 mb-4">
-                <form method="post" id="data-food-modal-window${loop.index}">
-                    <input id="profileId" name="profileId" value="${user.userId}" type="hidden">
-                    <input id="recordId" name="recordId" value="${rec.recordId}" type="hidden">
-                    <input id="recordDate" name="recordDate" value="${rec.recordDate}" type="hidden">
-                </form>
-                <button class="pretty-button modal-save-food"
-                        onclick="openAddFoodModalWindow(${loop.index})">
-                    <fmt:message key="add-new"/>
-                </button>
-            </div>
         </div>
     </c:forEach>
 </div>

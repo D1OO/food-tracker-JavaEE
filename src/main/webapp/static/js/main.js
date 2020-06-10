@@ -1,6 +1,5 @@
 $(document).ready(function () {
-    const section = document.getElementById('sectionToFetchWithAJAX').value;
-    setContentContainerToEndpoint(section ? section : 'feed');
+    setContentContainerToEndpoint($('#sectionToFetchWithAJAX').val());
     window.onpopstate = function (e) {
         if (e.state != null)
             setContentContainerToEndpoint(e.state.endpoint);
@@ -13,14 +12,14 @@ $(document).ready(function () {
         $("#updateSuccessBox").show(200);
 });
 
-function loadFromServerIntoContentContainer(...endpoint) {
-    const state = {"endpoint": endpoint.join('')};
-    window.history.pushState(state, "Dreamfit", endpoint);
-    setContentContainerToEndpoint(endpoint.join(''));
+function loadFromServerIntoContentContainer(section) {
+    const state = {"endpoint": section};
+    window.history.pushState(state, "Dreamfit", section);
+    setContentContainerToEndpoint(section);
 }
 
-function setContentContainerToEndpoint(...controllerEndpoint) {
-    $.get(controllerEndpoint.join(''), {AJAXrequest: true}, function (data) {
+function setContentContainerToEndpoint(section) {
+    $.get(section, {AJAXrequest: true}, function (data) {
         document.getElementById('content-container').innerHTML = data;
     });
 }
@@ -74,6 +73,7 @@ function clearErrorMessages() {
 }
 
 var doOnce = false;
+
 function assignSearchListener() {
     if (doOnce === false) {
         $('#search').keyup(function () {

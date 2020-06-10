@@ -21,6 +21,6 @@ public class GroupPage implements ActionCommand {
         request.getSession().setAttribute("group", ContextHolder.userService()
                 .findGroup((String) request.getSession().getAttribute("user.username"),
                         Locale.forLanguageTag((String) request.getSession().getAttribute("lang"))));
-        return "/view/fragments/admin/group.jsp";
+        return "/view/fragments/section/group.jsp";
     }
 }

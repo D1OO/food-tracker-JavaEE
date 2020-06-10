@@ -21,7 +21,6 @@ public class Feed implements ActionCommand {
         request.getSession().setAttribute("paginatedArticles",
                 ContextHolder.articleService().findPaginatedForLocale(Locale
                         .forLanguageTag((String) request.getSession().getAttribute("lang"))));
-
-        return SecurityUtility.processAJAXSectionRequest("feed", "", request);
+        return "/view/fragments/section/feed.jsp";
     }
 }

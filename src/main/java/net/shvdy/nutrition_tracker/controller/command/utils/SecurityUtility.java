@@ -38,13 +38,4 @@ public class SecurityUtility {
         return (HashMap<Long, HttpSession>) request.getServletContext().getAttribute("loggedUsers");
     }
 
-    public static String processAJAXSectionRequest(String section, String params, HttpServletRequest request) {
-        if (Optional.ofNullable(request.getParameter("AJAXrequest")).isPresent())
-            return String.format("/view/fragments/%s.jsp", section);
-        else {
-            request.getSession().setAttribute("sectionToFetchWithAJAX", section + params);
-            return "/view/" + request.getSession().getAttribute("user.role").toString().toLowerCase() + ".jsp";
-        }
-    }
-
 }

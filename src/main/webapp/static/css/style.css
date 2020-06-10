@@ -877,6 +877,8 @@ h6,
 }
 
 .footer {
+    font-family: "Gotham Rounded Medium";
+    color: #585858;
     flex-shrink: 0;
     padding: 1rem 0 1rem 0;
     background: rgb(168, 168, 168);

@@ -19,7 +19,6 @@ public class Profile implements ActionCommand {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         request.getSession().setAttribute("notifications",
                 ContextHolder.userService().findNotifications((UserDTO) request.getSession().getAttribute(("user"))));
-
-        return SecurityUtility.processAJAXSectionRequest("profile", "", request);
+        return "/view/fragments/section/profile.jsp";
     }
 }

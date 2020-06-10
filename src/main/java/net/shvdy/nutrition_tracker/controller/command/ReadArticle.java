@@ -21,8 +21,7 @@ public class ReadArticle implements ActionCommand {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         retrieveArticle(request);
-        return SecurityUtility.processAJAXSectionRequest("read-article",
-                "?id=" + Integer.parseInt(request.getParameter("id")), request);
+        return "/view/fragments/section/article.jsp";
     }
 
     private void retrieveArticle(HttpServletRequest request) {

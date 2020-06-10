@@ -32,7 +32,7 @@ public class SaveNewArticle implements ActionCommand {
 
         if (errors.isEmpty()) {
             ContextHolder.articleService().save(createArticle(request));
-            return "/view/fragments/feed.jsp";
+            return "/view/fragments/section/feed.jsp";
         } else {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             try {

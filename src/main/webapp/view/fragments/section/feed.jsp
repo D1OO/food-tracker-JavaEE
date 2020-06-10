@@ -13,7 +13,7 @@
     <div class="d-flex flex-column content-container">
         <c:forEach var="article" items="${paginatedArticles}" varStatus="loop">
             <button role="link"
-                    onclick="loadFromServerIntoContentContainer('/read-article?id=${article.articleId}')"
+                    onclick="loadFromServerIntoContentContainer('/article?id=${article.articleId}')"
                     class="article-block d-inline-flex flex-grow-1 justify-content-left row mx-md-3 mb-2">
                 <img class="m-2" src="data:image/jpg;base64,${article.base64Image}"
                      style="border-radius: 0.2rem; object-fit: cover; width: 200px; height: 120px"/>

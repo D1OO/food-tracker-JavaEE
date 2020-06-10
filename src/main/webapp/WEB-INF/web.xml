@@ -87,6 +87,19 @@
     </filter-mapping>
 
     <filter>
+        <filter-name>SectionContainerFilter</filter-name>
+        <filter-class>net.shvdy.nutrition_tracker.controller.filter.SectionContainerRequestFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>SectionContainerFilter</filter-name>
+        <url-pattern>/feed</url-pattern>
+        <url-pattern>/profile</url-pattern>
+        <url-pattern>/food-diary</url-pattern>
+        <url-pattern>/group</url-pattern>
+        <url-pattern>/article</url-pattern>
+    </filter-mapping>
+
+    <filter>
         <filter-name>EncodingFilter</filter-name>
         <filter-class>net.shvdy.nutrition_tracker.controller.filter.EncodingFilter</filter-class>
     </filter>

@@ -20,20 +20,23 @@
                     <jsp:include page="/view/fragments/header-carousel-news.jsp"/>
                     <div class="maincontent d-flex">
                         <div class="d-inline-flex" style="width: 100%">
-                            <div class="d-flex flex-column tabs mx-2 flex-grow-1" style="width: 20%">
-                                <input id="sectionToFetchWithAJAX" value="${sectionToFetchWithAJAX}" type="hidden">
-                                <button class="pretty-button  menu-pr-button bg my-2"
-                                        onclick="loadFromServerIntoContentContainer('group')"><fmt:message
-                                        key="my-group"/>
-                                </button>
-                                <button class="pretty-button  menu-pr-button bg my-2"
-                                        onclick="loadFromServerIntoContentContainer('feed')"><fmt:message
-                                        key="manage-feed"/>
-                                </button>
-                                <button class="pretty-button  menu-pr-button bg my-2"
-                                        onclick="loadFromServerIntoContentContainer('profile')"><fmt:message
-                                        key="profile"/>
-                                </button>
+                            <input id="sectionToFetchWithAJAX" value="${sectionToFetchWithAJAX eq null ? 'feed' :
+                            sectionToFetchWithAJAX}" type="hidden">
+                            <div class="d-flex flex-column tabs mx-2" style="width: 20%">
+                                <div class="menu d-flex flex-column">
+                                    <button class="pretty-button  menu-pr-button bg my-2"
+                                            onclick="loadFromServerIntoContentContainer('group')"><fmt:message
+                                            key="my-group"/>
+                                    </button>
+                                    <button class="pretty-button  menu-pr-button bg my-2"
+                                            onclick="loadFromServerIntoContentContainer('feed')"><fmt:message
+                                            key="manage-feed"/>
+                                    </button>
+                                    <button class="pretty-button  menu-pr-button bg my-2"
+                                            onclick="loadFromServerIntoContentContainer('profile')"><fmt:message
+                                            key="profile"/>
+                                    </button>
+                                </div>
                             </div>
                             <div class="maincontent m-2" id="content-container"
                                  style="border-radius: 5px"></div>

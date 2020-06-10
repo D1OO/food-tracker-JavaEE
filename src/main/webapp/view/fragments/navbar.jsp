@@ -19,7 +19,6 @@ background: radial-gradient(circle, rgba(178,183,223,1) 0%, rgba(232,253,203,0.7
             </div>
             <div class="align-self-start d-inline-flex mt-sm-1">
                 <div class="navbar-right mr-4">
-                    <%--                    <h1>${user.role}</h1>--%>
                     <c:if test="${user.role eq GUEST}">
                         <li class=" list-inline-item">
                             <a class="pretty-button bg" href="/login"><fmt:message key="sign-in"/></a>
@@ -30,7 +29,12 @@ background: radial-gradient(circle, rgba(178,183,223,1) 0%, rgba(232,253,203,0.7
                     </c:if>
                     <c:if test="${user.role ne GUEST}">
                         <div class="d-inline-flex">
-                            <div class="logged-in-as mr-3" style="font-size: 1.1em; max-width: 560px">
+                            <c:if test="${user.role eq 'ADMIN'}">
+                                <div class="logged-in-as" style="background-color: #e2cd51; color: black !important;">
+                                    PRO
+                                </div>
+                            </c:if>
+                            <div class="logged-in-as mr-3 ml-3" style="font-size: 1.1em; max-width: 560px">
                                     ${user.firstNameLocalisation} ${user.lastName}</div>
                             <div id="logout-link">
                                 <a href="${pageContext.request.contextPath}/logout">
