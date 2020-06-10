@@ -55,7 +55,7 @@ public class DreamfitServlet extends HttpServlet {
             throws ServletException, IOException, SQLRuntimeException, NoSuchElementException {
         setDateForLocale(request);
         if (CommandEnum.getPostEndpoints().contains(request.getRequestURI()))
-            request.getRequestDispatcher("/view/errors/not_found.jsp").forward(request, response);
+            request.getRequestDispatcher("/view/errors/404.jsp").forward(request, response);
         else
             processResponse(request, response);
     }

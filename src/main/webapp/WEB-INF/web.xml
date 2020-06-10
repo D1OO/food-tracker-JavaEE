@@ -87,19 +87,6 @@
     </filter-mapping>
 
     <filter>
-        <filter-name>SectionContainerFilter</filter-name>
-        <filter-class>net.shvdy.nutrition_tracker.controller.filter.SectionContainerRequestFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>SectionContainerFilter</filter-name>
-        <url-pattern>/feed</url-pattern>
-        <url-pattern>/profile</url-pattern>
-        <url-pattern>/food-diary</url-pattern>
-        <url-pattern>/group</url-pattern>
-        <url-pattern>/article</url-pattern>
-    </filter-mapping>
-
-    <filter>
         <filter-name>EncodingFilter</filter-name>
         <filter-class>net.shvdy.nutrition_tracker.controller.filter.EncodingFilter</filter-class>
     </filter>
@@ -116,6 +103,19 @@
         <filter-name>PermissionFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+    <filter>
+        <filter-name>SectionContainerFilter</filter-name>
+        <filter-class>net.shvdy.nutrition_tracker.controller.filter.SectionContainerRequestFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>SectionContainerFilter</filter-name>
+        <url-pattern>/feed</url-pattern>
+        <url-pattern>/profile</url-pattern>
+        <url-pattern>/food-diary</url-pattern>
+        <url-pattern>/group</url-pattern>
+        <url-pattern>/article</url-pattern>
+    </filter-mapping>
+
 
     <listener>
         <listener-class>net.shvdy.nutrition_tracker.controller.listener.SessionListener</listener-class>
@@ -123,14 +123,14 @@
 
     <error-page>
         <error-code>500</error-code>
-        <location>/view/errors/server-error.jsp</location>
+        <location>/view/errors/500.jsp</location>
     </error-page>
     <error-page>
         <error-code>404</error-code>
-        <location>/view/errors/not_found.jsp</location>
+        <location>/view/errors/404.jsp</location>
     </error-page>
     <error-page>
         <exception-type>java.util.NoSuchElementException</exception-type>
-        <location>/view/errors/not_found.jsp</location>
+        <location>/view/errors/404.jsp</location>
     </error-page>
 </web-app>

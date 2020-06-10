@@ -20,7 +20,7 @@ public class PermissionsFilter implements Filter {
 
         if (CommandEnum.checkIsPathForbidden(((HttpServletRequest) request).getRequestURI(), role)) {
             request.getRequestDispatcher(
-                    role.equals(Role.GUEST) ? "/redirect:home" : "/view/not_found.jsp").forward(request, response);
+                    role.equals(Role.GUEST) ? "/redirect:home" : "/view/errors/403.jsp").forward(request, response);
         } else {
             filterChain.doFilter(request, response);
         }

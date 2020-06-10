@@ -5,6 +5,8 @@ import net.shvdy.nutrition_tracker.controller.command.user.*;
 import net.shvdy.nutrition_tracker.controller.command.user.new_entries_window.*;
 import net.shvdy.nutrition_tracker.model.entity.Role;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -104,7 +106,7 @@ public enum CommandEnum {
             new ServerError(), "/error",
             Set.of(Role.ADMIN, Role.USER, Role.GUEST)),
     NOT_FOUND(
-            new NotFound404(), "",
+            (request, response) -> "404", "",
             Set.of(Role.ADMIN, Role.USER, Role.GUEST));
 
     private final ActionCommand actionCommand;

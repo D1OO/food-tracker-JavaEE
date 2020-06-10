@@ -21,7 +21,7 @@ public class ReadArticle implements ActionCommand {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         retrieveArticle(request);
-        return "/view/fragments/section/article.jsp";
+        return "/view/fragments/article.jsp";
     }
 
     private void retrieveArticle(HttpServletRequest request) {

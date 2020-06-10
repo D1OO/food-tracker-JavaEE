@@ -21,7 +21,7 @@ public class FoodDiary implements ActionCommand {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         processPagination(request);
-        return "/view/fragments/section/food-diary.jsp";
+        return "/view/fragments/food-diary.jsp";
     }
 
     private void processPagination(HttpServletRequest request) {

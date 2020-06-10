@@ -6,7 +6,7 @@
 
 <html>
 <jsp:include page="/view/fragments/head.jsp">
-    <jsp:param name="title" value="Your Nutrition Diary • Dreamfit"/>
+    <jsp:param name="title" value="Dreamfit PRO"/>
 </jsp:include>
 <body>
 <jsp:include page="/view/fragments/navbar.jsp"/>
@@ -20,8 +20,7 @@
                     <jsp:include page="/view/fragments/header-carousel-news.jsp"/>
                     <div class="maincontent d-flex">
                         <div class="d-inline-flex" style="width: 100%">
-                            <input id="sectionToFetchWithAJAX" value="${sectionToFetchWithAJAX eq null ? 'feed' :
-                            sectionToFetchWithAJAX}" type="hidden">
+                            <input id="sectionToFetchWithAJAX" value="${sectionToFetchWithAJAX}" type="hidden">
                             <div class="d-flex flex-column tabs mx-2" style="width: 20%">
                                 <div class="menu d-flex flex-column">
                                     <button class="pretty-button  menu-pr-button bg my-2"

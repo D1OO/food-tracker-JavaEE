@@ -13,6 +13,6 @@ public class ServerError implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        return "/view/errors/server-error.jsp";
+        return "/view/errors/500.jsp";
     }
 }
