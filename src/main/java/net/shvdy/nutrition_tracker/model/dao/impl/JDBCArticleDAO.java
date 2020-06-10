@@ -87,8 +87,7 @@ public class JDBCArticleDAO implements ArticleDAO {
     private String prepareQueryLocaleParam(String statement, Locale locale) {
         return statement
                 .replace("title_?", "title_" + locale.getLanguage())
-                .replace("text_?", "text_" + locale.getLanguage())
-                .replace("first_name_?", "first_name_" + locale.getLanguage());
+                .replace("text_?", "text_" + locale.getLanguage());
     }
 
 }

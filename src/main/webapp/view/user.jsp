@@ -6,7 +6,7 @@
 
 <html>
 <jsp:include page="/view/fragments/head.jsp">
-    <jsp:param name="title" value="Dreamfit • ${user.firstNameLocalisation} ${user.lastName}"/>
+    <jsp:param name="title" value="Dreamfit • ${user.firstName} ${user.lastName}"/>
 </jsp:include>
 <body>
 

@@ -25,7 +25,7 @@ public class JDBCUserDAO implements UserDAO {
     }
 
     @Override
-    public Optional<User> findByUsernameLocalised(String username, Locale locale) {
+    public Optional<User> findByUsername(String username) {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection
                      .prepareStatement(queries.getProperty("user_dao.SELECT_BY_USERNAME_SQL"))) {
@@ -34,7 +34,7 @@ public class JDBCUserDAO implements UserDAO {
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
-                    return Optional.of(resultSetMapper.extractUser(resultSet, locale));
+                    return Optional.of(resultSetMapper.extractUser(resultSet));
                 }
             }
         } catch (SQLException e) {
@@ -46,20 +46,25 @@ public class JDBCUserDAO implements UserDAO {
 
     public void create(User user) {
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement insertUserStatement = connection
+             PreparedStatement insertUser = connection
                      .prepareStatement(queries.getProperty("userdao.INSERT_USER_SQL"));
              PreparedStatement insertUserProfile = connection
                      .prepareStatement(queries.getProperty("userdao.INSERT_USER_PROFILE_SQL"))) {
 
             connection.setAutoCommit(false);
 
-            prepareInsert(insertUserStatement, user);
-            insertUserStatement.executeUpdate();
+            insertUser.setString(1, user.getUsername());
+            insertUser.setString(2, user.getPassword());
+            insertUser.setBoolean(3, true);
+            insertUser.setBoolean(4, true);
+            insertUser.setBoolean(5, true);
+            insertUser.setBoolean(6, true);
+            insertUser.setString(7, user.getRole().name());
+            insertUser.executeUpdate();
 
             insertUserProfile.setLong(1, getUserIdByEmail(connection, user));
-            insertUserProfile.setString(2, user.getUserProfile().getFirstNameEN());
-            insertUserProfile.setString(3, user.getUserProfile().getFirstNameRU());
-            insertUserProfile.setString(4, user.getUserProfile().getLastName());
+            insertUserProfile.setString(2, user.getUserProfile().getFirstName());
+            insertUserProfile.setString(3, user.getUserProfile().getLastName());
             insertUserProfile.executeUpdate();
 
             try {
@@ -80,14 +85,13 @@ public class JDBCUserDAO implements UserDAO {
              PreparedStatement updateProfile = connection
                      .prepareStatement(queries.getProperty("userdao.UPDATE_USER_PROFILE_SQL"))) {
 
-            updateProfile.setString(1, userProfile.getFirstNameEN());
-            updateProfile.setString(2, userProfile.getFirstNameRU());
-            updateProfile.setString(3, userProfile.getLastName());
-            updateProfile.setInt(4, userProfile.getAge());
-            updateProfile.setInt(5, userProfile.getHeight());
-            updateProfile.setInt(6, userProfile.getWeight());
-            updateProfile.setString(7, userProfile.getLifestyle().name());
-            updateProfile.setLong(8, userProfile.getProfileId());
+            updateProfile.setString(1, userProfile.getFirstName());
+            updateProfile.setString(2, userProfile.getLastName());
+            updateProfile.setInt(3, userProfile.getAge());
+            updateProfile.setInt(4, userProfile.getHeight());
+            updateProfile.setInt(5, userProfile.getWeight());
+            updateProfile.setString(6, userProfile.getLifestyle().name());
+            updateProfile.setLong(7, userProfile.getProfileId());
             updateProfile.executeUpdate();
 
         } catch (SQLException e) {
@@ -97,11 +101,10 @@ public class JDBCUserDAO implements UserDAO {
     }
 
     @Override
-    public List<User> findGroup(String adminUsername, Locale locale) {
+    public List<User> findGroup(String adminUsername) {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection
-                     .prepareStatement(prepareQueryLocaleParam(queries
-                             .getProperty("userdao.SELECT_GROUP_SQL"), locale))) {
+                     .prepareStatement(queries.getProperty("userdao.SELECT_GROUP_SQL"))) {
 
             statement.setString(1, adminUsername);
 
@@ -209,17 +212,4 @@ public class JDBCUserDAO implements UserDAO {
             throw new SQLException("Failed to retrieve DB-generated user ID");
     }
 
-    private String prepareQueryLocaleParam(String statement, Locale locale) {
-        return statement.replace("first_name_?", "first_name_" + locale.getLanguage());
-    }
-
-    private void prepareInsert(PreparedStatement insertUserStatement, User user) throws SQLException {
-        insertUserStatement.setString(1, user.getUsername());
-        insertUserStatement.setString(2, user.getPassword());
-        insertUserStatement.setBoolean(3, true);
-        insertUserStatement.setBoolean(4, true);
-        insertUserStatement.setBoolean(5, true);
-        insertUserStatement.setBoolean(6, true);
-        insertUserStatement.setString(7, user.getRole().name());
-    }
 }

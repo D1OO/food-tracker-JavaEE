@@ -5,7 +5,6 @@ import net.shvdy.nutrition_tracker.controller.command.ActionCommand;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Locale;
 
 /**
  * 08.06.2020
@@ -19,8 +18,7 @@ public class GroupPage implements ActionCommand {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
         request.getSession().setAttribute("group", ContextHolder.userService()
-                .findGroup((String) request.getSession().getAttribute("user.username"),
-                        Locale.forLanguageTag((String) request.getSession().getAttribute("lang"))));
+                .findGroup((String) request.getSession().getAttribute("user.username")));
         return "/view/fragments/admin/group.jsp";
     }
 }

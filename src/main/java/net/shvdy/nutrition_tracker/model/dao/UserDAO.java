@@ -6,19 +6,18 @@ import net.shvdy.nutrition_tracker.model.entity.User;
 import net.shvdy.nutrition_tracker.model.entity.UserProfile;
 
 import java.util.List;
-import java.util.Locale;
 import java.util.Optional;
 import java.util.Set;
 
 public interface UserDAO extends GenericDAO<User> {
 
-    Optional<User> findByUsernameLocalised(String username, Locale locale);
+    Optional<User> findByUsername(String username);
 
     void create(User user);
 
     void updateProfile(UserProfile userProfile);
 
-    List<User> findGroup(String adminUsername, Locale locale);
+    List<User> findGroup(String adminUsername);
 
     Set<Notification> findNotifications(UserDTO receiver);
 

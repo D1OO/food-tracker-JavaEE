@@ -10,7 +10,7 @@
             <c:forEach var="member" items="${group}" varStatus="loop">
                 <button class="pretty-button m4 userTab ml-3"
                         onclick="userTabClick('${member.username}')">
-                        ${member.userProfile.firstNameLocalisation} ${member.userProfile.lastName}
+                        ${member.userProfile.firstName} ${member.userProfile.lastName}
                 </button>
             </c:forEach>
             <button class="pretty-button m4 ml-3"

@@ -6,7 +6,7 @@
 
 <div class="user-tabs mt-3 mb-3">
     <div class="userinfo d-inline-flex">
-        <div class="m-4 d-flex"><h2>${member.firstNameLocalisation} ${member.lastName}</h2></div>
+        <div class="m-4 d-flex"><h2>${member.firstName} ${member.lastName}</h2></div>
         <label class="h5 control-label m-auto"
                style="margin-left: 2rem !important;margin-right: 0.5rem !important;"><fmt:message
                 key="profile.age"/></label>

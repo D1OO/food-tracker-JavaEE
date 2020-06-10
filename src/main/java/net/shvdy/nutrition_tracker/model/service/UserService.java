@@ -10,7 +10,7 @@ import net.shvdy.nutrition_tracker.model.service.mapper.UserEntityMapper;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.List;
-import java.util.Locale;
+import java.util.NoSuchElementException;
 import java.util.Set;
 
 public class UserService {
@@ -31,25 +31,22 @@ public class UserService {
         userDao.updateProfile(entityMapper.userProfileDTOToEntity(userProfileDTO));
     }
 
-    public UserDTO findByUsernameLocalised(String username, Locale locale) throws BadCredentialsException {
-        return entityMapper.entityToDTO(userDao.findByUsernameLocalised(username, locale)
-                .orElseThrow(() -> new BadCredentialsException(String.format("Username '%s' not found", username))));
+    public UserDTO findByUsername(String username) {
+        return entityMapper.entityToDTO(userDao.findByUsername(username)
+                .orElseThrow(NoSuchElementException::new));
     }
 
-    public UserDTO findByUsernameVerifyPassword(String username, String password, Locale locale)
+    public UserDTO findByUsernameVerifyPassword(String username, String password)
             throws BadCredentialsException {
-
-        User user = userDao.findByUsernameLocalised(username, locale)
+        User user = userDao.findByUsername(username)
                 .orElseThrow(() -> new BadCredentialsException(String.format("username '%s' not found", username)));
-
         if (!BCrypt.checkpw(password, user.getPassword()))
             throw new BadCredentialsException(String.format("wrong password for username: %s", username));
-
         return entityMapper.entityToDTO(user);
     }
 
-    public List<User> findGroup(String adminUsername, Locale locale) {
-        return userDao.findGroup(adminUsername, locale);
+    public List<User> findGroup(String adminUsername) {
+        return userDao.findGroup(adminUsername);
     }
 
     public Set<Notification> findNotifications(UserDTO receiver) {

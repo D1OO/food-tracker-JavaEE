@@ -16,6 +16,12 @@ public class PermissionsFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain)
             throws IOException, ServletException {
+        HttpServletRequest httpRequest = (HttpServletRequest) request;
+
+        if (!httpRequest.getMethod().equals("POST") &&
+                CommandEnum.getPostEndpoints().contains((httpRequest).getRequestURI()))
+            request.getRequestDispatcher("404").forward(request, response);
+
         Role role = (Role) ((HttpServletRequest) request).getSession().getAttribute("user.role");
 
         if (CommandEnum.checkIsPathForbidden(((HttpServletRequest) request).getRequestURI(), role)) {

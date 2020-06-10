@@ -5,9 +5,7 @@ import java.util.List;
 
 public class UserProfile {
     private Long profileId;
-    private String firstNameLocalisation;
-    private String firstNameEN;
-    private String firstNameRU;
+    private String firstName;
     private String lastName;
     private Lifestyle lifestyle;
     private int age;
@@ -15,13 +13,11 @@ public class UserProfile {
     private int weight;
     private List<Food> userFood;
 
-    public UserProfile(Long profileId, String lastName, String firstNameLocalisation, String firstNameEN,
-                       String firstNameRU, Lifestyle lifestyle, int age, int height, int weight, List<Food> userFood) {
+    public UserProfile(Long profileId, String lastName, String firstName, Lifestyle lifestyle,
+                       int age, int height, int weight, List<Food> userFood) {
         this.profileId = profileId;
         this.lastName = lastName;
-        this.firstNameLocalisation = firstNameLocalisation;
-        this.firstNameEN = firstNameEN;
-        this.firstNameRU = firstNameRU;
+        this.firstName = firstName;
         this.lifestyle = lifestyle;
         this.age = age;
         this.height = height;
@@ -49,28 +45,12 @@ public class UserProfile {
         this.lastName = lastName;
     }
 
-    public String getFirstNameLocalisation() {
-        return firstNameLocalisation;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirstNameLocalisation(String firstNameLocalisation) {
-        this.firstNameLocalisation = firstNameLocalisation;
-    }
-
-    public String getFirstNameEN() {
-        return firstNameEN;
-    }
-
-    public void setFirstNameEN(String firstNameEN) {
-        this.firstNameEN = firstNameEN;
-    }
-
-    public String getFirstNameRU() {
-        return firstNameRU;
-    }
-
-    public void setFirstNameRU(String firstNameRU) {
-        this.firstNameRU = firstNameRU;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public Lifestyle getLifestyle() {
@@ -133,9 +113,7 @@ public class UserProfile {
 
     public static class UserProfileBuilder {
         private Long profileId;
-        private String firstNameLocalisation;
-        private String firstNameEN;
-        private String firstNameRU;
+        private String firstName;
         private String lastName;
         private Lifestyle lifestyle;
         private int age;
@@ -156,18 +134,8 @@ public class UserProfile {
             return this;
         }
 
-        public UserProfileBuilder firstNameLocalised(String firstNameLocalised) {
-            this.firstNameLocalisation = firstNameLocalised;
-            return this;
-        }
-
-        public UserProfileBuilder firstNameEN(String firstNameEN) {
-            this.firstNameEN = firstNameEN;
-            return this;
-        }
-
-        public UserProfileBuilder firstNameRU(String firstNameRU) {
-            this.firstNameRU = firstNameRU;
+        public UserProfileBuilder firstName(String firstName) {
+            this.firstName = firstName;
             return this;
         }
 
@@ -197,8 +165,8 @@ public class UserProfile {
         }
 
         public UserProfile build() {
-            return new UserProfile(this.profileId, this.lastName, this.firstNameLocalisation,
-                    this.firstNameEN, this.firstNameRU, this.lifestyle, this.age, this.height, this.weight, this.userFood);
+            return new UserProfile(this.profileId, this.lastName, this.firstName,
+                    this.lifestyle, this.age, this.height, this.weight, this.userFood);
         }
     }
 

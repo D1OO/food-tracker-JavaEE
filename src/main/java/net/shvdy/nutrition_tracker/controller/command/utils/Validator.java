@@ -19,7 +19,7 @@ public class Validator {
                                                                   Map<String, Map<String, String>> fieldsValidationData) {
         return Stream.of(
                 fieldsValidationData.entrySet().stream()
-                        .filter(field -> !request.getParameter(field.getKey()).matches((field.getValue().get("regex")))),
+                        .filter(field -> !request.getParameter(field.getKey()).matches(field.getValue().get("regex"))),
                 fieldsValidationData.entrySet().stream()
                         .filter(field -> Optional.ofNullable(field.getValue().get("max")).isPresent())
                         .filter(field -> errorIfP1MoreP2

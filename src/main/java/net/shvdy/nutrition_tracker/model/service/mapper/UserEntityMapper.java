@@ -21,7 +21,7 @@ public class UserEntityMapper {
                 .id(user.getId())
                 .role(user.getRole())
                 .username(user.getUsername())
-                .firstNameLocalisation(user.getUserProfile().getFirstNameLocalisation())
+                .firstName(user.getUserProfile().getFirstName())
                 .lastName(user.getUserProfile().getLastName())
                 .dailyCaloriesNorm(getDailyCaloriesNorm(user))
                 .userProfileDTO(userProfileEntityToDTO(user.getUserProfile()))
@@ -36,8 +36,7 @@ public class UserEntityMapper {
     private UserProfileDTO userProfileEntityToDTO(UserProfile userProfile) {
         return UserProfileDTO.builder()
                 .profileId(userProfile.getProfileId())
-                .firstNameEN(userProfile.getFirstNameEN())
-                .firstNameRU(userProfile.getFirstNameRU())
+                .firstName(userProfile.getFirstName())
                 .lastName(userProfile.getLastName())
                 .lifestyle(userProfile.getLifestyle())
                 .age(userProfile.getAge())
@@ -48,8 +47,7 @@ public class UserEntityMapper {
 
     public UserProfile userProfileDTOToEntity(UserProfileDTO userProfileDTO) {
         return UserProfile.builder()
-                .firstNameEN(userProfileDTO.getFirstNameEN())
-                .firstNameRU(userProfileDTO.getFirstNameRU())
+                .firstName(userProfileDTO.getFirstName())
                 .lastName(userProfileDTO.getLastName())
                 .lifestyle(userProfileDTO.getLifestyle())
                 .age(userProfileDTO.getAge())

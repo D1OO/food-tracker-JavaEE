@@ -39,7 +39,6 @@ public class DreamfitServlet extends HttpServlet {
         } catch (NamingException e) {
             ContextHolder.logger().error("Services initialization failed (DataSource lookup fail):\n" + e);
         }
-
         ContextHolder.injectObjectMapper(new ObjectMapper());
 
         CommandEnum.setPostEndpoints(new HashSet<>(Arrays.stream(CommandEnum.values())
@@ -53,11 +52,8 @@ public class DreamfitServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLRuntimeException, NoSuchElementException {
-        setDateForLocale(request);
-        if (CommandEnum.getPostEndpoints().contains(request.getRequestURI()))
-            request.getRequestDispatcher("/view/errors/404.jsp").forward(request, response);
-        else
-            processResponse(request, response);
+        setLocalizedDate(request);
+        processResponse(request, response);
     }
 
     @Override
@@ -88,7 +84,7 @@ public class DreamfitServlet extends HttpServlet {
         out.flush();
     }
 
-    private void setDateForLocale(HttpServletRequest request) {
+    private void setLocalizedDate(HttpServletRequest request) {
         request.getServletContext().setAttribute("localizedDate",
                 LocalDate.now().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)
                         .withLocale(Locale.forLanguageTag((String) request.getSession().getAttribute("lang")))));

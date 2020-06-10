@@ -40,8 +40,7 @@ public class Register implements ActionCommand {
                 .username(request.getParameter("username"))
                 .password(BCrypt.hashpw(request.getParameter("password"), BCrypt.gensalt()))
                 .userProfile(UserProfile.builder()
-                        .firstNameEN(request.getParameter("firstNameEN"))
-                        .firstNameRU(request.getParameter("firstNameRU"))
+                        .firstName(request.getParameter("firstName"))
                         .lastName(request.getParameter("lastName")).build())
                 .role(Role.USER)
                 .build();

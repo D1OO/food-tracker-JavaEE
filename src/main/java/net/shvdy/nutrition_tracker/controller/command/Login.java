@@ -7,7 +7,6 @@ import net.shvdy.nutrition_tracker.model.exception.BadCredentialsException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Locale;
 
 @PostEndpoint
 public class Login implements ActionCommand {
@@ -17,8 +16,7 @@ public class Login implements ActionCommand {
         UserDTO user;
         try {
             user = ContextHolder.userService().findByUsernameVerifyPassword(request.getParameter("username"),
-                    request.getParameter("password"),
-                    Locale.forLanguageTag((String) request.getSession().getAttribute("lang")));
+                    request.getParameter("password"));
         } catch (BadCredentialsException e) {
             ContextHolder.logger().warn("Bad login try: " + e.getMessage());
             return "redirect:/login?error";

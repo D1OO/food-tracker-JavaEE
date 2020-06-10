@@ -1,10 +1,6 @@
 {
-  "firstNameEN": {
-    "regex": "^[A-Z]((?![ .,'-]$)[a-z .,'-]){2,24}$",
-    "errorMessage": "Incorrect value"
-  },
-  "firstNameRU": {
-    "regex": "^[А-Я]((?![ .,'-]$)[а-я .,'-]){2,24}$|^$",
+  "firstName": {
+    "regex": "^[A-Z]((?![ .,'-]$)[a-z .,'-]){2,24}$|^[А-Я]((?![ .,'-]$)[а-я .,'-]){2,24}$|^$",
     "errorMessage": "Incorrect value"
   },
   "lastName": {

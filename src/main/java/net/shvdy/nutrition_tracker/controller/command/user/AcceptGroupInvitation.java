@@ -22,7 +22,7 @@ public class AcceptGroupInvitation implements ActionCommand {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         ContextHolder.userService().acceptGroupInvitation(((Set<Notification>) request.getSession()
                 .getAttribute("notifications")).stream()
-                .filter(n -> n.getSender().getFirstNameLocalisation().equals(request.getParameter("sender"))
+                .filter(n -> n.getSender().getFirstName().equals(request.getParameter("sender"))
                         && n.getDateTime().equals(request.getParameter("time")))
                 .findFirst().get());
         return "ok";

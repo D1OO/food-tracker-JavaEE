@@ -5,11 +5,14 @@ import net.shvdy.nutrition_tracker.model.entity.*;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class Extractor {
 
-    public User extractUser(ResultSet resultSet, Locale locale) throws SQLException {
+    public User extractUser(ResultSet resultSet) throws SQLException {
         return User.builder()
                 .id(resultSet.getLong("id"))
                 .username(resultSet.getString("email"))
@@ -21,7 +24,7 @@ public class Extractor {
                 .enabled(resultSet.getBoolean("enabled"))
                 .userProfile(UserProfile.builder()
                         .profileId(resultSet.getLong("profile_id"))
-                        .firstNameLocalised(resultSet.getString("first_name_" + locale.getLanguage()))
+                        .firstName(resultSet.getString("first_name"))
                         .lastName(resultSet.getString("last_name"))
                         .age(resultSet.getInt("age"))
                         .weight(resultSet.getInt("weight"))
@@ -47,12 +50,13 @@ public class Extractor {
             group.add(User.builder()
                     .username(rs.getString("email"))
                     .userProfile(UserProfile.builder()
-                            .firstNameLocalised(rs.getString("first_name_localized"))
+                            .firstName(rs.getString("first_name"))
                             .lastName(rs.getString("last_name"))
                             .age(rs.getInt("age"))
                             .height(rs.getInt("height"))
                             .weight(rs.getInt("weight"))
-                            .lifestyle(Enum.valueOf(UserProfile.Lifestyle.class, rs.getString("lifestyle"))).build()).build());
+                            .lifestyle(Enum.valueOf(UserProfile.Lifestyle.class,
+                                    rs.getString("lifestyle"))).build()).build());
         } while (rs.next());
         return group;
     }
@@ -63,7 +67,7 @@ public class Extractor {
             String timeStampWithMs = rs.getTimestamp("datetime").toString();
             notifications.add(Notification.builder()
                     .sender(UserDTO.builder().id(rs.getLong("sender_id"))
-                            .firstNameLocalisation(rs.getString("first_name_en"))
+                            .firstName(rs.getString("first_name"))
                             .lastName(rs.getString("last_name")).build())
                     .receiver(UserDTO.builder().id(receiver.getUserId()).build())
                     .dateTime(timeStampWithMs.substring(0, timeStampWithMs.length() - 2))

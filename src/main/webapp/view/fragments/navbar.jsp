@@ -35,7 +35,7 @@ background: radial-gradient(circle, rgba(178,183,223,1) 0%, rgba(232,253,203,0.7
                                 </div>
                             </c:if>
                             <div class="logged-in-as mr-3 ml-3" style="font-size: 1.1em; max-width: 560px">
-                                    ${user.firstNameLocalisation} ${user.lastName}</div>
+                                    ${user.firstName} ${user.lastName}</div>
                             <div id="logout-link">
                                 <a href="${pageContext.request.contextPath}/logout">
                                     <button class="pretty-button bg signupButton">

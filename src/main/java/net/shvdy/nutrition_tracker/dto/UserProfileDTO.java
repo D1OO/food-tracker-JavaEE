@@ -11,19 +11,17 @@ import net.shvdy.nutrition_tracker.model.entity.UserProfile;
 public class UserProfileDTO {
 
     private Long profileId;
-    private String firstNameEN;
-    private String firstNameRU;
+    private String firstName;
     private String lastName;
     private UserProfile.Lifestyle lifestyle;
     private int age;
     private int height;
     private int weight;
 
-    public UserProfileDTO(Long profileId, String firstNameEN, String firstNameRU, String lastName,
+    public UserProfileDTO(Long profileId, String firstName, String lastName,
                           UserProfile.Lifestyle lifestyle, int age, int height, int weight) {
         this.profileId = profileId;
-        this.firstNameEN = firstNameEN;
-        this.firstNameRU = firstNameRU;
+        this.firstName = firstName;
         this.lastName = lastName;
         this.lifestyle = lifestyle;
         this.age = age;
@@ -43,20 +41,12 @@ public class UserProfileDTO {
         this.profileId = profileId;
     }
 
-    public String getFirstNameEN() {
-        return firstNameEN;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirstNameEN(String firstNameEN) {
-        this.firstNameEN = firstNameEN;
-    }
-
-    public String getFirstNameRU() {
-        return firstNameRU;
-    }
-
-    public void setFirstNameRU(String firstNameRU) {
-        this.firstNameRU = firstNameRU;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getLastName() {
@@ -102,8 +92,7 @@ public class UserProfileDTO {
 
     public static final class UserProfileDTOBuilder {
         private Long profileId;
-        private String firstNameEN;
-        private String firstNameRU;
+        private String firstName;
         private String lastName;
         private UserProfile.Lifestyle lifestyle;
         private int age;
@@ -118,13 +107,8 @@ public class UserProfileDTO {
             return this;
         }
 
-        public UserProfileDTOBuilder firstNameEN(String firstNameEN) {
-            this.firstNameEN = firstNameEN;
-            return this;
-        }
-
-        public UserProfileDTOBuilder firstNameRU(String firstNameRU) {
-            this.firstNameRU = firstNameRU;
+        public UserProfileDTOBuilder firstName(String firstName) {
+            this.firstName = firstName;
             return this;
         }
 
@@ -154,7 +138,7 @@ public class UserProfileDTO {
         }
 
         public UserProfileDTO build() {
-            return new UserProfileDTO(profileId, firstNameEN, firstNameRU, lastName, lifestyle, age, height, weight);
+            return new UserProfileDTO(profileId, firstName, lastName, lifestyle, age, height, weight);
         }
     }
 }
