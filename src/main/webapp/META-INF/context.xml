@@ -10,7 +10,8 @@
               username="root"
               password="root"
               driverClassName="com.mysql.cj.jdbc.Driver"
-              url="jdbc:mysql://localhost:3306/dreamfit_nutrition_tracker?JDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;"/>
+              url="jdbc:mysql://localhost:3306/dreamfit_nutrition_tracker?JDBCCompliantTimezoneShift=true&amp;
+                   useLegacyDatetimeCode=false&amp;serverTimezone=Europe/Moscow"/>
 
 </Context>
 

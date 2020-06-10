@@ -1,0 +1,6 @@
+{
+  "receiver_email": {
+    "regex": "^[a-z0-9_\\.-]{1,30}@[\\da-z\\.-]{1,15}\\.[a-z\\.]{2,8}$",
+    "errorMessage": "Incorrect email"
+  }
+}

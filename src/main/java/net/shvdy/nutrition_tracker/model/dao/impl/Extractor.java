@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
-public class UserMapper {
+public class Extractor {
 
     public User extractUser(ResultSet resultSet, Locale locale) throws SQLException {
         return User.builder()
@@ -44,13 +44,15 @@ public class UserMapper {
     public List<User> extractGroup(ResultSet rs) throws SQLException {
         List<User> group = new ArrayList<>();
         do {
-            group.add(User.builder().userProfile(UserProfile.builder()
-                    .firstNameLocalised(rs.getString("first_name_localized"))
-                    .lastName(rs.getString("last_name"))
-                    .age(rs.getInt("age"))
-                    .height(rs.getInt("height"))
-                    .weight(rs.getInt("weight"))
-                    .lifestyle(Enum.valueOf(UserProfile.Lifestyle.class, rs.getString("lifestyle"))).build()).build());
+            group.add(User.builder()
+                    .username(rs.getString("email"))
+                    .userProfile(UserProfile.builder()
+                            .firstNameLocalised(rs.getString("first_name_localized"))
+                            .lastName(rs.getString("last_name"))
+                            .age(rs.getInt("age"))
+                            .height(rs.getInt("height"))
+                            .weight(rs.getInt("weight"))
+                            .lifestyle(Enum.valueOf(UserProfile.Lifestyle.class, rs.getString("lifestyle"))).build()).build());
         } while (rs.next());
         return group;
     }

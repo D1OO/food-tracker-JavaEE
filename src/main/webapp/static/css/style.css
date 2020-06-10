@@ -167,17 +167,11 @@ dl, ol, ul {
     /*background: linear-gradient(338deg, rgba(213, 95, 147, 0.19) 10%, rgba(233, 232, 148, 0.4) 100%);*/
 }
 
-.recordTab {
+.recordTab, .userTab {
     background: #f0f0f0;
     padding-inline: 10px;
     border: none;
 }
-
-.recordTab :hover {
-    background: rgb(213, 95, 147);
-    background: linear-gradient(338deg, rgba(213, 95, 147, 0.62) 10%, rgba(233, 232, 148, 0.73) 100%);
-}
-
 
 .active-tab-button {
     background: rgb(213, 95, 147);
@@ -278,6 +272,7 @@ table {
 }
 
 .logged-in-as {
+    border-radius: 4px;
     background-color: #272727;
     color: white !important;
     padding: 5px;
@@ -623,6 +618,7 @@ h6,
 
 .control-label {
     background-color: #3f3f3f;
+    border-radius: 4px;
     color: rgb(255, 255, 255);
     padding-left: 3px;
     padding-right: 3px;
@@ -940,12 +936,12 @@ h6,
 
 .selected-record-button {
     color: #000000;
-    background: #c0d7c8;
+    background: #dfcfe3;
 }
 
 .selected-record-button:hover {
     color: #000000 !important;
-    background: #d78287 !important;
+    background: #cebbd9 !important;
     cursor: default;
 }
 

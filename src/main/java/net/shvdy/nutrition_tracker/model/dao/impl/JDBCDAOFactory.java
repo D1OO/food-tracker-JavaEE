@@ -18,7 +18,7 @@ public class JDBCDAOFactory extends DAOFactory {
 
     @Override
     public UserDAO getUserDAO() {
-        return new JDBCUserDAO(dataSource, new UserMapper(), QUERIES);
+        return new JDBCUserDAO(dataSource, new Extractor(), QUERIES);
     }
 
     @Override

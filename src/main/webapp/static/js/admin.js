@@ -1,5 +1,34 @@
+function userTabClick(username) {
+    $('.invite-section').slideUp();
+    $('.userTab').removeClass("selected-record-button");
+    $(event.target).addClass("selected-record-button");
+    loadMemberData(username);
+}
+
+function loadMemberData(memberUsername) {
+    $.ajax({
+        type: "POST",
+        url: '/group/show-member',
+        data: {username: memberUsername},
+        statusCode: {
+            500: function () {
+                $("#articleSavingErrorBox").show(200);
+            }
+        },
+        success: function (response) {
+            const container = $('#selected-user-data');
+            container.fadeOut(200);
+            setTimeout(function () {
+                container.html(response);
+            }, 200);
+            container.fadeIn(100);
+        }
+    });
+}
+
 function inviteMember() {
-    $('.invite-section').slideDown();
+    $('#selected-user-data').fadeOut(100);
+    $('.invite-section').slideToggle();
 }
 
 function sendInvite() {
@@ -8,23 +37,20 @@ function sendInvite() {
         url: '/group/send-invitation',
         data: {receiver_email: $('#inviteemail').val()},
         statusCode: {
-            500: function (response) {
+            500: function () {
                 window.location.href = '/error';
+            },
+            400: function () {
+                $('#inviteemail').css("border", "1px solid red");
             }
         },
-        success: function (response) {
-            $('.notifications-container').slideUp();
+        success: function () {
+            $('#send-success').fadeIn(1000);
+            setTimeout(function () {
+                $('#send-success').fadeOut(1000);
+            }, 3000);
         }
     });
-    // $('.invite-section').slideDown();
-}
-
-function userTabClick(tab) {
-    $('.invite-section').slideUp();
-    $('.recordTab').removeClass("selected-record-button");
-    $(event.target).addClass("selected-record-button");
-    $('.record-tabs').css("display", "none");
-    $(tab).css("display", "block");
 }
 
 function saveCreatedArticle() {

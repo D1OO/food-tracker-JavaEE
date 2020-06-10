@@ -15,10 +15,10 @@ import java.util.*;
 public class JDBCUserDAO implements UserDAO {
 
     private DataSource dataSource;
-    private UserMapper resultSetMapper;
+    private Extractor resultSetMapper;
     private final Properties queries;
 
-    public JDBCUserDAO(DataSource dataSource, UserMapper resultSetMapper, Properties queries) {
+    public JDBCUserDAO(DataSource dataSource, Extractor resultSetMapper, Properties queries) {
         this.dataSource = dataSource;
         this.resultSetMapper = resultSetMapper;
         this.queries = queries;

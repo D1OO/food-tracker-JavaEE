@@ -8,7 +8,6 @@
     <script src="static/vendor/easing/easing.min.js"></script>
     <script src="static/vendor/isotope/isotope.pkgd.min.js"></script>
     <script src="static/vendor/aos/aos.js"></script>
-    <script src="static/vendor/owlcarousel/owl.carousel.min.js"></script>
 
     <script src="static/js/animation.js" type="text/javascript"></script>
     <script src="static/js/login-form-validation.js" type="text/javascript"></script>

@@ -18,8 +18,8 @@ background: radial-gradient(circle, rgba(178,183,223,1) 0%, rgba(232,253,203,0.7
                     <h1 style="font-family:'Run Medium',serif;font-weight:normal;font-size:42px;">dreamfit</h1></a>
             </div>
             <div class="align-self-start d-inline-flex mt-sm-1">
-                <ul class="list-inline  navbar-right mr-4">
-<%--                    <h1>${user.role}</h1>--%>
+                <div class="navbar-right mr-4">
+                    <%--                    <h1>${user.role}</h1>--%>
                     <c:if test="${user.role eq GUEST}">
                         <li class=" list-inline-item">
                             <a class="pretty-button bg" href="/login"><fmt:message key="sign-in"/></a>
@@ -29,22 +29,18 @@ background: radial-gradient(circle, rgba(178,183,223,1) 0%, rgba(232,253,203,0.7
                         </li>
                     </c:if>
                     <c:if test="${user.role ne GUEST}">
-                        <li class="list-inline-item">
-                            <ul class="list-inline mt-0 pt-0" style="margin-top: 0;">
-                                <li class="list-inline-item" style="font-size: 1.1em; max-width: 560px">
-                                    <span class="logged-in-as mt-sm-1">${user.firstNameLocalisation} ${user.lastName}</span>
-                                </li>
-                                <li class="list-inline-item" id="logout-link">
-                                    <a href="${pageContext.request.contextPath}/logout">
-                                        <button class="pretty-button bg signupButton">
-                                            <fmt:message key="logout"/>
-                                        </button>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+                        <div class="d-inline-flex">
+                            <div class="logged-in-as mr-3" style="font-size: 1.1em; max-width: 560px">
+                                    ${user.firstNameLocalisation} ${user.lastName}</div>
+                            <div id="logout-link">
+                                <a href="${pageContext.request.contextPath}/logout">
+                                    <button class="pretty-button bg signupButton">
+                                        <fmt:message key="logout"/></button>
+                                </a>
+                            </div>
+                        </div>
                     </c:if>
-                </ul>
+                </div>
             </div>
             <a class="burger" data-target="#main-navbar" data-toggle="collapse" href="#">
                 <span></span>

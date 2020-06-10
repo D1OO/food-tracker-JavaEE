@@ -47,10 +47,19 @@ function openCreateArticleModalWindow() {
 }
 
 function tabClick(tab) {
+    const container = $(tab);
     $('.recordTab').removeClass("selected-record-button");
     $(event.target).addClass("selected-record-button");
-    $('.record-tabs').css("display", "none");
-    $(tab).css("display", "block");
+
+    container.removeClass("record-tabs");
+
+    $('.record-tabs').fadeOut(200);
+    container.addClass("record-tabs");
+    setTimeout(function () {
+        container.fadeIn(100);
+    }, 200);
+
+
 }
 
 function closeAddFoodModalWindow() {

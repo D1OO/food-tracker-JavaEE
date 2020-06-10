@@ -1,18 +1,28 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <fmt:setLocale value="${sessionScope.lang}"/>
 <fmt:setBundle basename="i18n/messages"/>
 
-<div class="content-container food-diary-container" data-aos="fade-zoom-in" data-aos-offset="0"
-     style="width: 100%">
-    <div id="entriesSavedSuccessBox" class="alert-success alert col-md-11 mb-3 display-none" role="alert">
-        <fmt:message key="entries.saved"/>
+<div class="user-tabs mt-3 mb-3">
+    <div class="userinfo d-inline-flex">
+        <div class="m-4 d-flex"><h2>${member.firstNameLocalisation} ${member.lastName}</h2></div>
+        <label class="h5 control-label m-auto"
+               style="margin-left: 2rem !important;margin-right: 0.5rem !important;"><fmt:message
+                key="profile.age"/></label>
+        <label class="h5 m-auto">${member.userProfileDTO.age}</label>
+        <label class="h5 control-label m-auto"
+               style="margin-left: 2rem !important;margin-right: 0.5rem !important;"><fmt:message
+                key="profile.height"/></label>
+        <label class="h5 m-auto">${member.userProfileDTO.height}</label>
+        <div class="h5 mb-4 m-4 d-flex align-items-center">${member.username}</div>
     </div>
-    <div class=" mb-4 m-4 font-rubick " style="width: 100%;">
-        <h2><fmt:message key="food-diary"/></h2>
-    </div>
+    <%--    <div class="container m2 mb-4 tabs">--%>
+    <%--        <button class="modal-save-food pretty-button" onclick="updateUserProfile()"><fmt:message--%>
+    <%--                key="profile.save"/></button>--%>
+    <%--    </div>--%>
+</div>
+<div class="userDiary">
     <div class="tabs row d-flex ml-2 mb-3" style="width: 100%">
         <button class="pretty-button m4 ml-3 nextb ${prevWeekDay != null ? 'visible' : 'unvisible'}"
                 onclick="loadFromServerIntoContentContainer('/food-diary?d=${prevWeekDay}')">
@@ -79,8 +89,8 @@
                 </c:when>
                 <c:otherwise>
                     <div>
-                        <p class="m-4" style="font-style: italic; color: #787a7a; font-size: 1.2em">
-                            <fmt:message key="user.empy-list"/>
+                        <p class="m-4 " style="font-style: italic; color: #787a7a; font-size: 1.2em">
+                            <fmt:message key="group.list-is-empty"/>
                         </p>
                     </div>
                 </c:otherwise>

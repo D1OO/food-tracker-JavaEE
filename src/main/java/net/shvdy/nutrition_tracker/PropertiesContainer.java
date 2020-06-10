@@ -45,7 +45,8 @@ public class PropertiesContainer {
         USER_SIGN_UP_FORM_VALIDATION_DATA("form-validation-data/user-sign-up.json"),
         USER_PROFILE_FORM_VALIDATION_DATA("form-validation-data/user-profile.json"),
         FOOD_FORM_VALIDATION_DATA("form-validation-data/food.json"),
-        ARTICLE_FORM_VALIDATION_DATA("form-validation-data/article.json");
+        ARTICLE_FORM_VALIDATION_DATA("form-validation-data/article.json"),
+        GROUP_INVITE_VALIDATION_DATA("form-validation-data/group-invite.json");
 
         final String FILE_PATH;
         private Map<String, Map<String, String>> formFieldsValidationData;

@@ -8,46 +8,29 @@
     <div class="mt-3 d-flex flex-column">
         <div class="d-inline-flex">
             <c:forEach var="member" items="${group}" varStatus="loop">
-                <button class="pretty-button m4 recordTab ml-3  ${loop.first ? 'selected-record-button' : ''}"
-                        onclick="userTabClick('#user${loop.index}')">
+                <button class="pretty-button m4 userTab ml-3"
+                        onclick="userTabClick('${member.username}')">
                         ${member.userProfile.firstNameLocalisation} ${member.userProfile.lastName}
                 </button>
             </c:forEach>
-            <button class="pretty-button m4 recordTab ml-3"
-                    onclick="inviteMember()" style="border-radius: 100%; width: 2.4rem; background-color: #99ce9c">
+            <button class="pretty-button m4 ml-3"
+                    onclick="inviteMember()"
+                    style="border:none; border-radius: 100%; width: 2.4rem; background-color: #99ce9c">
                 <fmt:message key="invite-member"/>
             </button>
         </div>
-
         <div class="invite-section" style="display: none">
-            <div class="d-inline-flex mt-4">
+            <div class="d-inline-flex mt-4 align-items-center" style="width: 100%">
                 <input class="form-control col-5 ml-4 align-self-center" id="inviteemail"
                        placeholder="e-mail"/>
                 <button class="pretty-button m4 recordTab ml-3"
                         onclick="sendInvite()" style="background-color: #99ce9c">
                     <fmt:message key="invite-member-button"/>
                 </button>
+                <p class="ml-2" id="send-success" style="color: green; display: none">Success</p>
             </div>
         </div>
-
-        <c:forEach var="member" items="${group}" varStatus="loop">
-            <div id="user${loop.index}" class="record-tabs mt-3 mb-3" style="display: none">
-                <div class="userinfo d-inline-flex">
-                    <div class="h2 mb-4 m-4 d-flex">${member.username}</div>
-                    <div class="h5 m-auto d-flex">${member.userProfile.firstNameLocalisation} ${member.userProfile.lastName}</div>
-                    <label class="h5 control-label m-auto" style="margin-left: 2rem !important;"><fmt:message
-                            key="profile.age"/></label>
-                    <label class="h5 m-auto">${member.userProfile.age}</label>
-                    <label class="h5 control-label m-auto" style="margin-left: 2rem !important;"><fmt:message
-                            key="profile.height"/></label>
-                    <label class="h5 m-auto">${member.userProfile.height}</label>
-                </div>
-                <div class="container m2 mb-4 tabs">
-                    <button class="modal-save-food pretty-button" onclick="updateUserProfile()"><fmt:message
-                            key="profile.save"/></button>
-                </div>
-            </div>
-        </c:forEach>
+        <div id="selected-user-data"></div>
     </div>
 
 </div>

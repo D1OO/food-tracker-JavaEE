@@ -40,6 +40,9 @@ public enum CommandEnum {
     GROUP_PAGE(
             new GroupPage(), "/group",
             Set.of(Role.ADMIN)),
+    SHOW_MEMBER_DATA(
+            new ShowGroupMemberData(), "/group/show-member",
+            Set.of(Role.ADMIN)),
     SEND_GROUP_INVITATION(
             new SendGroupInvitation(), "/group/send-invitation",
             Set.of(Role.ADMIN)),
