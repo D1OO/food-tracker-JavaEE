@@ -7,7 +7,7 @@ import net.shvdy.nutrition_tracker.controller.command.ActionCommand;
 import net.shvdy.nutrition_tracker.controller.command.PostEndpoint;
 import net.shvdy.nutrition_tracker.controller.command.utils.Validator;
 import net.shvdy.nutrition_tracker.dto.UserDTO;
-import net.shvdy.nutrition_tracker.exception.SQLRuntimeException;
+import net.shvdy.nutrition_tracker.model.dao.impl.SQLRuntimeException;
 import net.shvdy.nutrition_tracker.model.entity.Notification;
 
 import javax.servlet.http.HttpServletRequest;

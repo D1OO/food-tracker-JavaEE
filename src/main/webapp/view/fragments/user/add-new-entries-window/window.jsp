@@ -29,50 +29,30 @@
                     <div class="row">
                         <div class="col-3">
                             <div class="form-group col-md-11">
-                                <label class="control-label" for="name"><fmt:message key="user.food-name"/></label>
-                                <input class="form-control"
-                                       data-msg="Enter a valid first name"
-                                       data-rule="firstnameexp" id="name"
-                                       name="newFoodName"/>
-                                <div class="validate"></div>
+                                <label class="control-label"><fmt:message key="user.food-name"/></label>
+                                <input class="form-control" name="newFoodName"/>
                                 <p id="newFoodNameError" class="errorServerValidation"></p>
                             </div>
                             <div class="form-group col-md-11">
-                                <label class="control-label" for="calories"><fmt:message key="user.calories"/></label>
-                                <input class="form-control"
-                                       data-msg="Enter a valid last name"
-                                       data-rule="lastnameexp" id="calories"
-                                       name="newFoodCalories"/>
-                                <div class="validate"></div>
+                                <label class="control-label"><fmt:message key="user.calories"/></label>
+                                <input class="form-control" name="newFoodCalories"/>
                                 <p id="newFoodCaloriesError" class="errorServerValidation"></p>
                             </div>
                             <div class="form-group col-md-11">
-                                <label class="control-label" for="proteins"><fmt:message key="user.proteins"/></label>
-                                <input class="form-control"
-                                       data-msg="Enter a valid first name (ukrainian letters)"
-                                       data-rule="firstnameuaexp" id="proteins"
-                                       name="newFoodProt"/>
-                                <div class="validate"></div>
+                                <label class="control-label"><fmt:message key="user.proteins"/></label>
+                                <input class="form-control" name="newFoodProt"/>
                                 <p id="newFoodProtError" class="errorServerValidation"></p>
                             </div>
                         </div>
                         <div class="col-3">
                             <div class="form-group col-md-11">
-                                <label class="control-label" for="fats"><fmt:message key="user.fats"/></label>
-                                <input class="form-control"
-                                       data-msg="Enter a valid first name"
-                                       data-rule="firstnameexp" id="fats"
-                                       name="newFoodFats"/>
-                                <div class="validate"></div>
+                                <label class="control-label"><fmt:message key="user.fats"/></label>
+                                <input class="form-control" name="newFoodFats"/>
                                 <p id="newFoodFatsError" class="errorServerValidation"></p>
                             </div>
                             <div class="form-group col-md-11">
-                                <label class="control-label" for="carbohydrates"><fmt:message key="user.carbs"/></label>
-                                <input class="form-control"
-                                       data-msg="Enter a valid last name"
-                                       data-rule="lastnameexp" id="carbohydrates"
-                                       name="newFoodCarbohydrates"/>
-                                <div class="validate"></div>
+                                <label class="control-label"><fmt:message key="user.carbs"/></label>
+                                <input class="form-control" name="newFoodCarbohydrates"/>
                                 <p id="newFoodCarbohydratesError" class="errorServerValidation"></p>
                             </div>
                         </div>

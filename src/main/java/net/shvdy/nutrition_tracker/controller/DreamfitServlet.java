@@ -4,8 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import net.shvdy.nutrition_tracker.PropertiesContainer;
 import net.shvdy.nutrition_tracker.controller.command.CommandEnum;
 import net.shvdy.nutrition_tracker.controller.command.PostEndpoint;
-import net.shvdy.nutrition_tracker.exception.SQLRuntimeException;
 import net.shvdy.nutrition_tracker.model.dao.DAOFactory;
+import net.shvdy.nutrition_tracker.model.dao.impl.SQLRuntimeException;
 import net.shvdy.nutrition_tracker.model.service.ServiceFactory;
 import org.apache.logging.log4j.LogManager;
 

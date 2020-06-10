@@ -22,7 +22,7 @@
                          style="box-shadow: 0px 0px 45px -5px rgba(0,0,0,0.68); border: 5px solid rgba(31,171,0,0.27); border-radius: 0.5rem; background: white">
                         <div class="mr-auto">
                             <div class="row d-flex justify-content-start form">
-                                <div class=" mb-5 mb-md-0">
+                                <div class="mb-5 mb-md-0">
                                     <h3 class="ml-2" style="text-align: center">Login</h3>
                                     <div id="signupSuccessBox" class="alert-success alert col-md-11 mb-3 display-none"
                                          role="alert">
@@ -44,21 +44,13 @@
                                     <form class="form" method="post" action="log-in">
                                         <div class="col-md-11 form-group">
                                             <label for="email">E-mail</label>
-                                            <input class="form-control required"
-                                                   data-msg="Incorrect email"
-                                                   data-rule="email"
-                                                   id="email"
-                                                   name="username"/>
+                                            <input class="form-control required" id="email" name="username"/>
                                             <div class="validate"></div>
                                         </div>
                                         <div class="col-md-11 form-group">
                                             <label for="password">Password</label>
                                             <input class="form-control required"
-                                                   data-msg="Enter a valid password <br>((8+ digit or latin characters)"
-                                                   data-rule="pwrd"
-                                                   id="password"
-                                                   name="password"
-                                                   type="password">
+                                                   id="password" name="password" type="password">
                                             <div class="validate"></div>
                                         </div>
                                         <div class="col-md-11 mb-3" style="background: #eeeeee">
@@ -66,13 +58,11 @@
                                             <div class="error-message"></div>
                                             <div class="sent-message">fifler</div>
                                         </div>
-
                                         <div class="col-md-6 form-group">
                                             <input class="pretty-button d-block w-100 submit-button" disabled="disabled"
                                                    type="submit"
                                                    value="SIGN IN">
                                         </div>
-
                                         <div class="col-md-12 form-group">
                                             <span>Don't have an account? <a style="color:#34ce57" href="registration"><fmt:message key="login.sign-up"/></a></span>
                                         </div>

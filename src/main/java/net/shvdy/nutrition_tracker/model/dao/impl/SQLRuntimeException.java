@@ -1,4 +1,4 @@
-package net.shvdy.nutrition_tracker.exception;
+package net.shvdy.nutrition_tracker.model.dao.impl;
 
 import java.sql.SQLException;
 
