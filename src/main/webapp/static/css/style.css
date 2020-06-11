@@ -56,9 +56,12 @@ dl, ol, ul {
     margin-bottom: 10px;
 }
 
+.font-medium {
+    font-family: "Gotham Rounded Medium";
+}
 
-.font-rubick {
-    font-family: 'Clother Light', 'Gotham Rounded Bold', Serif;
+.flickity-viewport {
+    border-radius: 4px;
 }
 
 .pretty-button {
@@ -189,6 +192,15 @@ dl, ol, ul {
 
 .foodlink {
     border: none;
+}
+
+.date-label {
+    background: rgb(249, 240, 255);
+    font-family: "Gotham Rounded Medium";
+    border-radius: 4px;
+    color: #3a2332;
+    font-size: 1em !important;
+    /*font-size: 1.2em;*/
 }
 
 .modal-save {

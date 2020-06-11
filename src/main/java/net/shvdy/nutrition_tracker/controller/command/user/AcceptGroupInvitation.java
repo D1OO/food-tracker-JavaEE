@@ -25,7 +25,7 @@ public class AcceptGroupInvitation implements ActionCommand {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         ContextHolder.userService().acceptGroupInvitation((Notification.builder()
                 .sender(UserDTO.builder().username(request.getParameter("sender")).build())
-                .receiver(UserDTO.builder().username(request.getParameter("user.username")).build())
+                .receiver(UserDTO.builder().username((String) request.getSession().getAttribute("user.username")).build())
                 .dateTime(request.getParameter("time")).build()));
         Response.OK_200.execute().response("", request, response);
     }

@@ -4,7 +4,7 @@
 <fmt:setLocale value="${sessionScope.lang}"/>
 <fmt:setBundle basename="i18n/messages"/>
 
-<div class="modal" id="myModal" data-aos="fade-zoom-in" data-aos-offset="" style="margin-top: -6rem;">
+<div class="modal" id="myModal" data-aos="fade-zoom-in" style="z-index: 5;">
     <div class="modal-content">
         <div class="modal-header">
             <p class="p-1 mt-2 mb-2" style="size:4em"><fmt:message key="article.create-article"/></p>

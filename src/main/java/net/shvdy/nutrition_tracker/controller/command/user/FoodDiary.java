@@ -23,7 +23,7 @@ public class FoodDiary implements ActionCommand {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         processPagination(request);
-        Response.FORWARD.execute().response("/view/fragments/food-diary.jsp", request, response);
+        Response.FORWARD.execute().response("/view/fragments/user/food-diary.jsp", request, response);
     }
 
     private void processPagination(HttpServletRequest request) {

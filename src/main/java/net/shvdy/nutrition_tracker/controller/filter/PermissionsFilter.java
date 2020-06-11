@@ -23,7 +23,6 @@ public class PermissionsFilter implements Filter {
             request.getRequestDispatcher("404").forward(request, response);
 
         Role role = (Role) ((HttpServletRequest) request).getSession().getAttribute("userRole");
-        System.out.println(httpRequest.getRequestURI());
         if (CommandEnum.checkIsPathForbidden(((HttpServletRequest) request).getRequestURI(), role)) {
             request.getRequestDispatcher(
                     role.equals(Role.GUEST) ? "/redirect:home" : "/view/errors/403.jsp").forward(request, response);

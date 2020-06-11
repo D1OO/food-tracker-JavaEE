@@ -21,7 +21,7 @@
 <div class="userDiary">
     <div class="tabs row d-flex ml-2 mb-3" style="width: 100%">
         <button class="pretty-button m4 ml-3 nextb ${prevWeekDay != null ? 'visible' : 'unvisible'}"
-                onclick="loadFromServerIntoContentContainer('/food-diary?d=${prevWeekDay}')">
+                onclick='loadMemberData("${member.username}","${prevWeekDay}")'>
             <fmt:message key="diary.previous"/>
         </button>
         <c:forEach var="record" items="${paginatedWeeklyRecords}" varStatus="loop">
@@ -31,11 +31,13 @@
             </button>
         </c:forEach>
         <button class="pretty-button m4 ml-3 nextb"
-                onclick='loadFromServerIntoContentContainer("/food-diary?d=${nextWeekDay}")'>
+                onclick='loadMemberData("${member.username}","${nextWeekDay}")'>
             <fmt:message key="diary.next"/>
         </button>
     </div>
-
+    <div class="d-flex m-3">
+        <h5>Weekly average calories percentage: ${dailyNormAvgByWeek}</h5>
+    </div>
     <c:forEach var="rec" items="${paginatedWeeklyRecords}" varStatus="loop">
         <div id="dailyRecord${loop.index}" class="record-tabs container m2  flex-grow-1
              ${loop.first ? 'display-block' : 'display-none'}" style="max-height: available">
@@ -46,7 +48,7 @@
                             <h4 class="mr-2"><fmt:message key="daily-cals-norm"/></h4>
                             <h4 class="logged-in-as">${rec.percentage}%</h4>
                             <h4 class="float-right ml-1"> (${rec.totalCalories}/${rec.dailyCaloriesNorm}</h4>
-                            <h4 class="font-rubick">)</h4>
+                            <h4>)</h4>
                         </div>
                         <div>
                             <table class="col-8 daily-record-table table" style="width: 450px; font-size: 1.2em; ">

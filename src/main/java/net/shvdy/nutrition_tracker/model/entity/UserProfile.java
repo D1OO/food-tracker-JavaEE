@@ -101,6 +101,7 @@ public class UserProfile {
         EXTRA_ACTIVE(1.9f);
 
         float factor;
+        private String propertiesKey;
 
         Lifestyle(float factor) {
             this.factor = factor;
@@ -108,6 +109,10 @@ public class UserProfile {
 
         public float getFactor() {
             return factor;
+        }
+
+        public String getPropertiesKey() {
+            return "enum.lifestyle." + this.toString().toLowerCase();
         }
     }
 

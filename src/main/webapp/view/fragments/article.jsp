@@ -8,11 +8,12 @@
 <div class="article-full d-flex flex-column m-4" data-aos="fade-zoom-in" data-aos-offset="0">
     <div class="">
         <h4 class="mt-2">${titleLocalisation}</h4>
-        <p class="float-right" style="color: gray">${date}</p>
+        <p class="float-right font-medium" style="color: gray">${date}</p>
     </div>
     <img class="m-2" src="data:image/jpg;base64,${base64Image}"
-         style="border: 1px solid black; border-radius: 0.2rem; object-fit: cover; width: 100%; height: 250px"/>
-    <p>${textLocalisation}</p>
+         style="border:none; border-radius: 0.2rem; object-fit: cover; width: 100%; height: 250px;
+          margin-bottom: 2.5rem!important;"/>
+    <p class="m-2">${textLocalisation}</p>
 </div>
 
 

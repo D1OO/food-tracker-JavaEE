@@ -53,7 +53,7 @@
                     <select class="form-control" name="lifestyle" id="lifestyle">
                         <c:forEach var="item" items="${lifestyleEnum}">
                             <option class="option" ${user.userProfileDTO.lifestyle eq item ? 'selected' : ''}
-                                    value="${item}">${item}</option>
+                                    value="${item}"><fmt:message key="${item.propertiesKey}"/></option>
                         </c:forEach>
                     </select>
                 </div>

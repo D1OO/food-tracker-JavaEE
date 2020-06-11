@@ -15,7 +15,7 @@
  ### Installation:
  * ##### Clone the repository
  * ##### Import maven dependencies
- * ##### Remove "module-info.class" from jackson-core-2.10.3.jar
+ * ##### (Optional) Remove "module-info.class" from jackson-core-2.10.3.jar and log4j-api-2.13.3.jar files
  * ##### Install MySQL RDBMS, import schema from dump.sql
  * ##### Customize data source connection settings in /webapp/META-INF/context.xml if needed
  ### To run, execute maven goal: 

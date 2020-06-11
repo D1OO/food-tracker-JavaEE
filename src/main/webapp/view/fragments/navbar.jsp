@@ -8,9 +8,7 @@
     <nav class="navbar navbar-light custom-navbar pt-2">
         <div class="container px-0">
             <div class="align-self-start d-inline-flex mt-sm-1">
-                <span class="font-rubick navbar-light p-lg-2 mr-lg-5 "
-                      style="color: #3a2332; font-weight: lighter; font-size: 1em !important;  background: rgb(178,183,223);
-background: radial-gradient(circle, rgba(178,183,223,1) 0%, rgba(232,253,203,0.7245097868248862) 0%, rgba(178,183,223,1) 100%);  font-size: 1.2em">${localizedDate}</span>
+                <span class="date-label p-lg-2 mr-lg-5 ">${localizedDate}</span>
             </div>
             <div class="d-flex flex-grow-1 justify-content-center align-items-end "
                  style="position: relative; left: -2%;">
@@ -45,10 +43,10 @@ background: radial-gradient(circle, rgba(178,183,223,1) 0%, rgba(232,253,203,0.7
                         </div>
                     </c:if>
                 </div>
+                <a class="burger" data-target="#main-navbar" data-toggle="collapse" href="#">
+                    <span></span>
+                </a>
             </div>
-            <a class="burger" data-target="#main-navbar" data-toggle="collapse" href="#">
-                <span></span>
-            </a>
         </div>
     </nav>
 </div>

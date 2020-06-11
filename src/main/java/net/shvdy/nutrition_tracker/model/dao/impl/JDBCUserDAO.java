@@ -29,7 +29,7 @@ public class JDBCUserDAO implements UserDAO {
     public Optional<User> findByUsername(String username) {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection
-                     .prepareStatement(queries.getProperty("user_dao.SELECT_BY_USERNAME_SQL"))) {
+                     .prepareStatement(queries.getProperty("userdao.SELECT_BY_USERNAME_SQL"))) {
 
             statement.setString(1, username);
 

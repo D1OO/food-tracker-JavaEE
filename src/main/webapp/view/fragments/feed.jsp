@@ -7,7 +7,7 @@
 
 <div class="content-container flex-column d-flex food-diary-container" data-aos="fade-zoom-in" data-aos-offset="0"
      style="width: 100%">
-    <div class=" mb-4 m-4 font-rubick " style="width: 100%;">
+    <div class=" mb-4 m-4" style="width: 100%;">
         <h2><fmt:message key="last-news"/></h2>
     </div>
     <div class="d-flex flex-column content-container">
@@ -19,7 +19,7 @@
                      style="border-radius: 0.2rem; object-fit: cover; width: 200px; height: 120px"/>
                 <div class="col-8">
                     <h4 class="mt-2" style="text-align: left">${article.titleLocalisation}</h4>
-                    <p class="float-left" style="color: gray">${article.date}</p>
+                    <p class="float-left font-medium" style="color: gray">${article.date}</p>
                 </div>
             </button>
         </c:forEach>

@@ -6,17 +6,18 @@
 
 <html>
 <jsp:include page="/view/fragments/head.jsp">
-    <jsp:param name="title" value="Dreamfit PRO"/>
+    <jsp:param name="title" value="Dreamfit Pro • ${user.firstName} ${user.lastName}"/>
 </jsp:include>
 <body>
 <jsp:include page="/view/fragments/navbar.jsp"/>
+
 <main id="main">
     <div class="site-section pb-0" id="bg" style="height: 100%">
         <div class="container" id="cont" style=" height: 100%">
             <div class="d-inline-block" style="height: 100%; width: 100%">
+                <div id="modal-window" style="display: none"></div>
                 <div class="d-inline-block" data-aos="fade-zoom-in" data-aos-offset="0"
                      style="height: 100%; width: 100%">
-                    <div id="modal-window" style="display: none"></div>
                     <jsp:include page="/view/fragments/header-carousel-news.jsp"/>
                     <div class="maincontent d-flex">
                         <div class="d-inline-flex" style="width: 100%">

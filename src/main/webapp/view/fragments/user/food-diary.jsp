@@ -10,7 +10,7 @@
     <div id="entriesSavedSuccessBox" class="alert-success alert col-md-11 mb-3 display-none" role="alert">
         <fmt:message key="entries.saved"/>
     </div>
-    <div class=" mb-4 m-4 font-rubick " style="width: 100%;">
+    <div class=" mb-4 m-4" style="width: 100%;">
         <h2><fmt:message key="food-diary"/></h2>
     </div>
     <div class="tabs row d-flex ml-2 mb-3" style="width: 100%">
@@ -40,7 +40,7 @@
                             <h4 class="mr-2"><fmt:message key="daily-cals-norm"/></h4>
                             <h4 class="logged-in-as">${rec.percentage}%</h4>
                             <h4 class="float-right ml-1"> (${rec.totalCalories}/${rec.dailyCaloriesNorm}</h4>
-                            <h4 class="font-rubick">)</h4>
+                            <h4>)</h4>
                         </div>
                         <div>
                             <table class="col-8 daily-record-table table" style="width: 450px; font-size: 1.2em; ">

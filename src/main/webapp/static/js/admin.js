@@ -2,14 +2,14 @@ function userTabClick(username) {
     $('.invite-section').slideUp();
     $('.userTab').removeClass("selected-record-button");
     $(event.target).addClass("selected-record-button");
-    loadMemberData(username);
+    loadMemberData(username, null);
 }
 
-function loadMemberData(memberUsername) {
+function loadMemberData(memberUsername, date) {
     $.ajax({
         type: "POST",
         url: '/group/show-member',
-        data: {username: memberUsername},
+        data: {username: memberUsername, date: date === null ? undefined : date},
         statusCode: {
             500: function () {
                 $("#articleSavingErrorBox").show(200);
