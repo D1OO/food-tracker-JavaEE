@@ -5,7 +5,6 @@ import net.shvdy.nutrition_tracker.model.dao.ArticleDAO;
 import net.shvdy.nutrition_tracker.model.entity.Article;
 import net.shvdy.nutrition_tracker.model.service.mapper.ArticleEntityMapper;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.NoSuchElementException;
@@ -39,9 +38,7 @@ public class ArticleService {
                 .orElseThrow(NoSuchElementException::new), locale);
     }
 
-    public List<ArticleDTO> findRandomForLocale(Locale locale) {
-        List<ArticleDTO> randomNews = findPaginatedForLocale(locale).subList(0, 3);
-        Collections.shuffle(randomNews);
-        return randomNews;
+    public List<ArticleDTO> findRandomForLocale(int quantity, Locale locale) {
+        return articleEntityMapper.entityListToDTO(articleDAO.findRandomLocalised(quantity, locale), locale);
     }
 }

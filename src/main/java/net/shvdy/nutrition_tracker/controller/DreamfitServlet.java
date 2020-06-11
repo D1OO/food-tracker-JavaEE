@@ -8,6 +8,7 @@ import net.shvdy.nutrition_tracker.model.dao.DAOFactory;
 import net.shvdy.nutrition_tracker.model.dao.impl.SQLRuntimeException;
 import net.shvdy.nutrition_tracker.model.service.ServiceFactory;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.naming.NamingException;
 import javax.servlet.ServletConfig;
@@ -17,7 +18,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
@@ -26,18 +26,22 @@ import java.util.stream.Collectors;
 
 public class DreamfitServlet extends HttpServlet {
 
+    private static final Logger log = LogManager.getLogger(DreamfitServlet.class);
+
     public void init(ServletConfig servletConfig) {
-        ContextHolder.injectLogger(LogManager.getLogger(DreamfitServlet.class));
-        ContextHolder.logger().info("Servlet initialization started");
+        log.info("Servlet initialization started");
 
         PropertiesContainer.readProperties(this.getClass().getClassLoader());
         servletConfig.getServletContext().setAttribute("loggedUsers", new HashMap<Long, HttpSession>());
-        servletConfig.getServletContext().setAttribute("page-size", servletConfig.getInitParameter("page-size"));
+        servletConfig.getServletContext().setAttribute("dairy_weekly-view-records-quantity",
+                servletConfig.getInitParameter("dairy_weekly-view-records-quantity"));
+        servletConfig.getServletContext().setAttribute("header-news-quantity",
+                servletConfig.getInitParameter("header-news-quantity"));
 
         try {
             initAndInjectServicesIntoContextHolder();
         } catch (NamingException e) {
-            ContextHolder.logger().error("Services initialization failed (DataSource lookup fail):\n" + e);
+            log.error("Services initialization failed (DataSource lookup fail):\n" + e);
         }
         ContextHolder.injectObjectMapper(new ObjectMapper());
 
@@ -46,7 +50,7 @@ public class DreamfitServlet extends HttpServlet {
                 .map(CommandEnum::getPath)
                 .collect(Collectors.toSet())));
 
-        ContextHolder.logger().info("Servlet initialization ended");
+        log.info("Servlet initialization ended");
     }
 
     @Override
@@ -63,25 +67,8 @@ public class DreamfitServlet extends HttpServlet {
     }
 
     private void processResponse(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLRuntimeException, NoSuchElementException {
-        String commandResponse = CommandEnum.getByURI(request.getRequestURI()).execute(request, response);
-        if ((commandResponse).startsWith("redirect:")) {
-            response.sendRedirect(request.getContextPath() + commandResponse.replace("redirect:", ""));
-        } else if (commandResponse.startsWith("json:")) {
-            respondWithJSON(response, commandResponse.replace("json:", ""));
-        } else if (commandResponse.startsWith("ok")) {
-            response.setStatus(HttpServletResponse.SC_OK);
-        } else {
-            request.getRequestDispatcher(commandResponse).forward(request, response);
-        }
-    }
-
-    private void respondWithJSON(HttpServletResponse response, String JSONString) throws IOException {
-        PrintWriter out = response.getWriter();
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        out.print(JSONString);
-        out.flush();
+            throws SQLRuntimeException, NoSuchElementException, IOException, ServletException {
+        CommandEnum.getByURI(request.getRequestURI()).execute(request, response);
     }
 
     private void setLocalizedDate(HttpServletRequest request) {

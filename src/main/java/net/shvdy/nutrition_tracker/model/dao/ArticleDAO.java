@@ -19,4 +19,6 @@ public interface ArticleDAO extends GenericDAO<Article> {
     List<Article> findPaginatedLocalised(Locale locale);
 
     Optional<Article> findByIDLocalised(int articleID, Locale locale);
+
+    List<Article> findRandomLocalised(int quantity, Locale locale);
 }

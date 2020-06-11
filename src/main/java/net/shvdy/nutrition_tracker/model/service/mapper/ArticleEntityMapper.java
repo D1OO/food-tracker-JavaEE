@@ -1,10 +1,10 @@
 package net.shvdy.nutrition_tracker.model.service.mapper;
 
-import net.shvdy.nutrition_tracker.controller.ContextHolder;
 import net.shvdy.nutrition_tracker.dto.ArticleDTO;
 import net.shvdy.nutrition_tracker.model.entity.Article;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -23,6 +23,8 @@ import java.util.stream.Collectors;
  */
 public class ArticleEntityMapper {
 
+    private static final Logger log = LogManager.getLogger(ArticleEntityMapper.class);
+
     public List<ArticleDTO> entityListToDTO(List<Article> articleList, Locale locale) {
         return articleList.stream().map(x -> entityToDTO(x, locale)).collect(Collectors.toList());
     }
@@ -33,7 +35,7 @@ public class ArticleEntityMapper {
                 .date(readDateString(article.getDate(), locale))
                 .titleLocalisation(article.getTitleLocalisation())
                 .textLocalisation(article.getTextLocalisation())
-                .base64Image(getBase64String(article.getImageBytes()))
+                .base64Image(readImageString(article.getImageStream()))
                 .build();
     }
 
@@ -42,26 +44,18 @@ public class ArticleEntityMapper {
         return date.format(DateTimeFormatter.ofPattern("d MMM kk:mm", locale));
     }
 
-    private String getBase64String(byte[] bytes) {
-        try {
-            return readImageString(bytes);
-        } catch (IOException e) {
-            ContextHolder.logger().warn("Image could not be read");
-            return "";
-        }
-    }
-
-    private String readImageString(byte[] bytes) throws IOException {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        InputStream inputStream = new ByteArrayInputStream(bytes);
+    private String readImageString(InputStream imageStream) {
         byte[] buffer = new byte[4096];
         int bytesRead;
-        while ((bytesRead = inputStream.read(buffer)) != -1) {
-            outputStream.write(buffer, 0, bytesRead);
+        try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
+            while ((bytesRead = imageStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
+            imageStream.close();
+            return Base64.getEncoder().encodeToString(outputStream.toByteArray());
+        } catch (IOException e) {
+            log.warn("Image could not be read");
+            return "";
         }
-        byte[] imageBytes = outputStream.toByteArray();
-        inputStream.close();
-        outputStream.close();
-        return Base64.getEncoder().encodeToString(imageBytes);
     }
 }

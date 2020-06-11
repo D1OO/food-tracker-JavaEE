@@ -1,11 +1,12 @@
 package net.shvdy.nutrition_tracker.model.dao.impl;
 
-import net.shvdy.nutrition_tracker.controller.ContextHolder;
 import net.shvdy.nutrition_tracker.dto.UserDTO;
 import net.shvdy.nutrition_tracker.model.dao.UserDAO;
 import net.shvdy.nutrition_tracker.model.entity.Notification;
 import net.shvdy.nutrition_tracker.model.entity.User;
 import net.shvdy.nutrition_tracker.model.entity.UserProfile;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -16,6 +17,7 @@ public class JDBCUserDAO implements UserDAO {
     private DataSource dataSource;
     private Extractor resultSetMapper;
     private final Properties queries;
+    private static final Logger log = LogManager.getLogger(JDBCUserDAO.class);
 
     public JDBCUserDAO(DataSource dataSource, Extractor resultSetMapper, Properties queries) {
         this.dataSource = dataSource;
@@ -37,7 +39,7 @@ public class JDBCUserDAO implements UserDAO {
                 }
             }
         } catch (SQLException e) {
-            ContextHolder.logger().error("JDBCUserDAO findByUsernameLocalised: " + e);
+            log.error("JDBCUserDAO findByUsernameLocalised: " + e);
             throw new SQLRuntimeException(e);
         }
         return Optional.empty();
@@ -73,7 +75,7 @@ public class JDBCUserDAO implements UserDAO {
                 throw e;
             }
         } catch (SQLException e) {
-            ContextHolder.logger().error("JDBCUserDAO create: " + e);
+            log.error("JDBCUserDAO create: " + e);
             throw new SQLRuntimeException(e);
         }
     }
@@ -94,7 +96,7 @@ public class JDBCUserDAO implements UserDAO {
             updateProfile.executeUpdate();
 
         } catch (SQLException e) {
-            ContextHolder.logger().error("JDBCUserDAO updateProfile: " + e);
+            log.error("JDBCUserDAO updateProfile: " + e);
             throw new SQLRuntimeException(e);
         }
     }
@@ -113,7 +115,7 @@ public class JDBCUserDAO implements UserDAO {
                 }
             }
         } catch (SQLException e) {
-            ContextHolder.logger().error("JDBCUserDAO findGroup: " + e);
+            log.error("JDBCUserDAO findGroup: " + e);
             throw new SQLRuntimeException(e);
         }
         return new ArrayList<>();
@@ -126,7 +128,7 @@ public class JDBCUserDAO implements UserDAO {
                      .prepareStatement(queries
                              .getProperty("userdao.SELECT_NOTIFICATIONS_SQL"))) {
 
-            statement.setLong(1, receiver.getUserId());
+            statement.setString(1, receiver.getUsername());
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
@@ -134,7 +136,7 @@ public class JDBCUserDAO implements UserDAO {
                 }
             }
         } catch (SQLException e) {
-            ContextHolder.logger().error("JDBCUserDAO findNotifications: " + e);
+            log.error("JDBCUserDAO findNotifications: " + e);
             throw new SQLRuntimeException(e);
         }
         return new HashSet<>();
@@ -143,7 +145,7 @@ public class JDBCUserDAO implements UserDAO {
     public void createGroupInvitation(Notification n) {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection
-                     .prepareStatement(queries.getProperty("userdao.INSERT_INVITATION_SQL"))) {
+                     .prepareStatement(queries.getProperty("userdao.INSERT_NOTIFICATION_SQL"))) {
 
             statement.setLong(1, n.getSender().getUserId());
             statement.setString(2, n.getReceiver().getUsername());
@@ -152,7 +154,7 @@ public class JDBCUserDAO implements UserDAO {
             statement.executeUpdate();
 
         } catch (SQLException e) {
-            ContextHolder.logger().error("JDBCUserDAO createGroupInvitation: " + e);
+            log.error("JDBCUserDAO createGroupInvitation: " + e);
             throw new SQLRuntimeException(e);
         }
     }
@@ -165,12 +167,13 @@ public class JDBCUserDAO implements UserDAO {
                      .prepareStatement(queries.getProperty("userdao.DELETE_NOTIFICATION_SQL"))) {
             connection.setAutoCommit(false);
 
-            statement.setLong(1, n.getSender().getUserId());
-            statement.setLong(2, n.getReceiver().getUserId());
+            statement.setString(1, n.getSender().getUsername());
+            statement.setString(2, n.getReceiver().getUsername());
             statement.executeUpdate();
 
-            statement2.setLong(1, n.getSender().getUserId());
-            statement2.setLong(2, n.getReceiver().getUserId());
+            statement2.setString(1, n.getSender().getUsername());
+            statement2.setString(2, n.getReceiver().getUsername());
+            statement2.setString(3, n.getDateTime());
             statement2.executeUpdate();
 
             try {
@@ -181,7 +184,7 @@ public class JDBCUserDAO implements UserDAO {
             }
 
         } catch (SQLException e) {
-            ContextHolder.logger().error("JDBCUserDAO acceptGroupInvitation: " + e);
+            log.error("JDBCUserDAO acceptGroupInvitation: " + e);
             throw new SQLRuntimeException(e);
         }
     }
@@ -189,15 +192,15 @@ public class JDBCUserDAO implements UserDAO {
     public void declineGroupInvitation(Notification n) {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection
-                     .prepareStatement(queries.getProperty("userdao.DELETE_INVITATION_SQL"))) {
+                     .prepareStatement(queries.getProperty("userdao.DELETE_NOTIFICATION_SQL"))) {
 
-            statement.setLong(1, n.getSender().getUserId());
-            statement.setLong(2, n.getReceiver().getUserId());
+            statement.setString(1, n.getSender().getUsername());
+            statement.setString(2, n.getReceiver().getUsername());
             statement.setString(3, n.getDateTime());
             statement.executeUpdate();
 
         } catch (SQLException e) {
-            ContextHolder.logger().error("JDBCUserDAO declineGroupInvitation: " + e);
+            log.error("JDBCUserDAO declineGroupInvitation: " + e);
             throw new SQLRuntimeException(e);
         }
     }

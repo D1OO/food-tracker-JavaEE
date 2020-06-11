@@ -5,7 +5,6 @@ import net.shvdy.nutrition_tracker.model.service.ArticleService;
 import net.shvdy.nutrition_tracker.model.service.DailyRecordService;
 import net.shvdy.nutrition_tracker.model.service.FoodService;
 import net.shvdy.nutrition_tracker.model.service.UserService;
-import org.apache.logging.log4j.Logger;
 
 /**
  * 28.05.2020
@@ -20,7 +19,6 @@ public class ContextHolder {
 	private static FoodService foodService;
 	private static ArticleService articleService;
 	private static ObjectMapper jacksonObjectMapper;
-	private static Logger logger;
 
 	public static UserService userService() {
 		return userService;
@@ -40,10 +38,6 @@ public class ContextHolder {
 
 	public static ObjectMapper objectMapper() {
 		return jacksonObjectMapper;
-	}
-
-	public static Logger logger() {
-		return logger;
 	}
 
 	public static void injectUserService(UserService userService) {
@@ -66,7 +60,4 @@ public class ContextHolder {
 		ContextHolder.jacksonObjectMapper = jacksonObjectMapper;
 	}
 
-	public static void injectLogger(Logger logger) {
-		ContextHolder.logger = logger;
-	}
 }

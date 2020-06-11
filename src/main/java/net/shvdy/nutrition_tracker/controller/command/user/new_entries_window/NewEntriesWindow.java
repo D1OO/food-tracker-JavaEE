@@ -1,10 +1,13 @@
 package net.shvdy.nutrition_tracker.controller.command.user.new_entries_window;
 
+import net.shvdy.nutrition_tracker.controller.Response;
 import net.shvdy.nutrition_tracker.controller.command.ActionCommand;
 import net.shvdy.nutrition_tracker.dto.NewEntriesDTO;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -16,10 +19,11 @@ import java.util.ArrayList;
 public class NewEntriesWindow implements ActionCommand {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         createNewEntriesDTO(request);
         request.getSession().setAttribute("foodList", request.getSession().getAttribute("user.userFood"));
-        return "/view/fragments/user/add-new-entries-window/window.jsp";
+        Response.FORWARD.execute()
+                .response("/view/fragments/user/add-new-entries-window/window.jsp", request, response);
     }
 
     private void createNewEntriesDTO(HttpServletRequest request) {

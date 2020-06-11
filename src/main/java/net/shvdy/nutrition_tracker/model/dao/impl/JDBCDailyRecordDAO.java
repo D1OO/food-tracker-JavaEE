@@ -1,6 +1,5 @@
 package net.shvdy.nutrition_tracker.model.dao.impl;
 
-import net.shvdy.nutrition_tracker.controller.ContextHolder;
 import net.shvdy.nutrition_tracker.model.dao.DailyRecordDAO;
 import net.shvdy.nutrition_tracker.model.entity.DailyRecord;
 import net.shvdy.nutrition_tracker.model.entity.DailyRecordEntry;
@@ -12,6 +11,8 @@ import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.sql.DataSource;
 import java.math.BigInteger;
@@ -33,6 +34,8 @@ public class JDBCDailyRecordDAO implements DailyRecordDAO {
     private static final ResultSetHandler<List<DailyRecord>> LIST_RESULT_SET_HANDLER =
             new BeanListHandler<>(DailyRecord.class, ROW_PROCESSOR);
 
+    private static final Logger log = LogManager.getLogger(JDBCDailyRecordDAO.class);
+
     private Properties queries;
     private QueryRunner queryRunner;
     private DataSource dataSource;
@@ -49,7 +52,7 @@ public class JDBCDailyRecordDAO implements DailyRecordDAO {
                     LIST_RESULT_SET_HANDLER,
                     profileId, periodStartDate, periodEndDate);
         } catch (SQLException e) {
-            ContextHolder.logger().error("JDBCDailyRecordDAO findByDatePeriodAndQuantity: " + e);
+            log.error("JDBCDailyRecordDAO findByDatePeriodAndQuantity: " + e);
             throw new SQLRuntimeException(e);
         }
     }
@@ -77,7 +80,7 @@ public class JDBCDailyRecordDAO implements DailyRecordDAO {
                 throw e;
             }
         } catch (SQLException e) {
-            ContextHolder.logger().error("JDBCDailyRecordDAO save: " + e);
+            log.error("JDBCDailyRecordDAO save: " + e);
             throw new SQLRuntimeException(e);
         }
     }
@@ -111,5 +114,4 @@ public class JDBCDailyRecordDAO implements DailyRecordDAO {
         }
 
     }
-
 }

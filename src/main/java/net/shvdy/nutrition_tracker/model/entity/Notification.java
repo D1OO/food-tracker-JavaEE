@@ -60,7 +60,6 @@ public class Notification {
         this.message = message;
     }
 
-
     public static final class NotificationBuilder {
         private UserDTO sender;
         private UserDTO receiver;

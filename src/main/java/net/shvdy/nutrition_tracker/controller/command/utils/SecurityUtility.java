@@ -6,13 +6,11 @@ import net.shvdy.nutrition_tracker.model.entity.UserProfile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
-import java.util.Optional;
 
 public class SecurityUtility {
     public static void setSessionInfo(HttpServletRequest request, UserDTO user) {
         request.getSession().setAttribute("user", user);
-        request.getSession().setAttribute("user.userProfile", user.getUserProfileDTO());
-        request.getSession().setAttribute("user.role", user.getRole());
+        request.getSession().setAttribute("userRole", user.getRole());
         request.getSession().setAttribute("user.userId", user.getUserId());
         request.getSession().setAttribute("user.username", user.getUsername());
         request.getSession().setAttribute("user.userFood", user.getUserFood());

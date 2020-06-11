@@ -3,13 +3,18 @@ package net.shvdy.nutrition_tracker.controller.command.user.new_entries_window;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import net.shvdy.nutrition_tracker.PropertiesContainer;
 import net.shvdy.nutrition_tracker.controller.ContextHolder;
+import net.shvdy.nutrition_tracker.controller.Response;
 import net.shvdy.nutrition_tracker.controller.command.ActionCommand;
 import net.shvdy.nutrition_tracker.controller.command.PostEndpoint;
 import net.shvdy.nutrition_tracker.controller.command.utils.Validator;
 import net.shvdy.nutrition_tracker.dto.FoodDTO;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -22,21 +27,24 @@ import java.util.Map;
 @PostEndpoint
 public class SaveNewFood implements ActionCommand {
 
+    private static final Logger log = LogManager.getLogger(SaveNewFood.class);
+
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         Map<String, String> errors = Validator.validateFormAndReturnErrors(request,
                 PropertiesContainer.JSONProperties.FOOD_FORM_VALIDATION_DATA.getFormFieldsValidationData());
 
         if (errors.isEmpty()) {
             saveFoodAndUpdateCache(request);
-            return "ok";
+            Response.OK_200.execute().response("", request, response);
         } else {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             try {
-                return "json:" + ContextHolder.objectMapper().writeValueAsString(errors);
+                Response.JSON.execute().response(ContextHolder
+                        .objectMapper().writeValueAsString(errors), request, response);
             } catch (JsonProcessingException e) {
-                ContextHolder.logger().error("SaveNewFood execute: objectMapper().writeValueAsString exception: " + e);
-                return "json:";
+                log.error("SaveNewFood execute: objectMapper().writeValueAsString exception: " + e);
+                Response.JSON.execute().response("", request, response);
             }
         }
     }

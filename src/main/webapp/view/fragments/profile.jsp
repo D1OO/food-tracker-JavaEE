@@ -22,11 +22,11 @@
                             ${notif.sender.firstName} ${notif.sender.lastName}</label>
                     <label class="notification-from ml-2 mb-0">at ${notif.dateTime}</label>
                     <button class="modal-save-food pretty-button m4  ml-3"
-                            onclick="acceptInvite('${notif.sender.firstName}', '${notif.dateTime}')">
+                            onclick="acceptInvite('${notif.sender.username}', '${notif.dateTime}')">
                         accept
                     </button>
                     <button class="modal-back pretty-button m4  ml-3"
-                            onclick="declineInvite('${notif.sender.firstName}', '${notif.dateTime}')">
+                            onclick="declineInvite('${notif.sender.username}', '${notif.dateTime}')">
                         decline
                     </button>
                 </div>

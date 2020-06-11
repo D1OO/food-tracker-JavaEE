@@ -7,13 +7,12 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 import java.util.HashMap;
-import java.util.HashSet;
 
 public class SessionListener implements HttpSessionListener {
 
     @Override
     public void sessionCreated(HttpSessionEvent httpSessionEvent) {
-        httpSessionEvent.getSession().setAttribute("user.role", Role.GUEST);
+        httpSessionEvent.getSession().setAttribute("userRole", Role.GUEST);
         httpSessionEvent.getSession().setAttribute("lang", "en");
     }
 

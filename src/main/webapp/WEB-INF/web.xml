@@ -21,8 +21,12 @@
         <servlet-name>DreamfitServlet</servlet-name>
         <servlet-class>net.shvdy.nutrition_tracker.controller.DreamfitServlet</servlet-class>
         <init-param>
-            <param-name>page-size</param-name>
+            <param-name>dairy_weekly-view-records-quantity</param-name>
             <param-value>7</param-value>
+        </init-param>
+        <init-param>
+            <param-name>header-news-quantity</param-name>
+            <param-value>3</param-value>
         </init-param>
         <multipart-config>
             <max-file-size>20848820</max-file-size>
@@ -131,6 +135,6 @@
     </error-page>
     <error-page>
         <exception-type>java.util.NoSuchElementException</exception-type>
-        <location>/view/errors/404.jsp</location>
+        <location>/view/errors/404_fragment.jsp</location>
     </error-page>
 </web-app>

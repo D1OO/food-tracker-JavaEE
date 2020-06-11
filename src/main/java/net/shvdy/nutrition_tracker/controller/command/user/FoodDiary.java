@@ -1,11 +1,13 @@
 package net.shvdy.nutrition_tracker.controller.command.user;
 
 import net.shvdy.nutrition_tracker.controller.ContextHolder;
+import net.shvdy.nutrition_tracker.controller.Response;
 import net.shvdy.nutrition_tracker.controller.command.ActionCommand;
-import net.shvdy.nutrition_tracker.controller.command.utils.SecurityUtility;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Locale;
 import java.util.Optional;
@@ -19,15 +21,16 @@ import java.util.Optional;
 public class FoodDiary implements ActionCommand {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         processPagination(request);
-        return "/view/fragments/food-diary.jsp";
+        Response.FORWARD.execute().response("/view/fragments/food-diary.jsp", request, response);
     }
 
     private void processPagination(HttpServletRequest request) {
         String datePeriodLastDay = Optional.ofNullable(request.getParameter("d"))
                 .orElse(LocalDate.now().toString());
-        int pageSize = Integer.parseInt((String) request.getServletContext().getAttribute("page-size"));
+        int pageSize = Integer.parseInt((String) request.getServletContext()
+                .getAttribute("dairy_weekly-view-records-quantity"));
 
         request.getSession().setAttribute("paginatedWeeklyRecords",
                 ContextHolder.dailyRecordService().findPaginated(

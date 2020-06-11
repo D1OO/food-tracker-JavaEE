@@ -1,5 +1,7 @@
 package net.shvdy.nutrition_tracker.model.entity;
 
+import java.io.InputStream;
+
 /**
  * 24.05.2020
  *
@@ -18,14 +20,14 @@ public class Article {
     private String textLocalisation;
     private String textEN;
     private String textRU;
-    private byte[] imageBytes;
+    private InputStream imageStream;
 
     public Article() {
     }
 
     public Article(int articleId, String titleLocalisation, String titleEN, String titleRU, Long authorId, String date,
                    String authorFirstName, String authorLastName, String textLocalisation, String textEN, String textRU,
-                   byte[] imageBytes) {
+                   InputStream imageStream) {
         this.articleId = articleId;
         this.titleLocalisation = titleLocalisation;
         this.titleEN = titleEN;
@@ -37,7 +39,7 @@ public class Article {
         this.textLocalisation = textLocalisation;
         this.textEN = textEN;
         this.textRU = textRU;
-        this.imageBytes = imageBytes;
+        this.imageStream = imageStream;
     }
 
     public static ArticleBuilder builder() {
@@ -132,12 +134,12 @@ public class Article {
         this.textRU = textRU;
     }
 
-    public byte[] getImageBytes() {
-        return imageBytes;
+    public InputStream getImageStream() {
+        return imageStream;
     }
 
-    public void setImageBytes(byte[] imageBytes) {
-        this.imageBytes = imageBytes;
+    public void setImageStream(InputStream imageStream) {
+        this.imageStream = imageStream;
     }
 
     public static final class ArticleBuilder {
@@ -152,7 +154,7 @@ public class Article {
         private String textLocalisation;
         private String textEN;
         private String textRU;
-        private byte[] imageBytes;
+        private InputStream imageStream;
 
         private ArticleBuilder() {
         }
@@ -212,14 +214,14 @@ public class Article {
             return this;
         }
 
-        public ArticleBuilder imageBytes(byte[] imageBytes) {
-            this.imageBytes = imageBytes;
+        public ArticleBuilder imageStream(InputStream imageStream) {
+            this.imageStream = imageStream;
             return this;
         }
 
         public Article build() {
             return new Article(articleId, titleLocalisation, titleEN, titleRU, authorId, date, authorFirstName,
-                    authorLastName, textLocalisation, textEN, textRU, imageBytes);
+                    authorLastName, textLocalisation, textEN, textRU, imageStream);
         }
     }
 }

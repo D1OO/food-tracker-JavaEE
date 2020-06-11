@@ -134,8 +134,7 @@ public class Food {
         }
 
         public Food build() {
-            return new Food(this.foodId, this.name, this.calories, this.proteins, this.fats,
-                    this.carbohydrates);
+            return new Food(this.foodId, this.name, this.calories, this.proteins, this.fats, this.carbohydrates);
         }
     }
 }

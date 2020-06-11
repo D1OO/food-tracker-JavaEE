@@ -1,12 +1,15 @@
 package net.shvdy.nutrition_tracker.controller.command.admin;
 
 import net.shvdy.nutrition_tracker.controller.ContextHolder;
+import net.shvdy.nutrition_tracker.controller.Response;
 import net.shvdy.nutrition_tracker.controller.command.ActionCommand;
 import net.shvdy.nutrition_tracker.controller.command.PostEndpoint;
 import net.shvdy.nutrition_tracker.dto.UserDTO;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Locale;
 import java.util.Optional;
@@ -21,17 +24,19 @@ import java.util.Optional;
 public class ShowGroupMemberData implements ActionCommand {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         UserDTO member = ContextHolder.userService().findByUsername(request.getParameter("username"));
         request.getSession().setAttribute("member", member);
         processPagination(request, member);
-        return "/view/fragments/admin/member-data.jsp";
+        Response.FORWARD.execute()
+                .response("/view/fragments/admin/member-data.jsp", request, response);
     }
 
     private void processPagination(HttpServletRequest request, UserDTO user) {
         String datePeriodLastDay = Optional.ofNullable(request.getParameter("d"))
                 .orElse(LocalDate.now().toString());
-        int pageSize = Integer.parseInt((String) request.getServletContext().getAttribute("page-size"));
+        int pageSize = Integer.parseInt((String) request.getServletContext()
+                .getAttribute("dairy_weekly-view-records-quantity"));
 
         request.getSession().setAttribute("paginatedWeeklyRecords",
                 ContextHolder.dailyRecordService().findPaginated(
@@ -45,6 +50,5 @@ public class ShowGroupMemberData implements ActionCommand {
         request.getSession().setAttribute("nextWeekDay",
                 LocalDate.parse(datePeriodLastDay).minusDays(pageSize).toString());
     }
-
 
 }

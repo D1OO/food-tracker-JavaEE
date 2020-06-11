@@ -2,6 +2,7 @@ package net.shvdy.nutrition_tracker.controller.filter;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Arrays;
@@ -29,8 +30,7 @@ public class SectionContainerRequestFilter implements Filter {
         if (Optional.ofNullable(request.getParameter("AJAXrequest")).isEmpty()) {
             session.setAttribute("sectionToFetchWithAJAX",
                     httpRequest.getRequestURI() + '?' + parseParams(httpRequest.getParameterMap()));
-            request.getRequestDispatcher("/view/" +
-                    session.getAttribute("user.role").toString().toLowerCase() + ".jsp").forward(request, response);
+            ((HttpServletResponse) response).sendRedirect(session.getAttribute("userRole").toString().toLowerCase());
         } else {
             filterChain.doFilter(request, response);
         }

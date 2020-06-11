@@ -1,8 +1,9 @@
 package net.shvdy.nutrition_tracker.model.dao.impl;
 
-import net.shvdy.nutrition_tracker.controller.ContextHolder;
 import net.shvdy.nutrition_tracker.model.dao.FoodDAO;
 import net.shvdy.nutrition_tracker.model.entity.Food;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -20,6 +21,8 @@ public class JDBCFoodDAO implements FoodDAO {
 
     private DataSource dataSource;
     private final Properties queries;
+    private static final Logger log = LogManager.getLogger(JDBCFoodDAO.class);
+
 
     public JDBCFoodDAO(DataSource dataSource, Properties queries) {
         this.dataSource = dataSource;
@@ -66,7 +69,7 @@ public class JDBCFoodDAO implements FoodDAO {
             return generatedFoodId;
 
         } catch (SQLException e) {
-            ContextHolder.logger().error("JDBCFoodDAO createForProfile: " + e);
+            log.error("JDBCFoodDAO createForProfile: " + e);
             throw new SQLRuntimeException(e);
         }
     }
@@ -87,7 +90,7 @@ public class JDBCFoodDAO implements FoodDAO {
             }
 
         } catch (SQLException e) {
-            ContextHolder.logger().error("JDBCFoodDAO createForProfile: " + e);
+            log.error("JDBCFoodDAO createForProfile: " + e);
             throw new SQLRuntimeException(e);
         }
     }

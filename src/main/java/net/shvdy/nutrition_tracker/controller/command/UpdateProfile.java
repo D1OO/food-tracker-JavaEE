@@ -3,12 +3,17 @@ package net.shvdy.nutrition_tracker.controller.command;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import net.shvdy.nutrition_tracker.PropertiesContainer;
 import net.shvdy.nutrition_tracker.controller.ContextHolder;
+import net.shvdy.nutrition_tracker.controller.Response;
 import net.shvdy.nutrition_tracker.controller.command.utils.Validator;
 import net.shvdy.nutrition_tracker.dto.UserProfileDTO;
 import net.shvdy.nutrition_tracker.model.entity.UserProfile;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Map;
 
 /**
@@ -20,8 +25,10 @@ import java.util.Map;
 @PostEndpoint
 public class UpdateProfile implements ActionCommand {
 
+    private static final Logger log = LogManager.getLogger(UpdateProfile.class);
+
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
         Map<String, String> formErrors = Validator.validateFormAndReturnErrors(request,
                 PropertiesContainer.JSONProperties.USER_PROFILE_FORM_VALIDATION_DATA.getFormFieldsValidationData());
@@ -32,14 +39,14 @@ public class UpdateProfile implements ActionCommand {
 
             request.getSession().setAttribute("user", ContextHolder.userService()
                     .findByUsername((String) request.getSession().getAttribute("user.username")));
-
-            return "json:" + "{ \"url\": \"/profile?save=success\"}";
+            Response.JSON.execute().response("{ \"url\": \"/profile?save=success\"}", request, response);
         } else {
             try {
-                return "json:" + ContextHolder.objectMapper().writeValueAsString(formErrors);
+                Response.JSON.execute().response(ContextHolder.objectMapper()
+                        .writeValueAsString(formErrors), request, response);
             } catch (JsonProcessingException e) {
-                ContextHolder.logger().error("UpdateProfile execute: objectMapper().writeValueAsString exception: " + e);
-                return "json:";
+                log.error("UpdateProfile execute: objectMapper().writeValueAsString exception: " + e);
+                Response.JSON.execute().response("", request, response);
             }
         }
     }

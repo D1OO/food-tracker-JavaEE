@@ -1,38 +1,45 @@
 package net.shvdy.nutrition_tracker.controller.command;
 
 import net.shvdy.nutrition_tracker.controller.ContextHolder;
+import net.shvdy.nutrition_tracker.controller.Response;
 import net.shvdy.nutrition_tracker.controller.command.utils.SecurityUtility;
 import net.shvdy.nutrition_tracker.dto.UserDTO;
 import net.shvdy.nutrition_tracker.model.exception.BadCredentialsException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 @PostEndpoint
 public class Login implements ActionCommand {
 
+    private static final Logger log = LogManager.getLogger(Login.class);
+
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         UserDTO user;
         try {
             user = ContextHolder.userService().findByUsernameVerifyPassword(request.getParameter("username"),
                     request.getParameter("password"));
         } catch (BadCredentialsException e) {
-            ContextHolder.logger().warn("Bad login try: " + e.getMessage());
-            return "redirect:/login?error";
+            log.warn("Bad login try: " + e.getMessage());
+            Response.REDIRECT.execute().response("/login?error", request, response);
+            return;
         }
 
         if (SecurityUtility.checkIsLoginNOTFresh(request, user.getUserId())) {
-            ContextHolder.logger().warn("Session duplication try ID=: " + user.getUserId());
+            log.warn("Session duplication try: " + user.getUsername());
             request.getSession().setAttribute("user", user);
             request.getSession().setAttribute("user.userId", user.getUserId());
-            return "redirect:/login?session-exists";
+            Response.REDIRECT.execute().response("/login?session-exists", request, response);
+        } else {
+            SecurityUtility.createNewSessionForUserId(request, user.getUserId());
+            SecurityUtility.setSessionInfo(request, user);
+            CommandEnum.REDIRECT_HOME.getActionCommand().execute(request, response);
         }
-
-        SecurityUtility.createNewSessionForUserId(request, user.getUserId());
-        SecurityUtility.setSessionInfo(request, user);
-
-        return CommandEnum.REDIRECT_HOME.getActionCommand().execute(request, response);
     }
 
 }

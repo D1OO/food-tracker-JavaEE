@@ -6,6 +6,8 @@ import net.shvdy.nutrition_tracker.dto.DailyRecordEntryDTO;
 import net.shvdy.nutrition_tracker.model.entity.DailyRecord;
 import net.shvdy.nutrition_tracker.model.entity.DailyRecordEntry;
 import net.shvdy.nutrition_tracker.model.entity.Food;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -22,6 +24,8 @@ import java.util.stream.Collectors;
  * @version 1.0
  */
 public class DailyRecordEntityMapper {
+
+    private static final Logger log = LogManager.getLogger(DailyRecordEntityMapper.class);
 
     public List<DailyRecordEntry> entriesListDTOToEntity(List<DailyRecordEntryDTO> newEntriesDTO) throws RuntimeException {
         return newEntriesDTO.stream()
@@ -51,7 +55,7 @@ public class DailyRecordEntityMapper {
         try {
             return ContextHolder.objectMapper().readValue(jsonString, type);
         } catch (IOException e) {
-            ContextHolder.logger().error(e.getMessage());
+            log.error(e.getMessage());
             throw new RuntimeException();
         }
     }

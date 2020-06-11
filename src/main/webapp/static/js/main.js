@@ -20,8 +20,21 @@ function loadFromServerIntoContentContainer(section) {
 }
 
 function setContentContainerToEndpoint(section) {
-    $.get(section, {AJAXrequest: true}, function (data) {
-        document.getElementById('content-container').innerHTML = data;
+    $.ajax({
+        type: "GET",
+        url: section,
+        data: {AJAXrequest: true},
+        statusCode: {
+            404: function () {
+                window.location.replace('/not-found');
+            }
+        },
+        error: function () {
+            window.location.replace('/error');
+        },
+        success: function (response) {
+            $('#content-container').html(response);
+        }
     });
 }
 

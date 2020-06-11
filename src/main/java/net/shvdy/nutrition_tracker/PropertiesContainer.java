@@ -2,8 +2,9 @@ package net.shvdy.nutrition_tracker;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import net.shvdy.nutrition_tracker.controller.ContextHolder;
 import org.apache.commons.io.IOUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -19,6 +20,8 @@ import java.util.Properties;
  * @version 1.0
  */
 public class PropertiesContainer {
+
+    private static final Logger log = LogManager.getLogger(PropertiesContainer.class);
 
     public enum DotProperties {
         DAO_SQL_QUERIES("/DAO_SQL_queries.properties"),
@@ -71,8 +74,7 @@ public class PropertiesContainer {
             try {
                 loadedProperty.load(Objects.requireNonNull(classLoader.getResourceAsStream(property.FILE_PATH)));
             } catch (IOException | NullPointerException e) {
-                ContextHolder.logger()
-                        .error("Could not read properties from file " + property.FILE_PATH + " in classpath. " + e);
+                log.error("Could not read properties from file " + property.FILE_PATH + " in classpath. " + e);
             }
             property.setProp(loadedProperty);
         });
@@ -86,8 +88,7 @@ public class PropertiesContainer {
                                 new TypeReference<Map<String, Map<String, String>>>() {
                                 }));
             } catch (IOException e) {
-                ContextHolder.logger()
-                        .error("Could not read properties from file " + jsonProperty.FILE_PATH + " in classpath. " + e);
+                log.error("Could not read properties from file " + jsonProperty.FILE_PATH + " in classpath. " + e);
             }
         });
     }

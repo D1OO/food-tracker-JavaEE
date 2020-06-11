@@ -23,7 +23,7 @@
                 </div>
             </button>
         </c:forEach>
-        <c:if test="${user.role eq 'ADMIN'}">
+        <c:if test="${userRole eq 'ADMIN'}">
             <div class="tabs container m2 mb-4">
                 <button class="pretty-button open-modal" style="width: 12em; "
                         onclick="openCreateArticleModalWindow()">

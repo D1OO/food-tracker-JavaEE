@@ -1,13 +1,16 @@
 package net.shvdy.nutrition_tracker.controller.command.user;
 
 import net.shvdy.nutrition_tracker.controller.ContextHolder;
+import net.shvdy.nutrition_tracker.controller.Response;
 import net.shvdy.nutrition_tracker.controller.command.ActionCommand;
 import net.shvdy.nutrition_tracker.controller.command.PostEndpoint;
+import net.shvdy.nutrition_tracker.dto.UserDTO;
 import net.shvdy.nutrition_tracker.model.entity.Notification;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Set;
+import java.io.IOException;
 
 /**
  * 09.06.2020
@@ -19,12 +22,11 @@ import java.util.Set;
 public class AcceptGroupInvitation implements ActionCommand {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) {
-        ContextHolder.userService().acceptGroupInvitation(((Set<Notification>) request.getSession()
-                .getAttribute("notifications")).stream()
-                .filter(n -> n.getSender().getFirstName().equals(request.getParameter("sender"))
-                        && n.getDateTime().equals(request.getParameter("time")))
-                .findFirst().get());
-        return "ok";
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        ContextHolder.userService().acceptGroupInvitation((Notification.builder()
+                .sender(UserDTO.builder().username(request.getParameter("sender")).build())
+                .receiver(UserDTO.builder().username(request.getParameter("user.username")).build())
+                .dateTime(request.getParameter("time")).build()));
+        Response.OK_200.execute().response("", request, response);
     }
 }

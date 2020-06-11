@@ -66,10 +66,10 @@ public class Extractor {
         do {
             String timeStampWithMs = rs.getTimestamp("datetime").toString();
             notifications.add(Notification.builder()
-                    .sender(UserDTO.builder().id(rs.getLong("sender_id"))
+                    .sender(UserDTO.builder().username(rs.getString("sender_username"))
                             .firstName(rs.getString("first_name"))
                             .lastName(rs.getString("last_name")).build())
-                    .receiver(UserDTO.builder().id(receiver.getUserId()).build())
+                    .receiver(UserDTO.builder().username(receiver.getUsername()).build())
                     .dateTime(timeStampWithMs.substring(0, timeStampWithMs.length() - 2))
                     .message(rs.getString("message")).build());
         } while (rs.next());

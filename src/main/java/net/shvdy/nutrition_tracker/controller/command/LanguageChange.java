@@ -1,7 +1,11 @@
 package net.shvdy.nutrition_tracker.controller.command;
 
+import net.shvdy.nutrition_tracker.controller.Response;
+
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Objects;
 
 /**
@@ -13,11 +17,10 @@ import java.util.Objects;
 public class LanguageChange implements ActionCommand {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         request.getSession().setAttribute("lang",
                 Objects.requireNonNullElse(request.getParameter("lang"), "en"));
-
-        return "/redirect:home";
+        Response.REDIRECT.execute().response("/home", request, response);
     }
 
 }

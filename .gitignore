@@ -11,3 +11,4 @@ target/
 *.ipr
 /src/main/webapp/templates/
 /logs/
+/app.log

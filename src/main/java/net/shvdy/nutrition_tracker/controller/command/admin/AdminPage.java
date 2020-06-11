@@ -1,10 +1,13 @@
 package net.shvdy.nutrition_tracker.controller.command.admin;
 
 import net.shvdy.nutrition_tracker.controller.ContextHolder;
+import net.shvdy.nutrition_tracker.controller.Response;
 import net.shvdy.nutrition_tracker.controller.command.ActionCommand;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Locale;
 
 /**
@@ -16,10 +19,12 @@ import java.util.Locale;
 public class AdminPage implements ActionCommand {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         request.getSession().setAttribute("headerNews",
-                ContextHolder.articleService().findRandomForLocale(Locale
-                        .forLanguageTag((String) request.getSession().getAttribute("lang"))));
-        return "/view/admin.jsp";
+                ContextHolder.articleService()
+                        .findRandomForLocale(Integer.parseInt((String) request.getServletContext()
+                                        .getAttribute("header-news-quantity")),
+                                Locale.forLanguageTag((String) request.getSession().getAttribute("lang"))));
+        Response.FORWARD.execute().response("/view/admin.jsp", request, response);
     }
 }
