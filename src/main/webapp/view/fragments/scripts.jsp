@@ -10,8 +10,5 @@
     <script src="static/vendor/aos/aos.js"></script>
     <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
 
-    <script src="static/js/main.js" type="text/javascript"></script>
-    <script src="static/js/form-fields-filled-checks.js" type="text/javascript"></script>
-    <script src="static/js/profile.js" type="text/javascript"></script>
-    <script src="static/js/animation.js" type="text/javascript"></script>
+    <script src="static/js/global.js" type="text/javascript"></script>
 </div>

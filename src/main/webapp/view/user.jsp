@@ -49,6 +49,10 @@
 </main>
 <jsp:include page="/view/fragments/footer.jsp"/>
 <jsp:include page="/view/fragments/scripts.jsp"/>
+<script src="static/js/section-container.js" type="text/javascript"></script>
 <script src="static/js/user.js" type="text/javascript"></script>
+<script src="static/js/profile.js" type="text/javascript"></script>
+<script src="static/js/modal-window/window.js" type="text/javascript"></script>
+<script src="static/js/modal-window/window-user.js" type="text/javascript"></script>
 </body>
 </html>

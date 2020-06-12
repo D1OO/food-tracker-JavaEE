@@ -24,9 +24,9 @@ import java.time.format.FormatStyle;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class DreamfitServlet extends HttpServlet {
+public class Servlet extends HttpServlet {
 
-    private static final Logger log = LogManager.getLogger(DreamfitServlet.class);
+    private static final Logger log = LogManager.getLogger(Servlet.class);
 
     public void init(ServletConfig servletConfig) {
         log.info("Servlet initialization started");

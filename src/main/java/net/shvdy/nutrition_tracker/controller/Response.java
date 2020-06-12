@@ -18,7 +18,7 @@ public enum Response {
         response.setStatus(HttpServletResponse.SC_OK);
     }),
     NOT_FOUND_404((commandResult, request, response) -> {
-        response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        FORWARD.action.response("i-do-not-exist.jsp", request, response);
     });
 
     private ResponseAction action;

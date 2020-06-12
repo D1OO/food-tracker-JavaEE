@@ -6,7 +6,7 @@
 
 <html>
 <jsp:include page="/view/fragments/head.jsp">
-    <jsp:param name="title" value="Login • Dreamfit"/>
+    <jsp:param name="title" value="Dreamfit • Login"/>
 </jsp:include>
 <body>
 <jsp:include page="/view/fragments/navbar.jsp"/>
@@ -80,7 +80,7 @@
 <jsp:include page="/view/fragments/footer.jsp"/>
 <jsp:include page="/view/fragments/scripts.jsp"/>
 <script src="static/js/login.js" type="text/javascript"></script>
-
+<script src="static/js/form-fields-filled-checks.js" type="text/javascript"></script>
 </body>
 </html>
 

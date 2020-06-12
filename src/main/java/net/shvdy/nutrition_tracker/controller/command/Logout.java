@@ -12,6 +12,6 @@ public class Logout implements ActionCommand {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         request.getSession().invalidate();
-        Response.REDIRECT.execute().response("/login?logout", request, response);
+        Response.FORWARD.execute().response("/view/logout-gateway.jsp", request, response);
     }
 }

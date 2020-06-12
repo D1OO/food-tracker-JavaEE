@@ -19,7 +19,7 @@
 
     <servlet>
         <servlet-name>DreamfitServlet</servlet-name>
-        <servlet-class>net.shvdy.nutrition_tracker.controller.DreamfitServlet</servlet-class>
+        <servlet-class>net.shvdy.nutrition_tracker.controller.Servlet</servlet-class>
         <init-param>
             <param-name>dairy_weekly-view-records-quantity</param-name>
             <param-value>7</param-value>
@@ -36,6 +36,15 @@
     </servlet>
 
 
+    <filter>
+        <filter-name>NoCacheFilter</filter-name>
+        <filter-class>net.shvdy.nutrition_tracker.controller.filter.NoCacheFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>NoCacheFilter</filter-name>
+        <url-pattern>/login</url-pattern>
+        <url-pattern>/logout</url-pattern>
+    </filter-mapping>
     <filter>
         <filter-name>imagesCache</filter-name>
         <filter-class>com.samaxes.filter.CacheFilter</filter-class>

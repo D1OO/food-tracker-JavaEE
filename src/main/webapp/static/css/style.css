@@ -320,18 +320,16 @@ table {
     font-size: 0.8em;
 }
 
-.slink-container {
-    /*display: table-cell;*/
+.contact-div {
+    text-decoration: none;
     margin-left: 1em;
 }
 
-.slink-container:hover {
-    /*display: table-cell;*/
+.contact-div:hover {
     text-decoration: underline;
 }
 
-
-.sicon {
+.contacts-icon {
     display: inline-block;
     background-size: 32px !important;
     width: 32px !important;
@@ -340,7 +338,6 @@ table {
     margin-bottom: 0.4em;
     margin-right: 0.4em;
 }
-
 
 #tgicon {
     background: url("/static/img/telegram.svg") center left no-repeat;
@@ -354,7 +351,7 @@ table {
     background: url("/static/img/gh.svg") center left no-repeat;
 }
 
-.slink {
+.contact-link {
     vertical-align: middle;
     font-style: italic;
 }
@@ -371,15 +368,9 @@ p {
     margin-bottom: 0;
 }
 
-#justatest {
-    background-color: #323232;
-    color: #feff51;
-}
-
 a:hover {
     color: #000;
 }
-
 
 h2,
 h3,
@@ -389,10 +380,6 @@ h6,
 .font-heading {
     font-family: "Gotham Rounded Medium", sans-serif !important;
     font-weight: lighter;
-}
-
-.site-section {
-    /*padding: 7rem 0;*/
 }
 
 .filters a {

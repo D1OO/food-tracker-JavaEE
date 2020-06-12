@@ -146,11 +146,11 @@ public enum CommandEnum {
                 .getActionCommand();
     }
 
-    public static boolean checkIsPathForbidden(String path, Role role) {
+    public static boolean checkIsPathAllowed(String path, Role role) {
         return Arrays.stream(CommandEnum.values())
                 .filter(ac -> path.matches(ac.getPath()))
                 .findFirst()
-                .map(ac -> !ac.getPermittedRoles().contains(role))
+                .map(ac -> ac.getPermittedRoles().contains(role))
                 .orElse(true);
     }
 

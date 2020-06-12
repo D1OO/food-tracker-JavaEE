@@ -20,14 +20,13 @@ public class PermissionsFilter implements Filter {
 
         if (!httpRequest.getMethod().equals("POST") &&
                 CommandEnum.getPostEndpoints().contains((httpRequest).getRequestURI()))
-            request.getRequestDispatcher("404").forward(request, response);
+            httpRequest.getRequestDispatcher("404").forward(httpRequest, response);
 
-        Role role = (Role) ((HttpServletRequest) request).getSession().getAttribute("userRole");
-        if (CommandEnum.checkIsPathForbidden(((HttpServletRequest) request).getRequestURI(), role)) {
-            request.getRequestDispatcher(
-                    role.equals(Role.GUEST) ? "/redirect:home" : "/view/errors/403.jsp").forward(request, response);
+        Role role = (Role) httpRequest.getSession().getAttribute("userRole");
+        if (CommandEnum.checkIsPathAllowed(httpRequest.getRequestURI(), role)) {
+            filterChain.doFilter(httpRequest, response);
         } else {
-            filterChain.doFilter(request, response);
+            httpRequest.getRequestDispatcher("/redirect:home").forward(httpRequest, response);
         }
     }
 

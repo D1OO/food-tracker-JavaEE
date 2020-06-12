@@ -96,3 +96,26 @@ function declineInvite(sender, time) {
         }
     });
 }
+
+var doOnce = false;
+
+function assignSearchListener() {
+    if (doOnce === false) {
+        $('#search').keyup(function () {
+            $.ajax({
+                type: "POST",
+                url: '/search',
+                data: {name: $(this).val()},
+                statusCode: {
+                    500: function (response) {
+                        $("#userSavingErrorBox").show(200);
+                    }
+                },
+                success: function (response) {
+                    $('#addfoodcontainer').html(response);
+                }
+            });
+        });
+        doOnce = true;
+    }
+}

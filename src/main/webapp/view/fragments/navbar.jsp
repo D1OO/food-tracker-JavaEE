@@ -32,14 +32,9 @@
                                     PRO
                                 </div>
                             </c:if>
-                            <div class="logged-in-as mr-3 ml-3" style="font-size: 1.1em; max-width: 560px">
-                                    ${user.firstName} ${user.lastName}</div>
-                            <div id="logout-link">
-                                <a href="${pageContext.request.contextPath}/logout">
-                                    <button class="pretty-button bg signupButton">
-                                        <fmt:message key="logout"/></button>
-                                </a>
-                            </div>
+                            <div class="logged-in-as mr-3 ml-3"
+                                 style="font-size: 1.1em; max-width: 560px">${user.firstName} ${user.lastName}</div>
+                            <a class="pretty-button bg signupButton" href="logout"><fmt:message key="logout"/></a>
                         </div>
                     </c:if>
                 </div>

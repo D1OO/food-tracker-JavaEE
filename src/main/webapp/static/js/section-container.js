@@ -38,27 +38,6 @@ function setContentContainerToEndpoint(section) {
     });
 }
 
-function setModalContainerTo(name) {
-    clearErrorMessages();
-    $('#modalbody > *').css("display", "none");
-    document.getElementById(name).style.display = "block";
-}
-
-function openAddFoodModalWindow(recordtabIndex) {
-    const data = $('#data-food-modal-window' + recordtabIndex).serialize();
-    $.get('/adding-entries-modal-window', data, function (data) {
-        document.getElementById('modal-window').innerHTML = data;
-        $("#modal-window").css("display", "block");
-    });
-}
-
-function openCreateArticleModalWindow() {
-    $.get('/new-article-window', function (response) {
-        document.getElementById('modal-window').innerHTML = response;
-        $("#modal-window").css("display", "block");
-    });
-}
-
 function tabClick(tab) {
     const container = $(tab);
     $('.recordTab').removeClass("selected-record-button");
@@ -71,12 +50,6 @@ function tabClick(tab) {
     setTimeout(function () {
         container.fadeIn(100);
     }, 200);
-
-
-}
-
-function closeAddFoodModalWindow() {
-    $('#modal-window').css("display", "none");
 }
 
 function clearErrorMessages() {
@@ -84,27 +57,4 @@ function clearErrorMessages() {
     $("#foodSavingErrorBox").hide(100);
     $("#articleSavingErrorBox").hide(100);
     $("#foodSavedSuccessBox").hide(100);
-}
-
-var doOnce = false;
-
-function assignSearchListener() {
-    if (doOnce === false) {
-        $('#search').keyup(function () {
-            $.ajax({
-                type: "POST",
-                url: '/search',
-                data: {name: $(this).val()},
-                statusCode: {
-                    500: function (response) {
-                        $("#userSavingErrorBox").show(200);
-                    }
-                },
-                success: function (response) {
-                    $('#addfoodcontainer').html(response);
-                }
-            });
-        });
-        doOnce = true;
-    }
 }
