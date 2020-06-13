@@ -24,8 +24,8 @@ public class PropertiesContainer {
     private static final Logger log = LogManager.getLogger(PropertiesContainer.class);
 
     public enum DotProperties {
-        DAO_SQL_QUERIES("/DAO_SQL_queries.properties"),
-        APP_PROPERTIES("/application.properties");
+        DAO_SQL_QUERIES("DAO_SQL_queries.properties"),
+        APP_PROPERTIES("application.properties");
 
         final String FILE_PATH;
         private Properties prop;
@@ -67,12 +67,12 @@ public class PropertiesContainer {
         }
     }
 
-
-    public static void readProperties(ClassLoader classLoader) {
+    public static void readProperties() {
         Arrays.stream(DotProperties.values()).forEach(property -> {
             Properties loadedProperty = new Properties();
             try {
-                loadedProperty.load(Objects.requireNonNull(classLoader.getResourceAsStream(property.FILE_PATH)));
+                loadedProperty.load(Objects.requireNonNull(PropertiesContainer.class.getClassLoader()
+                        .getResourceAsStream(property.FILE_PATH)));
             } catch (IOException | NullPointerException e) {
                 log.error("Could not read properties from file " + property.FILE_PATH + " in classpath. " + e);
             }
@@ -83,7 +83,7 @@ public class PropertiesContainer {
             ObjectMapper jsonMapper = new ObjectMapper();
             try {
                 jsonProperty.setFormFieldsValidationData(jsonMapper
-                        .readValue(IOUtils.toString(Objects.requireNonNull(classLoader
+                        .readValue(IOUtils.toString(Objects.requireNonNull(PropertiesContainer.class.getClassLoader()
                                         .getResourceAsStream(jsonProperty.FILE_PATH)), StandardCharsets.UTF_8),
                                 new TypeReference<Map<String, Map<String, String>>>() {
                                 }));

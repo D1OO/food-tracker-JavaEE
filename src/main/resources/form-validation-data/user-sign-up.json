@@ -1,6 +1,6 @@
 {
   "username": {
-    "regex": "^[a-z0-9_\\.-]{1,30}@[\\da-z\\.-]{1,15}\\.[a-z\\.]{2,8}$",
+    "regex": "^[a-z0-9][a-z0-9_\\.-]{1,30}@[\\da-z\\.-]{1,15}\\.[a-z\\.]{2,8}$",
     "errorMessage": "Incorrect email"
   },
   "password": {
@@ -12,7 +12,7 @@
     "errorMessage": "Incorrect value"
   },
   "lastName": {
-    "regex": "^[A-Z]((?![ .,'-]$)[a-z .,'-]){2,24}$",
+    "regex": "^[A-Z]((?![ .,'-]$)[a-z .,'-]){2,24}$|^[А-Я]((?![ .,'-]$)[а-я .,'-]){2,24}$|^$",
     "errorMessage": "Incorrect value"
   }
 }

@@ -31,7 +31,7 @@ public class Servlet extends HttpServlet {
     public void init(ServletConfig servletConfig) {
         log.info("Servlet initialization started");
 
-        PropertiesContainer.readProperties(this.getClass().getClassLoader());
+        PropertiesContainer.readProperties();
         servletConfig.getServletContext().setAttribute("loggedUsers", new HashMap<Long, HttpSession>());
         servletConfig.getServletContext().setAttribute("dairy_weekly-view-records-quantity",
                 servletConfig.getInitParameter("dairy_weekly-view-records-quantity"));
