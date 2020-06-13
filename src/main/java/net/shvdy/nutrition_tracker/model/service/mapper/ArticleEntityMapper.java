@@ -25,11 +25,11 @@ public class ArticleEntityMapper {
 
     private static final Logger log = LogManager.getLogger(ArticleEntityMapper.class);
 
-    public List<ArticleDTO> entityListToDTO(List<Article> articleList, Locale locale) {
+    public static List<ArticleDTO> entityListToDTO(List<Article> articleList, Locale locale) {
         return articleList.stream().map(x -> entityToDTO(x, locale)).collect(Collectors.toList());
     }
 
-    public ArticleDTO entityToDTO(Article article, Locale locale) {
+    public static ArticleDTO entityToDTO(Article article, Locale locale) {
         return ArticleDTO.builder().articleId(article.getArticleId())
                 .authorName(article.getAuthorFirstName() + article.getAuthorLastName())
                 .date(readDateString(article.getDate(), locale))
@@ -39,12 +39,12 @@ public class ArticleEntityMapper {
                 .build();
     }
 
-    private String readDateString(String string, Locale locale) {
+    private static String readDateString(String string, Locale locale) {
         LocalDateTime date = LocalDateTime.parse(string, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         return date.format(DateTimeFormatter.ofPattern("d MMM kk:mm", locale));
     }
 
-    private String readImageString(InputStream imageStream) {
+    private static String readImageString(InputStream imageStream) {
         byte[] buffer = new byte[4096];
         int bytesRead;
         try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {

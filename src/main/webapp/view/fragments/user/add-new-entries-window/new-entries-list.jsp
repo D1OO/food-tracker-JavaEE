@@ -24,10 +24,9 @@
                         <input class="form-control mr-2 quantity" placeholder="quantity"
                                style="width: 60%" name="newEntriesDTO.entries[${loop.index}].quantity"
                                value="${newEntriesDTO.entries[loop.index].quantity}">
-                        <input class="form-control foodDTOJSON"
-                               name="newEntriesDTO.entries[${loop.index}].foodDTOJSON"
-                               value='${newEntriesDTO.entries[loop.index].foodDTOJSON}'
-                               type="hidden">
+                        <input class="form-control foodJSON"
+                               name="newEntriesDTO.entries[${loop.index}].foodJSON"
+                               value='${newEntriesDTO.entries[loop.index].foodJSON}' type="hidden">
                         <p><fmt:message key="food.grams"/></p>
                     </td>
                     <td>

@@ -1,5 +1,6 @@
 package net.shvdy.nutrition_tracker.dto;
 
+import net.shvdy.nutrition_tracker.model.entity.Food;
 import net.shvdy.nutrition_tracker.model.entity.Role;
 
 import java.util.List;
@@ -13,14 +14,14 @@ public class UserDTO {
     private String lastName;
     private int dailyCaloriesNorm;
     private UserProfileDTO userProfileDTO;
-    private List<FoodDTO> userFood;
+    private List<Food> userFood;
 
     public static UserDTOBuilder builder() {
         return new UserDTOBuilder();
     }
 
     public UserDTO(Long userId, String username, Role role, String firstName, String lastName,
-                   int dailyCaloriesNorm, UserProfileDTO userProfileDTO, List<FoodDTO> userFood) {
+                   int dailyCaloriesNorm, UserProfileDTO userProfileDTO, List<Food> userFood) {
         this.userId = userId;
         this.username = username;
         this.role = role;
@@ -87,11 +88,11 @@ public class UserDTO {
         this.userProfileDTO = userProfileDTO;
     }
 
-    public List<FoodDTO> getUserFood() {
+    public List<Food> getUserFood() {
         return userFood;
     }
 
-    public void setUserFood(List<FoodDTO> userFood) {
+    public void setUserFood(List<Food> userFood) {
         this.userFood = userFood;
     }
 
@@ -103,7 +104,7 @@ public class UserDTO {
         private String lastName;
         private int dailyCaloriesNorm;
         private UserProfileDTO userProfileDTO;
-        private List<FoodDTO> userFood;
+        private List<Food> userFood;
 
         UserDTOBuilder() {
         }
@@ -133,8 +134,8 @@ public class UserDTO {
             return this;
         }
 
-        public UserDTOBuilder userFood(List<FoodDTO> userFoodDTO) {
-            this.userFood = userFoodDTO;
+        public UserDTOBuilder userFood(List<Food> userFood) {
+            this.userFood = userFood;
             return this;
         }
 

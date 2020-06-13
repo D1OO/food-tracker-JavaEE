@@ -1,7 +1,9 @@
 package net.shvdy.nutrition_tracker.dto;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import net.shvdy.nutrition_tracker.controller.ContextHolder;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
@@ -12,6 +14,8 @@ import java.util.List;
  * @version 1.0
  */
 public class NewEntriesDTO {
+
+    private static final Logger log = LogManager.getLogger(NewEntriesDTO.class);
 
     private Long recordId;
     private Long profileId;
@@ -77,10 +81,10 @@ public class NewEntriesDTO {
 
     @Override
     public String toString() {
-        ObjectMapper mapper = new ObjectMapper();
         try {
-            return mapper.writeValueAsString(this);
+            return ContextHolder.objectMapper().writeValueAsString(this);
         } catch (JsonProcessingException e) {
+            log.error("JSON processing exception: " + e);
             return "";
         }
     }

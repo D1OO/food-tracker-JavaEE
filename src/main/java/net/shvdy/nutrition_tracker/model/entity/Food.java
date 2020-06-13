@@ -1,7 +1,9 @@
 package net.shvdy.nutrition_tracker.model.entity;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import net.shvdy.nutrition_tracker.controller.ContextHolder;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * 20.05.2020
@@ -9,8 +11,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * @author Dmitriy Storozhenko
  * @version 1.0
  */
-
 public class Food {
+
+    private static final Logger log = LogManager.getLogger(Food.class);
+
     private Long foodId;
     private String name;
     private int calories;
@@ -84,10 +88,10 @@ public class Food {
 
     @Override
     public String toString() {
-        ObjectMapper mapper = new ObjectMapper();
         try {
-            return mapper.writeValueAsString(this);
+            return ContextHolder.objectMapper().writeValueAsString(this);
         } catch (JsonProcessingException e) {
+            log.error("JSON processing exception: " + e);
             return "";
         }
     }

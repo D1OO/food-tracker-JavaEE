@@ -27,15 +27,15 @@ public class DailyRecordEntityMapper {
 
     private static final Logger log = LogManager.getLogger(DailyRecordEntityMapper.class);
 
-    public List<DailyRecordEntry> entriesListDTOToEntity(List<DailyRecordEntryDTO> newEntriesDTO) throws RuntimeException {
+    public static List<DailyRecordEntry> entriesListDTOToEntity(List<DailyRecordEntryDTO> newEntriesDTO) throws RuntimeException {
         return newEntriesDTO.stream()
                 .map(x -> DailyRecordEntry.builder()
                         .quantity(x.getQuantity())
-                        .food(readFromJSONString(x.getFoodDTOJSON(), Food.class)).build())
+                        .food(readFromJSONString(x.getFoodJSON(), Food.class)).build())
                 .collect(Collectors.toList());
     }
 
-    public DailyRecordDTO recordEntityToDTO(DailyRecord dailyRecord, Locale locale) {
+    public static DailyRecordDTO recordEntityToDTO(DailyRecord dailyRecord, Locale locale) {
         return DailyRecordDTO.builder()
                 .recordId(dailyRecord.getRecordId())
                 .recordDate(dailyRecord.getRecordDate())
@@ -51,7 +51,7 @@ public class DailyRecordEntityMapper {
                 .build();
     }
 
-    private <T> T readFromJSONString(String jsonString, Class<T> type) {
+    private static <T> T readFromJSONString(String jsonString, Class<T> type) {
         try {
             return ContextHolder.objectMapper().readValue(jsonString, type);
         } catch (IOException e) {
@@ -60,7 +60,7 @@ public class DailyRecordEntityMapper {
         }
     }
 
-    private List<DailyRecordEntryDTO> entriesListEntityToDTO(List<DailyRecordEntry> entries) {
+    private static List<DailyRecordEntryDTO> entriesListEntityToDTO(List<DailyRecordEntry> entries) {
         return entries.stream().map(entry -> DailyRecordEntryDTO.builder()
                 .food(entry.getFood())
                 .quantity(entry.getQuantity())
@@ -72,34 +72,34 @@ public class DailyRecordEntityMapper {
                 .collect(Collectors.toList());
     }
 
-    public String getShortDateHeader(String recordDate, Locale locale) {
+    public static String getShortDateHeader(String recordDate, Locale locale) {
         return new StringBuilder()
                 .append(LocalDate.parse(recordDate).getDayOfMonth())
                 .append(" ")
                 .append(LocalDate.parse(recordDate).getDayOfWeek().getDisplayName(TextStyle.SHORT, locale)).toString();
     }
 
-    private int getPercentage(List<DailyRecordEntry> entries, int dailyCaloriesNorm) {
+    private static int getPercentage(List<DailyRecordEntry> entries, int dailyCaloriesNorm) {
         return Optional.ofNullable(entries).isEmpty() ?
                 0 : (int) (getTotalCalories(entries) / (double) dailyCaloriesNorm * 100);
     }
 
-    private int getTotalCalories(List<DailyRecordEntry> entries) {
+    private static int getTotalCalories(List<DailyRecordEntry> entries) {
         return Optional.ofNullable(entries).isEmpty() ?
                 0 : entries.stream().mapToInt(x -> x.getFood().getCalories() * x.getQuantity() / 100).sum();
     }
 
-    private int getTotalFats(List<DailyRecordEntry> entries) {
+    private static int getTotalFats(List<DailyRecordEntry> entries) {
         return Optional.ofNullable(entries).isEmpty() ?
                 0 : entries.stream().mapToInt(x -> x.getFood().getFats() * x.getQuantity() / 100).sum();
     }
 
-    private int getTotalProteins(List<DailyRecordEntry> entries) {
+    private static int getTotalProteins(List<DailyRecordEntry> entries) {
         return Optional.ofNullable(entries).isEmpty() ?
                 0 : entries.stream().mapToInt(x -> x.getFood().getProteins() * x.getQuantity() / 100).sum();
     }
 
-    private int getTotalCarbs(List<DailyRecordEntry> entries) {
+    private static int getTotalCarbs(List<DailyRecordEntry> entries) {
         return Optional.ofNullable(entries).isEmpty() ?
                 0 : entries.stream().mapToInt(x -> x.getFood().getCarbohydrates() * x.getQuantity() / 100).sum();
     }

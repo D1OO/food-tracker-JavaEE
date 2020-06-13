@@ -29,7 +29,7 @@ public class AddedEntry implements ActionCommand {
             request.getSession().getServletContext().setAttribute("newEntriesDTO",
                     NewEntriesDTOReader.readAddNew(request, DailyRecordEntryDTO.builder()
                             .foodName(request.getParameter("foodName"))
-                            .foodDTOJSON(request.getParameter("foodDTOJSON")).build()));
+                            .foodJSON(request.getParameter("foodJSON")).build()));
         } catch (IOException e) {
             log.error("AddedEntry execute: : reading from JSON exception: " + e);
         }

@@ -1,7 +1,5 @@
 package net.shvdy.nutrition_tracker.dto;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import net.shvdy.nutrition_tracker.model.entity.Food;
 
 /**
@@ -13,9 +11,9 @@ import net.shvdy.nutrition_tracker.model.entity.Food;
 public class DailyRecordEntryDTO {
 
     private Food food;
+    private String foodJSON;
     private Integer quantity;
     private String quantityError;
-    private String foodDTOJSON;
     private String foodName;
     private int entryCalories;
     private int entryCarbs;
@@ -25,11 +23,11 @@ public class DailyRecordEntryDTO {
     public DailyRecordEntryDTO() {
     }
 
-    public DailyRecordEntryDTO(Food food, Integer quantity, String foodDTOJSON, int entryCalories,
+    public DailyRecordEntryDTO(Food food, Integer quantity, String foodJSON, int entryCalories,
                                int entryCarbs, int entryFats, int entryProt) {
         this.food = food;
         this.quantity = quantity;
-        this.foodDTOJSON = foodDTOJSON;
+        this.foodJSON = foodJSON;
         this.entryCalories = entryCalories;
         this.entryCarbs = entryCarbs;
         this.entryFats = entryFats;
@@ -88,12 +86,12 @@ public class DailyRecordEntryDTO {
         this.entryProt = entryProt;
     }
 
-    public String getFoodDTOJSON() {
-        return foodDTOJSON;
+    public String getFoodJSON() {
+        return foodJSON;
     }
 
-    public void setFoodDTOJSON(String foodDTOJSON) {
-        this.foodDTOJSON = foodDTOJSON;
+    public void setFoodJSON(String foodJSON) {
+        this.foodJSON = foodJSON;
     }
 
     public String getFoodName() {
@@ -112,19 +110,10 @@ public class DailyRecordEntryDTO {
         this.quantityError = quantityError;
     }
 
-    public String toString() {
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            return mapper.writeValueAsString(this);
-        } catch (JsonProcessingException e) {
-            return "";
-        }
-    }
-
     public static final class DailyRecordEntryDTOBuilder {
         private Food food;
         private Integer quantity;
-        private String foodDTOJSON;
+        private String foodJSON;
         private String foodName;
         private int entryCalories;
         private int entryCarbs;
@@ -144,8 +133,8 @@ public class DailyRecordEntryDTO {
             return this;
         }
 
-        public DailyRecordEntryDTOBuilder foodDTOJSON(String foodDTOJSON) {
-            this.foodDTOJSON = foodDTOJSON;
+        public DailyRecordEntryDTOBuilder foodJSON(String foodJSON) {
+            this.foodJSON = foodJSON;
             return this;
         }
 
@@ -178,7 +167,7 @@ public class DailyRecordEntryDTO {
             DailyRecordEntryDTO dailyRecordEntryDTO = new DailyRecordEntryDTO();
             dailyRecordEntryDTO.setFood(food);
             dailyRecordEntryDTO.setQuantity(quantity);
-            dailyRecordEntryDTO.setFoodDTOJSON(foodDTOJSON);
+            dailyRecordEntryDTO.setFoodJSON(foodJSON);
             dailyRecordEntryDTO.setEntryCalories(entryCalories);
             dailyRecordEntryDTO.setEntryCarbs(entryCarbs);
             dailyRecordEntryDTO.setEntryFats(entryFats);

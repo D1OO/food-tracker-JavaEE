@@ -7,7 +7,7 @@ import net.shvdy.nutrition_tracker.controller.Response;
 import net.shvdy.nutrition_tracker.controller.command.ActionCommand;
 import net.shvdy.nutrition_tracker.controller.command.PostEndpoint;
 import net.shvdy.nutrition_tracker.controller.command.utils.Validator;
-import net.shvdy.nutrition_tracker.dto.FoodDTO;
+import net.shvdy.nutrition_tracker.model.entity.Food;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -50,18 +50,18 @@ public class SaveNewFood implements ActionCommand {
     }
 
     private void saveFoodAndUpdateCache(HttpServletRequest request) {
-        FoodDTO foodDTO = FoodDTO.builder().name(request.getParameter("newFoodName"))
+        Food food = Food.builder().name(request.getParameter("newFoodName"))
                 .calories(Integer.parseInt(request.getParameter("newFoodCalories")))
                 .carbohydrates(Integer.parseInt(request.getParameter("newFoodCarbohydrates")))
                 .fats(Integer.parseInt(request.getParameter("newFoodFats")))
                 .proteins(Integer.parseInt(request.getParameter("newFoodProt")))
                 .build();
 
-        foodDTO.setFoodId(ContextHolder.foodService().saveForProfile(foodDTO,
+        food.setFoodId(ContextHolder.foodService().saveForProfile(food,
                 Long.parseLong(request.getParameter("profileId"))));
 
-        List<FoodDTO> updatedFoodCache = (List<FoodDTO>) request.getSession().getAttribute("user.userFood");
-        updatedFoodCache.add(foodDTO);
+        List<Food> updatedFoodCache = (List<Food>) request.getSession().getAttribute("user.userFood");
+        updatedFoodCache.add(food);
         request.getSession().setAttribute("user.userFood", updatedFoodCache);
     }
 }
