@@ -5,18 +5,17 @@ function saveNewUser() {
         url: 'sign-up',
         data: $('#user-sign-up-form').serialize(),
         statusCode: {
-            500: function (response) {
+            500: function () {
                 $("#userSavingErrorBox").show(200);
-            }
-        },
-        success: function (response) {
-            if (response.url != null) {
-                window.location.replace(response.url);
-            } else {
-                $.each(response, function (errorKey, errorMessage) {
+            },
+            400: function (response) {
+                $.each(response.responseJSON, function (errorKey, errorMessage) {
                     $("#" + errorKey).text(errorMessage);
                 });
             }
+        },
+        success: function () {
+            window.location.replace("login?signedup");
         }
     });
 }

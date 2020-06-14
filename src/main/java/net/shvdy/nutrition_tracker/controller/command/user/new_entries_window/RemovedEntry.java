@@ -25,7 +25,7 @@ public class RemovedEntry implements ActionCommand {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         try {
-            request.getSession().getServletContext().setAttribute("newEntriesDTO", NewEntriesDTOReader.read(request));
+            request.getSession().setAttribute("newEntriesDTO", NewEntriesDTOReader.read(request));
         } catch (IOException e) {
             log.error("RemovedEntry execute: : reading from JSON exception: " + e);
         }

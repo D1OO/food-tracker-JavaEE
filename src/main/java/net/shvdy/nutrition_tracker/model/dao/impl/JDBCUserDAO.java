@@ -155,7 +155,6 @@ public class JDBCUserDAO implements UserDAO {
 
         } catch (SQLException e) {
             log.error("JDBCUserDAO createGroupInvitation: " + e);
-            throw new SQLRuntimeException(e);
         }
     }
 

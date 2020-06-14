@@ -19,9 +19,9 @@ import java.util.Properties;
  */
 public class JDBCFoodDAO implements FoodDAO {
 
-    private DataSource dataSource;
-    private final Properties queries;
     private static final Logger log = LogManager.getLogger(JDBCFoodDAO.class);
+    private final Properties queries;
+    private DataSource dataSource;
 
 
     public JDBCFoodDAO(DataSource dataSource, Properties queries) {

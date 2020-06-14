@@ -26,7 +26,7 @@ public class AddedEntry implements ActionCommand {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         try {
-            request.getSession().getServletContext().setAttribute("newEntriesDTO",
+            request.getSession().setAttribute("newEntriesDTO",
                     NewEntriesDTOReader.readAddNew(request, DailyRecordEntryDTO.builder()
                             .foodName(request.getParameter("foodName"))
                             .foodJSON(request.getParameter("foodJSON")).build()));

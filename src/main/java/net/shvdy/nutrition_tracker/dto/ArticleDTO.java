@@ -153,7 +153,7 @@ public class ArticleDTO {
         }
 
         public ArticleDTOBuilder authorName(String author) {
-            this.authorName = authorName;
+            this.authorName = author;
             return this;
         }
 

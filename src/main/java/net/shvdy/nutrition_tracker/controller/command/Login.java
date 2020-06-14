@@ -2,7 +2,7 @@ package net.shvdy.nutrition_tracker.controller.command;
 
 import net.shvdy.nutrition_tracker.controller.ContextHolder;
 import net.shvdy.nutrition_tracker.controller.Response;
-import net.shvdy.nutrition_tracker.controller.command.utils.SecurityUtility;
+import net.shvdy.nutrition_tracker.controller.command.utils.CommandUtil;
 import net.shvdy.nutrition_tracker.dto.UserDTO;
 import net.shvdy.nutrition_tracker.model.exception.BadCredentialsException;
 import org.apache.logging.log4j.LogManager;
@@ -30,14 +30,14 @@ public class Login implements ActionCommand {
             return;
         }
 
-        if (SecurityUtility.checkIsLoginNOTFresh(request, user.getUserId())) {
+        if (CommandUtil.checkIsLoginNOTFresh(request, user.getUserId())) {
             log.warn("Session duplication try: " + user.getUsername());
             request.getSession().setAttribute("user", user);
             request.getSession().setAttribute("user.userId", user.getUserId());
             Response.REDIRECT.execute().response("/login?session-exists", request, response);
         } else {
-            SecurityUtility.createNewSessionForUserId(request, user.getUserId());
-            SecurityUtility.setSessionInfo(request, user);
+            CommandUtil.createNewSessionForUserId(request, user.getUserId());
+            CommandUtil.setSessionInfo(request, user);
             CommandEnum.REDIRECT_HOME.getActionCommand().execute(request, response);
         }
     }

@@ -49,10 +49,8 @@ public class ValidatorTest {
                 "testingmail.com", "testing@mail.m", "t/esting@mail.com"), validateUserSignUpForm);
         testWrongValuesForField("password", Set.of("6-7afh", "KT893AW22KT893AW22KT893AW22",
                 "-KT893AW22", "KT893AW*22"), validateUserSignUpForm);
-        testWrongValuesForField("firstName", Set.of("jason", "J", "Jasonяя",
-                "Иванd"), validateUserSignUpForm);
-        testWrongValuesForField("lastName", Set.of("jason", "J", "Jasonяя",
-                "Иванd"), validateUserSignUpForm);
+        testWrongValuesForField("firstName", Set.of("jason", "J", "Jasonяя", "Иванd"), validateUserSignUpForm);
+        testWrongValuesForField("lastName", Set.of("jason", "J", "Jasonяя", "Иванd"), validateUserSignUpForm);
     }
 
     @Test
@@ -88,9 +86,9 @@ public class ValidatorTest {
 
     private Function<HttpServletRequest, Map<String, String>> validateFoodForm = request -> Validator
             .validateFormAndReturnErrors(request,
-                    PropertiesContainer.JSONProperties.FOOD_FORM_VALIDATION_DATA.getFormFieldsValidationData());
+                    PropertiesContainer.FormValidationConfig.FOOD.get());
 
     private Function<HttpServletRequest, Map<String, String>> validateUserSignUpForm = request -> Validator
             .validateFormAndReturnErrors(request,
-                    PropertiesContainer.JSONProperties.USER_SIGN_UP_FORM_VALIDATION_DATA.getFormFieldsValidationData());
+                    PropertiesContainer.FormValidationConfig.USER_SIGN_UP.get());
 }

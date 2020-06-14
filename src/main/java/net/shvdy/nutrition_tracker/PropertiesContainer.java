@@ -44,48 +44,51 @@ public class PropertiesContainer {
 
     }
 
-    public enum JSONProperties {
-        USER_SIGN_UP_FORM_VALIDATION_DATA("form-validation-data/user-sign-up.json"),
-        USER_PROFILE_FORM_VALIDATION_DATA("form-validation-data/user-profile.json"),
-        FOOD_FORM_VALIDATION_DATA("form-validation-data/food.json"),
-        ARTICLE_FORM_VALIDATION_DATA("form-validation-data/article.json"),
-        GROUP_INVITE_VALIDATION_DATA("form-validation-data/group-invite.json");
+    public enum FormValidationConfig {
+        USER_SIGN_UP("form-validation-data/user-sign-up.json"),
+        USER_PROFILE("form-validation-data/user-profile.json"),
+        FOOD("form-validation-data/food.json"),
+        ARTICLE("form-validation-data/article.json"),
+        GROUP_INVITE("form-validation-data/group-invite.json");
 
         final String FILE_PATH;
-        private Map<String, Map<String, String>> formFieldsValidationData;
+        private Map<String, Properties> formValidationConfig;
 
-        JSONProperties(String filePath) {
+        FormValidationConfig(String filePath) {
             this.FILE_PATH = filePath;
         }
 
-        public Map<String, Map<String, String>> getFormFieldsValidationData() {
-            return formFieldsValidationData;
+        public Map<String, Properties> get() {
+            return formValidationConfig;
         }
 
-        private void setFormFieldsValidationData(Map<String, Map<String, String>> formFields) {
-            this.formFieldsValidationData = formFields;
+        private void setFormValidationConfig(Map<String, Properties> formFields) {
+            this.formValidationConfig = formFields;
         }
     }
 
     public static void readProperties() {
+        ObjectMapper jsonMapper = new ObjectMapper();
+
         Arrays.stream(DotProperties.values()).forEach(property -> {
             Properties loadedProperty = new Properties();
             try {
                 loadedProperty.load(Objects.requireNonNull(PropertiesContainer.class.getClassLoader()
                         .getResourceAsStream(property.FILE_PATH)));
+                property.setProp(loadedProperty);
             } catch (IOException | NullPointerException e) {
                 log.error("Could not read properties from file " + property.FILE_PATH + " in classpath. " + e);
             }
-            property.setProp(loadedProperty);
+
         });
 
-        Arrays.stream(JSONProperties.values()).forEach(jsonProperty -> {
-            ObjectMapper jsonMapper = new ObjectMapper();
+        Arrays.stream(FormValidationConfig.values()).forEach(jsonProperty -> {
+
             try {
-                jsonProperty.setFormFieldsValidationData(jsonMapper
+                jsonProperty.setFormValidationConfig(jsonMapper
                         .readValue(IOUtils.toString(Objects.requireNonNull(PropertiesContainer.class.getClassLoader()
                                         .getResourceAsStream(jsonProperty.FILE_PATH)), StandardCharsets.UTF_8),
-                                new TypeReference<Map<String, Map<String, String>>>() {
+                                new TypeReference<Map<String, Properties>>() {
                                 }));
             } catch (IOException e) {
                 log.error("Could not read properties from file " + jsonProperty.FILE_PATH + " in classpath. " + e);

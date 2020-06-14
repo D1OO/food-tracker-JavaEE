@@ -31,7 +31,7 @@ public class ArticleEntityMapper {
 
     public static ArticleDTO entityToDTO(Article article, Locale locale) {
         return ArticleDTO.builder().articleId(article.getArticleId())
-                .authorName(article.getAuthorFirstName() + article.getAuthorLastName())
+                .authorName(article.getAuthorFirstName() + " " + article.getAuthorLastName())
                 .date(readDateString(article.getDate(), locale))
                 .titleLocalisation(article.getTitleLocalisation())
                 .textLocalisation(article.getTextLocalisation())

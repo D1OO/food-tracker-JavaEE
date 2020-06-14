@@ -4,6 +4,7 @@ import net.shvdy.nutrition_tracker.controller.ContextHolder;
 import net.shvdy.nutrition_tracker.controller.Response;
 import net.shvdy.nutrition_tracker.controller.command.ActionCommand;
 import net.shvdy.nutrition_tracker.controller.command.PostEndpoint;
+import net.shvdy.nutrition_tracker.controller.command.utils.CommandUtil;
 import net.shvdy.nutrition_tracker.dto.DailyRecordDTO;
 import net.shvdy.nutrition_tracker.dto.UserDTO;
 
@@ -13,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Locale;
 import java.util.Optional;
 
 /**
@@ -41,8 +41,7 @@ public class ShowGroupMemberData implements ActionCommand {
                 .getAttribute("dairy_weekly-view-records-quantity"));
 
         List<DailyRecordDTO> weeklyRecords = ContextHolder.dailyRecordService().findPaginated(
-                user.getUserId(), datePeriodLastDay, pageSize,
-                Locale.forLanguageTag((String) request.getSession().getAttribute("lang")));
+                user.getUserId(), datePeriodLastDay, pageSize, CommandUtil.getCurrentLocale(request));
 
         request.getSession().setAttribute("paginatedWeeklyRecords", weeklyRecords);
 

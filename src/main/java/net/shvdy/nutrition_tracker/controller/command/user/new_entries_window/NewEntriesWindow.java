@@ -27,7 +27,7 @@ public class NewEntriesWindow implements ActionCommand {
     }
 
     private void createNewEntriesDTO(HttpServletRequest request) {
-        request.getSession().getServletContext().setAttribute("newEntriesDTO",
+        request.getSession().setAttribute("newEntriesDTO",
                 NewEntriesDTO.builder()
                         .profileId(Long.valueOf(request.getParameter("profileId")))
                         .recordId(request.getParameter("recordId")

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import net.shvdy.nutrition_tracker.PropertiesContainer;
 import net.shvdy.nutrition_tracker.controller.command.CommandEnum;
 import net.shvdy.nutrition_tracker.controller.command.PostEndpoint;
+import net.shvdy.nutrition_tracker.controller.command.utils.CommandUtil;
 import net.shvdy.nutrition_tracker.model.dao.DAOFactory;
 import net.shvdy.nutrition_tracker.model.dao.impl.SQLRuntimeException;
 import net.shvdy.nutrition_tracker.model.service.ServiceFactory;
@@ -21,7 +22,10 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 public class Servlet extends HttpServlet {
@@ -74,7 +78,7 @@ public class Servlet extends HttpServlet {
     private void setLocalizedDate(HttpServletRequest request) {
         request.getServletContext().setAttribute("localizedDate",
                 LocalDate.now().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)
-                        .withLocale(Locale.forLanguageTag((String) request.getSession().getAttribute("lang")))));
+                        .withLocale(CommandUtil.getCurrentLocale(request))));
     }
 
     private void initAndInjectServicesIntoContextHolder() throws NamingException {

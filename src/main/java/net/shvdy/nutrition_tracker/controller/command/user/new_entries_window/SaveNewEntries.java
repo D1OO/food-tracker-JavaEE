@@ -34,10 +34,10 @@ public class SaveNewEntries implements ActionCommand {
 			throw new RuntimeException(e);
 		}
 		if (NewEntriesDTOReader.validateHasErrors(newEntries)) {
-			request.getSession().getServletContext().setAttribute("newEntriesDTO", newEntries);
-			Response.FORWARD.execute()
-					.response("/view/fragments/user/add-new-entries-window/new-entries-list.jsp", request, response);
-		} else {
+            request.getSession().setAttribute("newEntriesDTO", newEntries);
+            Response.FORWARD.execute()
+                    .response("/view/fragments/user/add-new-entries-window/new-entries-list.jsp", request, response);
+        } else {
 			ContextHolder.dailyRecordService().saveNewEntries(newEntries);
 			Response.OK_200.execute().response("", request, response);
 		}

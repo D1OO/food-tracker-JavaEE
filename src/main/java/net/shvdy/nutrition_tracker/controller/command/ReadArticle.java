@@ -2,6 +2,7 @@ package net.shvdy.nutrition_tracker.controller.command;
 
 import net.shvdy.nutrition_tracker.controller.ContextHolder;
 import net.shvdy.nutrition_tracker.controller.Response;
+import net.shvdy.nutrition_tracker.controller.command.utils.CommandUtil;
 import net.shvdy.nutrition_tracker.dto.ArticleDTO;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -9,7 +10,6 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
@@ -27,25 +27,16 @@ public class ReadArticle implements ActionCommand {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        HttpSession session = request.getSession();
-        ArticleDTO requestedArticle;
         int requestedArticleId = Integer.parseInt(request.getParameter("id"));
 
         try {
-            requestedArticle = getArticleFromCacheOrService(request, requestedArticleId,
-                    Locale.forLanguageTag((String) session.getAttribute("lang")));
+            request.getSession().setAttribute("article", getArticleFromCacheOrService(request, requestedArticleId,
+                    CommandUtil.getCurrentLocale(request)));
+            Response.FORWARD.execute().response("/view/fragments/article.jsp", request, response);
         } catch (NoSuchElementException e) {
             log.warn("Requested article not found: " + requestedArticleId);
             Response.NOT_FOUND_404.execute().response("", request, response);
-            return;
         }
-
-        session.setAttribute("titleLocalisation", requestedArticle.getTitleLocalisation());
-        session.setAttribute("textLocalisation", requestedArticle.getTextLocalisation());
-        session.setAttribute("base64Image", requestedArticle.getBase64Image());
-        session.setAttribute("date", requestedArticle.getDate());
-        session.setAttribute("author", requestedArticle.getAuthorName());
-        Response.FORWARD.execute().response("/view/fragments/article.jsp", request, response);
     }
 
     private ArticleDTO getArticleFromCacheOrService(HttpServletRequest request, int id, Locale locale)
