@@ -3,6 +3,7 @@ package net.shvdy.nutrition_tracker.controller.command.user;
 import net.shvdy.nutrition_tracker.controller.ContextHolder;
 import net.shvdy.nutrition_tracker.controller.Response;
 import net.shvdy.nutrition_tracker.controller.command.ActionCommand;
+import net.shvdy.nutrition_tracker.controller.command.PostEndpoint;
 import net.shvdy.nutrition_tracker.dto.UserDTO;
 import net.shvdy.nutrition_tracker.model.entity.Notification;
 
@@ -17,6 +18,7 @@ import java.io.IOException;
  * @author Dmitriy Storozhenko
  * @version 1.0
  */
+@PostEndpoint
 public class DeclineGroupInvitation implements ActionCommand {
 
     @Override

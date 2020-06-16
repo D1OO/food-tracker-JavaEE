@@ -42,8 +42,7 @@
     </filter>
     <filter-mapping>
         <filter-name>NoCacheFilter</filter-name>
-        <url-pattern>/login</url-pattern>
-        <url-pattern>/logout</url-pattern>
+        <url-pattern>/*</url-pattern>
     </filter-mapping>
     <filter>
         <filter-name>imagesCache</filter-name>
@@ -65,18 +64,18 @@
             <param-value>Accept-Encoding</param-value>
         </init-param>
     </filter>
-<!--    <filter>-->
-<!--        <filter-name>jsCache</filter-name>-->
-<!--        <filter-class>com.samaxes.filter.CacheFilter</filter-class>-->
-<!--        <init-param>-->
-<!--            <param-name>expiration</param-name>-->
-<!--            <param-value>216000</param-value>-->
-<!--        </init-param>-->
-<!--        <init-param>-->
-<!--            <param-name>private</param-name>-->
-<!--            <param-value>true</param-value>-->
-<!--        </init-param>-->
-<!--    </filter>-->
+    <filter>
+        <filter-name>jsCache</filter-name>
+        <filter-class>com.samaxes.filter.CacheFilter</filter-class>
+        <init-param>
+            <param-name>expiration</param-name>
+            <param-value>216000</param-value>
+        </init-param>
+        <init-param>
+            <param-name>private</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
 
     <filter-mapping>
         <filter-name>imagesCache</filter-name>
@@ -86,10 +85,10 @@
         <filter-name>cssCache</filter-name>
         <url-pattern>*.css</url-pattern>
     </filter-mapping>
-    <!--    <filter-mapping>-->
-    <!--        <filter-name>jsCache</filter-name>-->
-    <!--        <url-pattern>*.js</url-pattern>-->
-    <!--    </filter-mapping>-->
+    <filter-mapping>
+        <filter-name>jsCache</filter-name>
+        <url-pattern>*.js</url-pattern>
+    </filter-mapping>
     <filter>
         <filter-name>StaticResourcesFilter</filter-name>
         <filter-class>net.shvdy.nutrition_tracker.controller.filter.StaticResourcesFilter</filter-class>
@@ -124,7 +123,7 @@
         <filter-name>SectionContainerFilter</filter-name>
         <url-pattern>/feed</url-pattern>
         <url-pattern>/profile</url-pattern>
-        <url-pattern>/food-diary</url-pattern>
+        <url-pattern>/diary</url-pattern>
         <url-pattern>/group</url-pattern>
         <url-pattern>/article</url-pattern>
     </filter-mapping>

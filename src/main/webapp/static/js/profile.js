@@ -2,7 +2,7 @@ function updateUserProfile() {
     clearErrorMessages();
     $.ajax({
         type: "POST",
-        url: '/update-profile',
+        url: '/profile/update',
         data: $('#update-profile-form').serialize(),
         statusCode: {
             500: function () {

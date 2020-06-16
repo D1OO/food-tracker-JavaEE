@@ -6,7 +6,7 @@ $(document).ready(function () {
         data ='&newEntriesJSON=' + getNewEntriesJSONString() +
             '&newEntriesDTOJSON=' + $('#new-entries-list').val();
 
-        $.post('/removed-entry', data, function (response) {
+        $.post('/diary/modal-window/removed-entry', data, function (response) {
             $('#new-entries-container').html(response);
 
         });

@@ -87,7 +87,7 @@
                 </c:when>
                 <c:otherwise>
                     <div>
-                        <p class="m-4 " style="font-style: italic; color: #787a7a; font-size: 1.2em">
+                        <p class="m-4 font-light" style="font-style: italic; color: #787a7a; font-size: 1.2em">
                             <fmt:message key="group.list-is-empty"/>
                         </p>
                     </div>

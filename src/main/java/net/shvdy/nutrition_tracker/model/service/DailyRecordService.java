@@ -3,7 +3,6 @@ package net.shvdy.nutrition_tracker.model.service;
 import net.shvdy.nutrition_tracker.dto.DailyRecordDTO;
 import net.shvdy.nutrition_tracker.dto.NewEntriesDTO;
 import net.shvdy.nutrition_tracker.model.dao.DailyRecordDAO;
-import net.shvdy.nutrition_tracker.model.entity.DailyRecord;
 import net.shvdy.nutrition_tracker.model.service.mapper.DailyRecordEntityMapper;
 
 import java.time.LocalDate;
@@ -29,14 +28,21 @@ public class DailyRecordService {
     }
 
     public void saveNewEntries(NewEntriesDTO newEntriesDTO) {
-        dailyRecordDAO.save(DailyRecord.builder()
-                .recordId(newEntriesDTO.getRecordId())
-                .recordDate(newEntriesDTO.getRecordDate())
-                .profileId(newEntriesDTO.getProfileId())
-                .dailyCaloriesNorm(newEntriesDTO.getCurrentDailyCaloriesNorm())
-                .entries(dailyRecordMapper.entriesListDTOToEntity(newEntriesDTO.getEntries())).build());
+        dailyRecordDAO.save(DailyRecordEntityMapper.newEntriesToDailyRecord(newEntriesDTO));
     }
 
+    /**
+     * Returns daily records for requested period, starting from and including {@code periodEndDate} to {@code quantity}
+     * days before it, with date headers localized according to {@code currentLocale}
+     * <br><br>
+     * Inserts blank records for days, where records are absent
+     *
+     * @param profileId     User profile id
+     * @param periodEndDate The last day of wanted date period
+     * @param quantity      Date period size
+     * @param currentLocale Dates locale
+     * @return Daily records
+     */
     public List<DailyRecordDTO> findPaginated(Long profileId, String periodEndDate, int quantity,
                                               Locale currentLocale) {
         return insertBlankForAbsentDays(profileId, periodEndDate, quantity, currentLocale,
@@ -46,7 +52,6 @@ public class DailyRecordService {
                         .map(entity -> dailyRecordMapper.recordEntityToDTO(entity, currentLocale))
                         .collect(Collectors.toMap(DailyRecordDTO::getRecordDate, Function.identity())));
     }
-
 
     private List<DailyRecordDTO> insertBlankForAbsentDays(Long profileId, String periodEndDate, int size, Locale locale,
                                                           Map<String, DailyRecordDTO> weeklyRecords) {

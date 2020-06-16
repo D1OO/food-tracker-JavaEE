@@ -4,6 +4,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+/**
+ * Possible servlet response actions
+ */
 public enum Response {
     FORWARD((commandResult, request, response) -> {
         request.getRequestDispatcher(commandResult).forward(request, response);

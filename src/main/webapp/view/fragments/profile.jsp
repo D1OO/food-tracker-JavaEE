@@ -11,6 +11,10 @@
             <fmt:message key="profile-update-success"/>
         </div>
     </c:if>
+    <div id="userSavingErrorBox" class="alert-warning alert col-md-11 mb-3 mt-3" role="alert"
+         style="border-radius: 8px; display: none">
+        <fmt:message key="profile-update-success"/>
+    </div>
     <c:if test="${notifications ne null}">
         <div class="notifications-container">
             <c:forEach var="notif" items="${notifications}" varStatus="loop">

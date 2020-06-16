@@ -4,7 +4,7 @@
 <fmt:setLocale value="${sessionScope.lang}"/>
 <fmt:setBundle basename="i18n/messages"/>
 
-<div class="top-container container">
+<div class="top-container container" style="flex: 0 1 auto;">
     <nav class="navbar navbar-light custom-navbar pt-2">
         <div class="container px-0">
             <div class="align-self-start d-inline-flex mt-sm-1">
@@ -29,7 +29,7 @@
                         <div class="d-inline-flex">
                             <c:if test="${userRole eq 'ADMIN'}">
                                 <div class="logged-in-as" style="background-color: #e2cd51; color: black !important;">
-                                    PRO
+                                    Pro
                                 </div>
                             </c:if>
                             <div class="logged-in-as mr-3 ml-3"

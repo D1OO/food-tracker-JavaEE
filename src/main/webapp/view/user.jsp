@@ -9,39 +9,37 @@
     <jsp:param name="title" value="Dreamfit • ${user.firstName} ${user.lastName}"/>
 </jsp:include>
 <body>
-
+<jsp:include page="/view/fragments/navbar.jsp"/>
 <main id="main">
-    <div class="site-section pb-0" id="bg" style="height: 100%">
-        <jsp:include page="/view/fragments/navbar.jsp"/>
+    <div class="site-section pb-0" id="bg">
         <div class="container" id="cont" style=" height: 100%">
-            <div class="d-inline-block" style="height: 100%; width: 100%">
+            <jsp:include page="/view/fragments/header-carousel-news.jsp"/>
+            <div class="d-inline-flex" style="height: 100%; width: 100%; padding-top: 100px;">
                 <div id="modal-window" style="display: none"></div>
-                <div class="d-inline-block" data-aos="fade-zoom-in" data-aos-offset="0"
+                <div class="d-inline-flex" data-aos="fade-zoom-in" data-aos-offset="0"
                      style="height: 100%; width: 100%">
-                    <jsp:include page="/view/fragments/header-carousel-news.jsp"/>
-                    <div class="maincontent d-flex">
-                        <div class="d-inline-flex" style="width: 100%">
-                            <input id="sectionToFetchWithAJAX" value="${sectionToFetchWithAJAX}" type="hidden">
-                            <div class="d-flex flex-column tabs mx-2" style="width: 20%">
-                                <div class="menu d-flex flex-column">
-                                    <button class="pretty-button  menu-pr-button bg my-2"
-                                            onclick="loadFromServerIntoContentContainer('feed')">
-                                        <fmt:message key="my-feed"/>
-                                    </button>
-                                    <button class="pretty-button menu-pr-button bg  my-2"
-                                            onclick="loadFromServerIntoContentContainer('food-diary')">
-                                        <fmt:message key="diary"/>
-                                    </button>
-                                    <button class="pretty-button  menu-pr-button bg my-2"
-                                            onclick="loadFromServerIntoContentContainer('profile')">
-                                        <fmt:message key="profile"/>
-                                    </button>
-                                </div>
+                    <div class="d-inline-flex" style="width: 100%;">
+                        <input id="sectionToFetchWithAJAX" value="${sectionToFetchWithAJAX}" type="hidden">
+                        <div class="d-flex flex-column tabs mx-2" style="width: 20%">
+                            <div class="menu d-flex flex-column">
+                                <button class="pretty-button  menu-pr-button bg my-2"
+                                        onclick="loadFromServerIntoContentContainer('feed')">
+                                    <fmt:message key="my-feed"/>
+                                </button>
+                                <button class="pretty-button menu-pr-button bg  my-2"
+                                        onclick="loadFromServerIntoContentContainer('diary')">
+                                    <fmt:message key="diary"/>
+                                </button>
+                                <button class="pretty-button  menu-pr-button bg my-2"
+                                        onclick="loadFromServerIntoContentContainer('profile')">
+                                    <fmt:message key="profile"/>
+                                </button>
                             </div>
-                            <div class="maincontent m-2" id="content-container"
-                                 style="border-radius: 5px"></div>
                         </div>
+                        <div class="maincontent m-2" id="content-container"
+                             style="border-radius: 5px; flex: 1 1 auto;"></div>
                     </div>
+
                 </div>
             </div>
         </div>

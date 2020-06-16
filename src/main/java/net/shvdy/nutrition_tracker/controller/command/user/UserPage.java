@@ -3,7 +3,7 @@ package net.shvdy.nutrition_tracker.controller.command.user;
 import net.shvdy.nutrition_tracker.controller.ContextHolder;
 import net.shvdy.nutrition_tracker.controller.Response;
 import net.shvdy.nutrition_tracker.controller.command.ActionCommand;
-import net.shvdy.nutrition_tracker.controller.command.utils.CommandUtil;
+import net.shvdy.nutrition_tracker.controller.command.util.CommandUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

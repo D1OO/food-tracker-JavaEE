@@ -5,8 +5,8 @@
 <fmt:setBundle basename="i18n/messages"/>
 
 <div class="footer mt-4 container">
-    <div class="container  d-inline-flex  flex-grow-1">
-        <div class="row-cols-sm-1">
+    <div class="container  d-inline-flex " style="flex: 0 1 auto;">
+        <div class="row-cols-sm-1" style="font-size: 0.85rem;">
             <div class="d-flex"><p>Developed and designed by </p>
                 <p style="color: black; margin-left: 0.5em"> shvdy &copy;</p></div>
             <p>All Rights Reserved</p>
@@ -14,7 +14,8 @@
         <div class="d-inline-flex justify-content-end flex-grow-1">
             <div class="contact-div d-inline-flex align-items-center">
                 <a href="https://github.com/D1OO/Spring-Boot-Project"><i class="contacts-icon" id="ghicon"></i></a>
-                <a class="contact-link align-self-center" href="https://github.com/D1OO/Spring-Boot-Project">github</a>
+                <a class="contact-link align-self-center"
+                   href="https://github.com/D1OO/nutrition-tracker-JavaEE">github</a>
             </div>
             <div class="contact-div d-inline-flex align-items-center">
                 <a href="https://t.me/liveloveasap"><i class="contacts-icon" id="tgicon"></i></a>

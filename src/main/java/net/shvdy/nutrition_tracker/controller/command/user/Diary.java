@@ -3,13 +3,16 @@ package net.shvdy.nutrition_tracker.controller.command.user;
 import net.shvdy.nutrition_tracker.controller.ContextHolder;
 import net.shvdy.nutrition_tracker.controller.Response;
 import net.shvdy.nutrition_tracker.controller.command.ActionCommand;
-import net.shvdy.nutrition_tracker.controller.command.utils.CommandUtil;
+import net.shvdy.nutrition_tracker.controller.command.util.CommandUtil;
+import net.shvdy.nutrition_tracker.dto.UserDTO;
+import net.shvdy.nutrition_tracker.dto.UserProfileDTO;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -18,12 +21,16 @@ import java.util.Optional;
  * @author Dmitriy Storozhenko
  * @version 1.0
  */
-public class FoodDiary implements ActionCommand {
+public class Diary implements ActionCommand {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        processPagination(request);
-        Response.FORWARD.execute().response("/view/fragments/user/food-diary.jsp", request, response);
+        if (checkProfileCompletion(request)) {
+            processPagination(request);
+            Response.FORWARD.execute().response("/view/fragments/user/diary.jsp", request, response);
+        } else {
+            Response.FORWARD.execute().response("/view/fragments/user/complete-profile-to-proceed.jsp", request, response);
+        }
     }
 
     private void processPagination(HttpServletRequest request) {
@@ -43,5 +50,11 @@ public class FoodDiary implements ActionCommand {
 
         request.getSession().setAttribute("nextWeekDay",
                 LocalDate.parse(datePeriodLastDay).minusDays(pageSize).toString());
+    }
+
+    private boolean checkProfileCompletion(HttpServletRequest request) {
+        UserProfileDTO profileDTO = ((UserDTO) request.getSession().getAttribute("user")).getUserProfileDTO();
+        return List.of(profileDTO.getHeight(), profileDTO.getAge(), profileDTO.getWeight())
+                .stream().noneMatch(i -> i == 0);
     }
 }

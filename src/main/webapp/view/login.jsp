@@ -43,12 +43,12 @@
                                     </div>
                                     <form class="form" method="post" action="log-in">
                                         <div class="col-md-11 form-group">
-                                            <label for="email">E-mail</label>
+                                            <label class="control-label" for="email">E-mail</label>
                                             <input class="form-control required" id="email" name="username"/>
                                             <div class="validate"></div>
                                         </div>
                                         <div class="col-md-11 form-group">
-                                            <label for="password">Password</label>
+                                            <label class="control-label" for="password">Password</label>
                                             <input class="form-control required"
                                                    id="password" name="password" type="password">
                                             <div class="validate"></div>

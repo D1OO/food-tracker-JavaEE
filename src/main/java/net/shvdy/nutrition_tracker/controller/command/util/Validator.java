@@ -1,4 +1,4 @@
-package net.shvdy.nutrition_tracker.controller.command.utils;
+package net.shvdy.nutrition_tracker.controller.command.util;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
@@ -16,6 +16,25 @@ import java.util.stream.Stream;
  */
 public class Validator {
 
+    /**
+     * Accepts request with form fields to validate, and a form validation config from
+     * {@link net.shvdy.nutrition_tracker.PropertiesContainer.FormValidationConfig}
+     * where form field name is the key and the value is {@link Properties} with a validation parameters
+     * <br><br>
+     * Recognizes the next properties as config parameters:<br>
+     * {@code "regex"} - regular expression to match with<br>
+     * {@code "max"} - maximum(including) value for numeric fields<br>
+     * {@code "min"} - minimum(including) value for numeric fields<br>
+     * <br>
+     * Form field names must be identical between request parameters and {@code fieldsValidationConfig} Map keys
+     * <br><br>
+     * Returns validation errors in a Map, where the key is form field name + "Error", and the value is the error message, defined in the
+     * {@code "errorMessage"} property
+     *
+     * @param request                Request with a form to validate
+     * @param fieldsValidationConfig Validation configuration
+     * @return Form validation errors
+     */
     public static Map<String, String> validateFormAndReturnErrors(HttpServletRequest request,
                                                                   Map<String, Properties> fieldsValidationConfig) {
         return Stream.of(

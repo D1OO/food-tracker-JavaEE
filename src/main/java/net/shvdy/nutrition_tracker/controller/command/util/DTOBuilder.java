@@ -1,6 +1,7 @@
-package net.shvdy.nutrition_tracker.controller.command.utils;
+package net.shvdy.nutrition_tracker.controller.command.util;
 
 import net.shvdy.nutrition_tracker.controller.command.admin.SaveNewArticle;
+import net.shvdy.nutrition_tracker.dto.NewEntriesDTO;
 import net.shvdy.nutrition_tracker.dto.UserDTO;
 import net.shvdy.nutrition_tracker.dto.UserProfileDTO;
 import net.shvdy.nutrition_tracker.model.entity.*;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 /**
  * 14.06.2020
@@ -51,7 +53,7 @@ public class DTOBuilder {
                         .id((Long) request.getSession().getAttribute("user.userId")).build())
                 .receiver((UserDTO.builder()
                         .username(request.getParameter("receiver_email")).build()))
-                .dateTime(LocalDateTime.now().toString())
+                .dateTime(LocalDateTime.now().withNano(0).toString())
                 .message("Mentoring invite").build();
     }
 
@@ -79,5 +81,15 @@ public class DTOBuilder {
             log.error("Image loading error:\n" + e);
             return null;
         }
+    }
+
+    public static NewEntriesDTO createNewEntriesDTO(HttpServletRequest request) {
+        return NewEntriesDTO.builder()
+                .profileId(Long.valueOf(request.getParameter("profileId")))
+                .recordId(request.getParameter("recordId")
+                        .isEmpty() ? null : Long.parseLong(request.getParameter("recordId")))
+                .recordDate(request.getParameter("recordDate"))
+                .currentDailyCaloriesNorm((Integer) request.getSession().getAttribute("user.dailyCaloriesNorm"))
+                .entries(new ArrayList<>()).build();
     }
 }

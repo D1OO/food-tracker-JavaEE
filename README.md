@@ -1,4 +1,4 @@
-## Nutrition tracking service (JavaEE)
+## [Nutrition tracking service](https://dreamfit-javaee.herokuapp.com) (JavaEE)
 
 #### Система похудения/трекинга питания <br>
 * Клиент выбирает еду (название, кол. белки, жиры, углеволы),

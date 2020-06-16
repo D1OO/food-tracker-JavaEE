@@ -23,7 +23,13 @@ public class FoodService {
         return foodDAO.createForProfile(food, profileId);
     }
 
-    public List<Food> foodSearch(String nameStartsWith) {
+    /**
+     * Returns list of {@link Food}, whose name starting matches the {@code nameStartsWith} expression
+     *
+     * @param nameStartsWith Expression to compare name start with
+     * @return {@link Food} list
+     */
+    public List<Food> findByNameStart(String nameStartsWith) {
         return foodDAO.findByNameStart(nameStartsWith);
     }
 }

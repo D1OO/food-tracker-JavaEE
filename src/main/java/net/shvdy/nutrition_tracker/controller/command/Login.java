@@ -2,7 +2,7 @@ package net.shvdy.nutrition_tracker.controller.command;
 
 import net.shvdy.nutrition_tracker.controller.ContextHolder;
 import net.shvdy.nutrition_tracker.controller.Response;
-import net.shvdy.nutrition_tracker.controller.command.utils.CommandUtil;
+import net.shvdy.nutrition_tracker.controller.command.util.CommandUtil;
 import net.shvdy.nutrition_tracker.dto.UserDTO;
 import net.shvdy.nutrition_tracker.model.exception.BadCredentialsException;
 import org.apache.logging.log4j.LogManager;

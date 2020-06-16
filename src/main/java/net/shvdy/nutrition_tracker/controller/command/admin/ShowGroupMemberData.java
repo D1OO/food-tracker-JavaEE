@@ -4,7 +4,7 @@ import net.shvdy.nutrition_tracker.controller.ContextHolder;
 import net.shvdy.nutrition_tracker.controller.Response;
 import net.shvdy.nutrition_tracker.controller.command.ActionCommand;
 import net.shvdy.nutrition_tracker.controller.command.PostEndpoint;
-import net.shvdy.nutrition_tracker.controller.command.utils.CommandUtil;
+import net.shvdy.nutrition_tracker.controller.command.util.CommandUtil;
 import net.shvdy.nutrition_tracker.dto.DailyRecordDTO;
 import net.shvdy.nutrition_tracker.dto.UserDTO;
 

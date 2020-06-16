@@ -5,17 +5,17 @@
 <fmt:setLocale value="${sessionScope.lang}"/>
 <fmt:setBundle basename="i18n/messages"/>
 
-<div class="content-container food-diary-container" data-aos="fade-zoom-in" data-aos-offset="0"
+<div class="content-container diary-container" data-aos="fade-zoom-in" data-aos-offset="0"
      style="width: 100%">
     <div id="entriesSavedSuccessBox" class="alert-success alert col-md-11 mb-3 display-none" role="alert">
         <fmt:message key="entries.saved"/>
     </div>
     <div class=" mb-4 m-4" style="width: 100%;">
-        <h2><fmt:message key="food-diary"/></h2>
+        <h2><fmt:message key="last-week"/></h2>
     </div>
     <div class="tabs row d-flex ml-2 mb-3" style="width: 100%">
         <button class="pretty-button m4 ml-3 nextb ${prevWeekDay != null ? 'visible' : 'unvisible'}"
-                onclick="loadFromServerIntoContentContainer('/food-diary?d=${prevWeekDay}')">
+                onclick="loadFromServerIntoContentContainer('/diary?d=${prevWeekDay}')">
             <fmt:message key="diary.previous"/>
         </button>
         <c:forEach var="record" items="${paginatedWeeklyRecords}" varStatus="loop">
@@ -25,7 +25,7 @@
             </button>
         </c:forEach>
         <button class="pretty-button m4 ml-3 nextb"
-                onclick='loadFromServerIntoContentContainer("/food-diary?d=${nextWeekDay}")'>
+                onclick='loadFromServerIntoContentContainer("/diary?d=${nextWeekDay}")'>
             <fmt:message key="diary.next"/>
         </button>
     </div>
@@ -79,7 +79,7 @@
                 </c:when>
                 <c:otherwise>
                     <div>
-                        <p class="m-4" style="font-style: italic; color: #787a7a; font-size: 1.2em">
+                        <p class="m-4 font-light" style="font-style: italic; color: #787a7a; font-size: 1.2em">
                             <fmt:message key="user.empy-list"/>
                         </p>
                     </div>

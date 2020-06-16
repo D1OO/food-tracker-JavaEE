@@ -10,27 +10,31 @@
 </jsp:include>
 <body>
 <jsp:include page="/view/fragments/navbar.jsp"/>
-
-<main id="main">
+<main class="maincontent">
     <div class="site-section pb-0" id="bg" style="height: 100%">
         <div class="container" id="cont" style=" height: 100%">
             <div class="d-inline-block" style="height: 100%; width: 100%">
                 <div class="d-flex flex-grow-1 mt-2" data-aos="fade-zoom-in" data-aos-offset="0"
-                     style="height: 100%; width: 100%; background: #eeeeee; border: 1px solid #b8b8b8; border-radius: 0.5rem;">
-                    <div class="maincontent p-lg-3 d-flex flex-grow-1"
-                         style="border: 7px solid rgba(31,171,0,0.27); border-radius: 0.5rem; background: rgba(194,175,215,0.34) ">
+                     style="height: 100%; width: 100%;">
+                    <div class=" p-lg-3 d-flex flex-grow-1 index-block">
                         <div class="d-flex flex-grow-1 flex-column mb-5 mb-md-0 align-content-md-start"
                              style="margin-top: 10%">
                             <h1 style="text-align: center">Track your nutrition, fitness & health data.</h1>
                             <h2 style="text-align: center">Log your diet, exercise, biometrics and notes.</h2>
-                            <c:if test="${userRole eq GUEST}">
-                                <div class="form-group d-inline-flex justify-content-center">
-                                    <button class="btn-success p-3 pl-5 pr-5" style="border-radius: 0.2rem"><a
-                                            style="color:rgb(251,251,255); text-decoration: none"
-                                            href="registration"><fmt:message key="login.sign-up"/></a></button>
+                            <c:if test="${userRole eq 'GUEST'}">
+                                <div class="form-group d-inline-flex justify-content-center mt-5">
+                                    <a class="btn-success p-3 pl-5 pr-5"
+                                       style="border-radius: 0.2rem; color:rgb(251,251,255); text-decoration: none"
+                                       href="registration"><fmt:message key="login.sign-up"/></a>
                                 </div>
                             </c:if>
-
+                            <c:if test="${userRole ne 'GUEST'}">
+                                <div class="form-group d-inline-flex justify-content-center mt-5">
+                                    <a class="btn-success p-3 pl-5 pr-5"
+                                       style="border-radius: 0.2rem; color:rgb(251,251,255); text-decoration: none"
+                                       href="feed"><fmt:message key="home"/></a>
+                                </div>
+                            </c:if>
                         </div>
                     </div>
                 </div>
@@ -38,9 +42,7 @@
         </div>
     </div>
 </main>
-
 <jsp:include page="/view/fragments/footer.jsp"/>
 <jsp:include page="/view/fragments/scripts.jsp"/>
-
 </body>
 </html>

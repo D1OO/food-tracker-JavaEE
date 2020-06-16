@@ -37,10 +37,10 @@ function assignSearchListener() {
         $('#search').keyup(function () {
             $.ajax({
                 type: "POST",
-                url: '/search',
+                url: '/diary/modal-window/search',
                 data: {name: $(this).val()},
                 statusCode: {
-                    500: function (response) {
+                    500: function () {
                         $("#userSavingErrorBox").show(200);
                     }
                 },

@@ -5,7 +5,7 @@
 <fmt:setLocale value="${sessionScope.lang}"/>
 <fmt:setBundle basename="i18n/messages"/>
 
-<div class="content-container flex-column d-flex food-diary-container" data-aos="fade-zoom-in" data-aos-offset="0"
+<div class="content-container flex-column d-flex diary-container" data-aos="fade-zoom-in" data-aos-offset="0"
      style="width: 100%">
     <div class=" mb-4 m-4" style="width: 100%;">
         <h2><fmt:message key="last-news"/></h2>

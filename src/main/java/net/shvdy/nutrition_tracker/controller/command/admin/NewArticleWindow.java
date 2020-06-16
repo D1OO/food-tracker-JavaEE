@@ -2,6 +2,7 @@ package net.shvdy.nutrition_tracker.controller.command.admin;
 
 import net.shvdy.nutrition_tracker.controller.Response;
 import net.shvdy.nutrition_tracker.controller.command.ActionCommand;
+import net.shvdy.nutrition_tracker.controller.command.PostEndpoint;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +15,7 @@ import java.io.IOException;
  * @author Dmitriy Storozhenko
  * @version 1.0
  */
+@PostEndpoint
 public class NewArticleWindow implements ActionCommand {
 
     @Override

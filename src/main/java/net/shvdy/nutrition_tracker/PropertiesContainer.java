@@ -23,6 +23,10 @@ public class PropertiesContainer {
 
     private static final Logger log = LogManager.getLogger(PropertiesContainer.class);
 
+    /**
+     * Contains properties from corresponding files, must be initialized in
+     * {@link PropertiesContainer}.{@link PropertiesContainer#readProperties()}
+     */
     public enum DotProperties {
         DAO_SQL_QUERIES("DAO_SQL_queries.properties"),
         APP_PROPERTIES("application.properties");
@@ -44,12 +48,16 @@ public class PropertiesContainer {
 
     }
 
+    /**
+     * Contains validation configuration data structures, defined in corresponding files,
+     * must be initialized in {@link PropertiesContainer}.{@link PropertiesContainer#readProperties()}
+     */
     public enum FormValidationConfig {
-        USER_SIGN_UP("form-validation-data/user-sign-up.json"),
-        USER_PROFILE("form-validation-data/user-profile.json"),
-        FOOD("form-validation-data/food.json"),
-        ARTICLE("form-validation-data/article.json"),
-        GROUP_INVITE("form-validation-data/group-invite.json");
+        USER_SIGN_UP("form-validation-config/user-sign-up.json"),
+        USER_PROFILE("form-validation-config/user-profile.json"),
+        FOOD("form-validation-config/food.json"),
+        ARTICLE("form-validation-config/article.json"),
+        GROUP_INVITE("form-validation-config/group-invite.json");
 
         final String FILE_PATH;
         private Map<String, Properties> formValidationConfig;
@@ -67,6 +75,9 @@ public class PropertiesContainer {
         }
     }
 
+    /**
+     * Reads data from files, defined in enums
+     */
     public static void readProperties() {
         ObjectMapper jsonMapper = new ObjectMapper();
 

@@ -1,6 +1,6 @@
 package net.shvdy.nutrition_tracker.controller.command;
 
-import net.shvdy.nutrition_tracker.controller.command.utils.CommandUtil;
+import net.shvdy.nutrition_tracker.controller.command.util.CommandUtil;
 import net.shvdy.nutrition_tracker.dto.UserDTO;
 
 import javax.servlet.ServletException;

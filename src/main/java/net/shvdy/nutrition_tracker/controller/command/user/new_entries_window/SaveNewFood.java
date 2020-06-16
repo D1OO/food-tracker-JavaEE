@@ -5,8 +5,8 @@ import net.shvdy.nutrition_tracker.controller.ContextHolder;
 import net.shvdy.nutrition_tracker.controller.Response;
 import net.shvdy.nutrition_tracker.controller.command.ActionCommand;
 import net.shvdy.nutrition_tracker.controller.command.PostEndpoint;
-import net.shvdy.nutrition_tracker.controller.command.utils.CommandUtil;
-import net.shvdy.nutrition_tracker.controller.command.utils.DTOBuilder;
+import net.shvdy.nutrition_tracker.controller.command.util.CommandUtil;
+import net.shvdy.nutrition_tracker.controller.command.util.DTOBuilder;
 import net.shvdy.nutrition_tracker.model.entity.Food;
 
 import javax.servlet.ServletException;
@@ -27,7 +27,7 @@ public class SaveNewFood implements ActionCommand {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-        if (!CommandUtil.validateRespondErrorsIfAny(request, response,
+        if (CommandUtil.validateRespondErrorsIfAny(request, response,
                 PropertiesContainer.FormValidationConfig.FOOD.get())) {
 
             saveFoodAndUpdateCache(request);

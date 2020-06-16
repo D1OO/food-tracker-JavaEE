@@ -24,7 +24,8 @@
                 <div id="foodSavedSuccessBox" class="alert-success alert col-md-11 mb-3 display-none" role="alert">
                     <fmt:message key="food.saved"/>
                 </div>
-                <form class="form" id="createfoodform" method="post" style="width: 100%" action="save-new-food">
+                <form class="form" id="createfoodform" method="post" style="width: 100%"
+                      action="/diary/modal-window/save-new-food">
                     <input name="profileId" value="${user.userId}" type="hidden">
                     <div class="row">
                         <div class="col-3">
@@ -62,7 +63,7 @@
                     <button class="modal-save-food pretty-button mt-2" onclick="saveCreatedFood()">
                         <fmt:message key="user.save"/>
                     </button>
-                    <button class="modal-back pretty-button mt-2" onclick="setModalContainerTo('addfoodcontainer')">
+                    <button class="modal-back pretty-button mt-2" onclick="updateFoodList('addfoodcontainer')">
                         <fmt:message key="user.back"/>
                     </button>
                 </div>

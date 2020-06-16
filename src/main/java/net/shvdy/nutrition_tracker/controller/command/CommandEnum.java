@@ -72,7 +72,7 @@ public enum CommandEnum {
             new Profile(), "/profile",
             Set.of(Role.USER, Role.ADMIN)),
     UPDATE_PROFILE(
-            new UpdateProfile(), "/update-profile",
+            new UpdateProfile(), "/profile/update",
             Set.of(Role.ADMIN, Role.USER)),
     ACCEPT_INVITATION(
             new AcceptGroupInvitation(), "/profile/accept-invitation",
@@ -80,26 +80,26 @@ public enum CommandEnum {
     DECLINE_INVITATION(
             new DeclineGroupInvitation(), "/profile/decline-invitation",
             Set.of(Role.USER)),
-    FOOD_DIARY_PAGE(
-            new FoodDiary(), "/food-diary",
+    DIARY_PAGE(
+            new Diary(), "/diary",
             Set.of(Role.USER)),
-    FOOD_MODAL_WINDOW(
-            new NewEntriesWindow(), "/adding-entries-modal-window",
+    DIARY_MODAL_WINDOW(
+            new DiaryModalWindow(), "/diary/modal-window",
             Set.of(Role.USER)),
-    SEARCH_FOOD(
-            new Search(), "/search",
+    FIND_FOOD(
+            new FindFood(), "/diary/modal-window/search",
             Set.of(Role.USER)),
     NEW_RECORD_ENTRY(
-            new AddedEntry(), "/added-entry",
+            new AddedEntry(), "/diary/modal-window/added-entry",
             Set.of(Role.USER)),
-    REMOVED__RECORD_ENTRY(
-            new RemovedEntry(), "/removed-entry",
+    REMOVED_RECORD_ENTRY(
+            new RemovedEntry(), "/diary/modal-window/removed-entry",
             Set.of(Role.USER)),
     SAVE_NEW_ENTRIES(
-            new SaveNewEntries(), "/save-new-entries",
+            new SaveNewEntries(), "/diary/modal-window/save-new-entries",
             Set.of(Role.USER)),
     SAVE_NEW_FOOD(
-            new SaveNewFood(), "/save-new-food",
+            new SaveNewFood(), "/diary/modal-window/save-new-food",
             Set.of(Role.ADMIN, Role.USER)),
     SERVER_ERROR(
             new ServerError(), "/error",

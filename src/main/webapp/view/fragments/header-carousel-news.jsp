@@ -5,15 +5,17 @@
 <fmt:setLocale value="${sessionScope.lang}"/>
 <fmt:setBundle basename="i18n/messages"/>
 
-<div class="carousel" data-flickity='{ "autoPlay": true, "pageDots": false, "wrapAround": true }'>
-    <c:forEach var="news" items="${headerNews}" varStatus="loop">
-        <div class=" carousel-cell"
-             style="background-image: url('data:image/jpg;base64,${news.base64Image}');
-                     background-size: cover">
-            <a class="carousel-link" rel="group" role="link"
-               onclick="loadFromServerIntoContentContainer('/article?id=${news.articleId}')">
-                <h6 style="background-color: white; border-radius: 1rem; padding: 6px 10px 6px 10px;">${news.titleLocalisation}</h6>
-            </a>
-        </div>
-    </c:forEach>
+<div style="height: 1px;">
+    <div class="carousel" data-flickity='{ "autoPlay": 4000, "pageDots": false, "wrapAround": true }'>
+        <c:forEach var="news" items="${headerNews}" varStatus="loop">
+            <div class=" carousel-cell"
+                 style="background-image: url('data:image/jpg;base64,${news.base64Image}');
+                         background-size: cover">
+                <a class="carousel-link" rel="group" role="link"
+                   onclick="loadFromServerIntoContentContainer('/article?id=${news.articleId}')">
+                    <h6 style="background-color: white; border-radius: 1rem; padding: 6px 10px 6px 10px;">${news.titleLocalisation}</h6>
+                </a>
+            </div>
+        </c:forEach>
+    </div>
 </div>

@@ -41,4 +41,4 @@
     </form>
 </div>
 
-<script src="static/js/new-entries-window.js" type="text/javascript"></script>
+<script src="static/js/modal-window/window-user-remove-entry.js" type="text/javascript"></script>

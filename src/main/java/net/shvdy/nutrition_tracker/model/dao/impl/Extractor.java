@@ -36,11 +36,12 @@ public class Extractor {
 
     private List<Food> extractFood(ResultSet rs) throws SQLException {
         List<Food> userFood = new ArrayList<>();
-        do {
-            userFood.add(Food.builder().food_id(rs.getLong("food_id")).name(rs.getString("name"))
-                    .calories(rs.getInt("calories")).fats(rs.getInt("fats")).proteins(rs.getInt("proteins"))
-                    .carbohydrates(rs.getInt("carbohydrates")).build());
-        } while (rs.next());
+        if (rs.getString("name") != null)
+            do {
+                userFood.add(Food.builder().food_id(rs.getLong("food_id")).name(rs.getString("name"))
+                        .calories(rs.getInt("calories")).fats(rs.getInt("fats")).proteins(rs.getInt("proteins"))
+                        .carbohydrates(rs.getInt("carbohydrates")).build());
+            } while (rs.next());
         return userFood;
     }
 
@@ -64,13 +65,12 @@ public class Extractor {
     public Set<Notification> extractNotifications(ResultSet rs, UserDTO receiver) throws SQLException {
         Set<Notification> notifications = new HashSet<>();
         do {
-            String timeStampWithMs = rs.getTimestamp("datetime").toString();
             notifications.add(Notification.builder()
                     .sender(UserDTO.builder().username(rs.getString("sender_username"))
                             .firstName(rs.getString("first_name"))
                             .lastName(rs.getString("last_name")).build())
                     .receiver(UserDTO.builder().username(receiver.getUsername()).build())
-                    .dateTime(timeStampWithMs.substring(0, timeStampWithMs.length() - 2))
+                    .dateTime(rs.getTimestamp("datetime").toLocalDateTime().withNano(0).toString())
                     .message(rs.getString("message")).build());
         } while (rs.next());
         return notifications;

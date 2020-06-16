@@ -1,6 +1,6 @@
 package net.shvdy.nutrition_tracker;
 
-import net.shvdy.nutrition_tracker.controller.command.utils.Validator;
+import net.shvdy.nutrition_tracker.controller.command.util.Validator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.BeforeAll;

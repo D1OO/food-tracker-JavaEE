@@ -2,15 +2,19 @@
 
 <Context>
     <Resource name="jdbc/nutrition_tracker"
+              factory="org.apache.commons.dbcp.BasicDataSourceFactory"
               auth="Container"
               type="javax.sql.DataSource"
               maxIdle="50"
               maxActive="100"
               maxWait="1000"
+              removeAbandoned="true"
+              removeAbandonedTimeout="60"
+              username="b8f26a82373743"
+              password="e8b8d9c0"
               driverClassName="com.mysql.cj.jdbc.Driver"
-              url="jdbc:mysql://b8f26a82373743:e8b8d9c0@us-cdbr-east-05.cleardb.net/heroku_343f63e16926d28?reconnect=true&amp;
+              url="jdbc:mysql://us-cdbr-east-05.cleardb.net/heroku_343f63e16926d28?reconnect=true&amp;
               JDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=Asia/Jerusalem"/>
-
 </Context>
 
 

@@ -1,4 +1,4 @@
-package net.shvdy.nutrition_tracker.controller.command.utils;
+package net.shvdy.nutrition_tracker.controller.command.util;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import net.shvdy.nutrition_tracker.controller.ContextHolder;
@@ -60,7 +60,7 @@ public class CommandUtil {
 
         Map<String, String> errors = Validator.validateFormAndReturnErrors(request, form);
         if (errors.isEmpty()) {
-            return false;
+            return true;
         } else {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             try {
@@ -69,7 +69,7 @@ public class CommandUtil {
                 log.error("SaveNewArticle execute: objectMapper().writeValueAsString exception: " + e);
                 Response.JSON.execute().response("", request, response);
             }
-            return true;
+            return false;
         }
     }
 }

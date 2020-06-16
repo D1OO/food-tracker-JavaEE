@@ -1,16 +1,23 @@
 function openAddFoodModalWindow(recordtabIndex) {
     const data = $('#data-food-modal-window' + recordtabIndex).serialize();
-    $.get('/adding-entries-modal-window', data, function (data) {
+    $.post('/diary/modal-window', data, function (data) {
         document.getElementById('modal-window').innerHTML = data;
         $("#modal-window").css("display", "block");
     });
+}
+
+function updateFoodList(container) {
+    $.post('/diary/modal-window/search', function (response) {
+        $('#addfoodcontainer').html(response);
+    });
+    setModalContainerTo(container)
 }
 
 function addedNewEntry(food, foodName) {
     const data = '&foodJSON=' + food + '&foodName=' + foodName +
         '&newEntriesJSON=' + getNewEntriesJSONString() + '&newEntriesDTOJSON=' + $('#new-entries-list').val();
 
-    $.post('/added-entry', data, function (response) {
+    $.post('/diary/modal-window/added-entry', data, function (response) {
         $('#new-entries-container').html(response);
     });
 }
@@ -20,7 +27,7 @@ function saveNewEntries() {
         '&newEntriesDTOJSON=' + $('#new-entries-list').val();
     $.ajax({
         type: "POST",
-        url: '/save-new-entries',
+        url: '/diary/modal-window/save-new-entries',
         data: data,
         statusCode: {
             500: function (response) {
@@ -33,7 +40,7 @@ function saveNewEntries() {
             } else {
                 closeAddFoodModalWindow();
                 $("#entriesSavedSuccessBox").show(200);
-                loadFromServerIntoContentContainer('food-diary');
+                loadFromServerIntoContentContainer('diary');
             }
         }
     });
@@ -43,7 +50,7 @@ function saveCreatedFood() {
     clearErrorMessages();
     $.ajax({
         type: "POST",
-        url: '/save-new-food',
+        url: '/diary/modal-window/save-new-food',
         data: $('#createfoodform').serialize(),
         statusCode: {
             500: function () {

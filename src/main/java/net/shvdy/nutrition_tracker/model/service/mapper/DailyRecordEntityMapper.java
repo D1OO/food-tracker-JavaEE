@@ -3,6 +3,7 @@ package net.shvdy.nutrition_tracker.model.service.mapper;
 import net.shvdy.nutrition_tracker.controller.ContextHolder;
 import net.shvdy.nutrition_tracker.dto.DailyRecordDTO;
 import net.shvdy.nutrition_tracker.dto.DailyRecordEntryDTO;
+import net.shvdy.nutrition_tracker.dto.NewEntriesDTO;
 import net.shvdy.nutrition_tracker.model.entity.DailyRecord;
 import net.shvdy.nutrition_tracker.model.entity.DailyRecordEntry;
 import net.shvdy.nutrition_tracker.model.entity.Food;
@@ -26,6 +27,15 @@ import java.util.stream.Collectors;
 public class DailyRecordEntityMapper {
 
     private static final Logger log = LogManager.getLogger(DailyRecordEntityMapper.class);
+
+    public static DailyRecord newEntriesToDailyRecord(NewEntriesDTO newEntriesDTO) {
+        return DailyRecord.builder()
+                .recordId(newEntriesDTO.getRecordId())
+                .recordDate(newEntriesDTO.getRecordDate())
+                .profileId(newEntriesDTO.getProfileId())
+                .dailyCaloriesNorm(newEntriesDTO.getCurrentDailyCaloriesNorm())
+                .entries(entriesListDTOToEntity(newEntriesDTO.getEntries())).build();
+    }
 
     public static List<DailyRecordEntry> entriesListDTOToEntity(List<DailyRecordEntryDTO> newEntriesDTO) throws RuntimeException {
         return newEntriesDTO.stream()
